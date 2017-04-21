@@ -30,7 +30,9 @@ function wpshp_admin_menu() {
 
 function register_wpshp_settings() {
 	/* register our settings */
-	register_setting( 'wpshp-settings-group', 'option_main_api_url' );
+	register_setting( 'wpshp-settings-group', 'option_organization_id' );
+	register_setting( 'wpshp-settings-group', 'format_date' );
+	register_setting( 'wpshp-settings-group', 'format_time' );
 }
 	
 
