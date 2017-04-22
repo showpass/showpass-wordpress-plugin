@@ -94,31 +94,48 @@ function CallAPI($url, $method = "GET", $data = false)
 
 /* Converting date */
 
-function showpass_get_event_date($date){
+function showpass_get_event_date($date, $zone){
 
 	$format_date = get_option('format_date');  
+
+	$datetime = new Datetime($date); // current time = server time
+	$otherTZ  = new DateTimeZone($zone);
+	$datetime->setTimezone($otherTZ);
+
 
 	if($format_date == "")
 	{
 		$format_date = "l F d, Y";
 	}
 
-	return date($format_date , strtotime($date));
+	$new_date = $datetime->format($format_date);
+
+
+	return $new_date;
+
+	// return date($format_date , strtotime($date));
 }
 
 /* Converting time */
 
 
-function showpass_get_event_time($date){
+function showpass_get_event_time($date, $zone){
 
 	$format_time = get_option('format_time');  
+
+	$datetime = new Datetime($date); // current time = server time
+	$otherTZ  = new DateTimeZone($zone);
+	$datetime->setTimezone($otherTZ);
 
 	if($format_time == "")
 	{
 		$format_time = "g:iA";
 	}
+	
+	$new_date = $datetime->format($format_time);
 
-	return date($format_time , strtotime($date));
+
+	return $new_date;
 }
 
 /* Function for next/prev page */
