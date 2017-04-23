@@ -38,7 +38,14 @@ More about date and time format <a href="http://php.net/manual/en/function.date.
 ## 2.1. Adding shortcode and get data
 
 The shortcode returns JSON format data from API , so you can easily get it in page template with
-`<?php $data = do_shortcode('[showpass_events]'); ?>`
-All data from API 
+`<?php $data = do_shortcode('[showpass_events]'); ?>` .
+
+It will be recieved all data from API for the venue that is set from Admin Page ( organization ID ). 
+
+Also , there are few parameters that you can send it to the shortcode.
+
+## 2.2. Type Parameter
+
+Type parameter is required in shortcode to works.  You have `type="single"` for getting one specified event or `type="list"` to get all data(events) from the venue that is set from admin page.
 
 
