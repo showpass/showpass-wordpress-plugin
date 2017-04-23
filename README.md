@@ -11,12 +11,11 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 ## Documentation
 
 1. [Admin page](#1-admin-page)        
-   1.1 [Configure parameters](#12-configure-parameters)
-
+   1.1 [Configure parameters](#11-configure-parameters)    
 2. [Shortcode](#2-shortcode)       
-   2.1. [Adding shortcode and get data](#21-adding-shortcode)   
+   2.1. [Adding shortcode and get data](#21-adding-shortcode-and-get-data)   
    2.2. [Type parameter](#22-type-parameter)   
-   2.3. [Page size parameter](#23-pagesize-parameter)   
+   2.3. [Page size parameter](#23-page-size-parameter)   
    2.4. [Query parameter](#24-query-parameter)   
 
 
