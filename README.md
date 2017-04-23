@@ -10,18 +10,33 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 
 ## Documentation
 
-1. [Shortcode](#1-shortcode)
+1. [Admin page](#1-admin-page)
+   1.1 [Configure parameters](#12-configure-parameters)
 
-   1.1. [Adding shortcode and get data](#11-adding-shortcode)   
-   1.2. [Type parameter](#12-type-parameter)   
-   1.3. [Page size parameter](#13-pagesize-parameter)   
-   1.4. [Query parameter](#14-query-parameter)   
+2. [Shortcode](#2-shortcode)
+   2.1. [Adding shortcode and get data](#21-adding-shortcode)   
+   2.2. [Type parameter](#22-type-parameter)   
+   2.3. [Page size parameter](#23-pagesize-parameter)   
+   2.4. [Query parameter](#24-query-parameter)   
 
 
 
+## 1. Admin page
 
+## 1.1. Configure parameters
 
-## 1. Shortcode
+After installation of the plugin, in Admin page there will be in Admin menu link for Showpass API. From the Showpass API admin page you can configure parameters.
+* *Organization ID* - it is ID from venue that you want to get Events from. 
+ex. 5 - will get all events form venue with ID = 5.
+* *Date format* - You can enter format that you want date to be converted in.
+ex. "l F d, Y" - it will be in this format "Friday 21 April, 2017". More about date format <a href="http://php.net/manual/en/function.date.php">here</a>.
 
-## 1.1. Adding shortcode and get data
+## 2. Shortcode
+
+## 2.1. Adding shortcode and get data
+
+The shortcode returns JSON format data from API , so you can easily get it in page template with
+`<?php $data = do_shortcode('[showpass_events]'); ?>`
+All data from API 
+
 
