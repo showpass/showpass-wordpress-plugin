@@ -7,6 +7,7 @@
 
 define('API_URL', 'https://www.myshowpass.com/api/public/events');
 
+// define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'&'));
 define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'&'));
 
 
@@ -110,10 +111,7 @@ function showpass_get_event_date($date, $zone){
 
 	$new_date = $datetime->format($format_date);
 
-
 	return $new_date;
-
-	// return date($format_date , strtotime($date));
 }
 
 /* Converting time */
@@ -133,7 +131,6 @@ function showpass_get_event_time($date, $zone){
 	}
 	
 	$new_date = $datetime->format($format_time);
-
 
 	return $new_date;
 }
