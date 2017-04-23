@@ -48,4 +48,7 @@ Also , there are few parameters that you can send it to the shortcode.
 
 Type parameter is required in shortcode to works.  You have `type="single"` for getting one specified event or `type="list"` to get all data(events) from the venue that is set from admin page.
 
+### `type="single"`
 
+This type `[showpass_events type="single"]` will get the data from specified event that will be send it through the `event_id` from url.
+ex. `www.website.com/&event_id=123` - will get all data for the event with ID = 123 . So `&event_id` is required for `type="single"` type of shortcode.
