@@ -16,7 +16,8 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.1. [Adding shortcode and get data](#21-adding-shortcode-and-get-data)   
    2.2. [Type parameter](#22-type-parameter)   
    2.3. [Page size parameter](#23-page-size-parameter)   
-   2.4. [Query parameter](#24-query-parameter)   
+   2.4. [Page number parameter](#24-page-number-parameter)   
+   2.5. [Query parameter](#25-query-parameter)   
 
 
 
@@ -51,4 +52,23 @@ Type parameter is required in shortcode to works.  You have `type="single"` for 
 ### `type="single"`
 
 This type `[showpass_events type="single"]` will get the data from specified event that will be send it through the `event_id` from url.
-ex. `www.website.com/&event_id=123` - will get all data for the event with ID = 123 . So `&event_id` is required for `type="single"` type of shortcode.
+
+ex. `www.website.com/&event_id=123` - will get all data for the event with ID = 123 . So `&event_id` in url is required for `type="single"` type of shortcode.
+
+### `type="list"`
+
+This type `[showpass_events type="list"]` will get all the data from venue with ID that is set from Admin page ( organization ID ).
+
+## 2.3. Page size parameter
+
+This parameter gives you choice for how many events do you want to show on one page. This parameter is not required, and if you don't pass in shortcode, the default number of events on one page is 20.
+
+`[showpass_events type='list' page_size='5']` - It will get only 5 events on one page.
+
+## 2.4. Page number parameter
+
+This parameter you can use to jump on page number that you want.
+
+For example if you have in some venue 30 events, and you have set `page_size="5"` , the API will returns to you only 5 events on one page and you will have 6 pages with 5 events on each. So, with this parameter you can easily jump to the page that you want with passing the parameter through the website URL.
+
+ex. `www.website.com/&page=4` - will get all data (events) from page 4.
