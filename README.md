@@ -21,7 +21,10 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
-   3.3. [Showpass get Previous or next page](#33-showpass-get-previous-or-next-page)
+   3.3. [Showpass get Previous or next page](#33-showpass-get-previous-or-next-page)   
+4. [JSON Data](#4-json-data)     
+   4.1. [Single event](#41-single-event)
+   4.2. [List events](#42-list-events)
 
 
 
@@ -44,6 +47,8 @@ More about date and time format <a href="http://php.net/manual/en/function.date.
 
 The shortcode returns JSON format data from API , so you can easily get it in page template with
 `<?php $data = do_shortcode('[showpass_events]'); ?>` .
+
+Because it is JSON data , for manupulating with it, you need to decode it `$data = json_decode($data)` .
 
 It will be recieved all data from API for the venue that is set from Admin Page ( organization ID ). 
 
@@ -88,10 +93,103 @@ ex. `www.website.com/&q=something` .
 
 ## 3.1. Showpass get Event Date
 
-* *`showpass_get_event_date($date, $zone)`* - This is function for getting time in the timezone from the event.
+* *`showpass_get_event_date($date, $zone)`* - This is function for getting date in the timezone from the event.
 
 `$date` and `$zone` - these are parameters that you need to pass to function. They will be in data from API output.
 
 ex. Event start date - `showpass_get_event_date($event->starts_on, $event->timezone)` 
 
 where `starts_on` and `timezone` are parameters received from API for the event.
+
+The date will be showed on the website in format that is set from Showpass Admin Page.
+
+## 3.2. Showpass get Event Time
+
+* *`showpass_get_event_time($date, $zone)`* - This is function for getting time in the timezone from the event.
+
+`$date` and `$zone` - these are parameters that you need to pass to function. They will be in data from API output.
+
+ex. Event start time - `showpass_get_event_date($event->starts_on, $event->timezone)` 
+
+where `starts_on` and `timezone` are parameters received from API for the event.
+
+The time will be showed on the website in format that is set from Showpass Admin Page.
+
+## 3.3. Showpass get Previous or Next page
+
+* *`showpass_get_events_next_prev($page)`* - This function is for pagination of the pages. This function sets up the `$page` parameter.
+
+ex. You will have (the API will receive) 5 pages with 6 events on each page. So , for pagination you will use this function.
+
+`$page` - it is number of the page that you will get it from returned API data.
+
+`showpass_get_events_next_prev($event->next_page_number)` or `showpass_get_events_next_prev($event->previous_page_number)` , depends on pagination.
+
+`next_page_number` or `previous_page_number` is number , so you can easily put number of whatever page you want.
+
+
+## 4. JSON Data
+
+## 4.1. Single event
+
+{  
+   "id":123,
+   "created":"2015-01-29T00:39:55.042Z",
+   "updated":"2017-04-17T01:20:46.206Z",
+   "slug":"evol-intent-jfb",
+   "name":"EVOL INTENT + JFB",
+   "subtitle":"",
+   "venue":{  
+      "id":12,
+      "slug":"tenx-nightclub",
+      "name":"Ten Nightclub",
+      "twitter":"http://twitter.com/nightclubten",
+      "facebook":"https://www.facebook.com/TENxnightclub",
+      "web_address":"http://tenxnightclub.com/contact/",
+      "description":"What do you get when the top 5 Promoters in Calgary all get under one roof ?? \r\n\r\nMAGIC!!! \r\n\r\n- BOODANG / SP / JAMTIGHT / TRANSMISSION / DUBSAC\r\n",
+      "phone":78,
+      "street_name":" 1140 10 Ave SW",
+      "city":"Calgary",
+      "avatar":"https://showpass-live.s3.amazonaws.com/media/images/venues/tenx-nightclub/avatars/1501488_590540317699134_243302273_o.png",
+      "currency":"CAD"
+   },
+   "location":{  
+      "id":7,
+      "street_name":" 1140 10 Ave SW",
+      "city":"Calgary",
+      "province":"AB ",
+      "postal_code":"T2R 0B6",
+      "position":"51.04426079556749,-114.08835053443909",
+      "venue":12,
+      "name":"TenX Nightclub"
+   },
+   "starts_on":"2015-02-28T04:00:00Z",
+   "ends_on":"2015-02-28T09:30:00Z",
+   "opens_at":null,
+   "terms":"",
+   "description":"Event description",
+   "venue_fee":"0.00",
+   "getqd_fee":"0.05",
+   "getqd_fee_added":"2.75",
+   "image":"https://showpass-live.s3.amazonaws.com/media/images/events/tenx-nightclub/images/ev_rad1200x1200.jpg",
+   "thumbnail":"https://showpass-live.s3.amazonaws.com/media/images/events/tenx-nightclub/thumbnails/ev_rad1200x1200.jpg",
+   "is_published":true,
+   "is_published_for_sellers":true,
+   "is_featured":false,
+   "password_protected":false,
+   "facebook_id":"743330102441150",
+   "ticket_types":[  
+
+   ],
+   "image_medium":"https://showpass-live.s3.amazonaws.com/media/images/events/tenx-nightclub/img-medium/ev_rad1200x1200.jpg",
+   "assigned_space":null,
+   "frontend_details_url":"https://www.myshowpass.com/evol-intent-jfb/",
+   "no_ticket_types_message":null,
+   "image_banner_xl":"https://showpass-live.s3.amazonaws.com/media/images/events/tenx-nightclub/img-banner-xl/ev_rad1200x1200.jpg",
+   "image_lg_square":"https://showpass-live.s3.amazonaws.com/media/images/events/tenx-nightclub/img-lg-square/ev_rad1200x1200.jpg",
+   "image_stretch_banner_lg":"https://showpass-live.s3.amazonaws.com/media/images/events/tenx-nightclub/img-stretch-banner-lg/ev_rad1200x1200.jpg",
+   "social_share_enabled":false,
+   "social_share_reward":"1.00",
+   "timezone":"US/Mountain",
+   "currency":"CAD"
+}
