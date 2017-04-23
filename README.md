@@ -18,9 +18,9 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.3. [Page size parameter](#23-page-size-parameter)   
    2.4. [Page number parameter](#24-page-number-parameter)   
    2.5. [Query parameter](#25-query-parameter)   
-3. [Functions](#3-functions)     
-   3.1. [Showpass get Event Date](#31-showpass-get-event-date)
-   3.2. [Showpass get Event Time](#32-showpass-get-event-time)
+3. [Functions](#3-functions)        
+   3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
+   3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
    3.3. [Showpass get Previous or next page](#33-showpass-get-previous-or-next-page)
 
 
@@ -90,7 +90,7 @@ ex. `www.website.com/&q=something` .
 
 * *`showpass_get_event_date($date, $zone)`* - This is function for getting time in the timezone from the event.
 
-`$date` - it is parameter that you need to set. It will be some date from API output.
+`$date` and `$zone` - these are parameters that you need to pass to function. They will be in data from API output.
 
 ex. Event start date - `showpass_get_event_date($event->starts_on, $event->timezone)` 
 
