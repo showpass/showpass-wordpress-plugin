@@ -274,5 +274,5 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 			   "timezone":"Event timezone",
 			   "currency":"currency"
 			} 
-	        	] /// events
-	     	}
+	          ] /// events
+	     	   }
