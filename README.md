@@ -179,7 +179,7 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 		   "password_protected":true/false,
 		   "facebook_id":"facebook_id",
 		   "ticket_types":[  
-
+		   		ticket info 
 		   ],
 		   "image_medium":"URL Event medium Image",
 		   "assigned_space":null,
@@ -193,3 +193,86 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 		   "timezone":"Event timezone",
 		   "currency":"currency"
 		}
+
+
+
+## 4.2. List events
+
+		{  
+		   "count":34,
+		   "next":"https://www.myshowpass.com/api/public/events/?venue=venue_id&page=page_number",
+		   "previous":null or url if has previous,
+		   "next_page_number": next page number ex(2),
+		   "previous_page_number":null or number if has previous,
+		   "page_number":number of current page,
+		   "num_pages": number of how many pages are,
+		   "next_list":[  
+		      list of next (array of numbers)
+		   ],
+		   "previous_list":[  
+		      list of prev (array of numbers)
+		   ],
+		   "results":[
+		   			{  
+					   "id":123,
+					   "created":"date and time of creation",
+					   "updated":"date and time of update",
+					   "slug":"event_slug",
+					   "name":"Event Name",
+					   "subtitle":"Event Subtitle",
+					   "venue":{  
+					      "id":venue_id,
+					      "slug":"venue_slug",
+					      "name":"Venue Name",
+					      "twitter":"http://twitter.com/venueTwitter",
+					      "facebook":"https://www.facebook.com/venueFacebook",
+					      "web_address":"http://venuewebsite.com/contact/",
+					      "description":"Description of venue",
+					      "phone":Venue phone,
+					      "street_name":"Venue Street",
+					      "city":"Venue City",
+					      "avatar":"Venue Avatar Picture",
+					      "currency":"Currency"
+					   },
+					   "location":{  
+					      "id":location_id,
+					      "street_name":"Street",
+					      "city":"City",
+					      "province":"province code",
+					      "postal_code":"postal code",
+					      "position":"longitude, latitude",
+					      "venue":venue_id,
+					      "name":"venue name"
+					   },
+					   "starts_on":"Start date and time of the event",
+					   "ends_on":"Ending date and time of the event",
+					   "opens_at":opens_at,
+					   "terms":"terms",
+					   "description":"Event description",
+					   "venue_fee":"venue_fee",
+					   "getqd_fee":"getqd_fee",
+					   "getqd_fee_added":"qetqd_fee_added",
+					   "image":"URL Event image",
+					   "thumbnail":"URL Event thumnail image",
+					   "is_published":true/false,
+					   "is_published_for_sellers":true/false,
+					   "is_featured":true/false,
+					   "password_protected":true/false,
+					   "facebook_id":"facebook_id",
+					   "ticket_types":[  
+
+					   ],
+					   "image_medium":"URL Event medium Image",
+					   "assigned_space":null,
+					   "frontend_details_url":"frontend_details_url",
+					   "no_ticket_types_message":null,
+					   "image_banner_xl":"URL Image banned XL",
+					   "image_lg_square":"URL Image large square",
+					   "image_stretch_banner_lg":"URL Image Stretch large banner",
+					   "social_share_enabled":true/false,
+					   "social_share_reward":"1.00",
+					   "timezone":"Event timezone",
+					   "currency":"currency"
+					} 
+				] /// events
+			}
