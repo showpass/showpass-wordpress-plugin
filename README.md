@@ -10,10 +10,10 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 
 ## Documentation
 
-1. [Admin page](#1-admin-page)
+1. [Admin page](#1-admin-page)        
    1.1 [Configure parameters](#12-configure-parameters)
 
-2. [Shortcode](#2-shortcode)
+2. [Shortcode](#2-shortcode)       
    2.1. [Adding shortcode and get data](#21-adding-shortcode)   
    2.2. [Type parameter](#22-type-parameter)   
    2.3. [Page size parameter](#23-pagesize-parameter)   
@@ -29,7 +29,10 @@ After installation of the plugin, in Admin page there will be in Admin menu link
 * *Organization ID* - it is ID from venue that you want to get Events from. 
 ex. 5 - will get all events form venue with ID = 5.
 * *Date format* - You can enter format that you want date to be converted in.
-ex. "l F d, Y" - it will be in this format "Friday 21 April, 2017". More about date format <a href="http://php.net/manual/en/function.date.php">here</a>.
+ex. "l F d, Y" - it will be in this format "Friday 21 April, 2017".
+* *Time format* - You can enter format that you want time to be converted in.
+ex. "g:iA" - it will be in this format "9:00AM".
+More about date and time format <a href="http://php.net/manual/en/function.date.php">here</a>.
 
 ## 2. Shortcode
 
