@@ -21,7 +21,8 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
-   3.3. [Showpass get Previous or next page](#33-showpass-get-previous-or-next-page)   
+   3.3. [Showpass get Timezone)](#33-showpass-get-timezone)
+   3.4. [Showpass get Previous or next page](#34-showpass-get-previous-or-next-page)   
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
    4.2. [List events](#42-list-events)    
@@ -62,7 +63,8 @@ Type parameter is required in shortcode to works.  You have `type="single"` for 
 
 This type `[showpass_events type="single"]` will get the data from specified event that will be send it through the `event_id` from url.
 
-ex. `www.website.com/&event_id=123` - will get all data for the event with ID = 123 . So `&event_id` in url is required for `type="single"` type of shortcode.
+ex. `www.website.com/?event=123` or `www.website.com/?event=event_slug` - will get all data for the event with ID = 123 or with slug = event_slug . So `?event` in url is required for `type="single"` type of shortcode. 
+`event` parameter receive event ID or event slug (id or slug from API).
 
 ### `type="list"`
 
@@ -80,13 +82,13 @@ This parameter you can use to jump on page number that you want.
 
 For example if you have in some venue 30 events, and you have set `page_size="5"` , the API will returns to you only 5 events on one page and you will have 6 pages with 5 events on each. So, with this parameter you can easily jump to the page that you want with passing the parameter through the website URL.
 
-ex. `www.website.com/&page=4` - will get all data (events) from page 4.
+ex. `www.website.com/?page_number=4` - will get all data (events) from page 4.
 
 ## 2.5. Query parameter
 
-This parameter is for search event. You need to pass it through website url `&q=something` and it will get all events that have "something" in their content.
+This parameter is for search event. You need to pass it through website url `?q=something` and it will get all events that have "something" in their content.
 
-ex. `www.website.com/&q=something` .
+ex. `www.website.com/?q=something` .
 
 
 ## 3. Functions      
@@ -115,7 +117,13 @@ where `starts_on` and `timezone` are parameters received from API for the event.
 
 The time will be showed on the website in format that is set from Showpass Admin Page.
 
-## 3.3. Showpass get Previous or Next page
+## 3.3. Showpass get Timezone
+
+* *`showpass_get_timezone_abbr($timezone)`* - This is function for getting timezone (offset) from the event.
+
+`timezone` - this parameter you need pass to function. It is event timezone from API.
+
+## 3.4. Showpass get Previous or Next page
 
 * *`showpass_get_events_next_prev($page)`* - This function is for pagination of the pages. This function sets up the `$page` parameter.
 
