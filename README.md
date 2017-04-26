@@ -21,7 +21,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
-   3.3. [Showpass get Timezone)](#33-showpass-get-timezone)
+   3.3. [Showpass get Timezone)](#33-showpass-get-timezone)    
    3.4. [Showpass get Previous or next page](#34-showpass-get-previous-or-next-page)   
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
