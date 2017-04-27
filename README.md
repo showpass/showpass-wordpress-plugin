@@ -17,7 +17,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.2. [Type parameter](#22-type-parameter)   
    2.3. [Page size parameter](#23-page-size-parameter)   
    2.4. [Page number parameter](#24-page-number-parameter)   
-   2.5. [Query parameter](#25-query-parameter)   
+   2.5. [Other parameters](#25-other-parameters)   
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
@@ -84,12 +84,31 @@ For example if you have in some venue 30 events, and you have set `page_size="5"
 
 ex. `www.website.com/?page_number=4` - will get all data (events) from page 4.
 
-## 2.5. Query parameter
+## 2.5. Other parameters
+
+There are few parameters that API can receive and this plugin is compatible for all of these parameters. You can pass it through the URL and you will get the data from API with those parameters.
+
+*** Examples
+
+* *query parameter* - `?q=something`
 
 This parameter is for search event. You need to pass it through website url `?q=something` and it will get all events that have "something" in their content.
 
 ex. `www.website.com/?q=something` .
 
+* *tags parameter* - `?tags=Rock`
+
+This parameter is for filtering events through the tags. You need to pass throught the website url `?tags=tag_you_want` and it will get all events which has that tag(category). Also works with many tags separated by comma
+
+ex. `www.website.com/?tags=tag_one,tag_two`
+
+* *other parameters* - `?stars_on__gte , ?starts_on__lt , ?ends_on__gte , ?ends_on__lt` etc.
+
+- gte - greater than or equal
+
+- lt - less then
+
+These parameters receives date.
 
 ## 3. Functions      
 

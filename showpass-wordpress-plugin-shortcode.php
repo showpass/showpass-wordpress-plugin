@@ -5,57 +5,74 @@
 **************************/
 
 
-define('API_URL', 'https://www.myshowpass.com/api/public/events');
+define('API_URL', 'https://www.myshowpass.com/api');
 
 // define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'&'));
 define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 
 
-
+define('API_PUBLIC_EVENTS', API_URL . '/public/events');
 
 
 function wpshp_get_data( $atts ) {
 
-	if(isset($_GET["type"]))
-	{
-		$type = $_GET["type"];
-	}
-
-	if(isset($_GET['event']))
-	{
-		$event = $_GET["event"];
-	}
-
-	if(isset($_GET['page_number']))
-	{
-		$page_number = $_GET["page_number"];
-	}
-
-	if(isset($_GET['q'])){
-		$query = $_GET['q'];
-	}
-
 	/* get Organization ID that is configured in admin Showpass Event API page */
 	$organization_id = get_option('option_organization_id');  
 
-	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
-	$type = $atts['type'];			
 
-	$final_api_url = API_URL;		
+	if(isset($atts["type"]))
+	{
+		$type = $atts["type"];
+	}
+	else{
+		$type = NULL;
+	}
+
+	if($type == NULL)
+	{
+		echo "ERROR - Please enter type parameter in shortcode";
+	}
+
+	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/	
+
+	$final_api_url = API_PUBLIC_EVENTS;		
 
 	if($type == "single"){
-		if(isset($_GET['event']))
+		if(isset($_GET['id']))
 		{
-			$final_api_url = API_URL . "/" . $event . "/";
+			$final_api_url = API_PUBLIC_EVENTS . "/" . $_GET['id'] . "/";
+		}
+		else if(isset($_GET['slug']))
+		{
+			$final_api_url = API_PUBLIC_EVENTS . "/" . $_GET['slug'] . "/";
 		}
 		else{
-			echo "ERROR - Need event parameter in URL";
+			echo "ERROR - Need parameter in URL (id or slug)";
 		}
 	}
 
 	if($type == "list"){
 
-		$final_api_url = API_URL . '/?venue=' . $organization_id;
+		$final_api_url = API_PUBLIC_EVENTS . '/?venue=' . $organization_id;
+
+		$parameters = $_GET;
+
+
+		foreach ($parameters as $parameter => $value) {
+			# code...
+			if($parameter == 'q' || $parameter == 'tags')
+			{
+				$final_api_url .= "&" . $parameter . "=" . utf8_urldecode($value);
+			}
+			else if($parameter == 'page_number')
+			{
+				$final_api_url .= "&page=" . $value;
+			}
+			else {
+				$final_api_url .= "&" . $parameter . "=" . $value;
+			}
+		}
+
 
 		if(isset($atts['page_size']))
 		{
@@ -63,23 +80,8 @@ function wpshp_get_data( $atts ) {
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
 		}
 
-
-		if(isset($_GET['page_number']))
-		{
-			$final_api_url .= "&page=" . $page_number;
-		}
-
-		if(isset($_GET['q']))
-		{
-			$final_api_url .= "&q=" . $query;
-		}
-
 	}
 
-	if($type == NULL)
-	{
-		echo "ERROR - Please enter type parameter in shortcode";
-	}
 
 	/* get data from API */
 	$data = CallAPI($final_api_url);   
@@ -89,6 +91,11 @@ function wpshp_get_data( $atts ) {
 
 add_shortcode( 'showpass_events', 'wpshp_get_data' );
 
+
+ function utf8_urldecode($str) {
+    $str = preg_replace("/%u([0-9a-f]{3,4})/i","&#x\\1;",urlencode($str));
+    return html_entity_decode($str,null,'UTF-8');;
+  }
 
 
 /* making connection and taking the data from API */
