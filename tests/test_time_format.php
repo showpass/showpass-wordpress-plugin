@@ -25,9 +25,9 @@
 
 		$real_timezone_date = showpass_get_event_time($date, $timezone); 
 
-		echo "Server date: " . $date . "\n"; // expected [EVOL INTENT + JFB , ]
-		echo "Event Timezone: " . $timezone . "\n";      // expected [123]
-		echo "Timezone time formated: " . $real_timezone_date . "\n";  // expected [evol-intent-jfb]
+		echo "Server date: " . $date . "\n"; 
+		echo "Event Timezone: " . $timezone . "\n";    
+		echo "Timezone time formated: " . $real_timezone_date . "\n"; 
 
 
 	}

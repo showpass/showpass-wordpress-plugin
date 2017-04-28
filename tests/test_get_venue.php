@@ -27,9 +27,9 @@
 
 		$venue = json_decode($data);
 
-		echo "Venue name: " . $venue->results[0]->venue->name . "\n"; // expected [EVOL INTENT + JFB , ]
-		echo "Number of events on one page: " . count($venue->results) . "\n";      // expected [123]
-		echo "Number of pages: " . $venue->num_pages. "\n";  // expected [evol-intent-jfb]
+		echo "Venue name: " . $venue->results[0]->venue->name . "\n"; 
+		echo "Number of events on one page: " . count($venue->results) . "\n";     
+		echo "Number of pages: " . $venue->num_pages. "\n";  
 
 
 	}
