@@ -31,7 +31,7 @@ For preparing .zip file for plugin you will need to do this:
 
 * You will have commited and pushed on master branch all the changes that you made.
 
-* Call this command `git archive -o showpass-wordpress-plugin.zip --prefix=showpass-wordpress-plugin/ HEAD:plugin'           
+* Call this command `git archive -o showpass-wordpress-plugin.zip --prefix=showpass-wordpress-plugin/ HEAD:plugin`           
 
 It will create `showpass-wordpress-plugin.zip` file and it will be prepared for install through the plugin installed. Inside this .zip file are all folders and files that the plugin needs for working.
 
