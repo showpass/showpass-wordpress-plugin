@@ -18,4 +18,13 @@
 
 * If the release is unstable, select This is a pre-release to notify users that it's not ready for production.
 
-*If you're ready to publicize your release, click Publish release. Otherwise, click Save draft to work on it later.
+* If you're ready to publicize your release, click Publish release. Otherwise, click Save draft to work on it later.
+
+
+## Make .zip file for plugin (ready for install)
+
+As you know, you can instal through plugin installer or you can extract the plugin folder in `wp-content/plugins`.
+
+For preparing .zip file for plugin you will need to do this:
+
+
