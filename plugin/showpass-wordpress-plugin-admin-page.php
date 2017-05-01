@@ -6,7 +6,7 @@ function wpshp_settings_page() {
 <h1>Showpass Events API</h1>
 
 <!-- TBD - More description -->
-<p>The main API URL is<strong> www.myshowpass.com/api/public/events. </strong> <br />
+<p>The main API URL is<strong> https://www.myshowpass.com/api. </strong> <br />
 You will need to add Organization ID (venue ID) that you want the data from.  EX. 5 , if you want data from venue 5.</p>
 
 <form method="post" action="options.php">
