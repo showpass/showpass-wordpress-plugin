@@ -5,9 +5,9 @@ jobs:
       - image: php:7
     working_directory: ~/build
     steps:
-      - run: 'apt-get update'
-      - run: 'apt-get install curl'
-      - run: 'apt-get install git'  # Suppress Circle CI's git warning
+      - run: 'apt-get -y update'
+      - run: 'apt-get -y install curl'
+      - run: 'apt-get -y install git'  # Suppress Circle CI's git warning
 
       - checkout
 
