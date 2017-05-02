@@ -39,14 +39,14 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
 <h2><strong>Shortcode - </strong> [showpass_events]</h2>
 <p>- The shortcode receives parameter <strong>type</strong> and it can be <strong>single</strong> or <strong>list</strong>.
 <br/>
-* <strong>[showpass_events type="single"]</strong> is for receiving the data from single event that is specified through the event_id parameter in URL... ex. www.website.com/&event_id=123 
+* <strong>[showpass_events type="single"]</strong> is for receiving the data from single event that is specified through the event_id parameter in URL... ex. www.website.com/?event_id=123 
 <br/>
 * <strong>[showpass_events type="list"]</strong> is for receiving the data from specified venue that is set in admin page (field organization ID). The API receives all events from the venue. <br/>
 Also you can set in shortcode how many events do you want on page. Ex. <strong>[showpass_events type="list" page_size="5"]</strong> - it will receive 5 events on each page. The default page_size is 20 (20 events on page).
 <br/>
-The "list" type shortcode also can receive page number in website url... ex. <strong>www.website.com/&page=5</strong> <br/>
+The "list" type shortcode also can receive page number in website url... ex. <strong>www.website.com/?page_number=5</strong> <br/>
 This is good for pagination... There is function that will be explained below. <br/>
-Also, the "list" type can receive query parameter for searching through events... ex. <strong>www.website.com/&q=something</strong><br/>
+Also, the "list" type can receive query parameter for searching through events... ex. <strong>www.website.com/?q=something</strong><br/>
 It will return all events that has the string in their content.</p>
 
 <h3>Functions</h3>
@@ -64,7 +64,7 @@ where <strong><i>$event->starts_on</i></strong> and <strong><i>$event->timezone<
 <strong><i>showpass_get_events_next_prev($page)</i></strong><br/>
 - Using: you can easily use it for pagination...<br/>
 ex.  <strong><code>&lt;?php echo showpass_get_events_next_prev($event->next_page_number/previous_page_number); ?></code></strong><br/>
-where <strong><i>$event->next_page_number</i></strong> or <strong><i>$event->previous_page_number</i></strong> are parameters that are received from API. This function will make the url <strong>www.website.com/&page=page_number</strong> and there will be received the events from that page.<br/><br/>
+where <strong><i>$event->next_page_number</i></strong> or <strong><i>$event->previous_page_number</i></strong> are parameters that are received from API. This function will make the url <strong>www.website.com/?page_number=page_number</strong> and there will be received the events from that page.<br/><br/>
 Click for more <a href="https://github.com/showpass/showpass-wordpress-plugin" target="_blank">Documentation</a>
 </div>
 <?php } 

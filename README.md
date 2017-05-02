@@ -155,6 +155,23 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 `next_page_number` or `previous_page_number` is number , so you can easily put number of whatever page you want.
 
 
+ - This is one example of pagination
+
+		<?php 
+
+		if($events->previous_page_number != NULL){ ?> 
+			<a style="float:left;" href="<?php echo showpass_get_events_next_prev($events->previous_page_number); ?>">	Page <?php echo $events->previous_page_number ; ?>
+			</a>
+		<?php }
+
+		if($events->next_page_number != NULL){ ?>
+			<a style="float: right;" href="<?php echo showpass_get_events_next_prev($events->next_page_number); ?>">	Page <?php echo $events->next_page_number; ?>
+			</a>
+		<?php } ?> 
+
+		?>
+
+
 ## 4. JSON Data
 
 ## 4.1. Single event
