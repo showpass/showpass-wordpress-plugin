@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: php:7
+    working_directory: ~/build
+    steps:
+      - run: 'apt-get -y update'
+      - run: 'apt-get -y install curl'
+      - run: 'apt-get -y install git'  # Suppress Circle CI's git warning
+
+      - checkout
+
+      - run:
+          name: "Install Composer"
+          command: |
+            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+      - run:
+          name: "Install Dependencies"
+          command: |
+            composer install
+
+      - run:
+          name: "Run Tests"
+          command: |
+            mkdir ./tmp/
+            ./vendor/phpunit/phpunit/phpunit --log-junit ./tmp/logfile.xml
+
+      - store_test_results:
+          path: "./tmp/"
