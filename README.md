@@ -124,6 +124,10 @@ where `starts_on` and `timezone` are parameters received from API for the event.
 
 The date will be showed on the website in format that is set from Showpass Admin Page.
 
+* example `<?php echo showpass_get_event_date($event->starts_on, $event->timezone); ?>` 
+
+It will print the *date* when starts the event (ex. Friday 05 May, 2017).
+
 ## 3.2. Showpass get Event Time
 
 * *`showpass_get_event_time($date, $zone)`* - This is function for getting time in the timezone from the event.
@@ -136,11 +140,19 @@ where `starts_on` and `timezone` are parameters received from API for the event.
 
 The time will be showed on the website in format that is set from Showpass Admin Page.
 
+* example `<?php echo showpass_get_event_time($event->starts_on, $event->timezone); ?>` 
+
+It will print the *time* when starts the event (ex. 9:00AM).
+
 ## 3.3. Showpass get Timezone
 
 * *`showpass_get_timezone_abbr($timezone)`* - This is function for getting timezone (offset) from the event.
 
 `timezone` - this parameter you need pass to function. It is event timezone from API.
+
+* example `<?php echo showpass_get_timezone_abbr($event->timezone); ?>` 
+
+It will print the timezone of event (MDT, PDT ect.).
 
 ## 3.4. Showpass get Previous or Next page
 
