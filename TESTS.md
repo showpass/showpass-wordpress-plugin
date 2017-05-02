@@ -13,9 +13,9 @@
 * After that, you need to put this in `composer.json` 
 
      	"autoload":{      
-           			"psr-4":{        
-               				"Showpass\\" : "src/"       
-           			}       
+				"psr-4":{        
+   					"Showpass\\" : "src/"       
+       			}       
        	},
      
 With this you tell the phpunit to use `src` folder for the main classes with `namespace Showpass`.
