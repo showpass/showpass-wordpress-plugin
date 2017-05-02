@@ -16,7 +16,7 @@
 			"psr-4":{        
 				"Showpass\\" : "src/"       
    			}       
-   	},
+   		},
      
 With this you tell the phpunit to use `src` folder for the main classes with `namespace Showpass`.
 
