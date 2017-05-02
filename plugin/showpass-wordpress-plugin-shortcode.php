@@ -82,11 +82,24 @@ function wpshp_get_data( $atts ) {
 
 	}
 
-
-	/* get data from API */
 	$data = CallAPI($final_api_url);   
 
-	return $data;
+
+	// if($type == "list"){
+	// 	$final = getListTemplate($data);
+	// }
+
+	// if($type == "single"){
+	// 	$final = getSingleTemplate($data);
+	// }
+
+
+	/* get data from API */
+
+
+    return $data;  
+
+	// return $final;
 }
 
 add_shortcode( 'showpass_events', 'wpshp_get_data' );
@@ -179,6 +192,36 @@ function showpass_get_events_next_prev($page)
 	}
 
 	return $page_link;
+}
+
+
+function getSingleTemplate($data)
+{
+
+	$event = json_decode($data);
+
+	$html = "";
+
+	$html = "<div><p>" . $event->name . "</p></div>";
+
+	return $html;
+}
+
+function getListTemplate($data)
+{
+
+	$events = json_decode($data);
+
+	$html = "";
+
+	foreach ($events->results as $key => $event) {
+		
+		$html .= "<div><p>" . $event->name . "</p></div>";
+	
+	}
+
+
+	return $html;
 }
 
 
