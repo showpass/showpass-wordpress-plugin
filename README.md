@@ -1,4 +1,4 @@
-# Showpass Events API plugin
+# Showpass Events API plugin ![Build Status](https://circleci.com/gh/showpass/showpass-wordpress-plugin/tree/master.svg?style=shield&circle-token=f3e19be350eadf845d1d0ded06a0391d6367f36f)
 
 ## Description
 
