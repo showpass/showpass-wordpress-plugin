@@ -17,7 +17,7 @@ define('API_PUBLIC_EVENTS', API_URL . '/public/events');
 function wpshp_get_data( $atts ) {
 
 	/* get Organization ID that is configured in admin Showpass Event API page */
-	$organization_id = get_option('option_organization_id');  
+	$organization_id = get_option('option_organization_id');
 
 
 	if(isset($atts["type"]))
@@ -33,9 +33,9 @@ function wpshp_get_data( $atts ) {
 		echo "ERROR - Please enter type parameter in shortcode";
 	}
 
-	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/	
+	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
-	$final_api_url = API_PUBLIC_EVENTS;		
+	$final_api_url = API_PUBLIC_EVENTS;
 
 	if($type == "single"){
 		if(isset($_GET['id']))
@@ -80,9 +80,15 @@ function wpshp_get_data( $atts ) {
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
 		}
 
+		if(isset($atts['tags']))
+		{
+			$tags = $atts['tags'];
+			$final_api_url .= "&tags=" . $tags;
+		}
+
 	}
 
-	$data = CallAPI($final_api_url);   
+	$data = CallAPI($final_api_url);
 
 
 	// if($type == "list"){
@@ -97,7 +103,7 @@ function wpshp_get_data( $atts ) {
 	/* get data from API */
 
 
-    return $data;  
+    return $data;
 
 	// return $final;
 }
@@ -131,7 +137,7 @@ function CallAPI($url, $method = "GET", $data = false)
 
 function showpass_get_event_date($date, $zone){
 
-	$format_date = get_option('format_date');  
+	$format_date = get_option('format_date');
 
 	$datetime = new Datetime($date); // current time = server time
 	$otherTZ  = new DateTimeZone($zone);
@@ -153,7 +159,7 @@ function showpass_get_event_date($date, $zone){
 
 function showpass_get_event_time($date, $zone){
 
-	$format_time = get_option('format_time');  
+	$format_time = get_option('format_time');
 
 	$datetime = new Datetime($date); // current time = server time
 	$otherTZ  = new DateTimeZone($zone);
@@ -163,7 +169,7 @@ function showpass_get_event_time($date, $zone){
 	{
 		$format_time = "g:iA";
 	}
-	
+
 	$new_date = $datetime->format($format_time);
 
 	return $new_date;
@@ -173,7 +179,7 @@ function showpass_get_timezone_abbr($timezone)
 {
 
 	date_default_timezone_set($timezone);
-	
+
 	$new_date = date('T');
 
 	return $new_date;
@@ -215,9 +221,9 @@ function getListTemplate($data)
 	$html = "";
 
 	foreach ($events->results as $key => $event) {
-		
+
 		$html .= "<div><p>" . $event->name . "</p></div>";
-	
+
 	}
 
 
