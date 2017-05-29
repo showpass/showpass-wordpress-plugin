@@ -49,9 +49,7 @@ function wpshp_get_data( $atts ) {
 		else{
 			echo "ERROR - Need parameter in URL (id or slug)";
 		}
-	}
-
-	if($type == "list"){
+	} else if ($type == "list"){
 
 		$final_api_url = API_PUBLIC_EVENTS . '/?venue=' . $organization_id;
 
@@ -67,6 +65,10 @@ function wpshp_get_data( $atts ) {
 			else if($parameter == 'page_number')
 			{
 				$final_api_url .= "&page=" . $value;
+			}
+			else if($parameter == 'slug')
+			{
+				$final_api_url .= "&slug=";
 			}
 			else {
 				$final_api_url .= "&" . $parameter . "=" . $value;
@@ -86,10 +88,22 @@ function wpshp_get_data( $atts ) {
 			$final_api_url .= "&tags=" . $tags;
 		}
 
+		if(isset($atts['ends_on__gte']))
+		{
+			$ends_on__gte = $atts['ends_on__gte'];
+			$final_api_url .= "&ends_on__gte=" . $ends_on__gte;
+
+		}
+
+		if(isset($atts['ends_on__lt']))
+		{
+			$ends_on__lte = $atts['ends_on__lt'];
+			$final_api_url .= "&ends_on__lt=" . $ends_on__lte;
+		}
+
 	}
-
+	
 	$data = CallAPI($final_api_url);
-
 
 	// if($type == "list"){
 	// 	$final = getListTemplate($data);
@@ -185,6 +199,35 @@ function showpass_get_timezone_abbr($timezone)
 	return $new_date;
 }
 
+/* GET PRICE RANGE FOR TICKETS */
+function showpass_get_price_range ($data) {
+	$ticket_types = $data;
+	if (!$ticket_types) {
+		return null;
+	}
+
+	$min = 999999999;
+	$max = 0;
+
+	foreach ($ticket_types as $ticket) {
+		if ($ticket->price < $min) {
+			$min = $ticket->price;
+		}
+		if ($ticket->price > $max) {
+			$max = $ticket->price;
+		}
+	}
+	if ($max === 0) {
+		return 'FREE';
+	} else if ($max == $min) {
+		return '$'.$min;
+	} else if ($min === 0) {
+		return '$0 - $'.$max;
+	} else {
+		return '$'.$min.' - $'.$max;
+	}
+}
+
 /* Function for next/prev page */
 
 function showpass_get_events_next_prev($page)
@@ -229,8 +272,5 @@ function getListTemplate($data)
 
 	return $html;
 }
-
-
-
 
 ?>

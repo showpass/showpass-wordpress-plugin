@@ -34,7 +34,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 ## 1.1. Configure parameters
 
 After installation of the plugin, in Admin page there will be in Admin menu link for Showpass API. From the Showpass API admin page you can configure parameters.
-* *Organization ID* - it is ID from venue that you want to get Events from. 
+* *Organization ID* - it is ID from venue that you want to get Events from.
 ex. 5 - will get all events form venue with ID = 5.
 * *Date format* - You can enter format that you want date to be converted in.
 ex. "l F d, Y" - it will be in this format "Friday 21 April, 2017".
@@ -51,7 +51,7 @@ The shortcode returns JSON format data from API , so you can easily get it in pa
 
 Because it is JSON data , for manupulating with it, you need to decode it `$data = json_decode($data)` .
 
-It will be recieved all data from API for the venue that is set from Admin Page ( organization ID ). 
+It will be recieved all data from API for the venue that is set from Admin Page ( organization ID ).
 
 Also , there are few parameters that you can send it to the shortcode.
 
@@ -63,7 +63,7 @@ Type parameter is required in shortcode to works.  You have `type="single"` for 
 
 This type `[showpass_events type="single"]` will get the data from specified event that will be send it through the `event_id` from url.
 
-ex. `www.website.com/?event=123` or `www.website.com/?event=event_slug` - will get all data for the event with ID = 123 or with slug = event_slug . So `?event` in url is required for `type="single"` type of shortcode. 
+ex. `www.website.com/?event=123` or `www.website.com/?event=event_slug` - will get all data for the event with ID = 123 or with slug = event_slug . So `?event` in url is required for `type="single"` type of shortcode.
 `event` parameter receive event ID or event slug (id or slug from API).
 
 ### `type="list"`
@@ -84,7 +84,13 @@ For example if you have in some venue 30 events, and you have set `page_size="5"
 
 ex. `www.website.com/?page_number=4` - will get all data (events) from page 4.
 
-## 2.5. Other parameters
+## 2.5. Tags Parameter
+
+This parameter you can use the shortcode to return events with a certain category
+
+`[showpass_events type='list' page_size='5' tags='featured']` - It will get only 5 events on one page with the `featured` tag
+
+## 2.7. Other parameters
 
 There are few parameters that API can receive and this plugin is compatible for all of these parameters. You can pass it through the URL and you will get the data from API with those parameters.
 
@@ -118,13 +124,13 @@ These parameters receives date.
 
 `$date` and `$zone` - these are parameters that you need to pass to function. They will be in data from API output.
 
-ex. Event start date - `showpass_get_event_date($event->starts_on, $event->timezone)` 
+ex. Event start date - `showpass_get_event_date($event->starts_on, $event->timezone)`
 
 where `starts_on` and `timezone` are parameters received from API for the event.
 
 The date will be showed on the website in format that is set from Showpass Admin Page.
 
-* example `<?php echo showpass_get_event_date($event->starts_on, $event->timezone); ?>` 
+* example `<?php echo showpass_get_event_date($event->starts_on, $event->timezone); ?>`
 
 It will print the *date* when starts the event (ex. Friday 05 May, 2017).
 
@@ -134,13 +140,13 @@ It will print the *date* when starts the event (ex. Friday 05 May, 2017).
 
 `$date` and `$zone` - these are parameters that you need to pass to function. They will be in data from API output.
 
-ex. Event start time - `showpass_get_event_date($event->starts_on, $event->timezone)` 
+ex. Event start time - `showpass_get_event_date($event->starts_on, $event->timezone)`
 
 where `starts_on` and `timezone` are parameters received from API for the event.
 
 The time will be showed on the website in format that is set from Showpass Admin Page.
 
-* example `<?php echo showpass_get_event_time($event->starts_on, $event->timezone); ?>` 
+* example `<?php echo showpass_get_event_time($event->starts_on, $event->timezone); ?>`
 
 It will print the *time* when starts the event (ex. 9:00AM).
 
@@ -150,11 +156,21 @@ It will print the *time* when starts the event (ex. 9:00AM).
 
 `timezone` - this parameter you need pass to function. It is event timezone from API.
 
-* example `<?php echo showpass_get_timezone_abbr($event->timezone); ?>` 
+* example `<?php echo showpass_get_timezone_abbr($event->timezone); ?>`
 
 It will print the timezone of event (MDT, PDT ect.).
 
-## 3.4. Showpass get Previous or Next page
+## 3.4. Showpass get price range
+
+* *`showpass_get_price_range($ticket_types)`* - This is function for getting a price range for the events tickets.
+
+`ticket types` - this parameter you need pass to function. It is event ticket type object
+
+* example `<?php echo showpass_get_price_range($event->ticket_types); ?>`
+
+It will print either FREE, $5-$30 or $30
+
+## 3.5. Showpass get Previous or Next page
 
 * *`showpass_get_events_next_prev($page)`* - This function is for pagination of the pages. This function sets up the `$page` parameter.
 
@@ -169,9 +185,9 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 
  - This is one example of pagination
 
-		<?php 
+		<?php
 
-		if($events->previous_page_number != NULL){ ?> 
+		if($events->previous_page_number != NULL){ ?>
 			<a style="float:left;" href="<?php echo showpass_get_events_next_prev($events->previous_page_number); ?>">	Page <?php echo $events->previous_page_number ; ?>
 			</a>
 		<?php }
@@ -179,7 +195,7 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 		if($events->next_page_number != NULL){ ?>
 			<a style="float: right;" href="<?php echo showpass_get_events_next_prev($events->next_page_number); ?>">	Page <?php echo $events->next_page_number; ?>
 			</a>
-		<?php } ?> 
+		<?php } ?>
 
 		?>
 
@@ -235,7 +251,7 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 		   "password_protected":true/false,
 		   "facebook_id":"facebook_id",
 		   "ticket_types":[  
-		   		ticket info 
+		   		ticket info
 		   ],
 		   "image_medium":"URL Event medium Image",
 		   "assigned_space":null,
@@ -329,6 +345,6 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 			   "social_share_reward":"1.00",
 			   "timezone":"Event timezone",
 			   "currency":"currency"
-			} 
+			}
 	            ] /// events
 	        }

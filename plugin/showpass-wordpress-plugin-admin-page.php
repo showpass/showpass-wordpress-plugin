@@ -7,7 +7,7 @@ function wpshp_settings_page() {
 
 <!-- TBD - More description -->
 <p>The main API URL is<strong> https://www.myshowpass.com/api. </strong> <br />
-You will need to add Organization ID (venue ID) that you want the data from.  EX. 5 , if you want data from venue 5.</p>
+You will need to add Organization ID (venue ID) that you want the data from.  EX. 5 , if you want data from organization 5. You can also enter in multiple organizations 5, 10, 20, 30 - NOT RECCOMENDED FOR PURCHASE WIDGET - you cannot purchase to more than one organization at once. </p>
 
 <form method="post" action="options.php">
     <?php settings_fields( 'wpshp-settings-group' ); ?>
@@ -22,7 +22,7 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
 
         <label for="main_api_url">Enter Time Format: (if empty "g:iA" - ex. 9:00AM)</label><br/>
         <input type="text" placeholder="g:iA" name="format_time" value="<?php echo esc_attr( get_option('format_time') ); ?>" />
-    
+
     <?php submit_button(); ?>
 
 </form>
@@ -39,7 +39,7 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
 <h2><strong>Shortcode - </strong> [showpass_events]</h2>
 <p>- The shortcode receives parameter <strong>type</strong> and it can be <strong>single</strong> or <strong>list</strong>.
 <br/>
-* <strong>[showpass_events type="single"]</strong> is for receiving the data from single event that is specified through the event_id parameter in URL... ex. www.website.com/?event_id=123 
+* <strong>[showpass_events type="single"]</strong> is for receiving the data from single event that is specified through the event_id parameter in URL... ex. www.website.com/?event_id=123
 <br/>
 * <strong>[showpass_events type="list"]</strong> is for receiving the data from specified venue that is set in admin page (field organization ID). The API receives all events from the venue. <br/>
 Also you can set in shortcode how many events do you want on page. Ex. <strong>[showpass_events type="list" page_size="5"]</strong> - it will receive 5 events on each page. The default page_size is 20 (20 events on page).
@@ -67,7 +67,7 @@ ex.  <strong><code>&lt;?php echo showpass_get_events_next_prev($event->next_page
 where <strong><i>$event->next_page_number</i></strong> or <strong><i>$event->previous_page_number</i></strong> are parameters that are received from API. This function will make the url <strong>www.website.com/?page_number=page_number</strong> and there will be received the events from that page.<br/><br/>
 Click for more <a href="https://github.com/showpass/showpass-wordpress-plugin" target="_blank">Documentation</a>
 </div>
-<?php } 
+<?php }
 
 
 ?>
