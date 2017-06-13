@@ -101,8 +101,14 @@ function wpshp_get_data( $atts ) {
 			$final_api_url .= "&ends_on__lt=" . $ends_on__lte;
 		}
 
+		if(isset($atts['location']))
+		{
+			$location = $atts['location'];
+			$final_api_url .= "&location=" . $location;
+		}
+
 	}
-	
+
 	$data = CallAPI($final_api_url);
 
 	// if($type == "list"){
@@ -146,22 +152,22 @@ function CallAPI($url, $method = "GET", $data = false)
     return $result;
 }
 
-
 /* Converting date */
 
-function showpass_get_event_date($date, $zone){
+function showpass_get_event_date($date, $zone, $format){
 
-	$format_date = get_option('format_date');
+	if ($format) {
+		$format_date = $format;
+	} else if (!$format && $format_date != "") {
+		$format_date = get_option('format_date');
+	} else {
+		$format_date = "l F d, Y";
+	}
 
 	$datetime = new Datetime($date); // current time = server time
 	$otherTZ  = new DateTimeZone($zone);
 	$datetime->setTimezone($otherTZ);
 
-
-	if($format_date == "")
-	{
-		$format_date = "l F d, Y";
-	}
 
 	$new_date = $datetime->format($format_date);
 
@@ -170,24 +176,26 @@ function showpass_get_event_date($date, $zone){
 
 /* Converting time */
 
+function showpass_get_event_time($date, $zone, $format){
 
-function showpass_get_event_time($date, $zone){
-
-	$format_time = get_option('format_time');
+	if ($format) {
+		$format_time = $format;
+	} else if (!$format && $format_time != "") {
+		$format_time = get_option('format_date');
+	} else {
+		$format_time = "g:iA";
+	}
 
 	$datetime = new Datetime($date); // current time = server time
 	$otherTZ  = new DateTimeZone($zone);
 	$datetime->setTimezone($otherTZ);
 
-	if($format_time == "")
-	{
-		$format_time = "g:iA";
-	}
-
 	$new_date = $datetime->format($format_time);
 
 	return $new_date;
 }
+
+/* Get timezone abbr - eg. MST */
 
 function showpass_get_timezone_abbr($timezone)
 {
