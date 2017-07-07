@@ -12,7 +12,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 
 1. [Admin page](#1-admin-page)        
    1.1. [Configure parameters](#11-configure-parameters)    
-2. [Shortcode - [showpass_events]](#2-shortcode [showpass_events])       
+2. [Shortcode - [showpass_events]](#2-shortcode-[showpass_events])       
    2.1. [Adding shortcode and get data](#21-adding-shortcode-and-get-data)   
    2.2. [Type parameter](#22-type-parameter)   
    2.3. [Page size parameter](#23-page-size-parameter)   
@@ -26,7 +26,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
    4.2. [List events](#42-list-events)    
-5. [Shortcode - [showpass_calendar]](#5-shortcode [showpass_calendar])       
+5. [Shortcode - [showpass_calendar]](#5-shortcode-[showpass_calendar])       
 
 
 
