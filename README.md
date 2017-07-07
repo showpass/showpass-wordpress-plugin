@@ -12,7 +12,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 
 1. [Admin page](#1-admin-page)        
    1.1. [Configure parameters](#11-configure-parameters)    
-2. [Shortcode](#2-shortcode)       
+2. [Shortcode - [showpass_events]](#2-shortcode)       
    2.1. [Adding shortcode and get data](#21-adding-shortcode-and-get-data)   
    2.2. [Type parameter](#22-type-parameter)   
    2.3. [Page size parameter](#23-page-size-parameter)   
@@ -26,6 +26,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
    4.2. [List events](#42-list-events)    
+5. [Shortcode - [showpass_calendar]](#5-shortcode_calendar)       
 
 
 
@@ -42,7 +43,7 @@ ex. "l F d, Y" - it will be in this format "Friday 21 April, 2017".
 ex. "g:iA" - it will be in this format "9:00AM".
 More about date and time format <a href="http://php.net/manual/en/function.date.php">here</a>.
 
-## 2. Shortcode
+## 2. Shortcode [showpass_events]
 
 ## 2.1. Adding shortcode and get data
 
@@ -348,3 +349,13 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 			}
 	            ] /// events
 	        }
+
+## 5. Shortcode [showpass_calendar]
+
+You will need to add just this shortcode and you will get complete calendar with all the events from venue that is set in admin page above. If the venue(organisation ID) is not set, then you will get all events from API
+
+This shortcode gives you calendar view with all events binded in the dates of their start. You are able to go throuth the calendar and see the events that are one year after today.
+
+The events have the all infos that you need, and you can go on the event page through the calendar
+
+Enyoj!
