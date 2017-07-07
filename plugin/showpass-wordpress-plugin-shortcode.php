@@ -279,7 +279,7 @@ function getListTemplate($data)
 ///////////////////////////////////////////////////////////////////////
 
 
-function wpshp_calendar()
+function wpshp_calendar($atts)
 {
 	// registering style and script
 	wp_enqueue_style('showpass-calendar-style', plugins_url( '/css/style.css', __FILE__ ), array(), '1.0.0', 'all' );
@@ -288,6 +288,11 @@ function wpshp_calendar()
 
 	$organization_id = get_option('option_organization_id');
 
+
+	if(isset($atts["page"]))
+	{
+		$page = $atts["page"];
+	}
 
 	$current_month = date('M');
 	$current_month_prev = date('n') - 1;
@@ -303,7 +308,7 @@ function wpshp_calendar()
 	
 	$html = "<div class='showpass-calendar'>";
 
-
+	$html .= "<input type='hidden' id='page_type' value='" . $page . "' />";
 	$html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month' data-month='" .$current_month_prev . "'></div><p class='showpass-month'>" . $current_month ."</p> <p class='showpass-year'>" . $current_year ."</p><div class='showpass-next-month' data-month='" . $current_month_next . "'></div></div>";
 

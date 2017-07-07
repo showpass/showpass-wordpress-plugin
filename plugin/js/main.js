@@ -86,6 +86,9 @@ $(document).ready(function(){
 
 		var current_month = d.getMonth();
 		var venue = $('#venue_id').val();
+		var page_type = $('#page_type').val();
+
+		console.log(page_type);
 
 		$('.showpass-calendar-body').empty();
 
@@ -116,7 +119,15 @@ $(document).ready(function(){
 							var month_event = parseInt(date_day[1]);
 							var year_event = parseInt(date_day[0]);
 							var image_event = data.results[i].image_medium;
-							var url_event = data.results[i].frontend_details_url;
+							var event_slug = data.results[i].slug;
+
+							if(page_type !== "")
+							{
+								var url_event = page_type + "?slug=" + event_slug;	
+							}
+							else{
+								var url_event = data.results[i].frontend_details_url;	
+							}
 
 							if((month == month_event) && (j == day_event)){
 								html += '<div class="showpass-calendar-item"></div>';
@@ -157,7 +168,15 @@ $(document).ready(function(){
 					var year_event = parseInt(date_day[0]);
 					var event_name = data.results[i].name;
 					var image_event = data.results[i].image_medium;
-					var url_event = data.results[i].frontend_details_url;	
+					var event_slug = data.results[i].slug;
+
+					if(page_type !== "")
+					{
+						var url_event = page_type + "?slug=" + event_slug;	
+					}
+					else{
+						var url_event = data.results[i].frontend_details_url;	
+					}
 
 					if(month == month_event && year == year_event)
 					{
