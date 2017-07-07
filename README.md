@@ -352,7 +352,7 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So 
 
 ## 5. Shortcode [showpass_calendar]
 
-You will need to add just this shortcode *[showpass_calendar]* and you will get complete calendar with all the events from venue that is set in admin page above. If the venue(organisation ID) is not set, then you will get all events from API.
+You will need to add just this shortcode `[showpass_calendar]` and you will get complete calendar with all the events from venue that is set in admin page above. If the venue(organisation ID) is not set, then you will get all events from API.
 
 This shortcode gives you calendar view with all events binded in the dates of their start. You are able to go throuth the calendar and see the events that are one year after today.
 
@@ -362,8 +362,8 @@ The events have the all infos that you need, and you can go on the event page (e
 
 This plugin recieve `page` parameter. If this parameter is set, you tell the plugin to use custom links for event's redirect.
 
-Example: * `[showpass_calendar page="event-detail"]` * - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: `www.website.com/*event-detail*?slug=event-slug`
+Example:  `[showpass_calendar page="event-detail"]`  - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: `website.main.url/event-detail?slug=event-slug`
 
-The *`page`* parameter is *`event-detail`* in this case, and it will be whatevet page you want.
+The `page` parameter is `event-detail` in this case, and it will be whatevet page you want.
 
 Enyoj!
