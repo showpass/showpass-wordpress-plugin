@@ -360,9 +360,9 @@ The events have the all infos that you need, and you can go on the event page (e
 
 ## 5.1. Page parameter
 
-This plugin recieve `page` parameter. If this parameter is set, you tell the plugin to use custom links for event's redirect.
+This shortcode recieve `page` parameter. If this parameter is set, you tell the plugin to use custom links for event's redirect.
 
-Example:  `[showpass_calendar page="event-detail"]`  - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: `website.main.url/event-detail?slug=event-slug`
+Example:  `[showpass_calendar page="event-detail"]`  - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: website.main.url/`event-detail`?slug=event-slug
 
 The `page` parameter is `event-detail` in this case, and it will be whatevet page you want.
 
