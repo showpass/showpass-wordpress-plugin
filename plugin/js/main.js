@@ -3,20 +3,36 @@ $(document).ready(function(){
 	var months =  ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May' , 'Jun' , 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	var days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
+	var now = new Date();
+
+	var cur_month = now.getMonth();
+	var cur_year = now.getFullYear();
+
 
 
 
 	$('.showpass-prev-month').click(function(){
 		var month_number = parseInt($(this).attr('data-month'));
+
+
+
 		var year = parseInt($('.showpass-year').text());
 		if(month_number == 0)
 		{
 			month_number = 12;
-			var year = parseInt($(this).next().text()) - 1;
+			year = year - 1;
 		}
+
+		if(month_number == (cur_month+1))
+		{
+			$(this).hide();
+		}
+
 		$('.showpass-month').html(months[month_number]);
 		$(this).attr('data-month', month_number - 1);
 		$('.showpass-next-month').attr('data-month', month_number + 1);
+		$('.showpass-year').text(year);
+
 
 		renderCalendar(year, month_number);
 
@@ -26,9 +42,16 @@ $(document).ready(function(){
 	$('.showpass-next-month').click(function(){
 		var month_number = parseInt($(this).attr('data-month'));
 		var year = parseInt($('.showpass-year').text());
+		$('.showpass-prev-month').show();
 		if(month_number == 13)
 		{
 			month_number = 1;
+			$('.showpass-year').text(year + 1);
+			year++;
+		}
+		if(month_number == cur_month && year == (cur_year+1))
+		{
+			$(this).hide();
 		}
 		$('.showpass-month').html(months[month_number]);
 		$(this).attr('data-month', month_number + 1);
@@ -37,20 +60,20 @@ $(document).ready(function(){
 
 	});
 
-	$('.showpass-prev-year').click(function(){
-		var year = parseInt($(this).next().text()) - 1;
-		var month_number = parseInt(months.indexOf($('.showpass-month').text()));
-		$(this).next().text(year);
-		renderCalendar(year, month_number);
+	// $('.showpass-prev-year').click(function(){
+	// 	var year = parseInt($(this).next().text()) - 1;
+	// 	var month_number = parseInt(months.indexOf($('.showpass-month').text()));
+	// 	$(this).next().text(year);
+	// 	renderCalendar(year, month_number);
 
-	});
+	// });
 
-	$('.showpass-next-year').click(function(){
-		var year = parseInt($(this).prev().text()) + 1;
-		var month_number = parseInt(months.indexOf($('.showpass-month').text()));
-		$(this).prev().text(year);
-		renderCalendar(year, month_number);
-	});
+	// $('.showpass-next-year').click(function(){
+	// 	var year = parseInt($(this).prev().text()) + 1;
+	// 	var month_number = parseInt(months.indexOf($('.showpass-month').text()));
+	// 	$(this).prev().text(year);
+	// 	renderCalendar(year, month_number);
+	// });
 
 
 
@@ -62,6 +85,7 @@ $(document).ready(function(){
 		var d = new Date();
 
 		var current_month = d.getMonth();
+		var venue = $('#venue_id').val();
 
 		$('.showpass-calendar-body').empty();
 
@@ -69,15 +93,16 @@ $(document).ready(function(){
 		var firstDayString = firstDay.toString();
 		var first_day = firstDayString.substring(0,3).toLowerCase();
 		var first_day_of_the_month = days.indexOf(first_day);
-
 		var days_in_month = new Date(year, month, 0).getDate(); //excactly
 
 		var html = "";
 
+		var url = "https://www.myshowpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
+
 
 		$.ajax({
 			method: "GET",
-			url: "https://www.myshowpass.com/api/public/events/?venue=5&page_size=100",
+			url: url,
 			success: function(data){
 
 				if(first_day_of_the_month == 7)
@@ -163,8 +188,7 @@ $(document).ready(function(){
 	var month_now = date_now.getMonth();
 	var year_now = date_now.getFullYear();
 
-	console.log(year_now);
-	console.log(month_now);
+
 	renderCalendar(year_now, month_now + 1);
 
 });

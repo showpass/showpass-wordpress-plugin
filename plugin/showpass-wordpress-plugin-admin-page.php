@@ -67,6 +67,14 @@ ex.  <strong><code>&lt;?php echo showpass_get_events_next_prev($event->next_page
 where <strong><i>$event->next_page_number</i></strong> or <strong><i>$event->previous_page_number</i></strong> are parameters that are received from API. This function will make the url <strong>www.website.com/?page_number=page_number</strong> and there will be received the events from that page.<br/><br/>
 Click for more <a href="https://github.com/showpass/showpass-wordpress-plugin" target="_blank">Documentation</a>
 </div>
+
+
+<h2><strong>Shortcode - </strong> [showpass_calendar]</h2>
+<p>You will need to add just this shortcode and you will get complete calendar with all the events from venue that is set in admin page above. If the venue(organisation ID) is not set, then you will get all events from API </p>
+<p>This shortcode gives you calendar view with all events binded in the dates of their start. You are able to go throuth the calendar and see the events that are one year after today.</p>
+<p>The events have the all infos that you need, and you can go on the event page through the calendar</p>
+<p>Enyoj!</p>
+
 <?php }
 
 

@@ -101,14 +101,8 @@ function wpshp_get_data( $atts ) {
 			$final_api_url .= "&ends_on__lt=" . $ends_on__lte;
 		}
 
-		if(isset($atts['location']))
-		{
-			$location = $atts['location'];
-			$final_api_url .= "&location=" . $location;
-		}
-
 	}
-
+	
 	$data = CallAPI($final_api_url);
 
 	// if($type == "list"){
@@ -152,22 +146,22 @@ function CallAPI($url, $method = "GET", $data = false)
     return $result;
 }
 
+
 /* Converting date */
 
-function showpass_get_event_date($date, $zone, $format){
+function showpass_get_event_date($date, $zone){
 
-	if ($format) {
-		$format_date = $format;
-	} else if (!$format && $format_date != "") {
-		$format_date = get_option('format_date');
-	} else {
-		$format_date = "l F d, Y";
-	}
+	$format_date = get_option('format_date');
 
 	$datetime = new Datetime($date); // current time = server time
 	$otherTZ  = new DateTimeZone($zone);
 	$datetime->setTimezone($otherTZ);
 
+
+	if($format_date == "")
+	{
+		$format_date = "l F d, Y";
+	}
 
 	$new_date = $datetime->format($format_date);
 
@@ -176,26 +170,24 @@ function showpass_get_event_date($date, $zone, $format){
 
 /* Converting time */
 
-function showpass_get_event_time($date, $zone, $format){
 
-	if ($format) {
-		$format_time = $format;
-	} else if (!$format && $format_time != "") {
-		$format_time = get_option('format_date');
-	} else {
-		$format_time = "g:iA";
-	}
+function showpass_get_event_time($date, $zone){
+
+	$format_time = get_option('format_time');
 
 	$datetime = new Datetime($date); // current time = server time
 	$otherTZ  = new DateTimeZone($zone);
 	$datetime->setTimezone($otherTZ);
 
+	if($format_time == "")
+	{
+		$format_time = "g:iA";
+	}
+
 	$new_date = $datetime->format($format_time);
 
 	return $new_date;
 }
-
-/* Get timezone abbr - eg. MST */
 
 function showpass_get_timezone_abbr($timezone)
 {
@@ -294,6 +286,9 @@ function wpshp_calendar()
 
 	/////////////////////////////////////////////////////////
 
+	$organization_id = get_option('option_organization_id');
+
+
 	$current_month = date('M');
 	$current_month_prev = date('n') - 1;
 	$current_month_next = date('n') + 1;
@@ -309,8 +304,8 @@ function wpshp_calendar()
 	$html = "<div class='showpass-calendar'>";
 
 
-	$html .= "<div class='showpass-calendar-year'><div class='showpass-prev-year'></div><p class='showpass-year'>" . $current_year ."</p><div class='showpass-next-year'></div></div>";
-	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month' data-month='" .$current_month_prev . "'></div><p class='showpass-month'>" . $current_month ."</p><div class='showpass-next-month' data-month='" . $current_month_next . "'></div></div>";
+	$html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
+	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month' data-month='" .$current_month_prev . "'></div><p class='showpass-month'>" . $current_month ."</p> <p class='showpass-year'>" . $current_year ."</p><div class='showpass-next-month' data-month='" . $current_month_next . "'></div></div>";
 
 	for($i = 0; $i < sizeof($array_days); $i++)
 	{

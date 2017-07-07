@@ -1,5 +1,5 @@
 .showpass-calendar-year, .showpass-calendar-month{
-	width: 120px;
+	width: 170px;
 	margin:10px auto;
 	text-align: center;
 	font-size: 18px;
@@ -35,6 +35,7 @@
 	position: relative;
 	background-size: 100% 100% !important;
 }
+
 
 
 
@@ -77,10 +78,10 @@
     border-color: #777 transparent transparent transparent;
 }
 
-.link:hover .tooltiptext {
+/*.link:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-}
+}*/
 .showpass-calendar-item-single{
 	display: table-cell;
 	height: 100px;
@@ -119,6 +120,11 @@
 	float: left;
 	cursor: pointer;
 }
+
+.showpass-prev-month{
+  display: none;
+}
+
 
 .showpass-next-year, .showpass-next-month{
 	width: 30px;
