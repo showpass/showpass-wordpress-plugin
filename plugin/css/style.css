@@ -78,10 +78,10 @@
     border-color: #777 transparent transparent transparent;
 }
 
-/*.link:hover .tooltiptext {
+.link:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-}*/
+}
 .showpass-calendar-item-single{
 	display: table-cell;
 	height: 100px;
