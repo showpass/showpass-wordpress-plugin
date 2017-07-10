@@ -309,6 +309,7 @@ function wpshp_calendar($atts)
 	$html = "<div class='showpass-calendar'>";
 
 	$html .= "<input type='hidden' id='page_type' value='" . $page . "' />";
+	$html .= "<input type='hidden' id='site_url' value='" . get_home_url() . "' />";
 	$html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month' data-month='" .$current_month_prev . "'></div><p class='showpass-month'>" . $current_month ."</p> <p class='showpass-year'>" . $current_year ."</p><div class='showpass-next-month' data-month='" . $current_month_next . "'></div></div>";
 

@@ -60,22 +60,6 @@ $(document).ready(function(){
 
 	});
 
-	// $('.showpass-prev-year').click(function(){
-	// 	var year = parseInt($(this).next().text()) - 1;
-	// 	var month_number = parseInt(months.indexOf($('.showpass-month').text()));
-	// 	$(this).next().text(year);
-	// 	renderCalendar(year, month_number);
-
-	// });
-
-	// $('.showpass-next-year').click(function(){
-	// 	var year = parseInt($(this).prev().text()) + 1;
-	// 	var month_number = parseInt(months.indexOf($('.showpass-month').text()));
-	// 	$(this).prev().text(year);
-	// 	renderCalendar(year, month_number);
-	// });
-
-
 
 
 	function renderCalendar(year , month){
@@ -87,8 +71,8 @@ $(document).ready(function(){
 		var current_month = d.getMonth();
 		var venue = $('#venue_id').val();
 		var page_type = $('#page_type').val();
+		var site_url = $('#site_url').val();
 
-		console.log(page_type);
 
 		$('.showpass-calendar-body').empty();
 
@@ -123,7 +107,7 @@ $(document).ready(function(){
 
 							if(page_type !== "")
 							{
-								var url_event = page_type + "?slug=" + event_slug;	
+								var url_event = site_url + "/" + page_type + "?slug=" + event_slug;	
 							}
 							else{
 								var url_event = data.results[i].frontend_details_url;	
@@ -172,7 +156,7 @@ $(document).ready(function(){
 
 					if(page_type !== "")
 					{
-						var url_event = page_type + "?slug=" + event_slug;	
+						var url_event = site_url + "/" + page_type + "?slug=" + event_slug;	
 					}
 					else{
 						var url_event = data.results[i].frontend_details_url;	
