@@ -356,6 +356,8 @@ You will need to add just this shortcode `[showpass_calendar]` and you will get 
 
 This shortcode gives you calendar view with all events binded in the dates of their start. You are able to go throuth the calendar and see the events that are one year after today.
 
+Also , you can make calendar in Week view type, where you are able to see the events week by week.
+
 The events have the all infos that you need, and you can go on the event page (external link) through the calendar.
 
 ## 5.1. Page parameter
