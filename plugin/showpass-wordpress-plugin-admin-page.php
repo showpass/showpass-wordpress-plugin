@@ -72,6 +72,9 @@ Click for more <a href="https://github.com/showpass/showpass-wordpress-plugin" t
 <h2><strong>Shortcode - </strong> [showpass_calendar]</h2>
 <p>You will need to add just this shortcode and you will get complete calendar with all the events from venue that is set in admin page above. If the venue(organisation ID) is not set, then you will get all events from API </p>
 <p>This shortcode gives you calendar view with all events binded in the dates of their start. You are able to go throuth the calendar and see the events that are one year after today.</p>
+
+
+<p>Also , you can make calendar in Week view type, where you are able to see the events week by week.</p>
 <p>The events have the all infos that you need, and you can go on the event page(external link) through the calendar</p>
 <p>This shortcode recieve parameter <strong>page</strong>. If this parameter is set, you tell the plugin to use custom links for event's redirect.</p>
 <p><strong>Example: [showpass_calendar page="event-detail"]</strong> - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: <br/><strong>www.website.com/event-detail?slug=event-slug</strong></p>
