@@ -295,9 +295,13 @@ function wpshp_calendar($atts)
 	}
 
 	$current_month = date('M');
+	$current_month_number = date('n');
 	$current_month_prev = date('n') - 1;
 	$current_month_next = date('n') + 1;
 	$current_year = date('Y');
+	$current_day = date('j');
+	$prev_week = (int)$current_day - 7;
+	$next_week = (int)$current_day + 7;
 	$month = date('m');
 	$first = '01-' . $month . "-" . $current_year;
 	$first_of_the_month_day = date('N', strtotime($first));
@@ -307,11 +311,17 @@ function wpshp_calendar($atts)
 	$array_months = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 	
 	$html = "<div class='showpass-calendar'>";
+	$html .= "<div class='showpass-month-view showpass-view active'>Month View</div>";
+	$html .= "<div class='showpass-week-view showpass-view'>Week View</div>";
 
 	$html .= "<input type='hidden' id='page_type' value='" . $page . "' />";
+	$html .= "<input type='hidden' id='current_day' value='" . $current_day . "' />";
+	$html .= "<input type='hidden' id='current-month' value='" . $current_month_number . "' />";
 	$html .= "<input type='hidden' id='site_url' value='" . get_home_url() . "' />";
 	$html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month' data-month='" .$current_month_prev . "'></div><p class='showpass-month'>" . $current_month ."</p> <p class='showpass-year'>" . $current_year ."</p><div class='showpass-next-month' data-month='" . $current_month_next . "'></div></div>";
+
+	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week='" . $prev_week . "'></div><p class='showpass-week'>Week of " . $current_day ." of " . $current_month . "</p><div class='showpass-next-week' data-next-week='" . $next_week . "'></div> </div>";
 
 	for($i = 0; $i < sizeof($array_days); $i++)
 	{

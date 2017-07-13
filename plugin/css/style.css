@@ -1,4 +1,4 @@
-.showpass-calendar-year, .showpass-calendar-month{
+.showpass-calendar-year, .showpass-calendar-month, .showpass-calendar-week{
 	width: 170px;
 	margin:10px auto;
 	text-align: center;
@@ -6,8 +6,16 @@
 	font-weight: 600;
 }
 
+.showpass-calendar-week{
+  width: 200px;
+}
+
 .showpass-calendar-month{
 	font-size: 22px;
+}
+
+.showpass-calendar-week{
+  font-size: 13px;
 }
 
 .showpass-calendar-head{
@@ -20,7 +28,7 @@
 	float: left;
 	margin-right: 0.28%;
 }
-.showpass-calendar-month p, .showpass-calendar-year p{
+.showpass-calendar-month p, .showpass-calendar-year p, .showpass-calendar-week p{
 	display: inline-block;
 }
 .showpass-calendar-item{
@@ -36,6 +44,12 @@
 	background-size: 100% 100% !important;
 }
 
+.showpass-calendar-item.item-week-view
+{
+  min-height: 100px;
+  height: auto;
+}
+
 
 
 
@@ -48,14 +62,18 @@
     border-radius: 6px;
     /*padding: 5px 0;*/
     position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
+    z-index: 99999999;
+    bottom: 105%;
+    left: 0;
+    margin-left: -145px;
     opacity: 0;
     transition: opacity 1s;
     padding: 10px;
     border:2px solid #fff;
+}
+
+.single-item-week-view .link .tooltiptext{
+  margin-left: -85px !important;
 }
 
 .link .tooltiptext img{
@@ -92,6 +110,11 @@
   -o-background-size: cover !important;
   background-size: cover !important;
 }
+
+.showpass-calendar-item-single.single-item-week-view{
+  display: block;
+  margin-bottom: 10px;
+}
 /*.showpass-calendar-item-single:hover{
 	display: block;
 	position: absolute;
@@ -110,7 +133,7 @@
 	position: relative;
 }
 
-.showpass-prev-year, .showpass-prev-month{
+.showpass-prev-year, .showpass-prev-month, .showpass-prev-week{
 	width: 30px;
 	height: 30px;
 	background: url(../images/arrow_left.png) no-repeat;
@@ -126,7 +149,7 @@
 }
 
 
-.showpass-next-year, .showpass-next-month{
+.showpass-next-year, .showpass-next-month, .showpass-next-week{
 	width: 30px;
 	height: 30px;
 	background: url(../images/arrow_right.png) no-repeat;
@@ -224,4 +247,26 @@
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+
+.showpass-view{
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  margin-right: 15px;
+  padding-right: 10px;
+}
+
+.showpass-view:first-child{
+  border-right: 1px solid #ccc;
+}
+
+.showpass-view.active{
+  font-weight: 600;
+}
+
+
+.showpass-calendar-week{
+  display: none;
 }
