@@ -32,7 +32,7 @@ class Venue
 
 	}
 
-	public static function getVenueNumberOfPages($venue_id){
+	public static function testGetVenueStreetName($venue_id){
 
 		$url = 'https://www.myshowpass.com/api/public/events/?venue=';
 
@@ -49,7 +49,7 @@ class Venue
 
 		$venue = json_decode($data);
 
-		return $venue->num_pages;
+		return $venue->results[0]->venue->street_name;
 	}
 
 
