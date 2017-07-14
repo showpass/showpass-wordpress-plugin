@@ -10,6 +10,9 @@ $(document).ready(function(){
 
 	var today_first = parseInt($('#current_day').val());
 
+	var month_enable = $('#month_enable').val();
+	var week_enable = $('#week_enable').val();
+
 
 
 	var current_day = now.getDay();
@@ -381,12 +384,55 @@ $(document).ready(function(){
 
 	}  // ending render calendar
 
+
+
 	var date_now = new Date();
 	var month_now = date_now.getMonth();
 	var year_now = date_now.getFullYear();
 
 
-	renderCalendar(year_now, month_now + 1);
+	if(month_enable === 'disabled')	{
+		// $('.showpass-week-view').addClass('active');
+
+		$('.showpass-month-view').hide();
+
+
+		var date_now = new Date();
+			var month_now = date_now.getMonth();
+			var year_now = date_now.getFullYear();
+			// $('#current_day').val(today_first-current_day);
+			current_day = date_now.getDay();
+			$('.showpass-week').html('');
+
+		$('.showpass-calendar-week').show();
+		renderCalendarWeek(year_now, month_now + 1, today_first);
+
+			$('#current_day').val(today_first-current_day);
+			$('#current-month').val(month_now +1);
+
+
+		$('.showpass-week-view').addClass('active');
+
+			$('.showpass-month-view').removeClass('active');
+			$('.showpass-calendar-month').hide();
+			$('.showpass-calendar-week').show();
+			$('.showpass-prev-week').hide();
+
+	
+	}
+	else if(week_enable === 'disabled') {
+		$('.showpass-week-view').hide();
+		$('.showpass-month-view').css('border-right', '0px');
+		
+		renderCalendar(year_now, month_now + 1);
+
+	}
+	else{
+		renderCalendar(year_now, month_now + 1);
+	}
+
+
+
 
 
 	$('.showpass-month-view').click(function(){
