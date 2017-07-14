@@ -28,6 +28,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    4.2. [List events](#42-list-events)    
 5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)       
    5.1. [Page parameter](#51-page-parameter)
+   5.2. [Week/month parameter](#52-week-month-parameter)
 
 
 ## 1. Admin page
@@ -367,5 +368,15 @@ This shortcode recieve `page` parameter. If this parameter is set, you tell the 
 Example:  `[showpass_calendar page="event-detail"]`  - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: `website.main.url/event-detail?slug=event-slug`
 
 The `page` parameter is `event-detail` in this case, and it will be whatevet page you want.
+
+## 5.2. Week/Month Parameter
+
+This shortcode also recieve parameters `week` and `month` if you want disable some view...
+
+If you want disable week view you will need to put `[showpass_calendar week="disabled"]`
+
+If you want disable month view you will need to put `[showpass_calendar month="disabled"]`
+
+If there is none of this parameters, there will be both views.
 
 Enyoj!

@@ -71,11 +71,16 @@ Click for more <a href="https://github.com/showpass/showpass-wordpress-plugin" t
 
 <h2><strong>Shortcode - </strong> [showpass_calendar]</h2>
 <p>You will need to add just this shortcode and you will get complete calendar with all the events from venue that is set in admin page above. If the venue(organisation ID) is not set, then you will get all events from API </p>
-<p>This shortcode gives you calendar view with all events binded in the dates of their start. You are able to go throuth the calendar and see the events that are one year after today.</p>
+<p>This shortcode gives you calendar view (month view and week view) with all events binded in the dates of their start. You are able to go throuth the calendar and see the events that are one year after today.</p>
 <p>The events have the all infos that you need, and you can go on the event page(external link) through the calendar</p>
 <p>This shortcode recieve parameter <strong>page</strong>. If this parameter is set, you tell the plugin to use custom links for event's redirect.</p>
 <p><strong>Example: [showpass_calendar page="event-detail"]</strong> - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: <br/><strong>www.website.com/event-detail?slug=event-slug</strong></p>
 <p>The <strong>page</strong> parameter is <strong>event-detail</strong> in this case, and it will be whatevet page you want.</p>
+
+<p>This shortcode also recieve parameters <strong>week</strong> and <strong>month</strong> if you want disable some view...</p>
+<p>If you want disable week view you will need to put [showpass_calendar week="disabled"]</p>
+<p>If you want disable month view you will need to put [showpass_calendar month="disabled"]</p>
+<p>If there is none of this parameters, there will be both views</p>
 <p>Enyoj!</p>
 
 <?php }
