@@ -1,3 +1,24 @@
+(function (window, document, src) {
+  var config = window.__shwps;
+  if (typeof config === "undefined") {
+    config = function () {
+      config.c(arguments)
+    };
+    config.q = [];
+    config.c = function (args) {
+      config.q.push(args)
+    };
+    window.__shwps = config;
+
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = src;
+    var x = document.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s, x);
+  }
+})(window, document, 'https://beta.myshowpass.com/static/dist/sdk.js');
+
 $(document).ready(function(){
 
 	var months =  ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May' , 'Jun' , 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -26,11 +47,13 @@ $(document).ready(function(){
     	} else {
     		today -= 7;
     	}
+
     	renderCalendarWeek(year, month_number, today);
 
     	if( parseInt(month_number) == (cur_month + 1) && today < today_first) {
     		$(this).hide();
     	}
+        
 		$('.showpass-week').html('Week of ' + (today - current_day) +' of ' + months[month_number]);
     	$('#current_day').val(today);
 
@@ -121,7 +144,7 @@ $(document).ready(function(){
 
 		var venue = $('#venue_id').val();
 		if (venue) {
-			var url = "https://www.myshowpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
+			var url = "https://beta.myshowpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
 
 			$.ajax({
 				method: "GET",
@@ -153,7 +176,7 @@ $(document).ready(function(){
 						var month_event = parseInt(date_day[1]);
 						var year_event = parseInt(date_day[0]);
 						var event_name = data.results[i].name;
-						var image_event = data.results[i].image_medium;
+						var image_event = data.results[i].image_lg_square;
 						var event_slug = data.results[i].slug;
 
 						if(page_type !== "") {
@@ -212,7 +235,7 @@ $(document).ready(function(){
 
 		if (venue) {
 
-			var url = "https://www.myshowpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
+			var url = "https://beta.myshowpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
 
 			$.ajax({
 				method: "GET",
@@ -226,7 +249,7 @@ $(document).ready(function(){
 								var day_event = parseInt(date_day[2].substring(0,2));
 								var month_event = parseInt(date_day[1]);
 								var year_event = parseInt(date_day[0]);
-								var image_event = data.results[i].image_medium;
+								var image_event = data.results[i].image_lg_square;
 								var event_slug = data.results[i].slug;
 
 								if(page_type !== "") {
@@ -265,7 +288,7 @@ $(document).ready(function(){
 						var month_event = parseInt(date_day[1]);
 						var year_event = parseInt(date_day[0]);
 						var event_name = data.results[i].name;
-						var image_event = data.results[i].image_medium;
+						var image_event = data.results[i].image_lg_square;
 						var event_slug = data.results[i].slug;
 
 						if (page_type !== "") {
