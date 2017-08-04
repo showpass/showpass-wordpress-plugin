@@ -2,6 +2,11 @@
   position: relative;
 }
 
+.showpass-calendar-body {
+  min-height: 500px;
+  position: relative;
+}
+
 .showpass-calendar-year, .showpass-calendar-month, .showpass-calendar-week {
 	width: 170px;
 	margin:10px auto;
@@ -54,63 +59,43 @@
   height: auto;
 }
 
-.link .tooltiptext {
-    visibility: hidden;
+.calendar-tooltip {
+  font-size: 12px;
+}
+
+.calendar-tooltip i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.calendar-tooltip img.tooltip-thumb {
+    width: 25%;
+    float: left;
     box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    width: 300px;
-    background-color: rgba(0,0,0,0.85);
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    /*padding: 5px 0;*/
-    font-size: 14px;
-    position: absolute;
-    z-index: 99999999;
-    bottom: 105%;
-    left: -150px;
-    margin-left: 50%;
-    opacity: 0;
-    transition: opacity 1s;
-    padding: 10px;
+    padding-right: 10px;
 }
 
-.single-item-week-view .link .tooltiptext{
-  margin-left: -85px !important;
+.calendar-tooltip .info {
+  float: right;
+  width: 75%;
+  box-sizing: border-box;
 }
 
-.link .tooltiptext img{
-	width: 100%;
+.calendar-tooltip .event-name {
+  font-weight: 700;
+  line-height: 14px;
+  border-bottom: 1px solid #666;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
 }
 
-.link .tooltiptext h4{
-	color: #fff !important;
-	font-weight: 600;
-}
-
-.link .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #777 transparent transparent transparent;
-}
-
-.link:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
 .showpass-calendar-item-single {
 	display: table-cell;
 	transition: all 0.5s ease;
 	border-right: 1px solid transparent;
   background-position: center !important;
   background-size: cover !important;
-   border-collapse: collapse;
 }
 
 .showpass-calendar-item-single.single-item-week-view{
@@ -171,6 +156,19 @@
   background: #f4f4f4;
   padding: 5px;
   font-size: 12px;
+  z-index: 99;
+}
+
+.calendar-button {
+  margin-top: 10px;
+  display: inline-block;
+  color: #333;
+  background: white;
+  padding: 5px 10px;
+}
+
+.calendar-button:hover {
+  color: black;
 }
 
 
@@ -270,5 +268,9 @@
 }
 
 .showpass-calendar-week{
+  display: none;
+}
+
+.tooltip_templates {
   display: none;
 }

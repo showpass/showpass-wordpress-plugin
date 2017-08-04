@@ -207,7 +207,13 @@ function getListTemplate($data) {
 
 function wpshp_calendar($atts) {
 	// registering style and script
+  wp_enqueue_style('tooltipster-css', plugins_url( '/css/vendor/tooltipster.css', __FILE__ ), array(), '1.0.0', 'all' );
 	wp_enqueue_style('showpass-calendar-style', plugins_url( '/css/style.css', __FILE__ ), array(), '1.0.0', 'all' );
+  wp_enqueue_script('dateformat-timezone-showpass');
+  wp_enqueue_script('moment-timezone-showpass');
+  wp_enqueue_script('timezone-showpass');
+  wp_enqueue_script('tooltipster');
+  wp_enqueue_script('showpass-calendar-script');
 	$organization_id = get_option('option_organization_id');
 
 	if(isset($atts["page"])) {
@@ -250,13 +256,12 @@ function wpshp_calendar($atts) {
 	$html .= "<input type='hidden' id='week_enable' value='" . $week_enable . "' />";
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month' data-month='" .$current_month_prev . "'></div><p class='showpass-month'>" . $current_month ."</p> <p class='showpass-year'>" . $current_year ."</p><div class='showpass-next-month' data-month='" . $current_month_next . "'></div></div>";
 	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week='" . $prev_week . "'></div><p class='showpass-week'>Week of " . $current_day ." of " . $current_month . "</p><div class='showpass-next-week' data-next-week='" . $next_week . "'></div> </div>";
-
+  $html .= "<div class='showpass-calendar-head-container clearfix'>";
 	for($i = 0; $i < sizeof($array_days); $i++) {
 		$html .= "<div class='showpass-calendar-head'>" . $array_days[$i] ."</div>";
 	}
-
+  $html .= "</div>";
 	$html .= "<div class='showpass-calendar-body clearfix'>";
-
 	if($first_of_the_month_day == 7) {
 		for($i = (int)$first_of_the_month_day - 6 ; $i <= (int)$days; $i++) {
 			$html .= "<div class='showpass-calendar-item'>" . $i ."</div>";
@@ -271,8 +276,7 @@ function wpshp_calendar($atts) {
 		}
 	}
 
-	$html .= "</div></div>";
-	$html .= "<div class='loader_home'><div class='loader'>Loading...</div></div>";
+	$html .= "<div class='loader_home'><div class='loader'>Loading...</div></div></div></div>";
 	return $html;
 }
 
@@ -281,16 +285,13 @@ add_shortcode('showpass_calendar','wpshp_calendar');
 function showpass_scripts(){
   wp_dequeue_script('jquery');
   wp_register_script('jquery-showpass', 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',false, '3.2.1');
-  wp_register_script('showpass-calendar-script', plugins_url( '/js/main.js', __FILE__ ), array('jquery'), '1.0.0', true );
+  wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), '1.0.0', true );
+  wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true );
   wp_register_script('timezone-showpass', plugins_url( '/js/timezone.js', __FILE__ ), array(),false, '1.0.1');
   wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(),false, '1.0.2');
   wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(),false, '1.0.3');
+  wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(),false, '4.2.5');
   wp_enqueue_script('jquery-showpass');
-  wp_enqueue_script('dateformat-timezone-showpass');
-  wp_enqueue_script('showpass-calendar-script');
-  wp_enqueue_script('jquery');
-  wp_enqueue_script('moment-timezone-showpass');
-  wp_enqueue_script('timezone-showpass');
 }
 
 add_action( 'init', 'showpass_scripts' );
