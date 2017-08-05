@@ -261,7 +261,7 @@ function wpshp_calendar($atts) {
 		$html .= "<div class='showpass-calendar-head'>" . $array_days[$i] ."</div>";
 	}
   $html .= "</div>";
-	$html .= "<div class='showpass-calendar-body clearfix'>";
+	$html .= "<div class='calander-contain'><div class='showpass-calendar-body clearfix'>";
 	if($first_of_the_month_day == 7) {
 		for($i = (int)$first_of_the_month_day - 6 ; $i <= (int)$days; $i++) {
 			$html .= "<div class='showpass-calendar-item'>" . $i ."</div>";
@@ -276,7 +276,7 @@ function wpshp_calendar($atts) {
 		}
 	}
 
-	$html .= "<div class='loader_home'><div class='loader'>Loading...</div></div></div></div>";
+	$html .= "</div><div class='loader-home'><div class='loader'>Loading...</div></div></div></div>";
 	return $html;
 }
 

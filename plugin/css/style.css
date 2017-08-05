@@ -1,4 +1,4 @@
-.showpass-calendar {
+.showpass-calendar, .calander-contain {
   position: relative;
 }
 
@@ -39,6 +39,7 @@
   display: table;
   border: 1px solid white;
 }
+
 .showpass-calendar-month p, .showpass-calendar-year p, .showpass-calendar-week p {
 	display: inline-block;
 }
@@ -174,7 +175,11 @@
 
 /*loader*/
 
-.loader_home{
+.loader-home{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 	width: 100%;
   height: 100%;
   background: rgba(100,100,100,.8);

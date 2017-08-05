@@ -1,13 +1,12 @@
 $(document).ready(function(){
 
-    $('body').on('mouseover mouseenter', '.show-tooltip', function(){
-         $(this).tooltipster({
+    $('.calander-contain').bind("DOMSubtreeModified",function(){
+        $('.show-tooltip').tooltipster({
             animation: 'grow',
             interactive: true,
             minWidth: 300,
             maxWidth: 320
-         });
-         $(this).tooltipster('show');
+        });
     });
 
 	var months =  ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May' , 'Jun' , 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -117,7 +116,7 @@ $(document).ready(function(){
 
 
 	function renderCalendarWeek(year, month, today) {
-		$('.loader_home').show();
+		$('.loader-home').show();
 		var d = new Date();
 		var current_month = d.getMonth();
 		var page_type = $('#page_type').val();
@@ -211,7 +210,7 @@ $(document).ready(function(){
 
 					$('.item-week-view').css('height', height + "px");
 
-					$('.loader_home').hide();
+					$('.loader-home').hide();
 
 					current_day = 0;
 				}
@@ -222,7 +221,7 @@ $(document).ready(function(){
 
 	function renderCalendar(year , month) {
 
-		$('.loader_home').show();
+		$('.loader-home').show();
 		var d = new Date();
 		var current_month = d.getMonth();
 		var page_type = $('#page_type').val();
@@ -323,7 +322,7 @@ $(document).ready(function(){
 							$('#event_on_' + tmp).append(html_tmp);
 						}
 					}
-					$('.loader_home').hide();
+					$('.loader-home').hide();
 				}
 			});
 		}
