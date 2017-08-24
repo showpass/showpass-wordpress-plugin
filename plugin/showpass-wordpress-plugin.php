@@ -1,13 +1,13 @@
 <?php
     /*
      Plugin Name: Showpass Events API
-     Plugin URI: 
+     Plugin URI:
      Description: Get data from Showpass Events API
      Author: Showpass
      Version: 0.1
-     Author URI: 
-     */	
-	
+     Author URI:
+     */
+
 
 if( ! defined('ABSPATH') )
 {
@@ -31,14 +31,15 @@ function wpshp_admin_menu() {
 function register_wpshp_settings() {
 	/* register our settings */
 	register_setting( 'wpshp-settings-group', 'option_organization_id' );
+  register_setting( 'wpshp-settings-group', 'option_widget_color' );
 	register_setting( 'wpshp-settings-group', 'format_date' );
 	register_setting( 'wpshp-settings-group', 'format_time' );
 }
-	
+
 
 /******************************
 *  includes
 *******************************/
- 
+
  @include('showpass-wordpress-plugin-admin-page.php');
  @include('showpass-wordpress-plugin-shortcode.php');

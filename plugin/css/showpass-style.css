@@ -1,0 +1,16 @@
+.showpass-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #dd3333;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+.showpass-button:hover {
+  background: #921818;
+}

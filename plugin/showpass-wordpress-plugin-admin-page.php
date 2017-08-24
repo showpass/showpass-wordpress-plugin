@@ -17,6 +17,9 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
         <label for="main_api_url">Organization ID (required):</label><br/>
         <input type="text" placeholder="Venue ID Ex. 5" name="option_organization_id" value="<?php echo esc_attr( get_option('option_organization_id') ); ?>" /><br/><br/>
 
+        <label for="main_api_url">Widget Color (Hex Code):</label><br/>
+        <input type="text" placeholder="DD3333" name="option_widget_color" value="<?php echo esc_attr( get_option('option_widget_color') ); ?>" /><br/><br/>
+
         <label for="main_api_url">Enter Date Format: (if empty "l F d, Y" - ex. Friday 21 April, 2017)</label><br/>
         <input type="text" placeholder="l F d, Y" name="format_date" value="<?php echo esc_attr( get_option('format_date') ); ?>" /><br/><br/>
 

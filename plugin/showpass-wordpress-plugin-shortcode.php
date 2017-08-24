@@ -208,7 +208,7 @@ function getListTemplate($data) {
 function wpshp_calendar($atts) {
 	// registering style and script
   wp_enqueue_style('tooltipster-css', plugins_url( '/css/vendor/tooltipster.css', __FILE__ ), array(), '1.0.0', 'all' );
-	wp_enqueue_style('showpass-calendar-style', plugins_url( '/css/style.css', __FILE__ ), array(), '1.0.0', 'all' );
+	wp_enqueue_style('showpass-calendar-style', plugins_url( '/css/showpass-calendar-style.css', __FILE__ ), array(), '1.0.0', 'all' );
   wp_enqueue_script('dateformat-timezone-showpass');
   wp_enqueue_script('moment-timezone-showpass');
   wp_enqueue_script('timezone-showpass');
@@ -282,6 +282,59 @@ function wpshp_calendar($atts) {
 
 add_shortcode('showpass_calendar','wpshp_calendar');
 
+//[showpass_widget label="Patrons Circle Tickets" slug="wff-patrons-circle"]
+function showpass_widget_expand($atts, $content = null) {
+  if (get_option('option_widget_color')) {
+    $widget_color = get_option('option_widget_color');
+  } else {
+    $widget_color = 'DD3333';
+  }
+
+	if ($atts['slug']) {
+
+		$slug = $atts['slug'];
+
+		if ($atts['label']) {
+			$label = $atts['label'];
+		} else {
+			$label = 'Tickets';
+		}
+
+    if (isset($atts['class'])) {
+			$class = $atts['class'];
+		} else {
+			$class = 'showpass-button';
+		}
+
+    if (isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') {
+			$keep_shopping = 'true';
+		} else {
+			$keep_shopping = 'false';
+		}
+
+    if (isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'false') {
+			$keep_shopping = 'false';
+		} else {
+			$keep_shopping = 'true';
+		}
+
+    if (isset($atts['theme']) && $atts['theme'] === 'dark') {
+			$theme_dark = 'true';
+		} else {
+			$theme_dark = 'false';
+		}
+
+		//update to template as needed
+		$button = '<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+		$button .= '<span class="avia_iconbox_title">'.$label.'</span></span></div>';
+		return $button;
+
+	} else {
+		return 'No slug provided for Showpass widget';
+	}
+}
+add_shortcode('showpass_widget', 'showpass_widget_expand');
+
 function showpass_scripts(){
   wp_dequeue_script('jquery');
   wp_register_script('jquery-showpass', 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',false, '3.2.1');
@@ -291,6 +344,8 @@ function showpass_scripts(){
   wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(),false, '1.0.2');
   wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(),false, '1.0.3');
   wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(),false, '4.2.5');
+  wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), '1.0.0', 'all' );
+  wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), '1.0.0', true );
   wp_enqueue_script('jquery-showpass');
 }
 
