@@ -1,3 +1,5 @@
+(function($) {
+
 $(document).ready(function(){
 
     $('.calander-contain').bind("DOMSubtreeModified",function(){
@@ -403,3 +405,5 @@ $(document).ready(function(){
 	});
 
 });
+
+})(jQuery);
