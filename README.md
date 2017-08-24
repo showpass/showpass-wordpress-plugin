@@ -29,6 +29,8 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)       
    5.1. [Page parameter](#51-page-parameter)                                       
    5.2. [Week and month parameters](#52-week-and-month-parameters)
+6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
+  6.1. [Parameters](#51-widget-parameter)     
 
 
 ## 1. Admin page
@@ -379,4 +381,29 @@ If you want disable month view you will need to put `[showpass_calendar month="d
 
 If there is none of this parameters, there will be both views.
 
-Enyoj!
+Enjoy!
+
+## 5. Shortcode [showpass_widget]
+
+Use the showpass_widget shortcode to embed a button with the ticket widget on any page or post.
+
+`[showpass_widget label="Button Label" slug="this-is-the-slug" class="button" keep_shopping="false" theme="dark"]`
+
+### 5.1. Parameters
+
+#### `label="Button Label"`
+Customize the verbiage on the button.
+`Default: Tickets`
+
+#### `slug="this-is-the-slug"`
+Required, the slug that appears after `http://myshowpass.com/this-is-the-slug`
+
+#### `class="button"`
+Use a custom class to style your button - default Showpass button provided by default
+
+#### `keep_shopping="false"`
+Button to close widget says `Keep Shopping` if true, and `Close` if set to false.
+`Default: true`
+
+#### `theme="dark"`
+Use the dark theme on the widget, default is the light theme.
