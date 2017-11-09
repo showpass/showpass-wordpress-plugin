@@ -417,7 +417,7 @@ Once you create a tracking link, you need to add a query parameter to the URL of
 To learn how to create an affiliate tracking link - http://support.myshowpass.com/event-organizers/tracking-links/affiliate-tracking-links
 
 ### Add the tracking ID to your incoming url
-Once you create your tracking link you will have a unique token (ie 8ee54af5) for that specific tracking link
+Once you create your tracking link you will have a unique token `(ie 8ee54af5)` for that specific tracking link
 
 #### Add the `aff` query parameter to a regular link
 
