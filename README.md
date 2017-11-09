@@ -407,3 +407,22 @@ Button to close widget says `Keep Shopping` if true, and `Close` if set to false
 
 #### `theme="dark"`
 Use the dark theme on the widget, default is the light theme.
+
+## 5. Widget Tracking using Affiliate Tracking Links
+
+### How it Works
+Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` paremeter to the showpass widget SDK.
+
+### Create an Affiliate Tracking link
+To learn how to create an affiliate tracking link - http://support.myshowpass.com/event-organizers/tracking-links/affiliate-tracking-links
+
+### Add the tracking ID to your incoming url
+Once you create your tracking link you will have a unique token (ie 8ee54af5) for that specific tracking link
+
+#### Add the `aff` query parameter to a regular link
+
+`www.website.com/page/?aff=8ee54af5`
+
+#### Add the `aff` query parameter to a specific event-organizers
+
+`www.website.com/?event=event_slug&aff=8ee54af5`
