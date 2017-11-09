@@ -411,7 +411,7 @@ Use the dark theme on the widget, default is the light theme.
 ## 5. Widget Tracking using Affiliate Tracking Links
 
 ### How it Works
-Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` paremeter to the showpass widget SDK.
+Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` paremeter to the showpass widget SDK. The `[showpass_widget]` shortcode is automatically set up to look for tracking tokens.
 
 ### Create an Affiliate Tracking link
 To learn how to create an affiliate tracking link - http://support.myshowpass.com/event-organizers/tracking-links/affiliate-tracking-links
