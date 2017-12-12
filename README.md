@@ -396,7 +396,7 @@ Customize the verbiage on the button.
 `Default: Tickets`
 
 #### `slug="this-is-the-slug"`
-Required, the slug that appears after `http://myshowpass.com/this-is-the-slug`
+Required, the slug that appears after `http://www.myshowpass.com/this-is-the-slug`
 
 #### `class="button"`
 Use a custom class to style your button - default Showpass button provided by default
@@ -414,7 +414,7 @@ Use the dark theme on the widget, default is the light theme.
 Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` paremeter to the showpass widget SDK. The `[showpass_widget]` shortcode is automatically set up to look for tracking tokens.
 
 ### Create an Affiliate Tracking link
-To learn how to create an affiliate tracking link - http://support.myshowpass.com/event-organizers/tracking-links/affiliate-tracking-links
+To learn how to create an affiliate tracking link - http://support.showpass.com/event-organizers/tracking-links/affiliate-tracking-links
 
 ### Add the tracking ID to your incoming url
 Once you create your tracking link you will have a unique token `(ie 8ee54af5)` for that specific tracking link

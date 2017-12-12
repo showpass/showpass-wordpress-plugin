@@ -13,7 +13,7 @@ class Event
 	
 	public static function getEventName($event_id){
 
-		$url = 'https://www.myshowpass.com/api/public/events/';
+		$url = 'https://www.showpass.com/api/public/events/';
 
 		$curl = curl_init();
 
@@ -34,7 +34,7 @@ class Event
 
 	public static function getEventSlug($event_id){
 
-		$url = 'https://www.myshowpass.com/api/public/events/';
+		$url = 'https://www.showpass.com/api/public/events/';
 
 		$curl = curl_init();
 

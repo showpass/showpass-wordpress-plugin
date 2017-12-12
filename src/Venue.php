@@ -13,7 +13,7 @@ class Venue
 	
 	public static function getVenueName($venue_id){
 
-		$url = 'https://www.myshowpass.com/api/public/events/?venue=';
+		$url = 'https://www.showpass.com/api/public/events/?venue=';
 
 		$curl = curl_init();
 
@@ -34,7 +34,7 @@ class Venue
 
 	public static function testGetVenueStreetName($venue_id){
 
-		$url = 'https://www.myshowpass.com/api/public/events/?venue=';
+		$url = 'https://www.showpass.com/api/public/events/?venue=';
 
 		$curl = curl_init();
 

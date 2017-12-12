@@ -134,7 +134,7 @@ $(document).ready(function(){
 
 		var venue = $('#venue_id').val();
 		if (venue) {
-			var url = "https://www.myshowpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
+			var url = "https://www.showpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
 
 			$.ajax({
 				method: "GET",
@@ -240,7 +240,7 @@ $(document).ready(function(){
 
 		if (venue) {
 
-			var url = "https://www.myshowpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
+			var url = "https://www.showpass.com/api/public/events/?venue=" + venue + "&page_size=1000";
 
 			$.ajax({
 				method: "GET",
