@@ -5,8 +5,10 @@
 This plugin is made for easier access to Showpass Events API data. It allows to you easily GET data from API in JSON format and manipulate with that in HTML website structure.
 
 ## Installation
-1. Upload the `showpass-wordpress-plugin` folder to the `/wp-content/plugins/` directory or install directly through the plugin installer.
-2. Activate the plugin through the 'Plugins' menu in WordPress or by using the link provided by the plugin installer.
+1. Download this repo to your desktop
+2. Unzip `showpass-wordpress-plugin.zip` and upload the `showpass-wordpress-plugin` folder to the `/wp-content/plugins/` directory or install the .zip directly through the plugin installer.
+3. Activate the plugin through the 'Plugins' menu in WordPress or by using the link provided by the plugin installer.
+4. Add your organization id found at `https://www.showpass.com/dashboard/venues/edit/` to the Showpass API admin page
 
 ## Documentation
 
@@ -371,9 +373,9 @@ Example:  `[showpass_calendar page="event-detail"]`  - This will tell the plugin
 
 The `page` parameter is `event-detail` in this case, and it will be whatevet page you want.
 
-## 5.2. Week and Month Parameters
+## 5.2. Week and Month Parameters - Currently Disabled
 
-This shortcode also recieve parameters `week` and `month` if you want disable some view...
+This shortcode also receive parameters `week` and `month` if you want disable some view...
 
 If you want disable week view you will need to put `[showpass_calendar week="disabled"]`
 
@@ -382,6 +384,9 @@ If you want disable month view you will need to put `[showpass_calendar month="d
 If there is none of this parameters, there will be both views.
 
 Enjoy!
+
+## 5.2. theme_dark Paramerter
+Add `theme_dark="true"` to use a dark theme for the calendar.
 
 ## 5. Shortcode [showpass_widget]
 
