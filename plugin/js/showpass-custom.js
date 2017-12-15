@@ -18,7 +18,6 @@
           return assoc;
         }
         var qs = getQueryStrings();
-
         // SET AFFILIATE COOKIE
         if (!$.isEmptyObject(qs) && qs.aff) {
           Cookies.set('affiliate', qs.aff, { expires: 7 });
@@ -29,6 +28,7 @@
     $(document).ready(function() {
         $('.open-ticket-widget').on('click', function () {
             var slug = $(this).attr('id');
+
             var params = {
                 'theme-primary': $(this).attr('data-color'),
                 'keep-shopping': $(this).attr('data-shopping'),

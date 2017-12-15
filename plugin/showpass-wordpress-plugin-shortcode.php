@@ -37,7 +37,7 @@ function wpshp_get_data( $atts ) {
 			echo "ERROR - Need parameter in URL (id or slug)";
 		}
 	} else if ($type == "list") {
-		$final_api_url = API_PUBLIC_EVENTS . '/?venue=' . $organization_id;
+		$final_api_url = API_PUBLIC_EVENTS . '/?venue__in=' . $organization_id;
 		$parameters = $_GET;
 		foreach ($parameters as $parameter => $value) {
 			# code...
@@ -226,7 +226,15 @@ function wpshp_calendar($atts) {
 
 	if(isset($atts["week"])) {
 		$week_enable = $atts["week"];
-	}
+	} else {
+    $week_enable = "disabled";
+  }
+
+  if (isset($atts["theme_dark"])) {
+    $theme = 'dark';
+  } else {
+    $theme = '';
+  }
 
 	$current_month = date('M');
 	$current_month_number = date('n');
@@ -244,24 +252,32 @@ function wpshp_calendar($atts) {
 	$array_days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 	$array_months = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
-	$html = "<div class='showpass-calendar'>";
-	$html .= "<div class='showpass-month-view showpass-view active'>Month View</div>";
-	$html .= "<div class='showpass-week-view showpass-view'>Week View</div>";
-	$html .= "<input type='hidden' id='page_type' value='" . $page . "' />";
+	$html = "<div class='showpass-calendar " .  $theme . "'>";
+	//$html .= "<div class='showpass-month-view showpass-view active'>Month View</div>";
+	//$html .= "<div class='showpass-week-view showpass-view'>Week View</div>";
+  if (isset($page)) {
+    $html .= "<input type='hidden' id='page_type' value='" . $page . "' />";
+  } else {
+    $html .= "<input type='hidden' id='page_type' value='' />";
+  }
 	$html .= "<input type='hidden' id='current_day' value='" . $current_day . "' />";
 	$html .= "<input type='hidden' id='current-month' value='" . $current_month_number . "' />";
 	$html .= "<input type='hidden' id='site_url' value='" . get_home_url() . "' />";
 	$html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
-	$html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
-	$html .= "<input type='hidden' id='week_enable' value='" . $week_enable . "' />";
+  if (isset($month_enable)) {
+    $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
+  }
+  if (isset($week_enable)) {
+    $html .= "<input type='hidden' id='week_enable' value='" . $week_enable . "' />";
+  }
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month' data-month='" .$current_month_prev . "'></div><p class='showpass-month'>" . $current_month ."</p> <p class='showpass-year'>" . $current_year ."</p><div class='showpass-next-month' data-month='" . $current_month_next . "'></div></div>";
 	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week='" . $prev_week . "'></div><p class='showpass-week'>Week of " . $current_day ." of " . $current_month . "</p><div class='showpass-next-week' data-next-week='" . $next_week . "'></div> </div>";
-  $html .= "<div class='showpass-calendar-head-container clearfix'>";
+  $html .= "<div class='calendar-contain-desktop'><div class='showpass-calendar-head-container clearfix'>";
 	for($i = 0; $i < sizeof($array_days); $i++) {
 		$html .= "<div class='showpass-calendar-head'>" . $array_days[$i] ."</div>";
 	}
   $html .= "</div>";
-	$html .= "<div class='calander-contain'><div class='showpass-calendar-body clearfix'>";
+	$html .= "<div class='calendar-contain'><div class='showpass-calendar-body clearfix'>";
 	if($first_of_the_month_day == 7) {
 		for($i = (int)$first_of_the_month_day - 6 ; $i <= (int)$days; $i++) {
 			$html .= "<div class='showpass-calendar-item'>" . $i ."</div>";
@@ -276,7 +292,8 @@ function wpshp_calendar($atts) {
 		}
 	}
 
-	$html .= "</div><div class='loader-home'><div class='loader'>Loading...</div></div></div></div>";
+  $html .= "</div><div class='loader-home'><div class='loader'>Loading...</div></div></div></div>";
+  $html .= "<div class='calendar-contain-mobile'><div class='showpass-calendar-mobile'></div><div class='loader-home'><div class='loader'>Loading...</div></div></div></div>";
 	return $html;
 }
 
@@ -341,9 +358,8 @@ function showpass_widget_expand($atts, $content = null) {
 add_shortcode('showpass_widget', 'showpass_widget_expand');
 
 function showpass_scripts(){
+  wp_dequeue_script('jquery');
   if (!is_admin()) {
-    wp_dequeue_script('jquery');
-    wp_register_script('jquery-showpass', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',false, '3.2.1');
     wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), '1.0.0', true );
     wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true );
     wp_register_script('timezone-showpass', plugins_url( '/js/timezone.js', __FILE__ ), array(),false, '1.0.1');

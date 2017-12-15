@@ -6,7 +6,7 @@
 */
 class VenueTest extends PHPUnit\Framework\TestCase
 {
-	
+
 	public function testGetVenueName(){
 
 		$this->assertEquals('Cowboys Dance Hall', \Showpass\Venue::getVenueName('5'));
