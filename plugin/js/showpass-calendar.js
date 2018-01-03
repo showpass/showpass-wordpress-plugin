@@ -290,6 +290,7 @@
 
     					$('.showpass-calendar-body').html(html);
 
+                        var eventCounter = 0;
     					for (var i = 0; i < data.results.length; i++) {
 
     						var timezone = data.results[i].timezone;
@@ -340,8 +341,11 @@
                                 "<div class='buttons'><a target='" + target + "' class='btn' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div></div>";
 
                                 $(".showpass-calendar-mobile").append(html_mobile);
-    						} else {
-                                $(".showpass-calendar-mobile").html('<div class="not-found">No Events Found!</div>')
+                                eventCounter++;
+                            }
+
+                            if ( i+1 == data.results.length && eventCounter == 0) {
+                            $(".showpass-calendar-mobile").html('<div class="not-found">No Events Found!</div>')
                             }
 
     					}
