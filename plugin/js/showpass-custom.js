@@ -22,10 +22,22 @@
         if (!$.isEmptyObject(qs) && qs.aff) {
           Cookies.set('affiliate', qs.aff, { expires: 7 });
         }
+        
+        // SET AUTO OPEN COOKIE
+        if (!$.isEmptyObject(qs) && qs.auto) {
+          Cookies.set('auto', qs.auto, { expires: 7 });
+        }
 
     });
 
     $(document).ready(function() {
+        
+         if (Cookies.get('auto')) {
+                slug = Cookies.get('auto');
+                Cookies.remove('auto');
+                showpass.tickets.eventPurchaseWidget(slug);
+            }
+        
         $('.open-ticket-widget').on('click', function () {
             var slug = $(this).attr('id');
 
