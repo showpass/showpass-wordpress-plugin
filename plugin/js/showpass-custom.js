@@ -33,7 +33,7 @@
     $(document).ready(function() {
 
         if (Cookies.get('auto')) {
-              var slug = '/' + Cookies.get('auto');
+              var slug = Cookies.get('auto');
               setTimeout(function(){ Cookies.remove('auto');
                                     showpass.tickets.eventPurchaseWidget(slug);}, 500);
           }
