@@ -31,20 +31,24 @@
     });
 
     $(document).ready(function() {
-
-        if (Cookies.get('auto')) {
-              var slug = Cookies.get('auto');
-              setTimeout(function(){ Cookies.remove('auto');
-                                    showpass.tickets.eventPurchaseWidget(slug);}, 500);
-          }
+         if (Cookies.get('auto')) {
+                var slug = Cookies.get('auto');
+                var params = {
+                    'theme-primary': $('#option_widget_color').val() || '',
+                    'keep-shopping': $('#option_keep_shopping').val() || 'true',
+                    'theme-dark': $('#option_theme_dark').val() || ''
+                };
+                setTimeout(function(){ Cookies.remove('auto');
+                                      showpass.tickets.eventPurchaseWidget(slug, params);
+                                    }, 500);
+            }
 
         $('.open-ticket-widget').on('click', function () {
             var slug = $(this).attr('id');
-
             var params = {
-                'theme-primary': $(this).attr('data-color'),
-                'keep-shopping': $(this).attr('data-shopping'),
-                'theme-dark': $(this).attr('data-theme')
+                'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+                'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val(),
+                'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val()
             };
 
             if (Cookies.get('affiliate')) {

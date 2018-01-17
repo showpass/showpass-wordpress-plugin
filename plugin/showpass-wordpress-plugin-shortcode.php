@@ -328,19 +328,19 @@ function showpass_widget_expand($atts, $content = null) {
 			$class = 'showpass-button';
 		}
 
-    if (isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') {
+    if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') || (get_option('option_keep_shopping') === 'false')) {
 			$keep_shopping = 'true';
 		} else {
 			$keep_shopping = 'false';
 		}
 
-    if (isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'false') {
+    if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'false') || (get_option('option_keep_shopping') != 'false')) {
 			$keep_shopping = 'false';
 		} else {
 			$keep_shopping = 'true';
 		}
 
-    if (isset($atts['theme']) && $atts['theme'] === 'dark') {
+		if( (get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')){
 			$theme_dark = 'true';
 		} else {
 			$theme_dark = 'false';
@@ -374,3 +374,10 @@ function showpass_scripts(){
 }
 
 add_action( 'init', 'showpass_scripts' );
+
+function your_function() {
+    echo '<input type="hidden" id="option_keep_shopping" value="'.get_option('option_keep_shopping').'">';
+    echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
+    echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
+}
+add_action( 'wp_footer', 'your_function', 100 );

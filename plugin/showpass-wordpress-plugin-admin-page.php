@@ -24,7 +24,13 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
         <input type="text" placeholder="l F d, Y" name="format_date" value="<?php echo esc_attr( get_option('format_date') ); ?>" /><br/><br/>
 
         <label for="main_api_url">Enter Time Format: (if empty "g:iA" - ex. 9:00AM)</label><br/>
-        <input type="text" placeholder="g:iA" name="format_time" value="<?php echo esc_attr( get_option('format_time') ); ?>" />
+        <input type="text" placeholder="g:iA" name="format_time" value="<?php echo esc_attr( get_option('format_time') ); ?>" /><br/><br/>
+
+        <input type="checkbox" name="option_theme_dark" value="true" <?php checked('true', get_option('option_theme_dark'), true); ?>/>
+        <label for="main_api_url">Enable Dark Theme</label><br/><br/>
+
+        <input type="checkbox" name="option_keep_shopping" value="false" <?php checked('false', get_option('option_keep_shopping'), true); ?>/>
+        <label for="main_api_url">Disable "Keep Shopping" on dialog.</label><br/><br/>
 
     <?php submit_button(); ?>
 
