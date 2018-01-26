@@ -1,0 +1,243 @@
+.list-ticket-button {
+  background-color: #dd3333;
+  color: #f4f4f4;
+}
+
+.flex-table.flex-table-striped .flex-row:nth-child(odd), .flex-box.flex-table-striped .flex-row:nth-child(odd) {
+    background: #f4f4f4;
+}
+
+.flex-table.flex-table-striped .flex-row:nth-child(even), .flex-box.flex-table-striped .flex-row:nth-child(even) {
+    background: white;
+}
+
+.flex-table.no-right-border .flex-column, .flex-box.no-right-border .flex-column {
+    border-right: 0 !important;
+}
+
+.flex-table .flex-sub-layer, .flex-box .flex-sub-layer {
+    background: #f4f4f4;
+}
+
+@media screen and (max-width: 960px) {
+.flex-table .flex-row, .flex-box .flex-row {
+    margin-bottom: 20px;
+  }
+.flex-table .layout-flex .flex-header, .flex-box .layout-flex .flex-header {
+    display: none !important;
+  }
+
+  .secondary {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+  }
+}
+
+
+@media screen and (max-width: 600px){
+  .flex-table .layout-flex .w50, .flex-box .layout-flex .w50 {
+      width: 100% !important;
+  }
+  .flex-table .layout-flex .w75, .flex-box .layout-flex .w75 {
+      width: 100% !important;
+  }
+  .flex-table .layout-flex .w100, .flex-box .layout-flex .w100 {
+      width: 100% !important;
+  }
+  .flex-table .layout-flex .w150, .flex-box .layout-flex .w150 {
+      width: 100% !important;
+  }
+  .flex-table .layout-flex .w200, .flex-box .layout-flex .w200 {
+      width: 100% !important;
+  }
+  .flex-table .layout-flex .w250, .flex-box .layout-flex .w250 {
+      width: 100% !important;
+  }
+  .flex-table .layout-flex .w300, .flex-box .layout-flex .w300 {
+      width: 100% !important;
+  }
+
+  .flex-table .layout-flex .flex-10, .flex-box .layout-flex .flex-10 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-20, .flex-box .layout-flex .flex-20 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-25, .flex-box .layout-flex .flex-25 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-30, .flex-box .layout-flex .flex-30 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-33, .flex-box .layout-flex .flex-33 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-40, .flex-box .layout-flex .flex-40 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-50, .flex-box .layout-flex .flex-50 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-60, .flex-box .layout-flex .flex-60 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-66, .flex-box .layout-flex .flex-66 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-70, .flex-box .layout-flex .flex-70 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-75, .flex-box .layout-flex .flex-75 {
+      flex: 1 1 100% !important;
+  }
+  .flex-table .layout-flex .flex-100, .flex-box .layout-flex .flex-100 {
+      flex: 1 1 100% !important;
+  }
+
+  .flex-table .layout-flex .text-left, .flex-box .layout-flex .text-left {
+    justify-content: center !important;
+    text-align: left !important;
+  }
+  .flex-table .layout-flex .text-right, .flex-box .layout-flex .text-right {
+    justify-content: center !important;
+    text-align: left !important;
+  }
+  .flex-table .layout-flex .text-center, .flex-box .layout-flex .text-center {
+    justify-content: center !important;
+    text-align: left !important;
+  }
+
+  .flex-table .layout-flex .no-border, .flex-box .layout-flex {
+    line-height: 1.5 !important;
+  }
+}
+
+.flex-table .layout-fill, .flex-box .layout-fill {
+    height: 100%;
+}
+
+.flex-table .layout-flex, .flex-box .layout-flex {
+    width: 100%;
+    height: auto;
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    align-content: flex-start;
+}
+
+
+.flex-table .layout-flex .flex-column, .flex-box .layout-flex .flex-column {
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 0 !important;
+    flex-wrap: nowrap !important;
+    align-content: flex-start;
+    border-bottom: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    padding: 10px;
+}
+.flex-table .layout-flex .flex-column .sub-flex, .flex-box .layout-flex.flex-column .sub-flex {
+  -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -ms-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+
+    opacity: 1;
+    max-height: 999px;
+    max-width: 999px;
+}
+.flex-table .layout-flex .flex-column .sub-flex .ng-hide , .flex-box .layout-flex .flex-column.sub-flex .ng-hide {
+    opacity: 0;
+    max-height: 0;
+    max-width: 0;
+}
+
+.flex-table .layout-flex .flex-column .sub-flex-no-animate, .flex-table .layout-flex .flex-column .sub-flex, .flex-box .layout-flex .flex-column .sub-flex-no-animate, .flex-box .layout-flex .flex-column .sub-flex {
+    background: #ddd;
+    overflow-y: scroll;
+}
+
+.flex-table .layout-flex .no-border, .flex-box .layout-flex .no-border {
+    border: 0 !important;
+    line-height: 1.15 !important;
+}
+
+.flex-table .layout-flex .flex-column.text-left, .flex-box .layout-flex .flex-column .text-left {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.flex-table .layout-flex .flex-column .text-center, .flex-box .layout-flex .flex-column .text-center {
+    justify-content: center;
+    text-align: center;
+}
+
+.flex-table .layout-flex .flex-column .text-right, .flex-box .layout-flex .flex-column .text-right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.flex-table .layout-flex .flex-column .text-center-force, .flex-box .layout-flex .flex-column .text-center-force {
+    justify-content: center;
+    text-align: center;
+}
+
+.flex-table .layout-flex .flex-column.flex-10, .flex-box .layout-flex .flex-column.flex-10 {
+    flex: 1 1 10%;
+}
+
+.flex-table .layout-flex .flex-column.flex-20, .flex-box .layout-flex .flex-column.flex-20 {
+    flex: 1 1 20%;
+}
+
+.flex-table .layout-flex .flex-column.flex-25, .flex-box .layout-flex .flex-column.flex-25 {
+    flex: 1 1 25%;
+}
+
+.flex-table .layout-flex .flex-column.flex-30, .flex-box .layout-flex .flex-column.flex-30 {
+    flex: 1 1 30%;
+}
+
+.flex-table .layout-flex .flex-column.flex-33, .flex-box .layout-flex .flex-column.flex-33 {
+    flex: 1 1 33.33%;
+}
+
+.flex-table .layout-flex .flex-column.flex-40, .flex-box .layout-flex .flex-column.flex-40 {
+    flex: 1 1 40%;
+}
+
+.flex-table .layout-flex .flex-column.flex-50, .flex-box .layout-flex .flex-column.flex-50 {
+    flex: 1 1 50%;
+}
+
+.flex-table .layout-flex .flex-column.flex-60, .flex-box .layout-flex .flex-column.flex-60 {
+    flex: 1 1 60%;
+}
+
+.flex-table .layout-flex .flex-column.flex-66, .flex-box .layout-flex .flex-column.flex-66 {
+    flex: 1 1 66.66%;
+}
+
+.flex-table .layout-flex .flex-column.flex-70, .flex-box .layout-flex .flex-column.flex-70 {
+    flex: 1 1 70%;
+}
+
+.flex-table .layout-flex .flex-column.flex-75, .flex-box .layout-flex .flex-column.flex-75 {
+    flex: 1 1 75%;
+}
+
+.flex-table .layout-flex .flex-column.flex-100, .flex-box .layout-flex .flex-column.flex-100 {
+    flex: 1 1 100%;
+}
+
+.flex-table .layout-flex .flex-header .flex-column, .flex-box .layout-flex .flex-header .flex-column {
+    background: #f4f4f4;
+    font-weight: bold;
+    border-bottom: 2px solid #eeeeee;
+    color: #333 !important;
+}

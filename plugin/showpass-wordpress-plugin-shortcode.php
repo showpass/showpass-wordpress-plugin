@@ -29,6 +29,7 @@ function wpshp_get_data( $atts ) {
 	$final_api_url = API_PUBLIC_EVENTS;
 
 	if($type == "single") {
+		$filepath = 'inc/default-detail.php';
 		if(isset($_GET['id'])) {
 			$final_api_url = API_PUBLIC_EVENTS . "/" . $_GET['id'] . "/";
 		} else if (isset($_GET['slug'])) {
@@ -37,6 +38,7 @@ function wpshp_get_data( $atts ) {
 			echo "ERROR - Need parameter in URL (id or slug)";
 		}
 	} else if ($type == "list") {
+		$filepath = 'inc/default-lists.php';
 		$final_api_url = API_PUBLIC_EVENTS . '/?venue__in=' . $organization_id;
 		$parameters = $_GET;
 		foreach ($parameters as $parameter => $value) {
@@ -76,9 +78,9 @@ function wpshp_get_data( $atts ) {
 
 	$data = CallAPI($final_api_url);
 
-	/* get data from API */
-  return $data;
-
+	ob_start();
+	require_once $filepath;
+	ob_get_flush();
 }
 
 add_shortcode( 'showpass_events', 'wpshp_get_data' );
@@ -153,11 +155,11 @@ function showpass_get_price_range ($data) {
 	$max = 0;
 
 	foreach ($ticket_types as $ticket) {
-		if ($ticket->price < $min) {
-			$min = $ticket->price;
+		if ($ticket['price'] < $min) {
+			$min = $ticket['price'];
 		}
-		if ($ticket->price > $max) {
-			$max = $ticket->price;
+		if ($ticket['price'] > $max) {
+			$max = $ticket['price'];
 		}
 	}
 	if ($max === 0) {
@@ -367,6 +369,7 @@ function showpass_scripts(){
     wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(),false, '1.0.3');
     wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(),false, '4.2.5');
     wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), '1.0.0', 'all' );
+    wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), '1.0.0', 'all' );
     wp_enqueue_script('js-cookie', '//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js', array(), '2.2.0', true );
     wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'));
     wp_enqueue_script('jquery-showpass');
