@@ -31,17 +31,39 @@
     });
 
     $(document).ready(function() {
-         if (Cookies.get('auto')) {
-                var slug = Cookies.get('auto');
-                var params = {
-                    'theme-primary': $('#option_widget_color').val() || '',
-                    'keep-shopping': $('#option_keep_shopping').val() || 'true',
-                    'theme-dark': $('#option_theme_dark').val() || ''
-                };
-                setTimeout(function(){ Cookies.remove('auto');
-                                      showpass.tickets.eventPurchaseWidget(slug, params);
-                                    }, 500);
+        function getQueryStrings() {
+          var assoc  = {};
+          var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+          var queryString = location.search.substring(1);
+          var keyValues = queryString.split('&');
+
+          for(var i in keyValues) {
+            var key = keyValues[i].split('=');
+            if (key.length > 1) {
+              assoc[decode(key[0])] = decode(key[1]);
             }
+          }
+          return assoc;
+        }
+
+        var qs = getQueryStrings();
+
+
+        if (Cookies.get('auto') != qs.auto && qs.auto) {
+            Cookies.set('auto', qs.auto, {expires: 2});
+        }
+
+        if (Cookies.get('auto')) {
+            var slug = Cookies.get('auto');
+            var params = {
+                'theme-primary': $('#option_widget_color').val() || '',
+                'keep-shopping': $('#option_keep_shopping').val() || 'true',
+                'theme-dark': $('#option_theme_dark').val() || ''
+            };
+            setTimeout(function(){ Cookies.remove('auto');
+                                  showpass.tickets.eventPurchaseWidget(slug, params);
+                                }, 500);
+        }
 
         $('.open-ticket-widget').on('click', function () {
             var slug = $(this).attr('id');
