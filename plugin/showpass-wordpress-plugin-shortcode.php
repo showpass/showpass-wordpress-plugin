@@ -77,10 +77,9 @@ function wpshp_get_data( $atts ) {
 	}
 
 	$data = CallAPI($final_api_url);
-
-	ob_start();
-	require_once $filepath;
-	ob_get_flush();
+	if ($data) {
+		require_once $filepath;
+	}
 }
 
 add_shortcode( 'showpass_events', 'wpshp_get_data' );
@@ -102,74 +101,74 @@ function CallAPI($url, $method = "GET", $data = false) {
 
 /* Converting date */
 
-function showpass_get_event_date($date, $zone){
+function showpass_get_event_date ($date, $zone) {
 
-	$format_date = get_option('format_date');
-	$datetime = new Datetime($date); // current time = server time
-	$otherTZ  = new DateTimeZone($zone);
-	$datetime->setTimezone($otherTZ);
-
-	if($format_date == "") {
-		$format_date = "l F d, Y";
+	if ($date && $zone) {
+		$format_date = get_option('format_date');
+		$datetime = new Datetime($date); // current time = server time
+		$otherTZ  = new DateTimeZone($zone);
+		$datetime->setTimezone($otherTZ);
+		if($format_date == "") {
+			$format_date = "l F d, Y";
+		}
+		$new_date = $datetime->format($format_date);
+		return $new_date;
 	}
 
-	$new_date = $datetime->format($format_date);
-
-	return $new_date;
 }
 
 /* Converting time */
 
-function showpass_get_event_time($date, $zone){
-
-	$format_time = get_option('format_time');
-	$datetime = new Datetime($date); // current time = server time
-	$otherTZ  = new DateTimeZone($zone);
-	$datetime->setTimezone($otherTZ);
-
-	if($format_time == "") {
-		$format_time = "g:iA";
-	}
-
-	$new_date = $datetime->format($format_time);
-	return $new_date;
-
+function showpass_get_event_time ($date, $zone) {
+		if ($date && $zone) {
+			$format_time = get_option('format_time');
+			$datetime = new Datetime($date); // current time = server time
+			$otherTZ  = new DateTimeZone($zone);
+			$datetime->setTimezone($otherTZ);
+			if($format_time == "") {
+				$format_time = "g:iA";
+			}
+			$new_date = $datetime->format($format_time);
+			return $new_date;
+		}
 }
 
-function showpass_get_timezone_abbr($timezone) {
-
-	date_default_timezone_set($timezone);
-	$new_date = date('T');
-	return $new_date;
-
+function showpass_get_timezone_abbr ($timezone) {
+	if ($timezone) {
+		date_default_timezone_set($timezone);
+		$new_date = date('T');
+		return $new_date;
+	}
 }
 
 /* GET PRICE RANGE FOR TICKETS */
 function showpass_get_price_range ($data) {
-	$ticket_types = $data;
-	if (!$ticket_types) {
-		return null;
-	}
-
-	$min = 999999999;
-	$max = 0;
-
-	foreach ($ticket_types as $ticket) {
-		if ($ticket['price'] < $min) {
-			$min = $ticket['price'];
+	if ($data) {
+		$ticket_types = $data;
+		if (!$ticket_types) {
+			return null;
 		}
-		if ($ticket['price'] > $max) {
-			$max = $ticket['price'];
+
+		$min = 999999999;
+		$max = 0;
+
+		foreach ($ticket_types as $ticket) {
+			if ($ticket['price'] < $min) {
+				$min = $ticket['price'];
+			}
+			if ($ticket['price'] > $max) {
+				$max = $ticket['price'];
+			}
 		}
-	}
-	if ($max === 0) {
-		return 'FREE';
-	} else if ($max == $min) {
-		return '$'.$min;
-	} else if ($min === 0) {
-		return '$0 - $'.$max;
-	} else {
-		return '$'.$min.' - $'.$max;
+		if ($max === 0) {
+			return 'FREE';
+		} else if ($max == $min) {
+			return '$'.$min;
+		} else if ($min === 0) {
+			return '$0 - $'.$max;
+		} else {
+			return '$'.$min.' - $'.$max;
+		}
 	}
 }
 
