@@ -48,21 +48,16 @@
 
         var qs = getQueryStrings();
 
-
-        if (Cookies.get('auto') != qs.auto && qs.auto) {
-            Cookies.set('auto', qs.auto, {expires: 2});
-        }
-
-        if (Cookies.get('auto')) {
-            var slug = Cookies.get('auto');
-            var params = {
-                'theme-primary': $('#option_widget_color').val() || '',
-                'keep-shopping': $('#option_keep_shopping').val() || 'true',
-                'theme-dark': $('#option_theme_dark').val() || ''
-            };
-            setTimeout(function(){ Cookies.remove('auto');
-                                  showpass.tickets.eventPurchaseWidget(slug, params);
-                                }, 500);
+        if (qs.auto) {
+              var slug = qs.auto;
+              var params = {
+                  'theme-primary': $('#option_widget_color').val() || '',
+                  'keep-shopping': $('#option_keep_shopping').val() || 'true',
+                  'theme-dark': $('#option_theme_dark').val() || ''
+              };
+              setTimeout(function(){ Cookies.remove('auto');
+                                    showpass.tickets.eventPurchaseWidget(slug, params);
+                                  }, 500);
         }
 
         $('.open-ticket-widget').on('click', function () {
