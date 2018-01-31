@@ -30,7 +30,7 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
         <label for="main_api_url">Enable Dark Theme</label><br/><br/>
 
         <input type="checkbox" name="option_keep_shopping" value="false" <?php checked('false', get_option('option_keep_shopping'), true); ?>/>
-        <label for="main_api_url">Disable "Keep Shopping" on dialog.</label><br/><br/>
+        <label for="main_api_url">Use "Close" verbiage on buttons instead of "Keep Shopping" to close the widget.</label><br/><br/>
 
     <?php submit_button(); ?>
 
