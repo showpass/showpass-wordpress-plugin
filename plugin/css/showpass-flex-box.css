@@ -1,8 +1,3 @@
-.list-ticket-button {
-  background-color: #dd3333;
-  color: #f4f4f4;
-}
-
 .flex-table.flex-table-striped .flex-row:nth-child(odd), .flex-box.flex-table-striped .flex-row:nth-child(odd) {
     background: #f4f4f4;
 }
@@ -26,13 +21,7 @@
 .flex-table .layout-flex .flex-header, .flex-box .layout-flex .flex-header {
     display: none !important;
   }
-
-  .secondary {
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-  }
 }
-
 
 @media screen and (max-width: 600px){
   .flex-table .layout-flex .w50, .flex-box .layout-flex .w50 {

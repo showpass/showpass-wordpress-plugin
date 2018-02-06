@@ -1,16 +1,235 @@
+.no-padding {
+  padding: 0px !important;
+}
+.showpass-event-card {
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+.showpass-event-card .showpass-event-list .background-white {
+  background-color: white;
+}
 .showpass-button {
   display: inline-block;
   padding: 10px 20px;
   background: #dd3333;
   color: white;
   cursor: pointer;
-  margin-bottom: 20px;
+  border-radius: 5px;
+  border-bottom: none !important;
   -webkit-transition: background-color 300ms linear;
   -moz-transition: background-color 300ms linear;
   -o-transition: background-color 300ms linear;
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
+  align-items: center;
+  justify-content: center
+}
+.button-pull-right {
+  justify-content: flex-end;
+}
+.button-pull-left {
+  justify-content: flex-start;
+}
+.showpass-image img {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+a {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
 }
 .showpass-button:hover {
   background: #921818;
+  color: white;
 }
+.showpass-button-secondary {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #767676 !important;
+  color: #fefefe;
+  cursor: pointer;
+  border-radius: 5px;
+  border-bottom: none !important;
+}
+.showpass-button-secondary:hover {
+  color: #fefefe !important;
+}
+
+.showpass-list-button-layout{
+  flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 960px) {
+  .showpass-button-secondary {
+    width: 100% !important;
+  }
+  .showpass-button {
+    width: 100% !important;
+  }
+  .showpass-list-button-layout{
+    flex-wrap: row wrap !important;
+  }
+  .button-pull-right {
+    justify-content: center;
+    text-align: center;
+  }
+  .button-pull-left {
+    justify-content: center;
+    text-align: center;
+  }
+}
+.showpass-event-list {
+  min-height: 230px;
+  background: none !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  margin-bottom: 30px;
+  position: relative;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+.showpass-event-list:last-child {
+    margin-bottom: 0px !important;
+  }
+@media screen and (max-width: 780px) {
+  .showpass-event-list.list-bottom-details {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+.showpass-event-list.list-bottom-details {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 66.66%;
+}
+
+.showpass-event-title h3 {
+    color: black !important;
+    font-weight: 100 !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    justify-content: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
+.showpass-event-title a{
+    color: black !important;
+    font-weight: 100 !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    justify-content: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+.showpass-event-list.red-pill {
+    border-radius: 4px;
+    padding: 10px 20px;
+    background: #767676;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  .showpass-event-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+  .showpass-detail-buy {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    font-size: 1.25rem;
+    background-color: #dd3333;
+    font-weight: bold !important;
+    color: #fefefe;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+  }
+  .showpass-pagination {
+    margin-left: 0;
+    margin-bottom: 1rem;
+    border: 0 !important;
+   }
+
+   .pagination:before, .pagination:after{
+     z-index: -1 !important;
+   }
+
+  .showpass-pagination::before, .showpass-pagination::after {
+    display: table;
+    content: ' ';
+  }
+  .showpass-pagination::after {
+    clear: both;
+  }
+  .showpass-pagination li {
+    margin-right: 0.0625rem;
+    border-radius: 0;
+    font-size: 0.875rem;
+    display: none;
+  }
+  .showpass-pagination li:last-child, .showpass-pagination li:first-child {
+    display: inline-block;
+  }
+  @media print, screen and (min-width: 48.75em) {
+    .showpass-pagination li {
+      display: inline-block;
+    }
+  }
+  .showpass-pagination a, .showpass-pagination button {
+    display: block;
+    padding: 0.1875rem 0.625rem;
+    border-radius: 0;
+    color: #0a0a0a;
+  }
+    .showpass-pagination a:hover,
+    .showpass-pagination button:hover {
+      background: #e6e6e6; }
+  .showpass-pagination .current {
+    padding: 0.1875rem 0.625rem;
+    background: #1779ba;
+    color: #fefefe;
+    cursor: default;
+  }
+  .showpass-pagination .disabled {
+    padding: 0.1875rem 0.625rem;
+    color: #cacaca;
+    cursor: not-allowed;
+  }
+  .showpass-pagination .disabled:hover {
+    background: transparent;
+  }
+  .showpass-pagination .ellipsis::after {
+    padding: 0.1875rem 0.625rem;
+    content: '\2026';
+    color: #0a0a0a;
+  }
+
+  .showpass-pagination-previous a::before,
+  .showpass-pagination-previous.disabled::before {
+    display: inline-block;
+    margin-right: 0.5rem;
+    content: '\00ab'; }
+
+  .showpass-pagination-next a::after,
+  .showpass-pagination-next.disabled::after {
+    display: inline-block;
+    margin-left: 0.5rem;
+    content: '\00bb'; }

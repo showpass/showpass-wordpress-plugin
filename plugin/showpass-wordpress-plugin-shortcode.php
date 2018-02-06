@@ -74,6 +74,9 @@ function wpshp_get_data( $atts ) {
 			$final_api_url .= "&ends_on__lt=" . $ends_on__lte;
 		}
 
+		if(isset($atts["page"])) {
+			$detail_page = $atts["page"];
+		}
 	}
 
 	$data = CallAPI($final_api_url);

@@ -5,16 +5,16 @@
 			if ($event_data['count'] > 0) {
 				$events = $event_data['results'];
 				foreach ($events as $key => $event) { ?>
-				<div class="flex-50 flex-column no-border event-card ">
-					<div class="event-list layout-flex m15">
-						<div class="flex-33 flex-column no-border p0">
+				<div class="flex-50 flex-column no-border showpass-event-card ">
+					<div class="showpass-event-list layout-flex m15">
+						<div class="flex-100 flex-column no-border no-padding p0">
 							<div>
-								<a href="/event-detail?slug=<?php echo $event['slug']; ?>">
-									<img alt="<?php echo $event['name']; ?>" src="<?php echo $event['image_lg_square']; ?>" />
+								<a href="/<?php if($detail_page){ print_r($detail_page);} else {print_r('event-detail');} ?>/?slug=<?php echo $event['slug']; ?>" class="showpass-image" >
+									<img alt="<?php echo $event['name']; ?>" src="<?php echo $event['image_stretch_banner_lg']; ?>"/>
 								</a>
 							</div>
 						</div>
-						<div class="flex-66 flex-column no-border">
+						<div class="flex-100 flex-column no-border background-white">
 							<div>
 								<div class="layout-flex">
 									<div class="flex-100 flex-column no-border">
@@ -23,8 +23,8 @@
 								</div>
 								<div class="layout-flex">
 									<div class="flex-100 flex-column no-border">
-										<div>
-											<h3 class="mb0 event-title"><a href="/event-detail/?slug=<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
+										<div class="showpass-event-title">
+											<h3 class="mb0"><a href="/<?php if($detail_page){ print_r($detail_page);} else {print_r('event-detail');} ?>/?slug=<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
 										</div>
 									</div>
 								</div>
@@ -36,21 +36,19 @@
 										</div>
 									</div>
 								</div>
-								<div class="layout-flex ">
-									<div class="flex-100 flex-column no-border mt10 pl0 pr0">
-										<div class="clearfix layout-flex text-center">
-											<div class="flex-50 flex-column no-border">
+								<div class="layout-flex">
+										<div class="clearfix layout-flex showpass-list-button-layout">
+											<div class="flex-50 flex-column no-border button-pull-left">
 												<div class="w100">
-													<a class="list-ticket-button" onclick="showpass.tickets.eventPurchaseWidget('<?php echo $event['slug'];?>', {'theme-primary': '#000000'})">Buy Tickets</a>
+													<a class="list-ticket-button showpass-button" onclick="showpass.tickets.eventPurchaseWidget('<?php echo $event['slug'];?>', {'theme-primary': '#000000'})">Buy Tickets</a>
 												</div>
 											</div>
-											<div class="flex-50 flex-column no-border">
+											<div class="flex-50 flex-column no-border button-pull-right">
 												<div class="w100">
-													<a class="list-ticket-button secondary" href="/event-detail/?slug=<?php echo $event['slug']; ?>">More info</a>
+													<a class="list-ticket-button secondary showpass-button-secondary" href="/<?php if($detail_page){ print_r($detail_page);} else {print_r('event-detail');} ?>/?slug=<?php echo $event['slug']; ?>">More info</a>
 												</div>
 											</div>
 										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -59,7 +57,7 @@
 			<?php } ?>
 			<?php if ($event_data['num_pages'] > 1) { ?>
 			<div class="flex-100 flex-column no-border text-center pagination-container">
-				<ul class="pagination mb0 mt30">
+				<ul class="pagination showpass-pagination mb0 mt30">
 					<?php for ($i = 1; $i <= $event_data['num_pages']; $i++) {
 						$current = $i == $event_data['page_number'] ? 'class="current"' : '';
 						if ($current != '') { ?>

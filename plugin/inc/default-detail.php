@@ -8,30 +8,30 @@
 	<?php } else {
 		$event = $event_data;
 		$current_event = $event['id'];?>
-		<div class="layout-flex event-name layout-flexborder-bottom mb30">
-			<div class="flex-100 flex-column">
+		<div class="layout-flex event-name mb30">
+			<div class="flex-100 flex-column no-border">
 				<img class="mb20 mt20 border-radius-4 box-shadow-image" alt="<?php echo $event['name']; ?>" src="<?php echo $event['image_stretch_banner_lg']; ?>" />
 			</div>
 		</div>
-		<div class="layout-flex detail event-name layout-flexborder-bottom mb30">
-			<div class="flex-100 flex-column"><h1><?php echo $event['name']; ?></h1></div>
+		<div class="layout-flex detail event-name mb30">
+			<div class="flex-100 flex-column no-border"><h1><?php echo $event['name']; ?></h1></div>
 		</div>
 		<div class="flex-container layout-flex">
-			<div class="flex-66 flex-column">
+			<div class="flex-66 flex-column no-border">
 				<div>
 					<span onclick="showpass.tickets.eventPurchaseWidget('<?php echo $event['slug'];?>', {'theme-primary': '#000000'})" class="expanded button large mb30 red-button pt20 pb20 hide-large">BUY TICKETS</span>
 					<?php echo $event['description'];?>
 				</div>
 			</div>
-			<div class="flex-33 flex-column event-detail">
+			<div class="flex-33 flex-column event-detail no-border">
 				<div>
-					<div class="event-info border-bottom mb30">
+					<div class="event-info mb30 ">
 						<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
 						<div class="info"><i class="fa fa-clock-o icon-center"></i> <?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
 							<?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
 						<div class="info"><i class="fa fa-map-marker icon-center"></i> <?php  $location = $event['location']; echo $location['name'];?></div>
 						<?php if ($event['ticket_types']) : ?><div class="info mb20"><i class="fa fa-tags icon-center"></i> <?php	print_r(showpass_get_price_range($event['ticket_types']));?></div><?php endif; ?>
-						<span onclick="showpass.tickets.eventPurchaseWidget('<?php echo $event['slug'];?>', {'theme-primary': '#000000'})" class="expanded button large mb30 mt30 red-button pt20 pb20">BUY TICKETS</span>
+						<span onclick="showpass.tickets.eventPurchaseWidget('<?php echo $event['slug'];?>', {'theme-primary': '#000000'})" class="expanded button large showpass-detail-buy mb30 mt30 red-button pt20 pb20">BUY TICKETS</span>
 					</div>
 					<div class="text-center mt30 mb30">
 						<h2 class="mb0 text-center"><?php echo $location['name'];?></h2>
