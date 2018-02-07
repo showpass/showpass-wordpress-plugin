@@ -8,11 +8,8 @@
 				<div class="flex-50 showpass-flex-column showpass-no-border showpass-event-card">
 					<div class="showpass-event-list showpass-layout-flex m15">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-							<div>
-								<a href="/<?php if($detail_page){ print_r($detail_page);} else {print_r('event-detail');} ?>/?slug=<?php echo $event['slug']; ?>" class="showpass-image" >
-									<img alt="<?php echo $event['name']; ?>" src="<?php echo $event['image_stretch_banner_lg']; ?>"/>
-								</a>
-							</div>
+							<a class="showpass-image" style="background-image: url('<?php echo $event['image_stretch_banner_lg'];?>');"  href="/<?php if($detail_page){ print_r($detail_page);} else {print_r('event-detail');} ?>/?slug=<?php echo $event['slug']; ?>">
+							</a>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
@@ -40,7 +37,7 @@
 										<div class="clearfix showpass-layout-flex showpass-list-button-layout">
 											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
 												<div class="w100">
-													<a class="showpass-list-ticket-button showpass-button" onclick="showpass.tickets.eventPurchaseWidget('<?php echo $event['slug'];?>', {'theme-primary': '#000000'})">Buy Tickets</a>
+													<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">Buy Tickets</a>
 												</div>
 											</div>
 											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">

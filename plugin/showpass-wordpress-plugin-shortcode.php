@@ -386,3 +386,13 @@ function your_function() {
     echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
 }
 add_action( 'wp_footer', 'your_function', 100 );
+
+function style_function() {
+		echo '<style>';
+    echo '.showpass-button { background-color: #'.get_option('option_widget_color').' !important; }';
+    echo '.showpass-button:hover { background-color: #'.get_option('option_widget_color').' !important; }';
+    echo '.showpass-detail-buy { background-color: #'.get_option('option_widget_color').' !important; }';
+    echo '.showpass-detail-buy:hover { background-color: #'.get_option('option_widget_color').' !important; }';
+		echo '</style>';
+}
+add_action( 'wp_head', 'style_function', 100 );

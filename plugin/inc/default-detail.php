@@ -19,7 +19,7 @@
 		<div class="flex-container showpass-layout-flex">
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
-					<span onclick="showpass.tickets.eventPurchaseWidget('<?php echo $event['slug'];?>', {'theme-primary': '#000000'})" class="showpass-detail-buy showpass-hide-large">BUY TICKETS</span>
+					<span class="showpass-detail-buy showpass-hide-large open-ticket-widget" id="<?php echo $event['slug']; ?>">BUY TICKETS</span>
 					<?php echo $event['description'];?>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 							<?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
 						<div class="info"><i class="fa fa-map-marker icon-center"></i> <?php  $location = $event['location']; echo $location['name'];?></div>
 						<?php if ($event['ticket_types']) : ?><div class="info mb20"><i class="fa fa-tags icon-center"></i> <?php	print_r(showpass_get_price_range($event['ticket_types']));?></div><?php endif; ?>
-						<span onclick="showpass.tickets.eventPurchaseWidget('<?php echo $event['slug'];?>', {'theme-primary': '#000000'})" class="showpass-detail-buy">BUY TICKETS</span>
+						<span class="showpass-detail-buy open-ticket-widget" id="<?php echo $event['slug']; ?>">BUY TICKETS</span>
 					</div>
 					<div class="text-center showpass-detail-location">
 						<h2 class="showpass-event-veune-name"><?php echo $location['name'];?></h2>
