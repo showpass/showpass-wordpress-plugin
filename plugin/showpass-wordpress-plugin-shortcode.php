@@ -24,6 +24,12 @@ function wpshp_get_data( $atts ) {
 		echo "ERROR - Please enter type parameter in shortcode";
 	}
 
+	if(isset($atts["template"])){
+		$template = $atts["template"];
+	} else {
+		$template = NULL;
+	}
+
 	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
 	$final_api_url = API_PUBLIC_EVENTS;
@@ -80,8 +86,11 @@ function wpshp_get_data( $atts ) {
 	}
 
 	$data = CallAPI($final_api_url);
-	if ($data) {
+	
+	if ($data && $template == "default") {
 		require_once $filepath;
+	} else {
+		return $data;
 	}
 }
 
