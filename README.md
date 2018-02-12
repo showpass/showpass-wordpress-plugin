@@ -61,6 +61,8 @@ More about date and time format <a href="http://php.net/manual/en/function.date.
 
 ## 2.1. Adding shortcode and get data
 
+If you wish to make custom templates for your event lists and detail pages use the following shortcode in your template files.
+
 The shortcode returns JSON format data from API , so you can easily get it in page template with
 `<?php $data = do_shortcode('[showpass_events]'); ?>` .
 
