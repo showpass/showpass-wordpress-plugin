@@ -18,10 +18,11 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.1. [Adding shortcode and get data](#21-adding-shortcode-and-get-data)   
    2.2. [Type parameter](#22-type-parameter)   
    2.3. [Page size parameter](#23-page-size-parameter)   
-   2.4. [Page number parameter](#24-page-number-parameter)
-   2.5. [Template Parameter](#25-template-parameter)   
-   2.6. [Page number parameter](#26-page-parameter)   
-   2.7. [Other parameters](#27-other-parameters)   
+   2.4. [Page number parameter](#24-page-number-parameter)    
+   2.5. [Tags Parameter](#25-tags-parameter)    
+   2.6. [Template Parameter](#26-template-parameter)   
+   2.7. [Page parameter](#27-page-parameter)   
+   2.8. [Other parameters](#28-other-parameters)   
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
@@ -46,11 +47,15 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 After installation of the plugin, in Admin page there will be in Admin menu link for Showpass API. From the Showpass API admin page you can configure parameters.
 * *Organization ID* - it is ID from venue that you want to get Events from.
 ex. 5 - will get all events form venue with ID = 5.
+* *Widget Color* - the hex code for the primary color of the showpass widget
+ex. 5 - will get all events form venue with ID = 5.
 * *Date format* - You can enter format that you want date to be converted in.
 ex. "l F d, Y" - it will be in this format "Friday 21 April, 2017".
 * *Time format* - You can enter format that you want time to be converted in.
 ex. "g:iA" - it will be in this format "9:00AM".
 More about date and time format <a href="http://php.net/manual/en/function.date.php">here</a>.
+* *Enable Dark Theme* - use the dark theme for the widget
+* *Keep Shopping* - By default the widget has buttons that say "Keep Shopping" to close the widget, you can have it simply say close
 
 ## 2. Shortcode [showpass_events]
 
