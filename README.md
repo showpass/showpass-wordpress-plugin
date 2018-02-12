@@ -37,7 +37,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
   6.1. [Parameters](#51-widget-parameter)
   6.2. [Widget Tracking](#62-widget-tracking)
-7. [Query Param - ?auto=slug](#7-auto-query-param)
+7. [Query Param - ?auto=slug](#7-auto-query-parameter)
 
 
 ## 1. Admin page
@@ -459,7 +459,7 @@ Once you create your tracking link you will have a unique token `(ie 8ee54af5)` 
 
 `www.website.com/?event=event_slug&aff=8ee54af5`
 
-## 7.0 Auto Query Parameter
+## 7. Auto Query Parameter
 
 You can automatically open the ticket widget as soon as a customer lands on any page on your site by using the `auto` query parameter
 
