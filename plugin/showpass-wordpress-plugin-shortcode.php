@@ -44,7 +44,7 @@ function wpshp_get_data( $atts ) {
 			echo "ERROR - Need parameter in URL (id or slug)";
 		}
 	} else if ($type == "list") {
-		$filepath = 'inc/default-lists.php';
+		$filepath = 'inc/default-grid.php';
 		$final_api_url = API_PUBLIC_EVENTS . '/?venue__in=' . $organization_id;
 		$parameters = $_GET;
 		foreach ($parameters as $parameter => $value) {
@@ -86,7 +86,7 @@ function wpshp_get_data( $atts ) {
 	}
 
 	$data = CallAPI($final_api_url);
-	
+
 	if ($data && $template == "default") {
 		require_once $filepath;
 	} else {
@@ -402,6 +402,8 @@ function style_function() {
     echo '.showpass-button:hover { background-color: #'.get_option('option_widget_color').' !important; }';
     echo '.showpass-detail-buy { background-color: #'.get_option('option_widget_color').' !important; }';
     echo '.showpass-detail-buy:hover { background-color: #'.get_option('option_widget_color').' !important; }';
+    echo '.showpass-pagination .current { background-color: #'.get_option('option_widget_color').' !important; }';
+    echo '.showpass-price-display { color: #'.get_option('option_widget_color').' !important; }';
 		echo '</style>';
 }
 add_action( 'wp_head', 'style_function', 100 );

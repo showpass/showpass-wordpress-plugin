@@ -15,7 +15,7 @@
 							<div class="showpass-full-width">
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border">
-										<div><?php if ($event['ticket_types']) : ?><small class="text-warning"> <?php $price = $event['ticket_types'];  print_r(showpass_get_price_range($price));?></small><?php endif; ?></div>
+										<div><?php if ($event['ticket_types']) : ?><small class="showpass-price-display"> <?php $price = $event['ticket_types'];  print_r(showpass_get_price_range($price));?></small><?php endif; ?></div>
 									</div>
 								</div>
 								<div class="showpass-layout-flex">

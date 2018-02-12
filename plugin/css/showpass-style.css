@@ -5,9 +5,11 @@
 .showpass-event-card {
   background-color: rgba(255, 255, 255, 0) !important;
 }
+
 .showpass-event-card .showpass-event-list .showpass-background-white {
   background-color: white;
 }
+
 .showpass-event-card .showpass-event-list .showpass-full-width {
   width: 100% !important;
 }
@@ -21,9 +23,11 @@
   position: relative;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }
+
 .showpass-event-list:last-child {
     margin-bottom: 0px !important;
 }
+
 .showpass-event-list.list-bottom-details {
   position: absolute;
   bottom: 0;
@@ -56,10 +60,12 @@
   align-items: center;
   justify-content: center
 }
+
 .showpass-button:hover {
   background: #921818;
   color: white !important;
 }
+
 .showpass-button-secondary {
   display: inline-block;f
   padding: 10px 20px;
@@ -69,6 +75,7 @@
   border-radius: 5px;
   border-bottom: none !important;
 }
+
 .showpass-button-secondary:hover {
   background-color: #fefefe !important;
   color: #767676 !important;
@@ -77,6 +84,7 @@
 .showpass-list-ticket-button {
   width: 100%;
 }
+
 .showpass-list-ticket-button, .showpass-slider-button {
   text-transform: uppercase;
   transition: all 0.3s ease-in-out;
@@ -95,6 +103,7 @@
 .showpass-button-pull-right {
   justify-content: flex-end;
 }
+
 .showpass-button-pull-left {
   justify-content: flex-start;
 }
@@ -139,6 +148,7 @@ a {
     margin-top: 20px;
   }
 }
+
 @media screen and (min-width: 780px) {
   .showpass-hide-large {
     display: none !important;
@@ -159,6 +169,7 @@ a {
   flex-grow: 1;
   flex-shrink: 0;
 }
+
 .showpass-event-title {
   overflow: hidden;
   display: -webkit-box;
@@ -166,6 +177,7 @@ a {
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
 }
+
 .showpass-event-title a{
   color: black !important;
   font-weight: 100 !important;
@@ -186,65 +198,79 @@ a {
   width: 100%;
   text-align: center;
 }
+
 .showpass-pagination:before, .showpass-pagination:after{
   z-index: -1 !important;
 }
+
 .showpass-pagination::before, .showpass-pagination::after {
   display: table;
   content: ' ';
 }
+
 .showpass-pagination::after {
   clear: both;
 }
+
 .showpass-pagination li {
   margin-right: 0.0625rem;
   border-radius: 0;
+  padding: 5px 10px;
   font-size: 0.875rem;
   display: none;
 }
+
 .showpass-pagination li:last-child, .showpass-pagination li:first-child {
   display: inline-block;
 }
+
 @media print, screen and (min-width: 48.75em) {
   .showpass-pagination li {
     display: inline-block;
   }
 }
+
 .showpass-pagination a, .showpass-pagination button {
-  display: block;
-  padding: 0.1875rem 0.625rem;
+  padding: 5px 10px;
+  display: inline-block;
   border-radius: 0;
   color: #0a0a0a;
 }
+
 .showpass-pagination a:hover,
 .showpass-pagination button:hover {
   background: #e6e6e6;
 }
+
 .showpass-pagination .current {
-  padding: 0.1875rem 0.625rem;
   background: #1779ba;
   color: #fefefe;
   cursor: default;
 }
+
 .showpass-pagination .disabled {
   padding: 0.1875rem 0.625rem;
   color: #cacaca;
   cursor: not-allowed;
 }
+
 .showpass-pagination .disabled:hover {
   background: transparent;
 }
+
 .showpass-pagination .ellipsis::after {
   padding: 0.1875rem 0.625rem;
   content: '\2026';
   color: #0a0a0a;
 }
+
 .showpass-pagination-previous a::before,
 .showpass-pagination-previous.disabled::before {
   display: inline-block;
   margin-right: 0.5rem;
   content: '\00ab';
 }
+
 .showpass-pagination-next a::after,
 .showpass-pagination-next.disabled::after {
   display: inline-block;
@@ -258,34 +284,41 @@ a {
   margin-bottom: 20px;
   margin-top: 20px;
 }
+
 .showpass-detail-event-name {
   margin-bottom: 30px;
 }
+
 .showpass-detail-event-name h1 {
   margin-top: 0px !important;
   margin-bottom: 0px !important;
 }
+
 .showpass-detail-location {
   margin-top: 0px;
   margin-bottom: 30px;
   text-align: center;
   justify-content: center;
 }
+
 .showpass-detail-location .showpass-event-veune-name{
   margin-bottom: 0px;
   text-align: center;
 }
+
 .showpass-detail-location .showpass-detail-address{
   margin-bottom: 30px;
   display: block;
   text-align: center;
 }
+
 a {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
   decoration: none;
   border-bottom: none !important;
 }
+
 .showpass-image {
   width: 100% !important;
   padding-top: 50% !important;
@@ -309,6 +342,7 @@ a {
   margin-bottom: 30px;
   border-radius: 4px;
 }
+
 .showpass-detail-buy:hover {
   background-color: #921818 !important;
 }
