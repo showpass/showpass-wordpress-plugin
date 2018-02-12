@@ -18,8 +18,10 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.1. [Adding shortcode and get data](#21-adding-shortcode-and-get-data)   
    2.2. [Type parameter](#22-type-parameter)   
    2.3. [Page size parameter](#23-page-size-parameter)   
-   2.4. [Page number parameter](#24-page-number-parameter)   
-   2.5. [Other parameters](#25-other-parameters)   
+   2.4. [Page number parameter](#24-page-number-parameter)
+   2.5. [Template Parameter](#25-template-parameter)   
+   2.6. [Page number parameter](#26-page-parameter)   
+   2.7. [Other parameters](#27-other-parameters)   
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
@@ -32,7 +34,9 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    5.1. [Page parameter](#51-page-parameter)                                       
    5.2. [Week and month parameters](#52-week-and-month-parameters)
 6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
-  6.1. [Parameters](#51-widget-parameter)     
+  6.1. [Parameters](#51-widget-parameter)
+  6.2. [Widget Tracking](#62-widget-tracking)
+7. [Query Param - ?auto=slug](#7-auto-query-param)
 
 
 ## 1. Admin page
@@ -55,9 +59,9 @@ More about date and time format <a href="http://php.net/manual/en/function.date.
 The shortcode returns JSON format data from API , so you can easily get it in page template with
 `<?php $data = do_shortcode('[showpass_events]'); ?>` .
 
-Because it is JSON data , for manupulating with it, you need to decode it `$data = json_decode($data)` .
+Because it is JSON data you need to decode it `$data = json_decode($data)` .
 
-It will be recieved all data from API for the venue that is set from Admin Page ( organization ID ).
+It will be received all data from API for the venue that is set from Admin Page ( organization ID ).
 
 Also , there are few parameters that you can send it to the shortcode.
 
@@ -96,7 +100,25 @@ This parameter you can use the shortcode to return events with a certain categor
 
 `[showpass_events type='list' page_size='5' tags='featured']` - It will get only 5 events on one page with the `featured` tag
 
-## 2.7. Other parameters
+## 2.6. Template Parameter
+
+This parameter you can use the shortcode to return a default template provided with the plugin
+
+`[showpass_events type='list' page_size='5' template='default']`
+
+Released in version 2.0 currently the plugin only has one template, which is 'default'
+
+## 2.7. Page Parameter
+
+When using included templates, use this parameter to set the redirect location for the event detail page.
+
+This will be the wordpress page with the `type="single"` shortcode usage
+
+`[showpass_events type='list' page_size='5' template='default' page='event-detail']`
+
+Released in version 2.0 currently the plugin only has one template, which is 'default'
+
+## 2.8. Other parameters
 
 There are few parameters that API can receive and this plugin is compatible for all of these parameters. You can pass it through the URL and you will get the data from API with those parameters.
 
@@ -388,13 +410,13 @@ Enjoy!
 ## 5.2. theme_dark Paramerter
 Add `theme_dark="true"` to use a dark theme for the calendar.
 
-## 5. Shortcode [showpass_widget]
+## 6. Shortcode [showpass_widget]
 
 Use the showpass_widget shortcode to embed a button with the ticket widget on any page or post.
 
 `[showpass_widget label="Button Label" slug="this-is-the-slug" class="button" keep_shopping="false" theme="dark"]`
 
-### 5.1. Parameters
+### 6.1. Parameters
 
 #### `label="Button Label"`
 Customize the verbiage on the button.
@@ -413,7 +435,7 @@ Button to close widget says `Keep Shopping` if true, and `Close` if set to false
 #### `theme="dark"`
 Use the dark theme on the widget, default is the light theme.
 
-## 5. Widget Tracking using Affiliate Tracking Links
+## 6.2 Widget Tracking using Affiliate Tracking Links
 
 ### How it Works
 Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` paremeter to the showpass widget SDK. The `[showpass_widget]` shortcode is automatically set up to look for tracking tokens.
@@ -431,3 +453,11 @@ Once you create your tracking link you will have a unique token `(ie 8ee54af5)` 
 #### Add the `aff` query parameter to a specific event-organizers
 
 `www.website.com/?event=event_slug&aff=8ee54af5`
+
+## 7.0 Auto Query Parameter
+
+You can automatically open the ticket widget as soon as a customer lands on any page on your site by using the `auto` query parameter
+
+http://example.com?auto=this-is-the-slug
+
+Just include the slug of your event in place of `this-is-the-slug`
