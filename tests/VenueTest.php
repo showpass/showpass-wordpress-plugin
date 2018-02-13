@@ -15,7 +15,7 @@ class VenueTest extends PHPUnit\Framework\TestCase
 
 	public function testGetVenueStreetName(){
 
-		$this->assertEquals('9615 Macleod Trail SW', \Showpass\Venue::testGetVenueStreetName('2'));
+		$this->assertEquals('421 12th Ave. SE', \Showpass\Venue::testGetVenueStreetName('5'));
 
 	}
 

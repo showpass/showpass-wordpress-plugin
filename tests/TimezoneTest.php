@@ -9,13 +9,13 @@ class TimezoneTest extends PHPUnit\Framework\TestCase
 	
 	public function testTimezone(){
 
-		$this->assertEquals('MDT', \Showpass\Timezone::getTimezone('US/Mountain'));
+		$this->assertContains(\Showpass\Timezone::getTimezone('US/Mountain'), ['MDT', 'MST']);
 
 	}
 
 	public function testTimezoneLA(){
 
-		$this->assertEquals('PDT', \Showpass\Timezone::getTimezone('America/Los_Angeles'));
+		$this->assertContains(\Showpass\Timezone::getTimezone('America/Los_Angeles'), ['PDT', 'PST']);
 
 	}
 
