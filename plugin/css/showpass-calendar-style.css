@@ -7,6 +7,7 @@
 .showpass-calendar .calendar-contain-mobile {
   display: none;
 }
+
 /*@media screen and (max-width: 780px) {
   .showpass-calendar .calendar-contain-desktop {
     display: none !important;
@@ -147,7 +148,7 @@
 	z-index: 9999;
 }*/
 
-.showpass-calendar-item .showpass-calendar-item-single:last {
+.showpass-calendar-item .showpass-calendar-item-single:last-child {
 	border-right: 0px;
 }
 

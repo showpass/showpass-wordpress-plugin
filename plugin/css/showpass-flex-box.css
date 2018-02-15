@@ -1,6 +1,7 @@
 .showpass-flex-box {
   padding-bottom: 50px;
 }
+
 .showpass-flex-table.showpass-flex-table-striped .showpass-flex-row:nth-child(odd), .showpass-flex-box.showpass-flex-table-striped .showpass-flex-row:nth-child(odd) {
     background: #f4f4f4;
 }

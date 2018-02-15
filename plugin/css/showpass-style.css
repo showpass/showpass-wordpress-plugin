@@ -67,7 +67,7 @@
 }
 
 .showpass-button-secondary {
-  display: inline-block;f
+  display: inline-block;
   padding: 10px 20px;
   background-color: #767676 !important;
   color: #fefefe;
@@ -111,7 +111,7 @@
 a {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
-  decoration: none;
+  text-decoration: none;
 }
 
 .showpass-list-button-layout{
@@ -125,8 +125,8 @@ a {
   .showpass-button {
     width: 100% !important;
   }
-  .showpass-list-button-layout{
-    flex-wrap: row wrap !important;
+  .showpass-list-button-layout {
+    flex-wrap: wrap !important;
   }
   .showpass-button-pull-right {
     justify-content: center;
@@ -315,7 +315,7 @@ a {
 a {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
-  decoration: none;
+  text-decoration: none;
   border-bottom: none !important;
 }
 
