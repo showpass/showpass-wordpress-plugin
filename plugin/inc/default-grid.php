@@ -8,20 +8,20 @@
 				<div class="flex-50 showpass-flex-column showpass-no-border showpass-event-card">
 					<div class="showpass-event-list showpass-layout-flex m15">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-							<a class="showpass-image" style="background-image: url('<?php echo $event['image_stretch_banner_lg'];?>');"  href="/<?php if($detail_page){ print_r($detail_page);} else {print_r('event-detail');} ?>/?slug=<?php echo $event['slug']; ?>">
-							</a>
+							<a class="showpass-image" style="background-image: url('<?php echo $event['image_banner'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border">
-										<div><?php if ($event['ticket_types']) : ?><small class="showpass-price-display"> <?php $price = $event['ticket_types'];  print_r(showpass_get_price_range($price));?></small><?php endif; ?></div>
-									</div>
+										<div><?php if ($event['ticket_types']) : ?><small class="showpass-price-display"> <?php echo showpass_get_price_range($event['ticket_types']);?></small><?php endif; ?></div>
+                    <div><?php if (!$event['ticket_types']) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
+                  </div>
 								</div>
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border showpass-title-wrapper">
 										<div class="showpass-event-title">
-											<h3><a href="/<?php if($detail_page){ print_r($detail_page);} else {print_r('event-detail');} ?>/?slug=<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
+											<h3><a href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
 										</div>
 									</div>
 								</div>
@@ -42,7 +42,7 @@
 											</div>
 											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">
 												<div class="w100">
-													<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php if($detail_page){ print_r($detail_page);} else {print_r('event-detail');} ?>/?slug=<?php echo $event['slug']; ?>">More info</a>
+													<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php if($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
 												</div>
 											</div>
 										</div>
