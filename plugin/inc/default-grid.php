@@ -36,12 +36,12 @@
 								<div class="showpass-showpass-layout-flex">
 										<div class="clearfix showpass-layout-flex showpass-list-button-layout">
 											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
-												<div class="w100">
+												<div>
 													<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">Buy Tickets</a>
 												</div>
 											</div>
 											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">
-												<div class="w100">
+												<div>
 													<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php if($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
 												</div>
 											</div>

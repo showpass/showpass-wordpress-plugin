@@ -82,10 +82,6 @@
 }
 
 .showpass-list-ticket-button {
-  width: 100%;
-}
-
-.showpass-list-ticket-button, .showpass-slider-button {
   text-transform: uppercase;
   transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -96,8 +92,9 @@
   font-weight: normal !important;
   border-radius: 4px;
   padding: 10px 15px !important;
-  display: inline-block;
+  display: block;
   text-shadow: none !important;
+  box-sizing: border-box;
 }
 
 .showpass-button-pull-right {
