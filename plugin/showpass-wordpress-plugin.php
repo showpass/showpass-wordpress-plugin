@@ -1,10 +1,10 @@
 <?php
     /*
-     Plugin Name: Showpass Events API
+     Plugin Name: Showpass Events
      Plugin URI:
-     Description: Get data from Showpass Events API
+     Description: Display events and event details, use the widget for on site ticket purchases
      Author: Showpass
-     Version: 0.1
+     Version: 2.4
      Author URI:
      */
 
