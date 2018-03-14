@@ -173,7 +173,7 @@
     						var month_event = parseInt(date_day[1]);
     						var year_event = parseInt(date_day[0]);
     						var event_name = data.results[i].name;
-    						var image_event = data.results[i].image_lg_square;
+    						var image_event = data.results[i].thumbnail;
     						var event_slug = data.results[i].slug;
                             var event_location = data.results[i].location.name;
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province;
@@ -262,7 +262,7 @@
     								var day_event = parseInt(date_day[2].substring(0,2));
     								var month_event = parseInt(date_day[1]);
     								var year_event = parseInt(date_day[0]);
-    								var image_event = data.results[i].image_lg_square;
+    								var image_event = data.results[i].thumbnail;
     								var event_slug = data.results[i].slug;
 
     								if(page_type !== "") {
@@ -306,7 +306,7 @@
                             var event_location = data.results[i].location.name;
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province
                             var timezone = moment.tz(data.results[i].timezone).format('z')
-                            var image_event = data.results[i].image_lg_square;
+                            var image_event = data.results[i].thumbnail;
                             if (!image_event) {
                                 image_event = 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-square.png'
                             }

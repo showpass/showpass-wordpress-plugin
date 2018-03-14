@@ -165,11 +165,11 @@ function showpass_get_price_range ($data) {
 		$max = 0;
 
 		foreach ($ticket_types as $ticket) {
-			if ($ticket['price'] < $min) {
-				$min = $ticket['price'];
+			if ($ticket->price < $min) {
+				$min = $ticket->price;
 			}
-			if ($ticket['price'] > $max) {
-				$max = $ticket['price'];
+			if ($ticket->price > $max) {
+				$max = $ticket->price;
 			}
 		}
 		if ($max === 0) {
