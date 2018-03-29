@@ -60,7 +60,8 @@
                                   }, 500);
         }
 
-        $('.open-ticket-widget').on('click', function () {
+        $('body').on('click', '.open-ticket-widget', function (e) {
+            e.preventDefault();
             var slug = $(this).attr('id');
             var params = {
                 'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),

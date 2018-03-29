@@ -73,6 +73,7 @@
   font-size: 14px;
   display: table;
   border: 1px solid white;
+  box-sizing: border-box;
 }
 
 .showpass-calendar-month p, .showpass-calendar-year p, .showpass-calendar-week p {
@@ -83,11 +84,15 @@
 	float: left;
 	width: 14.285%;
 	height: 100px;
-	display: table;
+  position: relative;
 	background:#f4f4f4;
-	position: relative;
-	background-size: 100% 100% !important;
   border: 1px solid white;
+}
+
+.showpass-calendar-item-event-container {
+  display: table;
+  height: 100%;
+  width: 100%;
 }
 
 .showpass-calendar-item.item-week-view {
@@ -105,17 +110,15 @@
 }
 
 .calendar-tooltip img.tooltip-thumb {
-  width: 25%;
-  float: left;
+  margin-top: 5px;
+  margin-bottom: 15px;
   box-sizing: border-box;
-  padding-right: 10px;
 }
 
 .calendar-tooltip .info {
-  float: right;
-  width: 75%;
   box-sizing: border-box;
   font-size: 12px;
+  padding-bottom: 10px;
 }
 
 .calendar-tooltip .event-name {
@@ -130,7 +133,6 @@
 .showpass-calendar-item-single {
 	display: table-cell;
 	transition: all 0.5s ease;
-	border-right: 1px solid transparent;
   background-position: center !important;
   background-size: cover !important;
 }
@@ -188,7 +190,7 @@
 
 .showpass-calendar.dark .day_number_showpass {
   color: #f4f4f4;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .day_number_showpass {
@@ -196,8 +198,8 @@
 	position: absolute;
 	top: 5px;
 	right: 5px;
-  color: #999;
-  background: rgba(255, 255, 255, 0.5);
+  color: #666;
+  background: rgba(255, 255, 255, 0.85);
   padding: 5px;
   font-size: 12px;
   z-index: 99;

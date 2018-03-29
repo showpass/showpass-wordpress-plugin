@@ -9,24 +9,32 @@
             $('.showpass-calendar .calendar-contain-desktop').show();
         }
 
-        $('.calendar-contain').bind("DOMSubtreeModified",function() {
+        function initializeTooltip () {
             $('.show-tooltip').tooltipster({
                 interactive: true,
                 minWidth: 300,
                 maxWidth: 320,
                 contentCloning: true
             });
-        });
+        }
 
     	var months =  ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May' , 'Jun' , 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     	var days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-    	var now = new Date();
+        var calendar_day = $('#calendar-day').val();
+        var calendar_month = $('#calendar-month').val()-1;
+        var calendar_year= $('#calendar-year').val();
+        var use_widget = $('#use-widget').val();
+    	var now = new Date(calendar_year, calendar_month, calendar_day);
     	var cur_month = now.getMonth();
     	var cur_year = now.getFullYear();
     	var today_first = parseInt($('#current_day').val());
     	var month_enable = $('#month_enable').val();
     	var week_enable = $('#week_enable').val();
     	var current_day = now.getDay();
+        var widget_class = '';
+        if (use_widget) {
+            widget_class = 'open-ticket-widget'
+        }
 
         $('.showpass-prev-week').click(function() {
 
@@ -151,13 +159,13 @@
 
     					if((today + 6) > days_in_month) {
     						for(var j = (today - current_day); j <= days_in_month; j++ ) {
-    							html += "<div class='showpass-calendar-item' id='event_on_" + month + "_" + j + "'><div class='day_number_showpass'>" + j + "</div><a class='a_link' target='_blank'><div class='link'></div></a></div>";
+    							html += "<div class='showpass-calendar-item' id='event_on_" + month + "_" + j + "'><div class='day_number_showpass'>" + j + "</div></div>";
     						} for(var k = 1; k < ((today + 6) - days_in_month) + 1; k++) {
-    							html += "<div class='showpass-calendar-item' id='event_on_" + (parseInt(month)+1) + "_" + k + "'><div class='day_number_showpass'>" + k + "</div><a class='a_link' target='_blank'><div class='link'></div></a></div>";
+    							html += "<div class='showpass-calendar-item' id='event_on_" + (parseInt(month)+1) + "_" + k + "'><div class='day_number_showpass'>" + k + "</div></div>";
     						}
     					} else {
     						for(var j = (today - current_day); j <= today + (6 - current_day); j++ ) {
-    							html += "<div class='showpass-calendar-item' id='event_on_" + month + "_" + j + "'><div class='day_number_showpass'>" + j + "</div><a class='a_link' target='_blank'><div class='link'></div></a></div>";
+    							html += "<div class='showpass-calendar-item' id='event_on_" + month + "_" + j + "'><div class='day_number_showpass'>" + j + "</div></div>";
     						}
     					}
 
@@ -179,7 +187,7 @@
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province;
                             var timezone = moment.tz(data.results[i].timezone).format('z');
 
-    						if(page_type !== "") {
+    						if(page_type !== "" || widget_class !=='') {
     							var url_event = site_url + "/" + page_type + "?slug=" + event_slug;
                                 var target = "_self";
     						} else {
@@ -199,7 +207,7 @@
                                 "<div class='location'><i class='fa fa-map-marker'></i>" + event_location + "</div>" +
                                 "<div class='location'><i class='fa fa-map-marker'></i>" + event_city + "</div>" +
                                 "<div class='time'><i class='fa fa-clock-o'></i>" + moment(a).format('hh:mmA') + " " + timezone + "</div>" +
-                                "<div class='buttons'><a target='" + target + "' class='calendar-button' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div>" +
+                                "<div class='buttons'><a target='" + target + "' class='calendar-button " + widget_class + "' id='" + event_slug + "' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div>" +
                                 "</div></div>"+
                                 "</div>";
     							$('#event_on_' + tmp).append(html_tmp);
@@ -222,6 +230,8 @@
     					$('.loader-home').hide();
 
     					current_day = 0;
+                        initializeTooltip();
+
     				}
 
     			});
@@ -283,16 +293,14 @@
     							if (j < 1) {
     								html += "<div class='showpass-calendar-item'></div>";
     							} else {
-    								html += "<div class='showpass-calendar-item' id='event_on_" + month + "_" + j + "'><div class='day_number_showpass'>" + j + "</div><a class='a_link' target='_blank'><div class='link'></div></a></div>";
+    								html += "<div class='showpass-calendar-item'><div class='day_number_showpass'>" + j + "</div><div id='event_on_" + month + "_" + j + "' class='showpass-calendar-item-event-container'></div></div>";
     							}
     						}
     					}
 
     					$('.showpass-calendar-body').html(html);
-
                         var eventCounter = 0;
     					for (var i = 0; i < data.results.length; i++) {
-
     						var timezone = data.results[i].timezone;
     						var date_month = data.results[i].starts_on;
     						var a = moment.tz(date_month, timezone).format();
@@ -306,12 +314,13 @@
                             var event_location = data.results[i].location.name;
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province
                             var timezone = moment.tz(data.results[i].timezone).format('z')
-                            var image_event = data.results[i].thumbnail;
+                            var image_event = data.results[i].image;
+                            var image_banner = data.results[i].image_banner;
                             if (!image_event) {
                                 image_event = 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-square.png'
                             }
 
-                            if (page_type !== "") {
+                            if (page_type !== "" || widget_class !=='') {
                                 var url_event = site_url + "/" + page_type + "?slug=" + event_slug;
                                 var target = "_self";
                             } else {
@@ -322,42 +331,42 @@
     						if (month == month_event && year == year_event) {
     							var tmp = month_event + '_' + day_event;
                                 var html_tmp = "<div class='showpass-calendar-item-single show-tooltip' data-tooltip-content='#template-" + event_slug + "' data-month='" + month + "' data-day='" + day_event + "' data-year='" + year +"' style='background:url(" + image_event + ") no-repeat'>" +
-                                "<div class='day_number_showpass'>" + day_event + "</div>"+
-                                "<div class='tooltip_templates'><div class='calendar-tooltip tooltip-content' id='template-" + event_slug + "'><img class='tooltip-thumb' src='" + image_event + "' alt='" + event_name + "' />" +
+                                "<div class='tooltip_templates'><div class='calendar-tooltip tooltip-content' id='template-" + event_slug + "'><img class='tooltip-thumb' src='" + image_banner + "' alt='" + event_name + "' />" +
                                 "<div class='info'><div class='event-name'>" + event_name + "</div>" +
                                 "<div class='location'><i class='fa fa-map-marker'></i>" + event_location + "</div>" +
                                 "<div class='time'><i class='fa fa-clock-o'></i>" + moment(a).format('hh:mmA') + " " + timezone + "</div>" +
-                                "<div class='buttons'><a target='" + target + "' class='calendar-button' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div>" +
-                                "</div></div>"+
+                                "<div class='buttons'><a class='calendar-button " + widget_class + "' id='" + event_slug + "' href='#'><i class='fa fa-tags'></i>Tickets</a></div>" +
+                                "</div></div>" +
                                 "</div>";
 
     							$('#event_on_' + tmp).append(html_tmp);
 
-                                var html_mobile = "<div class='mobile-event clearfix'><div class='date-display'>" + day_event + "</div><img class='mobile-thumb' src='" + image_event + "' alt='" + event_name + "' />" +
+                                var html_mobile = "<div class='mobile-event clearfix'><div class='date-display'>" + day_event + "</div><img class='mobile-thumb' src='" + image_banner + "' alt='" + event_name + "' />" +
                                 "<div class='info'><div class='event-name'><h3>" + event_name + "</h3></div>" +
                                 "<div class='info-detail'><i class='fa fa-map-marker'></i>" + event_location + "</div>" +
                                 "<div class='info-detail'><i class='fa fa-calendar-o'></i>" + moment(a).format('ddd MMM Do YYYY') + "</div>" +
                                 "<div class='info-detail'><i class='fa fa-clock-o'></i>" + moment(a).format('hh:mmA') + " " + timezone + "</div>" +
-                                "<div class='buttons'><a target='" + target + "' class='btn' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div></div>";
+                                "<div class='buttons'><a target='" + target + "' class='btn " + widget_class + "' id='" + event_slug + "' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div></div>";
 
                                 $(".showpass-calendar-mobile").append(html_mobile);
                                 eventCounter++;
                             }
 
                             if ( i+1 == data.results.length && eventCounter == 0) {
-                            $(".showpass-calendar-mobile").html('<div class="not-found">No Events Found!</div>')
+                                $(".showpass-calendar-mobile").html('<div class="not-found">No Events Found!</div>')
                             }
 
     					}
 
-
     					$('.loader-home').hide();
+                        initializeTooltip();
+
     				}
     			});
     		}
     	}  // ending render calendar
 
-    	var date_now = new Date();
+    	var date_now = now;
     	var month_now = date_now.getMonth();
     	var year_now = date_now.getFullYear();
 
@@ -365,7 +374,7 @@
 
     		// $('.showpass-week-view').addClass('active');
     		$('.showpass-month-view').hide();
-    		var date_now = new Date();
+    		var date_now = now;
     		var month_now = date_now.getMonth();
     		var year_now = date_now.getFullYear();
     		// $('#current_day').val(today_first-current_day);
@@ -386,6 +395,7 @@
     		$('.showpass-week-view').hide();
     		$('.showpass-month-view').css('border-right', '0px');
     		renderCalendar(year_now, month_now + 1);
+            initializeTooltip()
 
     	} else {
 
@@ -397,7 +407,7 @@
 
     		if(!$(this).hasClass('active')) {
 
-    			var date_now = new Date();
+    			var date_now = now;
     			var month_now = date_now.getMonth();
     			var year_now = date_now.getFullYear();
     			renderCalendar(year_now, month_now + 1);
@@ -413,7 +423,7 @@
 
     		if (!$(this).hasClass('active')) {
 
-    			var date_now = new Date();
+    			var date_now = now;
     			var month_now = date_now.getMonth();
     			var year_now = date_now.getFullYear();
     			// $('#current_day').val(today_first-current_day);
