@@ -34,8 +34,10 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)       
    5.1. [Page parameter](#51-page-parameter)                                       
    5.2. [Week and month parameters](#52-week-and-month-parameters)
+   5.3. [Starting date parameter](#53-week-and-month-parameters)
+   5.4. [Use widget parameter](#54-week-and-month-parameters)
 6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
-  6.1. [Parameters](#51-widget-parameter)
+  6.1. [Parameters](#61-widget-parameter)
   6.2. [Widget Tracking](#62-widget-tracking)
 7. [Query Param - ?auto=slug](#7-auto-query-parameter)
 
@@ -404,6 +406,12 @@ If there is neither of this parameters, both views are enabled.
 
 ## 5.2. theme_dark Paramerter
 Add `theme_dark="true"` to use a dark theme for the calendar instead of the default light theme.
+
+## 5.2. starting_date Paramerter
+Add `starting_date="1-8-2018"` use day-month-year to set a starting date for the calendar on initial load
+
+## 5.2. use_widget Paramerter
+Add `use_widget="true"` if you want the ticket button to open the widget instead of redirecting to showpass or an event detail page use this
 
 ## 6. Shortcode [showpass_widget]
 
