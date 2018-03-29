@@ -335,7 +335,7 @@
                                 "<div class='info'><div class='event-name'>" + event_name + "</div>" +
                                 "<div class='location'><i class='fa fa-map-marker'></i>" + event_location + "</div>" +
                                 "<div class='time'><i class='fa fa-clock-o'></i>" + moment(a).format('hh:mmA') + " " + timezone + "</div>" +
-                                "<div class='buttons'><a class='calendar-button " + widget_class + "' id='" + event_slug + "' href='#'><i class='fa fa-tags'></i>Tickets</a></div>" +
+                                "<div class='buttons'><a class='calendar-button " + widget_class + "' id='" + event_slug + "' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div>" +
                                 "</div></div>" +
                                 "</div>";
 
