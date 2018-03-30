@@ -1,7 +1,17 @@
 (function($) {
-
     $(window).on('load', function() {
-
+        showpass.tickets.addCartCountListener(function (count) {
+            var html = '';
+            if (count > 0) {
+                html = 'Shopping Cart ('+count+')';
+                Cookies.set('cart', html);
+                $('.showpass-cart-button span').html(html);
+            } else {
+                html = 'Shopping Cart';
+                Cookies.set('cart', html);
+                $('.showpass-cart-button span').html(html);
+            }
+        });
         // GET QUERY STING
         function getQueryStrings() {
           var assoc  = {};
@@ -74,7 +84,35 @@
             }
 
             showpass.tickets.eventPurchaseWidget(slug, params);
-        })
+        });
+
+        $('.showpass-cart-button').on('click', function(e){
+          e.preventDefault();
+          showpass.tickets.checkoutWidget({
+              'theme-primary': $('#option_widget_color').val() || '',
+              'keep-shopping': $('#option_keep_shopping').val() || 'true',
+              'theme-dark': $('#option_theme_dark').val() || ''
+          });
+        });
+
+        if (Cookies.get('cart')) {
+          $('.showpass-cart-button span').html(Cookies.get('cart'));
+        }
+
+        function css(element, property) {
+          return window.getComputedStyle(element, null).getPropertyValue(property);
+        }
+
+        //Check to see if font awesome is available
+        var span = document.createElement('span');
+        span.className = 'fa';
+        span.style.display = 'none';
+        document.body.insertBefore(span, document.body.firstChild);
+        if ((css(span, 'font-family')) !== 'FontAwesome') {
+            $('.fa').hide();
+        }
+        document.body.removeChild(span);
+
     });
 
 })(jQuery);

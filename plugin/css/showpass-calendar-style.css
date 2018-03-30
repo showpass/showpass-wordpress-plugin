@@ -26,6 +26,7 @@
   }
 }*/
 
+
 .showpass-calendar-body {
   min-height: 500px;
   position: relative;
@@ -355,6 +356,10 @@
   left: 5px;
 }
 
+.showpass-calendar-mobile .event-name h3 {
+  margin-top: 0px;
+}
+
 .calendar-contain-mobile .info {
   padding: 15px;
   border-left: 1px solid;
@@ -364,12 +369,13 @@
 }
 .calendar-contain-mobile .btn {
   display: block;
-  margin-top: 20px;
-  text-align: center;
+  margin-top: 20px !important;
+  text-align: center !important;
 }
 
 @media screen and (min-width: 600px) {
   .calendar-contain-mobile .info {
+    padding-top: 0px;
     border: none !important;
   }
 
@@ -392,5 +398,11 @@
 }
 
 div.not-found {
+  text-align: center;
+}
+
+.showpass-button i,
+.showpass-calendar i {
+  width: 30px;
   text-align: center;
 }

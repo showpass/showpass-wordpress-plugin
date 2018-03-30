@@ -393,6 +393,13 @@ function showpass_widget_expand($atts, $content = null) {
 }
 add_shortcode('showpass_widget', 'showpass_widget_expand');
 
+//[showpass_cart_button]
+function wpshp_cart_button($atts, $content = null) {
+  return '<a class="showpass-button showpass-cart-button" href="#"><i class="fa fa-shopping-cart"></i><span>Shopping Cart</span></a>';
+}
+
+add_shortcode('showpass_cart_button', 'wpshp_cart_button');
+
 function showpass_scripts(){
   wp_dequeue_script('jquery');
   if (!is_admin()) {
@@ -402,6 +409,7 @@ function showpass_scripts(){
     wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(),false, '1.0.2');
     wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(),false, '1.0.3');
     wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(),false, '4.2.5');
+    wp_register_script('tooltipster', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(),false, '2.2.0');
     wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), '1.0.0', 'all' );
     wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), '1.0.0', 'all' );
     wp_enqueue_script('js-cookie', '//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js', array(), '2.2.0', true );

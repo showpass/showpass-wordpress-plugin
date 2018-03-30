@@ -34,12 +34,13 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)       
    5.1. [Page parameter](#51-page-parameter)                                       
    5.2. [Week and month parameters](#52-week-and-month-parameters)
-   5.3. [Starting date parameter](#53-week-and-month-parameters)
-   5.4. [Use widget parameter](#54-week-and-month-parameters)
+   5.3. [Starting date parameter](#53-starting_date-paramerter)
+   5.4. [Use widget parameter](#54-use_widget-paramerter)
 6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
   6.1. [Parameters](#61-widget-parameter)
   6.2. [Widget Tracking](#62-widget-tracking)
-7. [Query Param - ?auto=slug](#7-auto-query-parameter)
+7. [Shortcode - [showpass_cart_button]](#7-shortcode-showpass_cart_button)
+8. [Query Param - ?auto=slug](#8-auto-query-parameter)
 
 
 ## 1. Admin page
@@ -407,10 +408,10 @@ If there is neither of this parameters, both views are enabled.
 ## 5.2. theme_dark Paramerter
 Add `theme_dark="true"` to use a dark theme for the calendar instead of the default light theme.
 
-## 5.2. starting_date Paramerter
+## 5.3. starting_date Paramerter
 Add `starting_date="1-8-2018"` use day-month-year to set a starting date for the calendar on initial load
 
-## 5.2. use_widget Paramerter
+## 5.4. use_widget Paramerter
 Add `use_widget="true"` if you want the ticket button to open the widget instead of redirecting to showpass or an event detail page use this
 
 ## 6. Shortcode [showpass_widget]
@@ -457,7 +458,14 @@ Once you create your tracking link you will have a unique token `(ie 8ee54af5)` 
 
 `www.website.com/?event=event_slug&aff=8ee54af5`
 
-## 7. Auto Query Parameter
+##7 Shortcode [showpass_cart_button]
+Add a button to initiate the shopping cart and checkout widget
+
+`[showpass_cart_button]`
+
+Will display `Shopping Cart (x)` inside the button, and the x variable will update with the number of items in a shopping cartx
+
+## 8. Auto Query Parameter
 
 You can automatically open the ticket widget as soon as a customer lands on any page on your site by using the `auto` query parameter
 

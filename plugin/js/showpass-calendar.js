@@ -303,7 +303,7 @@
     					for (var i = 0; i < data.results.length; i++) {
     						var timezone = data.results[i].timezone;
     						var date_month = data.results[i].starts_on;
-    						var a = moment.tz(date_month, timezone).format();
+    						var a = moment(date_month).tz(timezone).format();
     						date_month = a;
     						var date_day = date_month.split("-");
     						var day_event = parseInt(date_day[2].substring(0,2));
@@ -334,7 +334,7 @@
                                 "<div class='tooltip_templates'><div class='calendar-tooltip tooltip-content' id='template-" + event_slug + "'><img class='tooltip-thumb' src='" + image_banner + "' alt='" + event_name + "' />" +
                                 "<div class='info'><div class='event-name'>" + event_name + "</div>" +
                                 "<div class='location'><i class='fa fa-map-marker'></i>" + event_location + "</div>" +
-                                "<div class='time'><i class='fa fa-clock-o'></i>" + moment(a).format('hh:mmA') + " " + timezone + "</div>" +
+                                "<div class='time'><i class='fa fa-clock-o'></i>" + moment(date_month).tz(data.results[i].timezone).format('hh:mmA') + " " + timezone + "</div>" +
                                 "<div class='buttons'><a class='calendar-button " + widget_class + "' id='" + event_slug + "' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div>" +
                                 "</div></div>" +
                                 "</div>";
@@ -346,14 +346,14 @@
                                 "<div class='info-detail'><i class='fa fa-map-marker'></i>" + event_location + "</div>" +
                                 "<div class='info-detail'><i class='fa fa-calendar-o'></i>" + moment(a).format('ddd MMM Do YYYY') + "</div>" +
                                 "<div class='info-detail'><i class='fa fa-clock-o'></i>" + moment(a).format('hh:mmA') + " " + timezone + "</div>" +
-                                "<div class='buttons'><a target='" + target + "' class='btn " + widget_class + "' id='" + event_slug + "' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div></div>";
+                                "<div class='buttons'><a target='" + target + "' class='btn showpass-button " + widget_class + "' id='" + event_slug + "' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div></div>";
 
                                 $(".showpass-calendar-mobile").append(html_mobile);
                                 eventCounter++;
                             }
 
                             if ( i+1 == data.results.length && eventCounter == 0) {
-                                $(".showpass-calendar-mobile").html('<div class="not-found">No Events Found!</div>')
+                                $(".showpass-calendar-mobile").html('<div class="not-found">No Events Found!</div>');
                             }
 
     					}

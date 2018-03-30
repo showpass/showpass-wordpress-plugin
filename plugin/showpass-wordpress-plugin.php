@@ -4,13 +4,12 @@
      Plugin URI:
      Description: Display events and event details, use the widget for on site ticket purchases
      Author: Showpass
-     Version: 2.6.1
+     Version: 2.6.2
      Author URI:
      */
 
 
-if( ! defined('ABSPATH') )
-{
+if( ! defined('ABSPATH') ) {
 	exit;
 }
 
