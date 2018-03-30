@@ -402,7 +402,8 @@ div.not-found {
 }
 
 .showpass-button i,
-.showpass-calendar i {
+.showpass-calendar i,
+.showpass-flex-box i {
   width: 30px;
   text-align: center;
 }
