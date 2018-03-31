@@ -58,7 +58,8 @@
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
   align-items: center;
-  justify-content: center !important;
+  justify-content: center;
+  text-align: center !important;
   box-sizing: border-box;
   text-decoration: none;
 }
@@ -75,6 +76,7 @@
   color: #fefefe;
   cursor: pointer;
   border-radius: 5px;
+  text-align: center !important;
   border-bottom: none !important;
   box-sizing: border-box;
   text-decoration: none;
