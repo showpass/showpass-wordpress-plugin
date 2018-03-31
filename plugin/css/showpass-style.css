@@ -57,8 +57,9 @@
   -o-transition: background-color 300ms linear;
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
-  align-items: center;
-  justify-content: center
+  align-items: center !important;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .showpass-button:hover {

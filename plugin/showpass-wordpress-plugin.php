@@ -4,7 +4,7 @@
      Plugin URI:
      Description: Display events and event details, use the widget for on site ticket purchases
      Author: Showpass
-     Version: 2.6.4
+     Version: 2.6.5
      Author URI:
      */
 
