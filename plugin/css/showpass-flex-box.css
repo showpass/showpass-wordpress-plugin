@@ -27,7 +27,7 @@
   }
 }
 
-@media screen and (max-width: 780px){
+@media screen and (max-width: 600px){
   .showpass-full-width {
     width: 100% !important;
   }
@@ -137,6 +137,11 @@
     padding: 10px;
     box-sizing: border-box !important;
 }
+
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column .list-layout-flex{
+  padding: 7px;
+}
+
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex, .showpass-flex-box .showpass-layout-flex.showpass-flex-column .sub-flex {
   -webkit-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;

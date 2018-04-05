@@ -30,6 +30,12 @@ function wpshp_get_data( $atts ) {
 		$template = NULL;
 	}
 
+	if(isset($atts["layout"])){
+		$layout = $atts["layout"];
+	} else {
+		$layout = NULL;
+	}
+
 	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
 	$final_api_url = API_PUBLIC_EVENTS;
@@ -44,7 +50,14 @@ function wpshp_get_data( $atts ) {
 			echo "ERROR - Need parameter in URL (id or slug)";
 		}
 	} else if ($type == "list") {
-		$filepath = 'inc/default-grid.php';
+
+		if($layout == "list"){
+			$filepath = 'inc/default-list.php';
+		}
+		else {
+			$filepath = 'inc/default-grid.php';
+		}
+
 		$final_api_url = API_PUBLIC_EVENTS . '/?venue__in=' . $organization_id;
 		$parameters = $_GET;
 		foreach ($parameters as $parameter => $value) {
@@ -194,7 +207,6 @@ function showpass_get_events_next_prev($page) {
 	}
 	return $page_link;
 }
-
 
 function getSingleTemplate($data) {
 	$event = json_decode($data);
