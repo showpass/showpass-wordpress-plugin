@@ -18,16 +18,27 @@
     background: #f4f4f4;
 }
 
-@media screen and (max-width: 960px) {
-.showpass-flex-table .showpass-flex-row, .showpass-flex-box .showpass-flex-row {
-    margin-bottom: 20px;
+@media screen and (min-width: 960px) {
+  .showpass-prodcut-grid-flex {
+    flex: 1 1 33% !important;
   }
-.showpass-flex-table .showpass-layout-flex .flex-header, .showpass-flex-box .showpass-layout-flex .flex-header {
-    display: none !important;
+}
+@media screen and (max-width: 960px) {
+  .showpass-flex-table .showpass-flex-row, .showpass-flex-box .showpass-flex-row {
+      margin-bottom: 20px;
+    }
+  .showpass-flex-table .showpass-layout-flex .flex-header, .showpass-flex-box .showpass-layout-flex .flex-header {
+      display: none !important;
+    }
+  .showpass-prodcut-grid-flex {
+    flex: 1 1 50% !important;
   }
 }
 
 @media screen and (max-width: 600px){
+  .showpass-prodcut-grid-flex {
+    flex: 1 1 100% !important;
+  }
   .showpass-full-width {
     width: 100% !important;
   }

@@ -125,6 +125,12 @@ function wpshp_get_product_data( $atts ) {
 		echo "ERROR - Please enter type parameter in shortcode";
 	}
 
+	if(isset($atts["layout"])){
+		$layout = $atts["layout"];
+	} else {
+		$layout = NULL;
+	}
+
 
 	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
@@ -132,7 +138,12 @@ function wpshp_get_product_data( $atts ) {
 
 	if ($type == "list") {
 
-		$filepath = 'inc/default-product-list.php';
+		if($layout == "list"){
+			$filepath = 'inc/default-product-list.php';
+		}
+		else {
+			$filepath = 'inc/default-product-grid.php';
+		}
 
 		$final_api_url = API_PUBLIC_PRODUCTS . '/?venue_id=' . $organization_id;
 		$parameters = $_GET;
