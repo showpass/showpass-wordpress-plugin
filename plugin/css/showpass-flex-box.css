@@ -86,6 +86,9 @@
   .showpass-flex-table .showpass-layout-flex .flex-75, .showpass-flex-box .showpass-layout-flex .flex-75 {
       flex: 1 1 100% !important;
   }
+  .showpass-flex-table .showpass-layout-flex .flex-80, .showpass-flex-box .showpass-layout-flex .flex-80 {
+      flex: 1 1 100% !important;
+  }
   .showpass-flex-table .showpass-layout-flex .flex-100, .showpass-flex-box .showpass-layout-flex .flex-100 {
       flex: 1 1 100% !important;
   }
@@ -231,6 +234,10 @@
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-75, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-75 {
     flex: 1 1 75%;
+}
+
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-80, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-80 {
+    flex: 1 1 80%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-100, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-100 {

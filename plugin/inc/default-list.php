@@ -7,11 +7,11 @@
 				foreach ($events as $key => $event) { ?>
 				<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card">
 					<div class="showpass-event-layout-list showpass-layout-flex m15">
-						<div class="flex-30 showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0">
+						<div class="flex-25 showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0">
 							<a class="showpass-image-banner showpass-hide-mobile" style="background-image: url('<?php echo $event['thumbnail'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
 							<a class="showpass-image showpass-hide-large" style="background-image: url('<?php echo $event['image_banner'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
 						</div>
-						<div class="flex-70 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white">
+						<div class="flex-75 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border">

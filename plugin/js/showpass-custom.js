@@ -69,6 +69,22 @@
                                     showpass.tickets.eventPurchaseWidget(slug, params);
                                   }, 500);
         }
+        
+        $('body').on('click', '.open-product-widget', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            var params = {
+                'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+                'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val(),
+                'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val()
+            };
+
+            if (Cookies.get('affiliate')) {
+                params['tracking-id'] = Cookies.get('affiliate');
+            }
+
+            showpass.tickets.productPurchaseWidget(id, params);
+        });
 
         $('body').on('click', '.open-ticket-widget', function (e) {
             e.preventDefault();

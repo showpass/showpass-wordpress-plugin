@@ -8,6 +8,7 @@ define('API_URL', 'https://www.showpass.com/api');
 // define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'&'));
 define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('API_PUBLIC_EVENTS', API_URL . '/public/events');
+define('API_PUBLIC_PRODUCTS', API_URL . '/public/products');
 
 function wpshp_get_data( $atts ) {
 
@@ -109,6 +110,64 @@ function wpshp_get_data( $atts ) {
 
 add_shortcode( 'showpass_events', 'wpshp_get_data' );
 
+function wpshp_get_product_data( $atts ) {
+
+	/* get Organization ID that is configured in admin Showpass Event API page */
+	$organization_id = get_option('option_organization_id');
+
+	if(isset($atts["type"])) {
+		$type = $atts["type"];
+	} else {
+		$type = NULL;
+	}
+
+	if($type == NULL) {
+		echo "ERROR - Please enter type parameter in shortcode";
+	}
+
+
+	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
+
+	$final_api_url = API_PUBLIC_PRODUCTS;
+
+	if ($type == "list") {
+
+		$filepath = 'inc/default-product-list.php';
+
+		$final_api_url = API_PUBLIC_PRODUCTS . '/?venue_id=' . $organization_id;
+		$parameters = $_GET;
+
+		foreach ($parameters as $parameter => $value) {
+			# code...
+			if($parameter == 'q' || $parameter == 'tags') {
+				$final_api_url .= "&" . $parameter . "=" . utf8_urldecode($value);
+			} else if($parameter == 'page_number') 			{
+				$final_api_url .= "&page=" . $value;
+			} else {
+				$final_api_url .= "&" . $parameter . "=" . $value;
+			}
+		}
+
+		if (isset($atts['page_size'])) {
+			$number_of_events_one_page = $atts['page_size'];
+			$final_api_url .= "&page_size=" . $number_of_events_one_page;
+		}
+
+		if(isset($atts["page"])) {
+			$detail_page = $atts["page"];
+		}
+	}
+
+	$data = CallAPI($final_api_url);
+
+	if ($data && $type == "list") {
+		require_once $filepath;
+	} else {
+		return $data;
+	}
+}
+add_shortcode( 'showpass_products', 'wpshp_get_product_data' );
+
 function utf8_urldecode($str) {
   $str = preg_replace("/%u([0-9a-f]{3,4})/i","&#x\\1;",urlencode($str));
   return html_entity_decode($str,null,'UTF-8');;
@@ -183,6 +242,37 @@ function showpass_get_price_range ($data) {
 			}
 			if ($ticket['price'] > $max) {
 				$max = $ticket['price'];
+			}
+		}
+		if ($max === 0) {
+			return 'FREE';
+		} else if ($max == $min) {
+			return '$'.$min;
+		} else if ($min === 0) {
+			return '$0 - $'.$max;
+		} else {
+			return '$'.$min.' - $'.$max;
+		}
+	}
+}
+
+/* GET PRICE RANGE FOR PRODUCTS */
+function showpass_get_product_price_range ($data) {
+	if ($data) {
+		$product_att = $data;
+		if (!$product_att) {
+			return null;
+		}
+
+		$min = 999999999;
+		$max = 0;
+
+		foreach ($product_att as $product) {
+			if ($product['price'] < $min) {
+				$min = $product['price'];
+			}
+			if ($product['price'] > $max) {
+				$max = $product['price'];
 			}
 		}
 		if ($max === 0) {

@@ -114,20 +114,28 @@
   display: block;
   text-shadow: none !important;
   box-sizing: border-box;
+  margin-top: 15px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 780px) {
   .showpass-button-full-width-list{
     width: 100%;
   }
 }
 
+.product-price {
+  margin-top: 10px;
+}
 @media screen and (max-width: 780px) {
   .showpass-button-full-width-grid{
     width: 100%;
   }
   .showpass-list-ticket-button {
     display: block;
+    margin-top: 0px;
+  }
+  .product-price {
+    margin-top: 0px;
   }
 }
 
@@ -160,7 +168,7 @@ a {
     flex-wrap: wrap !important;
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 780px) {
   .showpass-button-pull-right {
     justify-content: center;
     text-align: center;
@@ -174,7 +182,7 @@ a {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 780px) {
   .showpass-event-list.list-bottom-details {
     position: relative;
     width: 100%;
@@ -185,7 +193,7 @@ a {
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 780px) {
   .showpass-hide-large {
     display: none !important;
   }
@@ -379,13 +387,8 @@ a {
 .showpass-image-banner {
   width: 100% !important;
   background-size: cover !important;
-  padding-top: 100%;
-}
-
-@media screen and (min-width: 600px) {
-  .showpass-image-banner {
-    padding-top: 202px !important;
-  }
+  padding-top: 100% !important;
+  height: 100% !important;
 }
 
 .showpass-detail-buy {
