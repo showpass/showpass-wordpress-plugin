@@ -18,7 +18,7 @@ function wpshp_get_data( $atts ) {
 	if(isset($atts["type"])) {
 		$type = $atts["type"];
 	} else {
-		$type = NULL;
+		$type = "event-list";
 	}
 
 	if($type == NULL) {
@@ -28,20 +28,14 @@ function wpshp_get_data( $atts ) {
 	if(isset($atts["template"])){
 		$template = $atts["template"];
 	} else {
-		$template = NULL;
-	}
-
-	if(isset($atts["layout"])){
-		$layout = $atts["layout"];
-	} else {
-		$layout = NULL;
+		$template = "default";
 	}
 
 	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
 	$final_api_url = API_PUBLIC_EVENTS;
 
-	if($type == "single") {
+	if($type == "event-detail" || $type == "single") {
 		$filepath = 'inc/default-detail.php';
 		if(isset($_GET['id'])) {
 			$final_api_url = API_PUBLIC_EVENTS . "/" . $_GET['id'] . "/";
@@ -50,9 +44,9 @@ function wpshp_get_data( $atts ) {
 		} else {
 			echo "ERROR - Need parameter in URL (id or slug)";
 		}
-	} else if ($type == "list") {
+	} else if ($type == "event-list" || $type == "list") {
 
-		if($layout == "list"){
+		if($template == "list"){
 			$filepath = 'inc/default-list.php';
 		}
 		else {
@@ -78,6 +72,10 @@ function wpshp_get_data( $atts ) {
 			$number_of_events_one_page = $atts['page_size'];
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
 		}
+		else {
+			$number_of_events_one_page = 8;
+			$final_api_url .= "&page_size=" . $number_of_events_one_page;
+		}
 
 		if (isset($atts['tags'])) {
 			$tags = $atts['tags'];
@@ -97,14 +95,17 @@ function wpshp_get_data( $atts ) {
 		if(isset($atts["page"])) {
 			$detail_page = $atts["page"];
 		}
+		else {
+			$detail_page = NULL;
+		}
 	}
 
 	$data = CallAPI($final_api_url);
 
-	if ($data && $template == "default") {
-		require_once $filepath;
-	} else {
+	if ($template == "data") {
 		return $data;
+	} else {
+		require_once $filepath;
 	}
 }
 
@@ -118,27 +119,26 @@ function wpshp_get_product_data( $atts ) {
 	if(isset($atts["type"])) {
 		$type = $atts["type"];
 	} else {
-		$type = NULL;
+		$type = "product-list";
 	}
 
 	if($type == NULL) {
 		echo "ERROR - Please enter type parameter in shortcode";
 	}
 
-	if(isset($atts["layout"])){
-		$layout = $atts["layout"];
+	if(isset($atts["template"])){
+		$template = $atts["template"];
 	} else {
-		$layout = NULL;
+		$template = "default";
 	}
-
 
 	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
 	$final_api_url = API_PUBLIC_PRODUCTS;
 
-	if ($type == "list") {
+	if ($type == "product-list") {
 
-		if($layout == "list"){
+		if($template == "list"){
 			$filepath = 'inc/default-product-list.php';
 		}
 		else {
@@ -163,18 +163,18 @@ function wpshp_get_product_data( $atts ) {
 			$number_of_events_one_page = $atts['page_size'];
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
 		}
-
-		if(isset($atts["page"])) {
-			$detail_page = $atts["page"];
+		else {
+			$number_of_events_one_page = 8;
+			$final_api_url .= "&page_size=" . $number_of_events_one_page;
 		}
 	}
 
 	$data = CallAPI($final_api_url);
 
-	if ($data && $type == "list") {
-		require_once $filepath;
-	} else {
+	if ($template == "data") {
 		return $data;
+	} else {
+		require_once $filepath;
 	}
 }
 add_shortcode( 'showpass_products', 'wpshp_get_product_data' );
@@ -385,7 +385,9 @@ function wpshp_calendar($atts) {
 
   if (isset($atts["use_widget"])) {
     $use_widget = true;
-  }
+  }else {
+		$use_widget = false;
+	}
 
 	$prev_week = (int)$current_day - 7;
 	$next_week = (int)$current_day + 7;
@@ -496,7 +498,8 @@ function showpass_widget_expand($atts, $content = null) {
 		}
 
 		//update to template as needed
-		$button = $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+		$button = '';
+		$button .= $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
 		$button .= '<span>'.$label.'</span></div>';
 		return $button;
 

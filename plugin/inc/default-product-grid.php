@@ -20,7 +20,7 @@
 								</div>
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border showpass-title-wrapper">
-										<div class="showpass-event-title">
+										<div class="showpass-event-title showpass-product-grid-title">
 											<h3><a class="open-product-widget" id="<?php echo $product['id']; ?>"><?php echo $product['name']; ?></a></h3>
 										</div>
 									</div>

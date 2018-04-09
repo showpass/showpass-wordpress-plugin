@@ -8,8 +8,13 @@
 				<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card">
 					<div class="showpass-event-layout-list showpass-layout-flex m15">
 						<div class="flex-25 showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0">
-							<a class="showpass-image-banner showpass-hide-mobile" style="background-image: url('<?php echo $event['thumbnail'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
-							<a class="showpass-image showpass-hide-large" style="background-image: url('<?php echo $event['image_banner'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
+							<?php if ($detail_page) { ?>
+								<a class="showpass-image-banner showpass-hide-mobile" style="background-image: url('<?php echo $event['thumbnail'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
+								<a class="showpass-image showpass-hide-large" style="background-image: url('<?php echo $event['image_banner'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
+							<?php } else {?>
+								<a class="showpass-image-banner showpass-hide-mobile open-ticket-widget" id="<?php echo $event['slug']; ?>" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
+								<a class="showpass-image showpass-hide-large open-ticket-widget" id="<?php echo $event['slug']; ?>" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
+							<?php } ?>
 						</div>
 						<div class="flex-75 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
@@ -22,7 +27,11 @@
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-title-wrapper">
 										<div class="showpass-event-title">
-											<h3><a href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
+											<?php if ($detail_page) { ?>
+												<h3><a href="/<?php echo $detail_page ?>/?slug=<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
+											<?php } else {?>
+												<h3><a class="open-ticket-widget" id="<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
+											<?php } ?>
 										</div>
 									</div>
 								</div>
@@ -41,11 +50,13 @@
 													<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">Buy Tickets</a>
 												</div>
 											</div>
-											<div class="flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-right">
-												<div class="showpass-button-full-width-list">
-													<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php if($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
+											<?php if ($detail_page) {?>
+												<div class="flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-right">
+													<div class="showpass-button-full-width-list">
+														<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php if($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
+													</div>
 												</div>
-											</div>
+											<?php } ?>
 										</div>
 								</div>
 							</div>

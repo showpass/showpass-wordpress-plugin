@@ -74,7 +74,10 @@
   justify-content: center;
   text-align: center !important;
   box-sizing: border-box;
-  text-decoration: none;
+  text-decoration: none !important;
+}
+.showpass-button:focus {
+  text-decoration: none !important;
 }
 
 .showpass-button:hover {
@@ -117,10 +120,22 @@
   margin-top: 15px;
 }
 
+.showpass-list-ticket-button:focus {
+  text-decoration: none !important;
+}
+
 @media screen and (max-width: 780px) {
   .showpass-button-full-width-list{
     width: 100%;
   }
+}
+
+.showpass-cart-button a:visited, .showpass-cart-button a:focus {
+  text-decoration: none;
+}
+
+a:focus {
+  text-decoration: none !important;
 }
 
 .product-price {
@@ -168,7 +183,7 @@ a {
     flex-wrap: wrap !important;
   }
 }
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 600px) {
   .showpass-button-pull-right {
     justify-content: center;
     text-align: center;
@@ -177,6 +192,8 @@ a {
     justify-content: center;
     text-align: center;
   }
+}
+@media screen and (max-width: 600px) {
   .showpass-hide-mobile {
     display: none !important;
   }
@@ -193,13 +210,13 @@ a {
   }
 }
 
-@media screen and (min-width: 780px) {
+@media screen and (min-width: 600px) {
   .showpass-hide-large {
     display: none !important;
   }
 }
 
-.showpass-event-title a, .showpass-event-title h3 {
+.showpass-event-title h3 {
   color: black !important;
   font-weight: 100 !important;
   margin-top: 0px !important;
@@ -214,7 +231,7 @@ a {
   flex-shrink: 0;
 }
 
-.showpass-event-list-title a, .showpass-event-list-title h3 {
+.showpass-event-list-title h3 {
   color: black !important;
   font-size: 1rem!important;
   font-weight: bold !important;
@@ -238,7 +255,11 @@ a {
   text-overflow: ellipsis;
 }
 
-/* .showpass-event-title a{
+.showpass-product-grid-title {
+  max-width: 215px !important;
+}
+
+.showpass-event-title a{
   color: black !important;
   font-weight: 100 !important;
   margin-top: 0px !important;
@@ -249,7 +270,7 @@ a {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-} */
+}
 
 .showpass-pagination {
   margin-left: 0;
