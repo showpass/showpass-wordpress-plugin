@@ -70,7 +70,7 @@
 				<div class="flex-100">
 					<h1 class="mt0">Sorry, no products found!</h1>
 					<?php if ($_GET) { ?>
-						<a class="back-link" href="/events/">View All Events</a>
+						<a class="back-link" href="/events/">View All Products</a>
 					<?php } ?>
 				</div>
 			<?php } ?>

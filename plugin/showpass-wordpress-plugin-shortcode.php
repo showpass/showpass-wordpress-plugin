@@ -176,7 +176,9 @@ function wpshp_get_product_data( $atts ) {
 	} else {
 		require_once $filepath;
 	}
+
 }
+
 add_shortcode( 'showpass_products', 'wpshp_get_product_data' );
 
 function utf8_urldecode($str) {

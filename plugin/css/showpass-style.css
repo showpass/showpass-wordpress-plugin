@@ -89,7 +89,7 @@
   display: inline-block;
   padding: 10px 20px;
   background-color: #767676 !important;
-  color: #fefefe;
+  color: #fefefe !important;
   cursor: pointer;
   border-radius: 5px;
   text-align: center !important;
@@ -118,6 +118,7 @@
   text-shadow: none !important;
   box-sizing: border-box;
   margin-top: 15px;
+  text-decoration: none !important;
 }
 
 .showpass-list-ticket-button:focus {
@@ -259,7 +260,7 @@ a {
   max-width: 215px !important;
 }
 
-.showpass-event-title a{
+.showpass-event-title a {
   color: black !important;
   font-weight: 100 !important;
   margin-top: 0px !important;
@@ -270,6 +271,7 @@ a {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
+  text-decoration: none !important;
 }
 
 .showpass-pagination {

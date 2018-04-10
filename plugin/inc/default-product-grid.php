@@ -8,7 +8,7 @@
 				<div class="flex-50 showpass-prodcut-grid-flex showpass-flex-column showpass-no-border showpass-event-card">
 					<div class="showpass-event-list showpass-layout-flex m15">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-							<a class="showpass-image-banner open-product-widget" style="background-image: url('<?php echo $product['thumbnail'];?>');"></a>							
+							<a class="showpass-image-banner open-product-widget" style="background-image: url('<?php echo $product['thumbnail'];?>');"></a>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
@@ -61,9 +61,9 @@
 			<?php } ?>
 		<?php } else { ?>
 				<div class="flex-100">
-					<h1 class="mt0">Sorry, no events found!</h1>
+					<h1 class="mt0">Sorry, no products found!</h1>
 					<?php if ($_GET) { ?>
-						<a class="back-link" href="/events/">View All Events</a>
+						<a class="back-link" href="/events/">View All Products</a>
 					<?php } ?>
 				</div>
 			<?php } ?>
