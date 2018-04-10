@@ -1,11 +1,11 @@
 <?php
     /*
      Plugin Name: Showpass Events
-     Plugin URI:
-     Description: Display events and event details, use the widget for on site ticket purchases
-     Author: Showpass
-     Version: 2.6.5
-     Author URI:
+     Plugin URI: https://github.com/showpass/showpass-wordpress-plugin
+     Description: Display events, event details and products use the Showpass purchase widget for on site ticket & product purchases. 
+     Author: Showpass / Up In Code Inc.
+     Version: 2.7
+     Author URI: https://www.showpass.com
      */
 
 
