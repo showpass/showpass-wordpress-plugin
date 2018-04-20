@@ -14,7 +14,7 @@
 							<div class="showpass-full-width">
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border">
-										<div class="product-price"><?php if ($product['product_attributes']) : ?><small class="showpass-price-display"><?php echo showpass_get_product_price_range($product['product_attributes']);?></small><?php endif; ?></div>
+										<div class="product-price"><?php if ($product['product_attributes']) : ?><small class="showpass-price-display"><?php echo showpass_get_product_price_range($product['product_attributes']);?> <?php echo $event['currency']; ?></small><?php endif; ?></div>
 										<div class="product-price"><?php if (!$product['product_attributes']) : ?><small class="showpass-price-display"> No Items Available</small><?php endif; ?></div>
                   </div>
 								</div>

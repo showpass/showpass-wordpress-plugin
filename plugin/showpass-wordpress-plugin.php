@@ -2,9 +2,9 @@
     /*
      Plugin Name: Showpass Events
      Plugin URI: https://github.com/showpass/showpass-wordpress-plugin
-     Description: Display events, event details and products use the Showpass purchase widget for on site ticket & product purchases. 
+     Description: Display events, event details and products use the Showpass purchase widget for on site ticket & product purchases.
      Author: Showpass / Up In Code Inc.
-     Version: 2.7
+     Version: 2.7.1
      Author URI: https://www.showpass.com
      */
 

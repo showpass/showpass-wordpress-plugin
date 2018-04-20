@@ -6,6 +6,24 @@
   background-color: rgba(255, 255, 255, 0) !important;
 }
 
+@media screen and (min-width: 1280px) {
+  .showpass-event-card {
+    flex: 1 1 33% !important;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .showpass-event-card {
+    flex: 1 1 50% !important;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .showpass-event-card {
+    flex: 1 1 100% !important;
+  }
+}
+
 .showpass-event-card .showpass-event-list .showpass-background-white, .showpass-event-card .showpass-event-layout-list .showpass-background-white{
   background-color: white;
 }
@@ -125,14 +143,14 @@
   text-decoration: none !important;
 }
 
+.showpass-button i {
+  margin-right: 10px;
+}
+
 @media screen and (max-width: 780px) {
   .showpass-button-full-width-list{
     width: 100%;
   }
-}
-
-.showpass-cart-button a:visited, .showpass-cart-button a:focus {
-  text-decoration: none;
 }
 
 a:focus {
@@ -142,6 +160,7 @@ a:focus {
 .product-price {
   margin-top: 10px;
 }
+
 @media screen and (max-width: 780px) {
   .showpass-button-full-width-grid{
     width: 100%;
@@ -217,6 +236,19 @@ a {
   }
 }
 
+.showpass-event-list .showpass-price-display {
+  font-size: 14px;
+}
+
+.showpass-event-list .showpass-detail-event-date .info {
+  font-size: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
 .showpass-event-title h3 {
   color: black !important;
   font-weight: 100 !important;
@@ -248,10 +280,13 @@ a {
   flex-shrink: 0;
 }
 
-.showpass-event-title {
+.showpass-event-title h3 {
+  font-size: 26px !important;
+  line-height: 30px;
+  height: 60px;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
 }
@@ -265,12 +300,6 @@ a {
   font-weight: 100 !important;
   margin-top: 0px !important;
   margin-bottom: 0px !important;
-  justify-content: center;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
   text-decoration: none !important;
 }
 
@@ -419,7 +448,6 @@ a {
   width: 100%;
   margin-right: 0;
   margin-left: 0;
-  font-size: 1.25rem;
   background-color: #dd3333;
   cursor: pointer;
   font-weight: bold !important;
@@ -434,4 +462,13 @@ a {
 
 .showpass-detail-buy:hover {
   background-color: #921818 !important;
+}
+
+.icon-center {
+  width: 40px;
+  text-align: center;
+}
+
+.showpass-detail-event-date .info {
+  margin-bottom: 10px;
 }

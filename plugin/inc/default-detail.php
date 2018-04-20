@@ -19,22 +19,29 @@
 		<div class="flex-container showpass-layout-flex">
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
-					<span class="showpass-detail-buy showpass-hide-large open-ticket-widget" id="<?php echo $event['slug']; ?>">BUY TICKETS</span>
+					<span class="showpass-detail-buy showpass-hide-large open-ticket-widget" id="<?php echo $event['slug']; ?>">
+          z</span>
 					<?php echo $event['description'];?>
 				</div>
 			</div>
 			<div class="flex-33 showpass-flex-column showpass-no-border">
 				<div class="w100">
-					<div class="showpass-detail-event-date mb30 ">
+					<div class="showpass-detail-event-date mb30">
 						<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
 						<div class="info"><i class="fa fa-clock-o icon-center"></i><?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
 							<?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
-						<div class="info"><i class="fa fa-map-marker icon-center"></i> <?php $location = $event['location']; echo $location['name'];?></div>
-						<?php if ($event['ticket_types']) : ?><div class="info mb20"><i class="fa fa-tags icon-center"></i> <?php echo showpass_get_price_range($event['ticket_types']);?></div><?php endif; ?>
-						<span class="showpass-detail-buy open-ticket-widget" id="<?php echo $event['slug']; ?>">BUY TICKETS</span>
+						<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
+						<?php if ($event['ticket_types']) : ?><div class="info mb20"><i class="fa fa-tags icon-center"></i><?php echo showpass_get_price_range($event['ticket_types']);?> <?php echo $event['currency']; ?></div><?php endif; ?>
+              <span class="showpass-detail-buy open-ticket-widget" id="<?php echo $event['slug']; ?>">
+                <?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+                  BUY TICKETS
+                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+                  REGISTER
+                <?php } ?>
+            </span>
 					</div>
 					<div class="text-center showpass-detail-location">
-						<h2 class="showpass-event-veune-name"><?php echo $location['name'];?></h2>
+						<h3 class="showpass-event-veune-name"><?php echo $location['name'];?></h3>
 						<span class="showpass-detail-address"><?php echo rtrim($location['street_name']);?>, <?php echo $location['city'];?></span>
 						<iframe width="100%" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDe9oSMuAfjkjtblej94RJvQh3ioWJb4go&q=<?php echo $location['name'];?>,<?php echo $location['city'];?>+<?php echo $location['province'];?>
 							&center=<?php echo $location['position'];?>" allowfullscreen>

@@ -20,7 +20,14 @@
 							<div class="showpass-full-width">
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border">
-										<div><?php if ($event['ticket_types']) : ?><small class="showpass-price-display"> <?php echo showpass_get_price_range($event['ticket_types']);?></small><?php endif; ?></div>
+										<div>
+                      <?php if ($event['ticket_types']) : ?>
+                        <small class="showpass-price-display">
+                          <?php echo showpass_get_price_range($event['ticket_types']);?>
+                          <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
+                        </small>
+                      <?php endif; ?>
+                    </div>
                     <div><?php if (!$event['ticket_types']) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
                   </div>
 								</div>
@@ -36,10 +43,10 @@
 									</div>
 								</div>
 								<div class="showpass-layout-flex">
-									<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border">
+                  <div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
 										<div>
-											<div class="text-muted small"><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-											<div class="text-muted small"><?php $location = $event['location']; echo $location['name'];?></div>
+											<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+											<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
 										</div>
 									</div>
 								</div>

@@ -513,7 +513,7 @@ add_shortcode('showpass_widget', 'showpass_widget_expand');
 
 //[showpass_cart_button]
 function wpshp_cart_button($atts, $content = null) {
-  return '<a class="showpass-button showpass-cart-button" href="#"><i class="fa fa-shopping-cart"></i><span>Shopping Cart</span></a>';
+  return '<span class="showpass-button showpass-cart-button" href="#"><i class="fa fa-shopping-cart"></i><span>Shopping Cart</span></span>';
 }
 
 add_shortcode('showpass_cart_button', 'wpshp_cart_button');
