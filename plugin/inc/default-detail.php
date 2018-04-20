@@ -9,7 +9,7 @@
 		$event = $event_data;
 		$current_event = $event['id'];?>
 		<div class="showpass-layout-flex showpass-detail-event-name">
-			<div class="flex-100 showpass-flex-column showpass-no-border showpass-image-banner">
+			<div class="flex-100 showpass-flex-column showpass-no-border">
 				<img class="showpass-detail-image" alt="<?php echo $event['name']; ?>" src="<?php echo $event['image_banner']; ?>" />
 			</div>
 		</div>
