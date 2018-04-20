@@ -432,11 +432,14 @@ a {
 }
 
 .showpass-image {
+  max-width: 100% !important;
   width: 100% !important;
   padding-top: 50% !important;
   background-size: cover !important;
 }
+
 .showpass-image-banner {
+  max-width: 100% !important;
   width: 100% !important;
   background-size: cover !important;
   padding-top: 100% !important;
