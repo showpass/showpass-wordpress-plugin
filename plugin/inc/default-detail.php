@@ -20,7 +20,12 @@
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
 					<span class="showpass-detail-buy showpass-hide-large open-ticket-widget" id="<?php echo $event['slug']; ?>">
-          z</span>
+						<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+							BUY TICKETS
+						<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+							REGISTER
+						<?php } ?>
+					</span>
 					<?php echo $event['description'];?>
 				</div>
 			</div>

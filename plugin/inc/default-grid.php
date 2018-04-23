@@ -49,10 +49,16 @@
 									</div>
 								</div>
 								<div class="showpass-showpass-layout-flex">
-										<div class="clearfix showpass-layout-flex showpass-list-button-layout">
+										<div class="showpass-layout-flex showpass-list-button-layout">
 												<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
 													<div class="showpass-button-full-width-grid">
-														<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">Buy Tickets</a>
+														<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">
+															<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+							                  BUY TICKETS
+							                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+							                  REGISTER
+							                <?php } ?>
+														</a>
 													</div>
 												</div>
 											<?php if ($detail_page) {?>
