@@ -11,7 +11,10 @@
 							<?php if ($detail_page) { ?>
 								<a class="showpass-image-banner showpass-hide-mobile" style="background-image: url('<?php echo $event['thumbnail'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
 								<a class="showpass-image showpass-hide-large" style="background-image: url('<?php echo $event['image_banner'];?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
-							<?php } else {?>
+							<?php } else if(showpass_ticket_sold_out($event['ticket_types'])){?>
+								<a class="showpass-image-banner showpass-hide-mobile showpass-soldout" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
+								<a class="showpass-image showpass-hide-large showpass-soldout" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
+							<?php } else{?>
 								<a class="showpass-image-banner showpass-hide-mobile open-ticket-widget" id="<?php echo $event['slug']; ?>" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
 								<a class="showpass-image showpass-hide-large open-ticket-widget" id="<?php echo $event['slug']; ?>" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
 							<?php } ?>
@@ -54,13 +57,19 @@
 										<div class="showpass-layout-flex showpass-list-button-layout">
 											<div class="flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-left">
 												<div class="showpass-button-full-width-list">
+													<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
+														<a class="showpass-list-ticket-button showpass-button showpass-soldout">
+															SOLD OUT
+														</a>
+													<?php } else { ?>
 													<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">
 														<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
-						                  BUY TICKETS
-						                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
-						                  REGISTER
-						                <?php } ?>
+															BUY TICKETS
+														<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+															REGISTER
+														<?php } ?>
 													</a>
+													<?php } ?>
 												</div>
 											</div>
 											<?php if ($detail_page) {?>

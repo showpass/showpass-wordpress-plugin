@@ -238,6 +238,33 @@ function showpass_get_timezone_abbr ($timezone) {
 	}
 }
 
+/* RETURN TRUE IF ALL TICKET TYPES ARE SOLD OUT */
+function showpass_ticket_sold_out ($data) {
+	if ($data) {
+		$ticket_types = $data;
+
+		if (!$ticket_types) {
+			return null;
+		}
+
+		$soldout_count = 0;
+		$ticket_types_count = sizeOf($data);
+
+		foreach ($ticket_types as $ticket) {
+			if ($ticket['sold_out']) {
+					$soldout_count ++ ;
+			}
+		}
+
+		if($soldout_count == $ticket_types_count){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+}
+
 /* GET PRICE RANGE FOR TICKETS */
 function showpass_get_price_range ($data) {
 	if ($data) {

@@ -5,11 +5,13 @@
 			if ($event_data['count'] > 0) {
 				$events = $event_data['results'];
 				foreach ($events as $key => $event) { ?>
-				<div class="showpass-flex-column showpass-no-border showpass-event-card">
+				<div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
 					<div class="showpass-event-list showpass-layout-flex m15">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
 							<?php if ($detail_page) { ?>
 								<a class="showpass-image" style="background-image: url('<?php echo $event['image_banner'];?>');" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>"></a>
+							<?php } else if(showpass_ticket_sold_out($event['ticket_types'])) {?>
+								<a class="showpass-image showpass-soldout" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
 							<?php } else {?>
 								<a class="showpass-image open-ticket-widget" id="<?php echo $event['slug']; ?>" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
 							<?php } ?>
@@ -48,27 +50,33 @@
 										</div>
 									</div>
 								</div>
-								<div class="showpass-showpass-layout-flex">
-										<div class="showpass-layout-flex showpass-list-button-layout">
-												<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
-													<div class="showpass-button-full-width-grid">
-														<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">
-															<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
-							                  BUY TICKETS
-							                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
-							                  REGISTER
-							                <?php } ?>
+								<div class="showpass-layout-flex">
+									<div class="showpass-layout-flex showpass-list-button-layout">
+											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
+												<div class="showpass-button-full-width-grid">
+													<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
+														<a class="showpass-list-ticket-button showpass-button showpass-soldout">
+															SOLD OUT
 														</a>
-													</div>
+													<?php } else { ?>
+													<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">
+														<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+															BUY TICKETS
+														<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+															REGISTER
+														<?php } ?>
+													</a>
+													<?php } ?>
 												</div>
-											<?php if ($detail_page) {?>
-												<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">
-													<div class="showpass-button-full-width-grid">
-														<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
-													</div>
+											</div>
+										<?php if ($detail_page) {?>
+											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">
+												<div class="showpass-button-full-width-grid">
+													<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
 												</div>
-											<?php } ?>
-										</div>
+											</div>
+										<?php } ?>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -7,19 +7,19 @@
 }
 
 @media screen and (min-width: 1280px) {
-  .showpass-event-card {
+  .showpass-grid {
     flex: 1 1 33% !important;
   }
 }
 
 @media screen and (max-width: 1279px) {
-  .showpass-event-card {
+  .showpass-grid {
     flex: 1 1 50% !important;
   }
 }
 
 @media screen and (max-width: 980px) {
-  .showpass-event-card {
+  .showpass-grid {
     flex: 1 1 100% !important;
   }
 }
@@ -74,7 +74,10 @@
 .showpass-event-layout-list:last-child {
     margin-bottom: 0px !important;
 }
-
+.showpass-soldout {
+  background-color: #767676 !important;
+  color: #fefefe !important;
+}
 .showpass-button {
   display: inline-block;
   padding: 10px 20px;

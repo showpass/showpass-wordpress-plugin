@@ -19,6 +19,11 @@
 		<div class="flex-container showpass-layout-flex">
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
+					<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
+						<span class="showpass-detail-buy showpass-hide-large showpass-soldout">
+							SOLD OUT
+						</span>
+					<?php } else { ?>
 					<span class="showpass-detail-buy showpass-hide-large open-ticket-widget" id="<?php echo $event['slug']; ?>">
 						<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
 							BUY TICKETS
@@ -26,6 +31,7 @@
 							REGISTER
 						<?php } ?>
 					</span>
+				<?php }?>
 					<?php echo $event['description'];?>
 				</div>
 			</div>
@@ -37,13 +43,19 @@
 							<?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
 						<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
 						<?php if ($event['ticket_types']) : ?><div class="info mb20"><i class="fa fa-tags icon-center"></i><?php echo showpass_get_price_range($event['ticket_types']);?> <?php echo $event['currency']; ?></div><?php endif; ?>
-              <span class="showpass-detail-buy open-ticket-widget" id="<?php echo $event['slug']; ?>">
-                <?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
-                  BUY TICKETS
-                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
-                  REGISTER
-                <?php } ?>
-            </span>
+							<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
+								<span class="showpass-detail-buy showpass-soldout">
+									SOLD OUT
+								</span>
+							<?php } else { ?>
+								<span class="showpass-detail-buy open-ticket-widget" id="<?php echo $event['slug']; ?>">
+	                <?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+	                  BUY TICKETS
+	                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+	                  REGISTER
+	                <?php } ?>
+	            	</span>
+							<?php }?>
 					</div>
 					<div class="text-center showpass-detail-location">
 						<h3 class="showpass-event-veune-name"><?php echo $location['name'];?></h3>
