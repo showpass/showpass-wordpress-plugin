@@ -142,6 +142,8 @@
   text-decoration: none !important;
 }
 
+
+
 .showpass-list-ticket-button:focus {
   text-decoration: none !important;
 }
@@ -479,4 +481,29 @@ a {
 
 .showpass-detail-event-date .info {
   margin-bottom: 10px;
+}
+
+.showpass-pricing-table .pricing-table-buy-now {
+  position: absolute;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100%;
+}
+
+.pricing-table-buy-now .showpass-button {
+  border-radius: 0;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  display: block !important;
+  width: 100%;
+  padding: 15px 10px !important;
+}
+
+.showpass-pricing-table .description {
+  font-size: 14px !important;
+}
+
+.showpass-pricing-table .showpass-background-white {
+  padding-bottom: 50px !important;
 }

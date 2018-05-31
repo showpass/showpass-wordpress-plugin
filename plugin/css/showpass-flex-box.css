@@ -140,6 +140,15 @@
     box-sizing: border-box !important;
 }
 
+.showpass-flex-box .showpass-layout-flex.justify-center {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.showpass-flex-box .showpass-layout-flex.layout-fill {
+  height: 100% !important;
+}
+
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column, .showpass-flex-box .showpass-layout-flex .showpass-flex-column {
     display: flex;
     align-items: flex-start;

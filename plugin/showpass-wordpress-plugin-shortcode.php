@@ -538,6 +538,41 @@ function showpass_widget_expand($atts, $content = null) {
 }
 add_shortcode('showpass_widget', 'showpass_widget_expand');
 
+function wpshp_get_pricing_table( $atts ) {
+
+	/* get Organization ID that is configured in admin Showpass Event API page */
+	$organization_id = get_option('option_organization_id');
+  $event_ids = $atts['ids'];
+
+	if($event_ids == NULL) {
+		echo "ERROR - Please enter the `ids` parameter in shortcode";
+	}
+
+	$final_api_url = API_PUBLIC_EVENTS;
+  $filepath = 'inc/default-pricing-table.php';
+  $final_api_url = $final_api_url . '/?id__in=' . $event_ids;
+	$data = CallAPI($final_api_url);
+
+
+  $events = array();
+  $sort_order = explode(',', $event_ids);
+  $events_data = json_decode($data, true)['results'];
+  $events = array();
+  foreach( $sort_order as $sort_id ) {
+     foreach( $events_data as $event ) {
+        if( $event['id'] == $sort_id ) {
+          array_push($events, $event);
+          break;
+        }
+     }
+  }
+
+	require_once $filepath;
+
+}
+
+add_shortcode( 'showpass_pricing_table', 'wpshp_get_pricing_table' );
+
 //[showpass_cart_button]
 function wpshp_cart_button($atts, $content = null) {
   return '<span class="showpass-button showpass-cart-button" href="#"><i class="fa fa-shopping-cart"></i><span>Shopping Cart</span></span>';
