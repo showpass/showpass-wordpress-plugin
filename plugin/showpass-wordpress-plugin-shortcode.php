@@ -105,7 +105,12 @@ function wpshp_get_data( $atts ) {
 	if ($template == "data") {
 		return $data;
 	} else {
-		require_once $filepath;
+
+		ob_start();
+	  include($filepath);
+	  $content = ob_get_clean();
+	  return $content;
+
 	}
 }
 
@@ -174,7 +179,12 @@ function wpshp_get_product_data( $atts ) {
 	if ($template == "data") {
 		return $data;
 	} else {
-		require_once $filepath;
+
+	  ob_start();
+	  include($filepath);
+	  $content = ob_get_clean();
+	  return $content;
+
 	}
 
 }
