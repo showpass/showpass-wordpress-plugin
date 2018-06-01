@@ -53,7 +53,7 @@
 													SOLD OUT
 												</a>
 											<?php } else { ?>
-											<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">
+											<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>" href="#">
 												<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
 													BUY TICKETS
 												<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>

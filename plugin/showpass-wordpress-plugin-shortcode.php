@@ -567,7 +567,10 @@ function wpshp_get_pricing_table( $atts ) {
      }
   }
 
-	require_once $filepath;
+  ob_start();
+	include($filepath);
+  $content = ob_get_clean();
+  return $content;
 
 }
 

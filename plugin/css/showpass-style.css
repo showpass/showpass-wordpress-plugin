@@ -500,7 +500,10 @@ a {
   padding: 15px 10px !important;
 }
 
-.showpass-pricing-table .description {
+.showpass-pricing-table .description,
+.showpass-pricing-table .description p,
+.showpass-pricing-table .description ol,
+.showpass-pricing-table .description ul {
   font-size: 14px !important;
 }
 
