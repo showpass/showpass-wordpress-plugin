@@ -6,7 +6,7 @@
 				<div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
 					<div class="showpass-event-list showpass-layout-flex m15 layout-fill">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-							<a class="showpass-image" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
+							<span class="showpass-image" style="background-image: url('<?php echo $event['image_banner'];?>');"></span>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
