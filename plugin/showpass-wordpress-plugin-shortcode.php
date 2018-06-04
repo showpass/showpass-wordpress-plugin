@@ -552,7 +552,7 @@ function wpshp_get_pricing_table( $atts ) {
 
 	/* get Organization ID that is configured in admin Showpass Event API page */
 	$organization_id = get_option('option_organization_id');
-  $event_ids = $atts['ids'];
+  $event_ids = str_replace(' ', '', $atts['ids']);
 
 	if($event_ids == NULL) {
 		echo "ERROR - Please enter the `ids` parameter in shortcode";
@@ -562,7 +562,6 @@ function wpshp_get_pricing_table( $atts ) {
   $filepath = 'inc/default-pricing-table.php';
   $final_api_url = $final_api_url . '/?id__in=' . $event_ids;
 	$data = CallAPI($final_api_url);
-
 
   $events = array();
   $sort_order = explode(',', $event_ids);
