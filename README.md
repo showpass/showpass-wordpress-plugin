@@ -304,7 +304,7 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
 
 		{  
 		   "count":34,
-		   "next":"https://www.showpass.com/api/public/events/?venue=venue_id&page=page_number",
+		   "next":"https://www.showpass.com/api/public/events/?venue__in=venue_id&page=page_number",
 		   "previous":null or url if has previous,
 		   "next_page_number": next page number ex(2),
 		   "previous_page_number":null or number if has previous,
