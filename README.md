@@ -32,10 +32,11 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    4.1. [Single event](#41-single-event)    
    4.2. [List events](#42-list-events)    
 5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)       
-   5.1. [Page parameter](#51-page-parameter)                                       
-   5.2. [Week and month parameters](#52-week-and-month-parameters)
-   5.3. [Starting date parameter](#53-starting_date-paramerter)
-   5.4. [Use widget parameter](#54-use_widget-paramerter)
+   5.1. [Page parameter](#51-page-parameter)     
+   5.2. [Theme Dark parameter](#52-theme_dark-paramerter)                                       
+   5.3. [Starting date parameter](#52-starting_date-paramerter)   
+   5.4. [Use widget parameter](#53-use_widget-paramerter)   
+   <!---5.5. [Week and month parameters](#54-week-and-month-parameters)-->
 6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
   6.1. [Parameters](#61-widget-parameter)
   6.2. [Widget Tracking](#62-widget-tracking)
@@ -395,16 +396,6 @@ Example:  `[showpass_calendar page="event-detail"]`  - This will tell the plugin
 
 The `page` parameter is `event-detail` in this example, but can be set to whatevet page you want.
 
-## 5.2. Week and Month Parameters - Currently Disabled
-
-This shortcode also receives parameters `week` and `month` if you want to disable a view.
-
-If you want disable week view you will need to put `[showpass_calendar week="disabled"]`
-
-If you want disable month view you will need to put `[showpass_calendar month="disabled"]`
-
-If there is neither of this parameters, both views are enabled.
-
 ## 5.2. theme_dark Paramerter
 Add `theme_dark="true"` to use a dark theme for the calendar instead of the default light theme.
 
@@ -413,6 +404,16 @@ Add `starting_date="1-8-2018"` use day-month-year to set a starting date for the
 
 ## 5.4. use_widget Paramerter
 Add `use_widget="true"` if you want the ticket button to open the widget instead of redirecting to showpass or an event detail page use this
+
+<!---## 5.5. Week and Month Parameters - Currently Disabled
+
+This shortcode also receives parameters `week` and `month` if you want to disable a view.
+
+If you want disable week view you will need to put `[showpass_calendar week="disabled"]`
+
+If you want disable month view you will need to put `[showpass_calendar month="disabled"]`
+
+If there is neither of this parameters, both views are enabled.-->
 
 ## 6. Shortcode [showpass_widget]
 
