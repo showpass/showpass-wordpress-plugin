@@ -131,13 +131,14 @@
 
     	});
 
-
+        // this function needs to be updated and fixed
     	function renderCalendarWeek (year, month, today) {
     		$('.loader-home').show();
     		var d = new Date();
     		var current_month = d.getMonth();
     		var page_type = $('#page_type').val();
     		var site_url = $('#site_url').val();
+            var tags = $('#tags').val();
     		$('.showpass-calendar-body').empty();
     		var firstDay = new Date(year, month-1 , 1);  //  number + 1 = current
     		var firstDayString = firstDay.toString();
@@ -149,7 +150,7 @@
 
     		var venue = $('#venue_id').val();
     		if (venue) {
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100";
+    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&tags=" + tags;
 
     			$.ajax({
     				method: "GET",
@@ -245,6 +246,7 @@
     		var current_month = d.getMonth();
     		var page_type = $('#page_type').val();
     		var site_url = $('#site_url').val();
+            var tags = $('#tags').val();
     		$('.showpass-calendar-body').empty();
             $('.showpass-calendar-mobile').empty();
     		var firstDay = new Date(year, month-1 , 1);  //  number + 1 = current
@@ -258,7 +260,7 @@
 
     		if (venue) {
 
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=1000";
+    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&tags=" + tags;
 
     			$.ajax({
     				method: "GET",
@@ -319,7 +321,9 @@
                             if (!image_event) {
                                 image_event = 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-square.png'
                             }
-
+                            if (!image_banner) {
+                                image_banner = 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png'
+                            }
                             if (page_type !== "" || widget_class !=='') {
                                 var url_event = site_url + "/" + page_type + "?slug=" + event_slug;
                                 var target = "_self";
@@ -327,7 +331,6 @@
                                 var url_event = data.results[i].frontend_details_url;
                                 var target = "_blank"
                             }
-
     						if (month == month_event && year == year_event) {
     							var tmp = month_event + '_' + day_event;
                                 var html_tmp = "<div class='showpass-calendar-item-single show-tooltip' data-tooltip-content='#template-" + event_slug + "' data-month='" + month + "' data-day='" + day_event + "' data-year='" + year +"' style='background:url(" + image_event + ") no-repeat'>" +

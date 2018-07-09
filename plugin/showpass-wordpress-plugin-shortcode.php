@@ -428,6 +428,12 @@ function wpshp_calendar($atts) {
 		$use_widget = false;
 	}
 
+  if (isset($atts["tags"])) {
+    $tags = $atts["tags"];
+  }else {
+		$tags = '';
+	}
+
 	$prev_week = (int)$current_day - 7;
 	$next_week = (int)$current_day + 7;
 
@@ -454,6 +460,7 @@ function wpshp_calendar($atts) {
 	$html .= "<input type='hidden' id='site_url' value='" . get_home_url() . "' />";
 	$html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
   $html .= "<input type='hidden' id='use-widget' value='" . $use_widget . "' />";
+  $html .= "<input type='hidden' id='tags' value='" . $tags . "' />";
   if (isset($month_enable)) {
     $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
   }
