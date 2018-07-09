@@ -34,8 +34,9 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)       
    5.1. [Page parameter](#51-page-parameter)     
    5.2. [Theme Dark parameter](#52-theme_dark-paramerter)                                       
-   5.3. [Starting date parameter](#52-starting_date-paramerter)   
-   5.4. [Use widget parameter](#53-use_widget-paramerter)   
+   5.3. [Starting date parameter](#53-starting_date-paramerter)   
+   5.4. [Use widget parameter](#54-use_widget-paramerter)   
+   5.5. [Tags parameter](#55-tags-paramerter)   
    <!---5.5. [Week and month parameters](#54-week-and-month-parameters)-->
 6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
   6.1. [Parameters](#61-widget-parameter)
@@ -109,7 +110,7 @@ ex. `www.website.com/?page_number=4` - will get all data (events) from page 4.
 
 This parameter you can use the shortcode to return events with a certain category
 
-ex. `[showpass_events type='list' page_size='5' tags='featured']` - It will get only 5 events on one page with the `featured` tag
+ex. `[showpass_events type='list' page_size='5' tags='featured']` - It will get only 5 events on one page with the `featured` tag. For best results use one word lowercase tags.
 
 ## 2.6. Template Parameter
 
@@ -404,6 +405,9 @@ Add `starting_date="1-8-2018"` use day-month-year to set a starting date for the
 
 ## 5.4. use_widget Paramerter
 Add `use_widget="true"` if you want the ticket button to open the widget instead of redirecting to showpass or an event detail page use this
+
+## 5.5. tags Paramerter
+Add `tags="tag"` if you want to only display events with certain tags or categories. For best results use one word lowercase tags.
 
 <!---## 5.5. Week and Month Parameters - Currently Disabled
 
