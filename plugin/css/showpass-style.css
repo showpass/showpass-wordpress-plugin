@@ -74,10 +74,20 @@
 .showpass-event-layout-list:last-child {
     margin-bottom: 0px !important;
 }
+
 .showpass-soldout {
   background-color: #767676 !important;
   color: #fefefe !important;
+  cursor: default !important;
+  opacity: 0.50 !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
+
 .showpass-button {
   display: inline-block;
   padding: 10px 20px;
