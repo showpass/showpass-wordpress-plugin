@@ -242,142 +242,345 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
 
 ## 4.1. Single event
 
-		{  
-		   "id":123,
-		   "created":"date and time of creation",
-		   "updated":"date and time of update",
-		   "slug":"event_slug",
-		   "name":"Event Name",
-		   "subtitle":"Event Subtitle",
-		   "venue":{  
-		      "id":venue_id,
-		      "slug":"venue_slug",
-		      "name":"Venue Name",
-		      "twitter":"http://twitter.com/venueTwitter",
-		      "facebook":"https://www.facebook.com/venueFacebook",
-		      "web_address":"http://venuewebsite.com/contact/",
-		      "description":"Description of venue",
-		      "phone":Venue phone,
-		      "street_name":"Venue Street",
-		      "city":"Venue City",
-		      "avatar":"Venue Avatar Picture",
-		      "currency":"Currency"
-		   },
-		   "location":{  
-		      "id":location_id,
-		      "street_name":"Street",
-		      "city":"City",
-		      "province":"province code",
-		      "postal_code":"postal code",
-		      "position":"longitude, latitude",
-		      "venue":venue_id,
-		      "name":"venue name"
-		   },
-		   "starts_on":"Start date and time of the event",
-		   "ends_on":"Ending date and time of the event",
-		   "opens_at":opens_at,
-		   "terms":"terms",
-		   "description":"Event description",
-		   "venue_fee":"venue_fee",
-		   "getqd_fee":"getqd_fee",
-		   "getqd_fee_added":"qetqd_fee_added",
-		   "image":"URL Event image",
-		   "thumbnail":"URL Event thumnail image",
-		   "is_published":true/false,
-		   "is_published_for_sellers":true/false,
-		   "is_featured":true/false,
-		   "password_protected":true/false,
-		   "facebook_id":"facebook_id",
-		   "ticket_types":[  
-		   		ticket info
-		   ],
-		   "assigned_space":null,
-		   "frontend_details_url":"frontend_details_url",
-		   "no_ticket_types_message":null,
-		   "social_share_enabled":true/false,
-		   "social_share_reward":"1.00",
-		   "timezone":"Event timezone",
-		   "currency":"currency"
-		}
+{  
+   "id":24,
+   "created":"2017-05-16T15:47:27.043938Z",
+   "updated":"2017-09-23T18:18:01.737253Z",
+   "slug":"test",
+   "name":"Test",
+   "subtitle":null,
+   "venue":{  
+      "id":1,
+      "slug":"showpass",
+      "name":"Showpass Beta",
+      "twitter":null,
+      "facebook":null,
+      "web_address":"https://beta.showpass.com/",
+      "description":"CHEEBS GOTA LAPTOP",
+      "phone_number":"14039191408",
+      "street_name":"150 9 Ave SW",
+      "city":"Calgary",
+      "avatar":"https://showpass-beta.s3.amazonaws.com/media/images/venues/showpass/avatars/6976744d-b35.jpg",
+      "currency":"CAD",
+      "instagram":"https://www.instagram.com/showpassevents/",
+      "default_refund_policy":"I CAN REFUND. BUT NOT FOR YOU.",
+      "allow_messages_from_customers":true,
+      "is_test":false
+   },
+   "location":{  
+      "id":1,
+      "street_name":"#210 1212 1st SW",
+      "city":"Calgary",
+      "province":"AB",
+      "postal_code":"T2G 0G8",
+      "position":"51.0411867,-114.06582550000002",
+      "venue":1,
+      "name":"Showpass",
+      "country":"Canada"
+   },
+   "starts_on":"2017-05-17T03:00:00Z",
+   "ends_on":"2017-05-17T08:00:00.719000Z",
+   "opens_at":null,
+   "terms":null,
+   "description":"<p>Test</p>",
+   "venue_fee":"0.00",
+   "getqd_fee":"0.0500",
+   "getqd_fee_added":"1.00",
+   "image":null,
+   "image_banner":null,
+   "thumbnail":null,
+   "is_published":true,
+   "is_published_for_sellers":true,
+   "is_featured":true,
+   "password_protected":false,
+   "facebook_id":null,
+   "ticket_types":[  
+
+   ],
+   "assigned_space":null,
+   "frontend_details_url":"https://beta.showpass.com/test/",
+   "no_ticket_types_message":null,
+   "social_share_enabled":false,
+   "social_share_reward":"1.00",
+   "timezone":"US/Mountain",
+   "currency":"CAD",
+   "password_message":"",
+   "external_link":null,
+   "sold_out":false,
+   "refund_policy":null,
+   "facebook_official_events_id":null,
+   "require_terms_acceptance":null,
+   "terms_url_link":null,
+   "local_starts_on":"2017-05-16T21:00:00-06:00",
+   "info_collect_per_ticket":false,
+   "initiate_purchase_button":"ipbd_buy_tickets",
+   "post_purchase_message":null,
+   "is_saved":false,
+   "show_inventory_amount":null,
+   "restrictions":[  
+
+   ],
+   "inventory":null,
+   "collect_info_first_name":false,
+   "collect_info_last_name":false,
+   "collect_info_company":false,
+   "collect_info_phone_number":false,
+   "collect_info_email":false,
+   "collect_info_job_title":false,
+   "collect_info_student_number":false,
+   "collect_info_home_address":false,
+   "enforce_box_office_info_collection":false,
+   "info_collection_type":"gict_standard_info"
+}
 
 
 
 ## 4.2. List events
 
 		{  
-		   "count":34,
-		   "next":"https://www.showpass.com/api/public/events/?venue__in=venue_id&page=page_number",
-		   "previous":null or url if has previous,
-		   "next_page_number": next page number ex(2),
-		   "previous_page_number":null or number if has previous,
-		   "page_number":number of current page,
-		   "num_pages": number of how many pages are,
-		   "next_list":[  
-		      list of next (array of numbers)
-		   ],
-		   "previous_list":[  
-		      list of prev (array of numbers)
-		   ],
-		   "results":[
-   			{  
-			   "id":123,
-			   "created":"date and time of creation",
-			   "updated":"date and time of update",
-			   "slug":"event_slug",
-			   "name":"Event Name",
-			   "subtitle":"Event Subtitle",
-			   "venue":{  
-			      "id":venue_id,
-			      "slug":"venue_slug",
-			      "name":"Venue Name",
-			      "twitter":"http://twitter.com/venueTwitter",
-			      "facebook":"https://www.facebook.com/venueFacebook",
-			      "web_address":"http://venuewebsite.com/contact/",
-			      "description":"Description of venue",
-			      "phone":Venue phone,
-			      "street_name":"Venue Street",
-			      "city":"Venue City",
-			      "avatar":"Venue Avatar Picture",
-			      "currency":"Currency"
-			   },
-			   "location":{  
-			      "id":location_id,
-			      "street_name":"Street",
-			      "city":"City",
-			      "province":"province code",
-			      "postal_code":"postal code",
-			      "position":"longitude, latitude",
-			      "venue":venue_id,
-			      "name":"venue name"
-			   },
-			   "starts_on":"Start date and time of the event",
-			   "ends_on":"Ending date and time of the event",
-			   "opens_at":opens_at,
-			   "terms":"terms",
-			   "description":"Event description",
-			   "venue_fee":"venue_fee",
-			   "getqd_fee":"getqd_fee",
-			   "getqd_fee_added":"qetqd_fee_added",
-			   "image":"URL Event image",
-			   "thumbnail":"URL Event thumnail image",
-			   "is_published":true/false,
-			   "is_published_for_sellers":true/false,
-			   "is_featured":true/false,
-			   "password_protected":true/false,
-			   "facebook_id":"facebook_id",
-			   "ticket_types":[  
+   "count":4,
+   "next":null,
+   "previous":null,
+   "next_page_number":null,
+   "previous_page_number":null,
+   "page_number":1,
+   "num_pages":1,
+   "next_list":[  
 
-			   ],
-			   "assigned_space":null,
-			   "frontend_details_url":"frontend_details_url",
-			   "no_ticket_types_message":null,
-			   "social_share_enabled":true/false,
-			   "social_share_reward":"1.00",
-			   "timezone":"Event timezone",
-			   "currency":"currency"
-			}
-	            ] /// events
-	        }
+   ],
+   "previous_list":[  
+
+   ],
+   "results":[  
+      {  
+         "id":554,
+         "created":"2018-06-15T16:43:20.852436Z",
+         "updated":"2018-08-29T18:40:07.003717Z",
+         "slug":"october-5-2018",
+         "name":"October 5, 2018",
+         "subtitle":null,
+         "venue":{  
+            "id":170,
+            "slug":"screamfest",
+            "name":"ScreamFest",
+            "twitter":null,
+            "facebook":null,
+            "web_address":null,
+            "description":"",
+            "phone_number":"14038269182",
+            "street_name":"",
+            "city":"",
+            "avatar":null,
+            "currency":"CAD",
+            "instagram":null,
+            "default_refund_policy":"",
+            "allow_messages_from_customers":true,
+            "is_test":false
+         },
+         "location":{  
+            "id":253,
+            "street_name":"20 Roundup Way SE",
+            "city":"Calgary",
+            "province":"Alberta",
+            "postal_code":"T2G 5A2",
+            "position":"51.038176,-114.05651799999998",
+            "venue":170,
+            "name":"The Grandstand Building",
+            "country":"Canada"
+         },
+         "starts_on":"2018-10-06T01:00:00Z",
+         "ends_on":"2018-10-31T08:00:00Z",
+         "opens_at":null,
+         "terms":null,
+         "description":"",
+         "venue_fee":"0.00",
+         "getqd_fee":"0.0540",
+         "getqd_fee_added":"1.99",
+         "image":"https://showpass-beta.s3.amazonaws.com/media/images/events/screamfest/images/46438724-466.png",
+         "image_banner":"https://showpass-beta.s3.amazonaws.com/media/images/events/screamfest/images/46438724-466.png",
+         "thumbnail":"https://showpass-beta.s3.amazonaws.com/media/images/events/screamfest/thumbnails/46438724-466.png",
+         "is_published":true,
+         "is_published_for_sellers":true,
+         "is_featured":true,
+         "password_protected":false,
+         "facebook_id":null,
+         "ticket_types":[  
+            {  
+               "sold_out":false,
+               "id":917,
+               "created":"2018-06-15T16:43:21.192685Z",
+               "updated":"2018-08-29T18:40:07.094749Z",
+               "taxes":"0.00",
+               "service_charges":"3.61",
+               "total_price":"33.61",
+               "event":554,
+               "name":"General Admission",
+               "description":null,
+               "sale_starts_on":"2018-06-15T16:43:21.179608Z",
+               "sale_ends_on":"2018-10-06T01:00:00Z",
+               "price":"30.00",
+               "shipping_type":[  
+                  "st_print"
+               ],
+               "base_inventory":917,
+               "purchase_limit":8,
+               "seat_permissions":[  
+
+               ],
+               "voucher_purchases_only":false,
+               "stats":{  
+                  "tickets":{  
+                     "sold":0.0,
+                     "sold_and_basket":0.0
+                  },
+                  "last_updated":"2018-09-07T20:25:59.697862Z"
+               },
+               "inventory":50,
+               "minimum_purchase_limit":null,
+               "show_inventory_amount_tt":null,
+               "ticket_transfer_enabled":true,
+               "collect_info_first_name":true,
+               "collect_info_last_name":true,
+               "collect_info_company":false,
+               "collect_info_phone_number":true,
+               "collect_info_email":true,
+               "collect_info_job_title":false,
+               "collect_info_student_number":false,
+               "collect_info_home_address":false,
+               "enforce_box_office_info_collection":false,
+               "info_collect_per_ticket":false,
+               "info_collection_type":"gict_standard_info"
+            },
+            {  
+               "sold_out":false,
+               "id":918,
+               "created":"2018-06-15T16:43:21.286942Z",
+               "updated":"2018-08-29T18:40:07.130429Z",
+               "taxes":"0.00",
+               "service_charges":"4.15",
+               "total_price":"44.15",
+               "event":554,
+               "name":"Killer Cash Combo",
+               "description":null,
+               "sale_starts_on":"2018-06-15T16:43:21.279427Z",
+               "sale_ends_on":"2018-10-06T01:00:00Z",
+               "price":"40.00",
+               "shipping_type":[  
+                  "st_print"
+               ],
+               "base_inventory":918,
+               "purchase_limit":8,
+               "seat_permissions":[  
+
+               ],
+               "voucher_purchases_only":false,
+               "stats":{  
+                  "tickets":{  
+                     "sold":0.0,
+                     "sold_and_basket":0.0
+                  },
+                  "last_updated":"2018-09-07T20:25:59.717233Z"
+               },
+               "inventory":50,
+               "minimum_purchase_limit":null,
+               "show_inventory_amount_tt":null,
+               "ticket_transfer_enabled":true,
+               "collect_info_first_name":true,
+               "collect_info_last_name":true,
+               "collect_info_company":false,
+               "collect_info_phone_number":true,
+               "collect_info_email":true,
+               "collect_info_job_title":false,
+               "collect_info_student_number":false,
+               "collect_info_home_address":false,
+               "enforce_box_office_info_collection":false,
+               "info_collect_per_ticket":false,
+               "info_collection_type":"gict_standard_info"
+            },
+            {  
+               "sold_out":false,
+               "id":919,
+               "created":"2018-06-15T16:43:21.373111Z",
+               "updated":"2018-08-29T18:40:07.198052Z",
+               "taxes":"0.00",
+               "service_charges":"4.69",
+               "total_price":"54.69",
+               "event":554,
+               "name":"SpeedPass",
+               "description":null,
+               "sale_starts_on":"2018-06-15T16:43:21.365267Z",
+               "sale_ends_on":"2018-10-06T01:00:00Z",
+               "price":"50.00",
+               "shipping_type":[  
+                  "st_print"
+               ],
+               "base_inventory":919,
+               "purchase_limit":8,
+               "seat_permissions":[  
+
+               ],
+               "voucher_purchases_only":false,
+               "stats":{  
+                  "tickets":{  
+                     "sold":0.0,
+                     "sold_and_basket":0.0
+                  },
+                  "last_updated":"2018-09-07T20:25:59.730088Z"
+               },
+               "inventory":50,
+               "minimum_purchase_limit":null,
+               "show_inventory_amount_tt":null,
+               "ticket_transfer_enabled":true,
+               "collect_info_first_name":true,
+               "collect_info_last_name":true,
+               "collect_info_company":false,
+               "collect_info_phone_number":true,
+               "collect_info_email":true,
+               "collect_info_job_title":false,
+               "collect_info_student_number":false,
+               "collect_info_home_address":false,
+               "enforce_box_office_info_collection":false,
+               "info_collect_per_ticket":false,
+               "info_collection_type":"gict_standard_info"
+            }
+         ],
+         "assigned_space":null,
+         "frontend_details_url":"https://beta.showpass.com/october-5-2018/",
+         "no_ticket_types_message":null,
+         "social_share_enabled":false,
+         "social_share_reward":"1.00",
+         "timezone":"America/Edmonton",
+         "currency":"CAD",
+         "password_message":"",
+         "external_link":null,
+         "sold_out":false,
+         "refund_policy":null,
+         "facebook_official_events_id":null,
+         "require_terms_acceptance":null,
+         "terms_url_link":null,
+         "local_starts_on":"2018-10-05T19:00:00-06:00",
+         "info_collect_per_ticket":false,
+         "initiate_purchase_button":"ipbd_buy_tickets",
+         "post_purchase_message":null,
+         "is_saved":false,
+         "show_inventory_amount":null,
+         "restrictions":[  
+
+         ],
+         "inventory":null,
+         "collect_info_first_name":true,
+         "collect_info_last_name":true,
+         "collect_info_company":false,
+         "collect_info_phone_number":true,
+         "collect_info_email":true,
+         "collect_info_job_title":false,
+         "collect_info_student_number":false,
+         "collect_info_home_address":false,
+         "enforce_box_office_info_collection":false,
+         "info_collection_type":"gict_standard_info"
+      }
+   ]
+}
 
 ## 5. Shortcode [showpass_calendar]
 
