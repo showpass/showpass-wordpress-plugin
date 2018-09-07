@@ -241,7 +241,7 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
 ## 4. JSON Data
 
 ## 4.1. Single event
-
+```
 {  
    "id":24,
    "created":"2017-05-16T15:47:27.043938Z",
@@ -332,11 +332,11 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
    "enforce_box_office_info_collection":false,
    "info_collection_type":"gict_standard_info"
 }
-
+```
 
 
 ## 4.2. List events
-
+```
 		{  
    "count":4,
    "next":null,
@@ -348,11 +348,11 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
    "next_list":[  
 
    ],
-   "previous_list":[  
+   "previous_list":[
 
    ],
-   "results":[  
-      {  
+   "results":[
+      {
          "id":554,
          "created":"2018-06-15T16:43:20.852436Z",
          "updated":"2018-08-29T18:40:07.003717Z",
@@ -581,7 +581,7 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
       }
    ]
 }
-
+```
 ## 5. Shortcode [showpass_calendar]
 
 You will need to add just this shortcode `[showpass_calendar]` and you will get complete calendar with all the events from the venue that is set in the admin page. If the venue(organisation ID) is not set, then you will get all events from the API.
