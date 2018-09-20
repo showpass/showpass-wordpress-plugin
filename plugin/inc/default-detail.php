@@ -42,7 +42,10 @@
 						<div class="info"><i class="fa fa-clock-o icon-center"></i><?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
 							<?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
 						<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
-						<?php if ($event['ticket_types']) : ?><div class="info mb20"><i class="fa fa-tags icon-center"></i><?php echo showpass_get_price_range($event['ticket_types']);?> <?php echo $event['currency']; ?></div><?php endif; ?>
+						<?php if ($event['ticket_types']) : ?>
+              <div class="info mb20"><i class="fa fa-tags icon-center"></i><?php echo showpass_get_price_range($event['ticket_types']);?>
+                <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?></div>
+            <?php endif; ?>
 							<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
 								<span class="showpass-detail-buy showpass-soldout">
 									SOLD OUT
@@ -60,7 +63,7 @@
 					<div class="text-center showpass-detail-location">
 						<h3 class="showpass-event-veune-name"><?php echo $location['name'];?></h3>
 						<span class="showpass-detail-address"><?php echo rtrim($location['street_name']);?>, <?php echo $location['city'];?></span>
-						<iframe width="100%" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDe9oSMuAfjkjtblej94RJvQh3ioWJb4go&q=<?php echo $location['name'];?>,<?php echo $location['city'];?>+<?php echo $location['province'];?>
+						<iframe width="100%" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDe9oSMuAfjkjtblej94RJvQh3ioWJb4go&q=<?php echo urlencode($location['name']);?>,<?php echo urlencode($location['city']);?>+<?php echo urlencode($location['province']);?>
 							&center=<?php echo $location['position'];?>" allowfullscreen>
 						</iframe>
 						<?php //echo do_shortcode('[codepeople-post-map name="'.$event->location->name.'" center="'.$event->location->position.'" width="100% height="300"]'); ?>

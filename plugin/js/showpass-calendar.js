@@ -90,14 +90,14 @@
 
     		var month_number = parseInt($(this).attr('data-month'));
     		var year = parseInt($('.showpass-year').text());
-            $('.showpass-next-month').show();
+            $('.showpass-next-month').removeClass('disabled');
     		if (month_number == 0) {
     			month_number = 12;
     			year = year - 1;
     		}
 
     		if (month_number == (cur_month+1)) {
-    			$(this).hide();
+    			$(this).addClass('disabled');
     		}
 
     		$('.showpass-month').html(months[month_number]);
@@ -112,7 +112,7 @@
     	$('.showpass-next-month').click(function() {
     		var month_number = parseInt($(this).attr('data-month'));
     		var year = parseInt($('.showpass-year').text());
-    		$('.showpass-prev-month').show();
+    		$('.showpass-prev-month').removeClass('disabled');
 
     		if(month_number == 13) {
     			month_number = 1;
@@ -121,7 +121,7 @@
     		}
 
     		if(month_number == cur_month && year == (cur_year+1)) {
-    			$(this).hide();
+    			$(this).addClass('disabled');
     		}
 
     		$('.showpass-month').html(months[month_number]);
@@ -260,12 +260,17 @@
 
     		if (venue) {
 
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&tags=" + tags;
+    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100";
+
+                if (tags) {
+                    url = url+"&tags=" + tags;
+                }
 
     			$.ajax({
     				method: "GET",
     				url: url,
     				success: function(data){
+                        console.log(data);
     					if(first_day_of_the_month == 7) {
     						for (var j = first_day_of_the_month - 6; j <= days_in_month; j++) {
     							for (var i = 0; i < data.results.length; i++) {
