@@ -695,7 +695,8 @@ The `page` parameter is `event-detail` in this example, but can be set to whatev
 Add `theme_dark="true"` to use a dark theme for the calendar instead of the default light theme.
 
 ## 5.3. starting_date Paramerter
-Add `starting_date="1-8-2018"` use day-month-year to set a starting date for the calendar on initial load
+Add `starting_date="1-12-2018"` use day-month-year to set a starting date for the calendar on initial load
+Format is day, month, year with no leading zeros
 
 ## 5.4. use_widget Paramerter
 Add `use_widget="true"` if you want the ticket button to open the widget instead of redirecting to showpass or an event detail page use this

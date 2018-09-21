@@ -173,7 +173,10 @@
 	cursor: pointer;
 }
 
-.showpass-prev-month.disabled, .showpass-next-month.disabled {
+.showpass-prev-month.disabled,
+.showpass-next-month.disabled,
+.showpass-prev-week.disabled,
+.showpass-next-week.disabled {
   opacity: 0.25;
   pointer-events: none;
   cursor: default;

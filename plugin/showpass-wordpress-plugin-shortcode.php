@@ -381,26 +381,29 @@ function wpshp_calendar($atts) {
   wp_enqueue_script('showpass-calendar-script');
 	$organization_id = get_option('option_organization_id');
 
+  // redirection page for event detail
 	if(isset($atts["page"])) {
 		$page = $atts["page"];
 	}
 
+  // Month view enabled by default - to disable month="disabled"
 	if(isset($atts["month"])) {
 		$month_enable = $atts["month"];
 	}
 
+  // week view enabled by default - to disable week="disabled"
 	if(isset($atts["week"])) {
 		$week_enable = $atts["week"];
-	} else {
-    $week_enable = "disabled";
-  }
+	}
 
+  // by default use light theme | theme_dark="true"
   if (isset($atts["theme_dark"])) {
     $theme = 'dark';
   } else {
     $theme = '';
   }
 
+  // if starting_date parameter is set 'j-n-Y' format (month, day, year) no leading zeros
   if (isset($atts["starting_date"])) {
     $value = explode('-', $atts["starting_date"]);
     $current_month = date('M', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
@@ -422,12 +425,14 @@ function wpshp_calendar($atts) {
     $days = date('t');
   }
 
+  // open widget when user clicks the ticket button
   if (isset($atts["use_widget"])) {
     $use_widget = true;
   }else {
 		$use_widget = false;
 	}
 
+  // search for specific tags
   if (isset($atts["tags"])) {
     $tags = $atts["tags"];
   }else {
@@ -444,8 +449,8 @@ function wpshp_calendar($atts) {
 	$array_months = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
 	$html = "<div class='showpass-calendar " .  $theme . "'>";
-	//$html .= "<div class='showpass-month-view showpass-view active'>Month View</div>";
-	//$html .= "<div class='showpass-week-view showpass-view'>Week View</div>";
+	$html .= "<div class='showpass-month-view showpass-view active'>Month View</div>";
+	$html .= "<div class='showpass-week-view showpass-view'>Week View</div>";
   if (isset($page)) {
     $html .= "<input type='hidden' id='page_type' value='" . $page . "' />";
   } else {
@@ -461,12 +466,15 @@ function wpshp_calendar($atts) {
 	$html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
   $html .= "<input type='hidden' id='use-widget' value='" . $use_widget . "' />";
   $html .= "<input type='hidden' id='tags' value='" . $tags . "' />";
+
   if (isset($month_enable)) {
     $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
   }
+
   if (isset($week_enable)) {
     $html .= "<input type='hidden' id='week_enable' value='" . $week_enable . "' />";
   }
+
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month disabled' data-month='" .$current_month_prev . "'></div><p class='showpass-month'>" . $current_month ."</p> <p class='showpass-year'>" . $current_year ."</p><div class='showpass-next-month' data-month='" . $current_month_next . "'></div></div>";
 	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week='" . $prev_week . "'></div><p class='showpass-week'>Week of " . $current_day ." of " . $current_month . "</p><div class='showpass-next-week' data-next-week='" . $next_week . "'></div> </div>";
   $html .= "<div class='calendar-contain-desktop'><div class='showpass-calendar-head-container clearfix'>";

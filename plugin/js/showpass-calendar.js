@@ -59,14 +59,14 @@
         		$(this).hide();
         	}
 
-    		$('.showpass-week').html('Week of ' + (today - current_day) +' of ' + months[month_number]);
+    		$('.showpass-week').html('Week of <br/>' + months[month_number] + ' ' + (today - current_day));
         	$('#current_day').val(today);
 
         });
 
         $('.showpass-next-week').click(function(){
 
-        	$('.showpass-prev-week').show();
+        	$('.showpass-prev-week').removeClass('disabled');
         	var month_number = $('#current-month').val();
     		var today = parseInt($('#current_day').val());
     		var year = parseInt($('.showpass-year').text());
@@ -81,7 +81,7 @@
         	}
 
         	renderCalendarWeek(year, month_number, today);
-    		$('.showpass-week').html('Week of ' + (today - current_day) +' of ' + months[month_number]);
+    		$('.showpass-week').html('Week of <br/>' + months[month_number] + ' ' + (today - current_day));
         	$('#current_day').val(today);
 
         });
@@ -150,13 +150,17 @@
 
     		var venue = $('#venue_id').val();
     		if (venue) {
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&tags=" + tags;
-
+                // set initial URL
+    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100";
+                // if tags param append to url
+                if (tags) {
+                    url = url+"&tags=" + tags;
+                }
+                $('.showpass-week').html('Week of <br/>' + months[month] + ' ' + (today - current_day));
     			$.ajax({
     				method: "GET",
     				url: url,
     				success: function(data){
-    					$('.showpass-week').html('Week of ' + (today - current_day) +' of ' + months[month]);
 
     					if((today + 6) > days_in_month) {
     						for(var j = (today - current_day); j <= days_in_month; j++ ) {
@@ -182,7 +186,7 @@
     						var month_event = parseInt(date_day[1]);
     						var year_event = parseInt(date_day[0]);
     						var event_name = data.results[i].name;
-    						var image_event = data.results[i].thumbnail;
+    						var image_event = data.results[i].image_banner;
     						var event_slug = data.results[i].slug;
                             var event_location = data.results[i].location.name;
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province;
@@ -269,8 +273,7 @@
     			$.ajax({
     				method: "GET",
     				url: url,
-    				success: function(data){
-                        console.log(data);
+    				success: function(data) {
     					if(first_day_of_the_month == 7) {
     						for (var j = first_day_of_the_month - 6; j <= days_in_month; j++) {
     							for (var i = 0; i < data.results.length; i++) {
@@ -380,7 +383,7 @@
 
     	if (month_enable === 'disabled')	{
 
-    		// $('.showpass-week-view').addClass('active');
+    		$('.showpass-week-view').addClass('active');
     		$('.showpass-month-view').hide();
     		var date_now = now;
     		var month_now = date_now.getMonth();
@@ -396,7 +399,7 @@
     		$('.showpass-month-view').removeClass('active');
     		$('.showpass-calendar-month').hide();
     		$('.showpass-calendar-week').hide();
-    		$('.showpass-prev-week').hide();
+    		$('.showpass-prev-week').addClass('disabled');
 
     	} else if (week_enable === 'disabled') {
 
@@ -421,7 +424,7 @@
     			renderCalendar(year_now, month_now + 1);
     			$(this).addClass('active');
     			$('.showpass-week-view').removeClass('active');
-    			$('.showpass-calendar-month').hide();
+    			$('.showpass-calendar-month').show();
     			$('.showpass-calendar-week').hide();
 
     		}
@@ -443,8 +446,8 @@
     			$(this).addClass('active');
     			$('.showpass-month-view').removeClass('active');
     			$('.showpass-calendar-month').hide();
-    			$('.showpass-calendar-week').hide();
-    			$('.showpass-prev-week').hide();
+    			$('.showpass-calendar-week').show();
+    			$('.showpass-prev-week').addClass('disabled');
 
     		}
     	});
