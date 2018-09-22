@@ -415,3 +415,29 @@ div.not-found {
     height: 75px !important;
   }
 }
+
+.daily .location-name {
+  background: #ccc;
+  font-weight: bold;
+  padding: 10px 20px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.daily .daily-event {
+  border: 1px solid #cccc;
+}
+
+.daily .daily-event::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.daily .daily-event img {
+  float: left;
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
