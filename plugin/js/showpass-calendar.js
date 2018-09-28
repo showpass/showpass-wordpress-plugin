@@ -157,18 +157,41 @@
     				method: "GET",
     				url: url,
     				success: function(data) {
+
+                        // set initial data points
+                        let start_of_day = date.startOf('day').format();
+                        let end_of_day = date.endOf('day').format();
                         let events = data.results;
+                        // pixels per hour
+                        let time_scale = 420;
+                        // Loop through events, find duration from start & end of day
+                        _.forEach(events, function(event) {
+                            var time_start = moment.tz(event.starts_on, event.timezone).format();
+                            var time_end = moment.tz(event.ends_on, event.timezone).format();
+                            event.$durationFromStart = moment.duration(moment(time_start).diff(moment(start_of_day))).asHours();
+                            event.$durationFromEnd = moment.duration(moment(time_end).diff(moment(end_of_day))).asHours() * -1;
+                        });
+
+                        // Find the first event in the schedule, and the last
+                        let first_event = _.minBy(events, '$durationFromStart');
+                        let last_event = _.minBy(events, '$durationFromEnd');
+
+                        // set schedule start and length of schedule_length
+                        let start_of_schedule = moment.tz(first_event.starts_on, first_event.timezone).format();
+                        let schedule_length = (24 - (first_event.$durationFromStart + last_event.$durationFromEnd)).toFixed(2);
+                        let schedule_width = schedule_length * time_scale;
+
+                        // group events by location
                         let locationGroup =  _.values(_.mapValues(_.groupBy(events, 'location.id')));
-                        console.log();
                         for (var i = 0; i < locationGroup.length; i++) {
-                            console.log(i);
-                            let locationEvents = locationGroup[i];
-                            var html_loc = "<div class='location-" + locationEvents[0].location.id +  "'><span class='location-name'><i class='fa fa-map-marker'></i>" + locationEvents[0].location.name + "</span></div>";
+                            var locationEvents = locationGroup[i];
+                            var html_loc = "<div class='location location-" + locationEvents[0].location.id +  "' style='width:" + schedule_width +  "px;'><span class='location-name'><span class='sticky'><i class='fa fa-map-marker'></i>" + locationEvents[0].location.name + "</span></span><div class='time-scale'></div><div class='daily-contain'></div></div>";
                             $('#single-event').append(html_loc);
                             for (var e = 0; e < locationEvents.length; e++) {
                                 var timezone = locationEvents[e].timezone;
-        						var date_month = locationEvents[e].starts_on;
-        						var a = moment.tz(date_month, timezone).format();
+        						var starts_on = locationEvents[e].starts_on;
+                                var ends_on = locationEvents[e].ends_on;
+        						var a = moment.tz(starts_on, timezone).format();
         						date_month = a;
         						var date_day = date_month.split("-");
         						var day_event = parseInt(date_day[2].substring(0,2));
@@ -176,16 +199,30 @@
         						var year_event = parseInt(date_day[0]);
         						var event_name = locationEvents[e].name;
                                 var image_thumb = locationEvents[e].thumbnail;
-        						var image_event = locationEvents[e].image_banner;
         						var event_slug = locationEvents[e].slug;
                                 var event_location = locationEvents[e].location.name;
                                 var event_city = locationEvents[e].location.city + ', ' + locationEvents[e].location.province;
-                                var timezone = moment.tz(locationEvents[e].timezone).format('z');
-                                var html_tmp = "<div class='daily-event'><img class='image-thumbnail' src='" + image_thumb + "' /><div class='event-info'<div class='location'>" + event_name + "</div>" +
-                                "<div class='time'><i class='fa fa-clock-o'></i>" + moment(a).format('LLL') + " " + timezone + "</div></div></div>";
-                                $('.location-' + locationEvents[e].location.id).append(html_tmp);
+                                var timezone_abbr = moment.tz(locationEvents[e].timezone).format('z');
+                                var event_duration = moment.duration(moment(ends_on).diff(moment(starts_on))).asHours();
+                                var tile_width = event_duration * time_scale;
+                                var horizontal_position = moment.duration(moment(starts_on).diff(moment(start_of_schedule))).asHours() * time_scale;
+                                var html_tmp = "<div class='daily-event' style='width: " + tile_width + "px; left: " + horizontal_position + "px'><div class='event-info'><div class='event-name'>" + event_name + "</div>" +
+                                "<div class='time'><small><i class='fa fa-clock-o'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + " - " + moment.tz(ends_on, timezone).format('h:mm A') + " " + timezone_abbr + "</small></div></div></div></div>";
+                                $('.location-' + locationEvents[e].location.id + ' .daily-contain').append(html_tmp);
                             }
                         }
+                        // create time scale display
+                        let loop_length = (24 - first_event.$durationFromStart).toFixed(0) * 2; // * 2 for every :30 min
+                        let starting_time = moment.tz(first_event.starts_on, first_event.timezone).format();
+                        //let first_time = "<span class='time'>" + starting_time.format('h:mm A') + "</span>";
+                        //$('.time-scale').append(first_time);
+                        for (var i = 0; i < loop_length; i++) {
+                            let scale = 0.5;
+                            let time = moment(starting_time).add(scale * i, 'hours').format('h:mm A');
+                            let html = "<span class='time' style='left:" + time_scale * scale * i + "px;'>" + time + "</span>";
+                            $('.time-scale').append(html);
+                        }
+
                         $('.loader-home').hide();
                     }
                 });
@@ -193,6 +230,10 @@
             }
         }
 
+        // Keep the location name on the single day horizontal scroller sticky
+        $('#single-event').scroll(function() {
+            $(this).find('.sticky').css('left', $(this).scrollLeft());
+        });
 
     	function renderCalendarWeek (year, month, today) {
     		$('.loader-home').show();

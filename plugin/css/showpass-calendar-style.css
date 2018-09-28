@@ -234,6 +234,7 @@
   background: rgba(175,175,175, .5);
   position: absolute;
   z-index: 999;
+  min-height: 150px;
 }
 
 .loader {
@@ -368,6 +369,7 @@
   border-bottom: 1px solid;
   border-color: #ccc;
 }
+
 .calendar-contain-mobile .btn {
   display: block;
   margin-top: 20px !important;
@@ -416,17 +418,56 @@ div.not-found {
   }
 }
 
+.daily #single-event {
+  width: 100%;
+  overflow: auto;
+}
+
+.daily .location {
+  position: relative;
+}
+
 .daily .location-name {
   background: #ccc;
   font-weight: bold;
-  padding: 10px 20px;
+  padding: 10px 20px 10px 0px;
   display: block;
   width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.daily .location-name .sticky {
+  padding-left: 10px;
+  position: absolute;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  display: block;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  font-size: 18px;
+  height: 20px;
+  line-height: 18px;
+}
+
+.daily .daily-contain {
+  height: 90px;
+  padding: 10px;
   box-sizing: border-box;
 }
 
 .daily .daily-event {
+  border-radius: 3px;
   border: 1px solid #cccc;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+19,f4f4f4+100 */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 19%, #f4f4f4 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 19%,#f4f4f4 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 19%,#f4f4f4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
+  position: absolute;
 }
 
 .daily .daily-event::after {
@@ -435,9 +476,50 @@ div.not-found {
   clear: both;
 }
 
+/*
+.daily .daily-event .img-contain {
+  width: 100px;
+}
+
 .daily .daily-event img {
-  float: left;
   width: 50px;
-  height: auto;
-  margin-right: 10px;
+  height: 50px;
+  box-sizing: border-box;
+}*/
+
+.daily .daily-event .event-info {
+  padding: 10px;
+}
+
+.daily .daily-event .event-name {
+    font-size: 17px;
+    font-weight: 700;
+    max-height: 20px;
+    height: 20px;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 20px !important;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    display: block;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+}
+
+.daily .time-scale {
+  background: #f4f4f4;
+  padding: 3px 0px;
+  overflow: hidden;
+  border-bottom: 1px solid #cccccc;
+  font-size: 12px;
+  line-height: 12px;
+  color: #666;
+  position: relative;
+  height: 18px
+}
+
+.daily .time-scale .time {
+  position: absolute;
+  border-left: 1px solid #ccc;
+  padding-left: 5px;
 }
