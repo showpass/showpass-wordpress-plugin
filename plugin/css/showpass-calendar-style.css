@@ -511,6 +511,7 @@ div.not-found {
   background: linear-gradient(to bottom, #cccccc 19%,#bbbbbb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#bbbbbb',GradientType=0 ); /* IE6-9 */
   text-shadow: 0.5px 0.5px 1px #fff;
+  cursor: pointer;
 }
 
 .daily .daily-event::after {

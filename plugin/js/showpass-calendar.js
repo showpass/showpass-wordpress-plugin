@@ -215,7 +215,7 @@
                                     var event_duration = moment.duration(moment(ends_on).diff(moment(starts_on))).asHours();
                                     var tile_width = event_duration * time_scale;
                                     var horizontal_position = moment.duration(moment(starts_on).diff(moment(start_of_schedule))).asHours() * time_scale;
-                                    var html_tmp = "<div class='daily-event gradient' style='width: " + tile_width + "px; left: " + horizontal_position + "px'><div class='event-info'><div class='event-name'>" + event_name + "</div>" +
+                                    var html_tmp = "<div class='daily-event gradient open-ticket-widget'id=" + event_slug + " style='width: " + tile_width + "px; left: " + horizontal_position + "px'><div class='event-info'><div class='event-name'>" + event_name + "</div>" +
                                     "<div class='time'><small><i class='fa fa-clock-o'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + " - " + moment.tz(ends_on, timezone).format('h:mm A') + " " + timezone_abbr + "</small></div></div></div></div>";
                                     $('.location-' + locationEvents[e].location.id + ' .daily-contain').append(html_tmp);
                                 }
