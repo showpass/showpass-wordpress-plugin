@@ -224,6 +224,7 @@
                             _.forEach(events, function(event) {
 
                                 var timezone = event.timezone;
+                                var timezone_abbr = moment.tz(event.timezone).format('z');
                                 var starts_on = event.starts_on;
                                 var ends_on = event.ends_on;
                                 var a = moment.tz(starts_on, timezone).format();
@@ -238,21 +239,22 @@
                                 var event_slug = event.slug;
                                 var event_location = event.location.name;
                                 var event_city = event.location.city + ', ' + event.location.province;
+                                var redirect = $('#page_type').val();
 
                                 var html_card = "<div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card'><div class='showpass-event-layout-list showpass-layout-flex m15'><div class='flex-25 showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0'>" +
-                                                "<a class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + "); href='/event-detail/?slug=wordfest-present-gary-shteyngart'></a>" +
-                                                "<a class='showpass-image showpass-hide-large' style='background-image: url(" + image_banner + ");' href='/event-detail/?slug=wordfest-present-gary-shteyngart'></a> </div>" +
+                                                "<a class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");' href='" + redirect + "?slug=" + event_slug + "'></a>" +
+                                                "<a class='showpass-image showpass-hide-large' style='background-image: url(" + image_banner + ");' href='" + redirect + "?slug=" + event_slug + "'></a> </div>" +
                                                 "<div class='flex-75 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white'><div class='showpass-full-width'><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-title-wrapper'><div class='showpass-event-title'><h3>" +
                                                 "<a href='/event-detail/?slug=wordfest-present-gary-shteyngart'>" + event_name + "</a>" +
                                                 "</h3></div></div></div><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date'><div>" +
                                                 "<div class='info'><i class='fa fa-calendar icon-center'></i>" + moment.tz(starts_on, timezone).format('ddd MMM D, YYYY') + "</div>" +
-                                                "<div class='info'><i class='fa fa-clock-o icon-center'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + "</div>" +
+                                                "<div class='info'><i class='fa fa-clock-o icon-center'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + " - " + moment.tz(ends_on, timezone).format('h:mm A') + " " + timezone_abbr + "</div>" +
                                                 "<div class='info'><i class='fa fa-map-marker icon-center'></i>" + event_location + "</div>" +
                                                 "<div class='info'><i class='fa fa-map-marker icon-center'></i>" + event_city + "</div>" +
                                                 "</div></div></div><div class='showpass-showpass-layout-flex'><div class='showpass-layout-flex showpass-list-button-layout'><div class='flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-left'><div class='showpass-button-full-width-list'>" +
-                                                "<a class='showpass-list-ticket-button showpass-button open-ticket-widget' id='wordfest-present-gary-shteyngart'>BUY TICKETS</a>" +
+                                                "<a class='showpass-list-ticket-button showpass-button open-ticket-widget' id='" + event_slug + "'>BUY TICKETS</a>" +
                                                 "</div></div><div class='flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-right'><div class='showpass-button-full-width-list'>" +
-                                                "<a class='showpass-list-ticket-button showpass-button-secondary' href='/event-detail/?slug=wordfest-present-gary-shteyngart'>More Info</a>"
+                                                "<a class='showpass-list-ticket-button showpass-button-secondary' href='" + redirect + "?slug=" + event_slug + "'>More Info</a>"
                                                 "</div></div></div></div></div></div></div></div>";
                                 $("#daily-card-view > .showpass-layout-flex").append(html_card);
 
