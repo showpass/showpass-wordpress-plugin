@@ -2,11 +2,10 @@
 
     $(window).ready(function() {
 
-        var isMobile = /Mobi/.test(navigator.userAgent);
+        let isMobile = /Mobi/.test(navigator.userAgent);
+
         if (isMobile == true) {
-            //$('.showpass-calendar .calendar-contain-mobile').show();
-        } else {
-            //$('.showpass-calendar .calendar-contain-desktop').show();
+            $('#view-select .week').hide();
         }
 
         function initializeTooltip () {
@@ -131,9 +130,9 @@
 
         // render daily calendar
         function renderDailyCalendar (date) {
+            $('#view-select').val('day');
             $('#schedule-display').empty();
             $("#daily-card-view .showpass-layout-flex").empty();
-            $('.showpass-day-view').addClass('active');
             $('.showpass-calendar').addClass('daily');
             $('.calendar-contain-desktop').hide();
             $('.showpass-calendar-month').hide();
@@ -148,8 +147,8 @@
             var venue = $('#venue_id').val();
 
             // Set values for display toggle
-            $('.showpass-month-view').attr('current_date', moment(date).startOf('month').format());
-            $('.showpass-week-view').attr('current_date', moment(date).startOf('week').format());
+            $('#view-select .month').attr('current_date', moment(date).startOf('month').format());
+            $('#view-select .week').attr('current_date', moment(date).startOf('week').format());
 
             // Set displays and data attributes for the controls
             $('.showpass-day').html(moment(date).format('dddd') + '<br/>' + moment(date).format('MMM D'));
@@ -246,7 +245,7 @@
                                                 "<div class='flex-75 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white'><div class='showpass-full-width'><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-title-wrapper'><div class='showpass-event-title'><h3>" +
                                                 "<a href='/event-detail/?slug=wordfest-present-gary-shteyngart'>" + event_name + "</a>" +
                                                 "</h3></div></div></div><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date'><div>" +
-                                                "<div class='info'><i class='fa fa-calendar icon-center'></i>" + moment.tz(starts_on, timezone).format('dddd MMMM D, YYYY') + "</div>" +
+                                                "<div class='info'><i class='fa fa-calendar icon-center'></i>" + moment.tz(starts_on, timezone).format('ddd MMM D, YYYY') + "</div>" +
                                                 "<div class='info'><i class='fa fa-clock-o icon-center'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + "</div>" +
                                                 "<div class='info'><i class='fa fa-map-marker icon-center'></i>" + event_location + "</div>" +
                                                 "<div class='info'><i class='fa fa-map-marker icon-center'></i>" + event_city + "</div>" +
@@ -291,8 +290,6 @@
     	function renderCalendarWeek (week) {
 
             $('.loader-home').show();
-            $('.showpass-view').removeClass('active');
-            $('.showpass-week-view').addClass('active');
             $('.showpass-calendar').removeClass('daily');
             $('.horizontal-schedule-display').hide();
             $('.calendar-contain-desktop').show();
@@ -305,8 +302,9 @@
             let currentWeek = moment(week).format();
             let startWeek = moment(currentWeek).startOf('week').toISOString();
             let endWeek = moment(currentWeek).endOf('week').toISOString();
-            $('.showpass-month-view').attr('current_date', moment(currentWeek).startOf('month').format());
-            $('.showpass-week-view, .showpass-day-view').attr('current_date', moment(currentWeek).startOf('week').format());
+
+            $('#view-select .month').attr('current_date', moment(currentWeek).startOf('month').format());
+            $('#view-select .week, #view-select .day').attr('current_date', moment(currentWeek).startOf('week').format());
             $('.showpass-calendar').removeClass('daily');
 
             // Set Prev/Next Week Values
@@ -382,7 +380,6 @@
     					$('.showpass-calendar-item').addClass('item-week-view');
     					$('.showpass-calendar-item-single').addClass('single-item-week-view');
 
-
                         $('.showpass-calendar-item').each(function (index, value) {
                             var length = $(this).children('.showpass-calendar-item-single').length;
                             var id = $(this).attr('id');
@@ -419,8 +416,8 @@
             let startMonth = moment(currentMonth).startOf('month').toISOString();
             let endMonth = moment(currentMonth).endOf('month').toISOString();
             // Set values for display toggle
-            $('.showpass-week-view').attr('current_date', moment(currentMonth).startOf('week').format());
-            $('.showpass-month-view, .showpass-day-view').attr('current_date', currentMonth);
+            $('#view-select .week').attr('current_date', moment(currentMonth).startOf('week').format());
+            $('#view-select .month, #view-select .day').attr('current_date', currentMonth);
     		$('.loader-home').show();
             $('.daily-view-toggle').hide();
     		var d = new Date();
@@ -519,7 +516,8 @@
                             }
 
 							var tmp = month_event + '_' + day_event;
-                            var html_tmp = "<div class='showpass-calendar-item-single show-tooltip' data-tooltip-content='#template-" + event_slug + "' data-month='" + month + "' data-day='" + day_event + "' data-year='" + year +"' style='background:url(" + image_event + ") no-repeat'>" +
+
+                            var html_tmp = "<div class='showpass-calendar-item-single show-tooltip' data-slug='" + event_slug + "' data-tooltip-content='#template-" + event_slug + "' data-month='" + month + "' data-day='" + day_event + "' data-year='" + year +"' style='background:url(" + image_event + ") no-repeat;'>" +
                             "<div class='tooltip_templates'><div class='calendar-tooltip tooltip-content' id='template-" + event_slug + "'><img class='tooltip-thumb' src='" + image_banner + "' alt='" + event_name + "' />" +
                             "<div class='info'><div class='event-name'>" + event_name + "</div>" +
                             "<div class='location'><i class='fa fa-map-marker'></i>" + event_location + "</div>" +
@@ -538,15 +536,37 @@
 
     					}
 
-                        $('.showpass-calendar-item-event-container').each(function (index, value) {
-                            var length = $(this).children('.showpass-calendar-item-single').length;
-                            var id = $(this).attr('id');
-                            if (length > 4) {
-                                var single_day = "<span class='multiple-event-popup'></span>";
-    							$(this).append(single_day);
-                            }
-                        });
-
+                        let color = $('#option_widget_color').val() || '000000';
+                        if (isMobile === false) {
+                            // DISPLAY FOR DESKTOP
+                            $('.showpass-calendar-item-event-container').each(function (index, value) {
+                                var length = $(this).children('.showpass-calendar-item-single').length;
+                                var id = $(this).attr('id');
+                                if (length > 4) {
+                                    var single_day = "<span class='multiple-event-popup show-tooltip' style='background-color: #" + color +";'></span>";
+                                    $(this).closest('.showpass-calendar-item').append(single_day);
+                                }
+                            });
+                        } else {
+                            // DISPLAY FOR MOBILE
+                            $('.showpass-calendar-item').each(function (index, value) {
+                                $(this).addClass('mobile');
+                            });
+                            $('.showpass-calendar-item-event-container').each(function (index, value) {
+                                var length = $(this).children('.showpass-calendar-item-single').length;
+                                var id = $(this).attr('id');
+                                if (length > 1) {
+                                    var single_day = "<span class='mobile-event-popup multiple' style='background-color: #" + color +";'></span>";
+                                    $(this).closest('.showpass-calendar-item').append(single_day);
+                                } else if (length == 1) {
+                                    var container = $(this).find('.showpass-calendar-item-single');
+                                    var slug = $(container).attr('data-slug');
+                                    var style = $(container).attr('style');
+                                    var single_day = "<span class='mobile-event-popup open-ticket-widget' id='" + slug +"'></span>";
+                                    $(this).closest('.showpass-calendar-item').append(single_day);
+                                }
+                            });
+                        }
     					$('.loader-home').hide();
                         initializeTooltip();
 
@@ -576,11 +596,7 @@
                 initiateTime = moment().startOf('week').format();
             }
             // RENDER WEEK VIEW IF MONTH DISABLED
-      		$('.showpass-week-view').addClass('active');
-            $('.showpass-week-view').addClass('active');
-      		$('.showpass-month-view').removeClass('active');
       		$('.horizontal-schedule-display').hide();
-      		$('.showpass-contain-desktop').show();
       		$('.showpass-calendar-month').hide();
             $('.showpass-calendar-week').show();
       		$('.showpass-month-view').hide();
@@ -599,70 +615,49 @@
     	} else {
             // RENDER & SHOW BOTH WEEKLY & MONTHLY & DAILY
             $('.horizontal-schedule-display').hide();
-            $('.calendar-contain-desktop').show();
-            $('.showpass-month-view').addClass('active');
     		renderCalendar(year_now, month_now + 1);
     	}
 
-    	$('.showpass-month-view').click(function() {
-
-            // Currently this function resets back to now
-            // Should reset to month of current week or day you are viewing
-
-    		if(!$(this).hasClass('active')) {
-            $('.calendar-contain-desktop').show();
-			var date_now = now;
-			var month_now = date_now.getMonth();
-			var year_now = date_now.getFullYear();
-            // Set Calendar Header Date
-            $('.showpass-month').html(months[month_now + 1]);
-            $('.showpass-year').text(year_now);
-            $('.showpass-calendar').removeClass('daily');
-            // Reset data attribute for next-month
-            $('.showpass-next-month').attr('data-month', month_now + 2);
-            $('.horizontal-schedule-display').hide();
-            $('.calendar-contain-desktop').show();
-            renderCalendar(year_now, month_now + 1);
-            $('.showpass-view').removeClass('active');
-            $(this).addClass('active');
-            $('.showpass-calendar-month').show();
-            $('.showpass-calendar-week').hide();
-    		}
-    	});
-
-        $('.showpass-day-view').click(function() {
-            if (!$(this).hasClass('active')) {
-                $('.showpass-view').removeClass('active');
-                $(this).addClass('active');
-                renderDailyCalendar(moment($(this).attr('current_date')).format('DD-MM-YYYY'));
+        $('#view-select').change(function() {
+            let view = $(this).val();
+            if (view === 'month') {
+                var date_now = now;
+    			var month_now = date_now.getMonth();
+    			var year_now = date_now.getFullYear();
+                // Set Calendar Header Date
+                $('.showpass-month').html(months[month_now + 1]);
+                $('.showpass-year').text(year_now);
+                $('.showpass-calendar').removeClass('daily');
+                // Reset data attribute for next-month
+                $('.showpass-next-month').attr('data-month', month_now + 2);
+                $('.horizontal-schedule-display').hide();
+                $('.calendar-contain-desktop').show();
+                renderCalendar(year_now, month_now + 1);
+                $('.showpass-calendar-month').show();
+                $('.showpass-calendar-week').hide();
+            } else if (view === 'week') {
+                var initiateTime = moment($(this).find(':selected').attr('current_date')).startOf('week').format();
+                renderCalendarWeek(initiateTime);
+            } else if (view === 'day') {
+                renderDailyCalendar(moment($(this).find(':selected').attr('current_date')).format('DD-MM-YYYY'));
             }
         });
-
-    	$('.showpass-week-view').click(function() {
-    		if (!$(this).hasClass('active')) {
-                var initiateTime = moment($(this).attr('current_date')).startOf('week').format();
-                renderCalendarWeek(initiateTime);
-    		}
-    	});
 
         /*
         * When user clicks overlay on month view
         */
-        $('body').on('click', '.multiple-event-popup', function (e) {
-            let container = $(this).closest('.showpass-calendar-item-event-container');
+        $('body').on('click', '.multiple-event-popup, .mobile-event-popup.multiple', function (e) {
+            let container = $(this).parent().find('.showpass-calendar-item-event-container');
             var day = $(container).attr('data-day');
             var month = $(container).attr('data-month');
             var year = $(container).attr('data-year');
-            // SET START OF WEEK
-            var initiateTime = moment(day + '-' + month + '-' + year, "DD-MM-YYYY").startOf('week').format();
-            renderCalendarWeek(initiateTime);
+            renderDailyCalendar(day + '-' + month + '-' + year);
         });
 
         /*
         * When user clicks "view day" button in week view
         */
         $('body').on('click', '.go-to-day', function (e) {
-            $('.showpass-view').removeClass('active');
             let container = $(this).closest('.showpass-calendar-item');
             var day = $(container).attr('data-day');
             var month = $(container).attr('data-month');
@@ -671,6 +666,9 @@
             renderDailyCalendar(initiateTime);
         });
 
+        /*
+        * Change daily view display
+        */
         $('.icon-button').on('click', function () {
             if (!$(this).hasClass('active')) {
                 $('.icon-button').removeClass('active');

@@ -501,17 +501,18 @@ function wpshp_calendar($atts) {
     $html .= "<input type='hidden' id='week_enable' value='" . $week_enable . "' />";
   }
 
-  $html .= "<div class='showpass-month-view showpass-view'>Month View</div>";
-  $html .= "<div class='showpass-week-view showpass-view'>Week View</div>";
-	$html .= "<div class='showpass-day-view showpass-view'>Day View</div>";
-  $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='scedule-view' class='icon-button'><i class='fa fa-list'></i></span></div>";
   $hide_daily = '';
   $hide_calendar = '';
+  $html .= "<div class='clearfix'><select id='view-select'><option class='month' value='month'>Month View</option><option class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
+  //$html .= "<div class='showpass-month-view showpass-view'>Month</div>";
+  //$html .= "<div class='showpass-week-view showpass-view'>Week</div>";
+  //$html .= "<div class='showpass-day-view showpass-view'>Day</div>";
+  $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='scedule-view' class='icon-button'><i class='fa fa-list'></i></span></div></div>";
 
   // Generate Month/Week view stuff
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month disabled' data-month='" . $GLOBALS['current_month_prev'] . "'></div><p class='showpass-month'>" . $GLOBALS['current_month'] ."</p> <p class='showpass-year'>" . $GLOBALS['current_year'] ."</p><div class='showpass-next-month' data-month='" . $GLOBALS['current_month_next'] . "'></div></div>";
 	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week=''></div><p class='showpass-week'></p><div class='showpass-next-week' data-next-week=''></div> </div>";
-	$html .= "<div class='calendar-contain-desktop'><div class='showpass-calendar-head-container clearfix'>";
+  $html .= "<div class='calendar-contain-desktop'><div class='showpass-calendar-head-container clearfix'>";
 
   for($i = 0; $i < sizeof($array_days); $i++) {
 		$html .= "<div class='showpass-calendar-head'>" . $array_days[$i] ."</div>";
@@ -521,7 +522,7 @@ function wpshp_calendar($atts) {
 	$html .= "<div class='calendar-contain'><div class='showpass-calendar-body clearfix'>";
 
   $html .= "</div></div><div class='loader-home'><div class='loader'>Loading...</div></div></div>";
-  $html .= "<div class='calendar-contain-mobile'><div class='showpass-calendar-mobile'></div><div class='loader-home'><div class='loader'>Loading...</div></div></div>";
+  //$html .= "<div class='calendar-contain-mobile'><div class='showpass-calendar-mobile'></div><div class='loader-home'><div class='loader'>Loading...</div></div></div>";
 
   // Generate single day html
   $html .= "<div class='horizontal-schedule-display'><div class='showpass-calendar-day'><div class='showpass-prev-day' data-day='dummy'></div><p class='showpass-day'></p><div class='showpass-next-day' data-date='dummy'></div></div>";

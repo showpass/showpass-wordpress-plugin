@@ -279,17 +279,3 @@
     border-bottom: 2px solid #eeeeee;
     color: #333 !important;
 }
-
-.showpass-grid-flex {
-  width: 100%;
-  height: auto;
-  display: flex;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  flex-flow: row nowrap;
-  -webkit-flex-flow: row nowrap;
-  align-content: flex-start;
-  box-sizing: border-box !important;
-}
