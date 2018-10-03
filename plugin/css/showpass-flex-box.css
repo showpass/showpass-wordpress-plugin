@@ -2,6 +2,10 @@
   padding-bottom: 50px;
 }
 
+#daily-card-view.showpass-flex-box {
+  padding-bottom: 0px !important;
+}
+
 .showpass-flex-table.showpass-flex-table-striped .showpass-flex-row:nth-child(odd), .showpass-flex-box.showpass-flex-table-striped .showpass-flex-row:nth-child(odd) {
     background: #f4f4f4;
 }
@@ -161,6 +165,8 @@
     box-sizing: border-box !important;
 }
 
+.showpass
+
 .showpass-flex-box .showpass-layout-flex .showpass-flex-column .list-layout-flex{
   padding: 7px;
 }
@@ -272,4 +278,18 @@
     font-weight: bold;
     border-bottom: 2px solid #eeeeee;
     color: #333 !important;
+}
+
+.showpass-grid-flex {
+  width: 100%;
+  height: auto;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-flow: row nowrap;
+  -webkit-flex-flow: row nowrap;
+  align-content: flex-start;
+  box-sizing: border-box !important;
 }

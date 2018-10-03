@@ -461,6 +461,7 @@ a {
   background-size: cover !important;
   padding-top: 100% !important;
   height: 100% !important;
+  background-position: center !important;
 }
 
 .showpass-detail-buy {
@@ -519,4 +520,8 @@ a {
 
 .showpass-pricing-table .showpass-background-white {
   padding-bottom: 50px !important;
+}
+
+.daily-view-toggle {
+  float: right;
 }

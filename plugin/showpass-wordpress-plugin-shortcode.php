@@ -391,7 +391,9 @@ function wpshp_calendar($atts) {
   // set single date var if query param present
 	if(isset($parameters["date"])) {
 		$single_date = $parameters["date"];
-	} else {
+	} else if (isset($atts["single_date"])) {
+    $single_date = $atts["single_date"];
+  } else {
     $single_date = null;
   }
 
@@ -440,6 +442,7 @@ function wpshp_calendar($atts) {
     $GLOBALS['month'] = date('m', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
     $GLOBALS['days'] = date('t', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
   }
+  $html = "";
   // display a single day if query parameter set
   if ($single_date != null) {
     $value = explode('-', $single_date);
@@ -447,6 +450,7 @@ function wpshp_calendar($atts) {
   } else if (isset($atts["starting_date"])) {
     // if starting_date parameter is set 'j-n-Y' format (month, day, year) no leading zeros
     $value = explode('-', $atts["starting_date"]);
+    $html .= "<input type='hidden' id='starting-date' value='" . $atts["starting_date"] . "' />";
     createGlobalVars($value);
   } else {
     $GLOBALS['current_month'] = date('M');
@@ -468,7 +472,7 @@ function wpshp_calendar($atts) {
 	$array_days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 	$array_months = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
-	$html = "<div class='showpass-calendar " .  $theme . "'>";
+	$html .= "<div class='showpass-calendar " .  $theme . "'>";
 
 
   if (isset($page)) {
@@ -497,43 +501,36 @@ function wpshp_calendar($atts) {
     $html .= "<input type='hidden' id='week_enable' value='" . $week_enable . "' />";
   }
 
-  if ($single_date === null) {
-    $html .= "<div class='showpass-month-view showpass-view active'>Month View</div>";
-  	$html .= "<div class='showpass-week-view showpass-view'>Week View</div>";
-  	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month disabled' data-month='" . $GLOBALS['current_month_prev'] . "'></div><p class='showpass-month'>" . $GLOBALS['current_month'] ."</p> <p class='showpass-year'>" . $GLOBALS['current_year'] ."</p><div class='showpass-next-month' data-month='" . $GLOBALS['current_month_next'] . "'></div></div>";
-  	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week='" . $prev_week . "'></div><p class='showpass-week'>Week of " . $GLOBALS['current_day'] ." of " . $GLOBALS['current_month'] . "</p><div class='showpass-next-week' data-next-week='" . $next_week . "'></div> </div>";
-    $html .= "<div class='calendar-contain-desktop'><div class='showpass-calendar-head-container clearfix'>";
+  $html .= "<div class='showpass-month-view showpass-view'>Month View</div>";
+  $html .= "<div class='showpass-week-view showpass-view'>Week View</div>";
+	$html .= "<div class='showpass-day-view showpass-view'>Day View</div>";
+  $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='scedule-view' class='icon-button'><i class='fa fa-list'></i></span></div>";
+  $hide_daily = '';
+  $hide_calendar = '';
 
-    for($i = 0; $i < sizeof($array_days); $i++) {
-  		$html .= "<div class='showpass-calendar-head'>" . $array_days[$i] ."</div>";
-  	}
+  // Generate Month/Week view stuff
+	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month disabled' data-month='" . $GLOBALS['current_month_prev'] . "'></div><p class='showpass-month'>" . $GLOBALS['current_month'] ."</p> <p class='showpass-year'>" . $GLOBALS['current_year'] ."</p><div class='showpass-next-month' data-month='" . $GLOBALS['current_month_next'] . "'></div></div>";
+	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week=''></div><p class='showpass-week'></p><div class='showpass-next-week' data-next-week=''></div> </div>";
+	$html .= "<div class='calendar-contain-desktop'><div class='showpass-calendar-head-container clearfix'>";
 
-    $html .= "</div>";
-  	$html .= "<div class='calendar-contain'><div class='showpass-calendar-body clearfix'>";
-  	if($first_of_the_month_day == 7) {
-  		for($i = (int)$first_of_the_month_day - 6 ; $i <= (int)$GLOBALS['days']; $i++) {
-  			$html .= "<div class='showpass-calendar-item'>" . $i ."</div>";
-  		}
-  	} else {
-  		for($i = ((int)$first_of_the_month_day * (-1)) + 1 ; $i <= (int)$GLOBALS['days']; $i++) {
-  			if($i < 1) {
-  				$html .= "<div class='showpass-calendar-item'></div>";
-  			} else {
-  				$html .= "<div class='showpass-calendar-item'><div class='day_number_showpass'>" . $i ."</div></div>";
-  			}
-  		}
-  	}
+  for($i = 0; $i < sizeof($array_days); $i++) {
+		$html .= "<div class='showpass-calendar-head'>" . $array_days[$i] ."</div>";
+	}
 
-    $html .= "</div><div class='loader-home'><div class='loader'>Loading...</div></div></div></div>";
-    $html .= "<div class='calendar-contain-mobile'><div class='showpass-calendar-mobile'></div><div class='loader-home'><div class='loader'>Loading...</div></div></div></div>";
-  } else {
-    // single day display
-    $html .= "<div id='single-event'></div>";
-    $html .= "<div class='loader-home'><div class='loader'>Loading...</div></div>"; // close showpass-calendar
-    $html .= "</div>"; // close showpass-calendar
-  }
+  $html .= "</div>";
+	$html .= "<div class='calendar-contain'><div class='showpass-calendar-body clearfix'>";
 
-    return $html;
+  $html .= "</div></div><div class='loader-home'><div class='loader'>Loading...</div></div></div>";
+  $html .= "<div class='calendar-contain-mobile'><div class='showpass-calendar-mobile'></div><div class='loader-home'><div class='loader'>Loading...</div></div></div>";
+
+  // Generate single day html
+  $html .= "<div class='horizontal-schedule-display'><div class='showpass-calendar-day'><div class='showpass-prev-day' data-day='dummy'></div><p class='showpass-day'></p><div class='showpass-next-day' data-date='dummy'></div></div>";
+  $html .= "<div id='schedule-display'></div>";
+  $html .= "<div id='daily-card-view' class='showpass-flex-box'><div class='showpass-layout-flex'></div></div>";
+  $html .= "<div class='loader-home'><div class='loader'>Loading...</div></div>";
+  $html .= "</div></div></div>";
+
+  return $html;
 
 }
 

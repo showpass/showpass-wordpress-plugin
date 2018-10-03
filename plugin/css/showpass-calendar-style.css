@@ -1,9 +1,7 @@
 .showpass-calendar, .calendar-contain {
   position: relative;
 }
-.showpass-calendar .calendar-contain-desktop {
-  display: none;
-}
+
 .showpass-calendar .calendar-contain-mobile {
   display: none;
 }
@@ -36,7 +34,10 @@
   font-size: 18px;
 }
 
-.showpass-calendar-year, .showpass-calendar-month, .showpass-calendar-week {
+.showpass-calendar-year,
+.showpass-calendar-month,
+.showpass-calendar-week,
+.showpass-calendar-day {
 	width: 170px;
 	margin:10px auto;
 	text-align: center;
@@ -52,7 +53,8 @@
 	font-size: 22px;
 }
 
-.showpass-calendar-week {
+.showpass-calendar-week,
+.showpass-calendar-day {
   font-size: 13px;
 }
 
@@ -76,7 +78,10 @@
   box-sizing: border-box;
 }
 
-.showpass-calendar-month p, .showpass-calendar-year p, .showpass-calendar-week p {
+.showpass-calendar-month p,
+.showpass-calendar-year p,
+.showpass-calendar-week p,
+.showpass-calendar-day p {
 	display: inline-block;
 }
 
@@ -161,7 +166,7 @@
 	position: relative;
 }
 
-.showpass-prev-year, .showpass-prev-month, .showpass-prev-week {
+.showpass-prev-year, .showpass-prev-month, .showpass-prev-week, .showpass-prev-day {
   margin-top: 4px;
 	width: 30px;
 	height: 30px;
@@ -182,7 +187,7 @@
   cursor: default;
 }
 
-.showpass-next-year, .showpass-next-month, .showpass-next-week {
+.showpass-next-year, .showpass-next-month, .showpass-next-week, .showpass-next-day {
   margin-top: 4px;
 	width: 30px;
 	height: 30px;
@@ -418,7 +423,11 @@ div.not-found {
   }
 }
 
-.daily #single-event {
+.daily {
+  min-height: 150px;
+}
+
+.daily #schedule-display {
   width: 100%;
   overflow: auto;
 }
@@ -428,13 +437,22 @@ div.not-found {
 }
 
 .daily .location-name {
-  background: #ccc;
   font-weight: bold;
   padding: 10px 20px 10px 0px;
   display: block;
   width: 100%;
   box-sizing: border-box;
   height: 40px;
+  border: 1px solid #dcc;
+  border-radius: 3px;
+  border-bottom: 0px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+19,f4f4f4+100 */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 19%, #f4f4f4 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 19%,#f4f4f4 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 19%,#f4f4f4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
+
 }
 
 .daily .location-name .sticky {
@@ -460,14 +478,15 @@ div.not-found {
 
 .daily .daily-event {
   border-radius: 3px;
-  border: 1px solid #cccc;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+19,f4f4f4+100 */
-  background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(top, #ffffff 19%, #f4f4f4 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ffffff 19%,#f4f4f4 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ffffff 19%,#f4f4f4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
+  border: 1px solid #ccc;
   position: absolute;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+19,f4f4f4+100 */
+  background: #cccccc; /* Old browsers */
+  background: -moz-linear-gradient(top, #cccccc 19%, #bbbbbb 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #cccccc 19%,#bbbbbb 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #cccccc 19%,#bbbbbb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#bbbbbb',GradientType=0 ); /* IE6-9 */
+  text-shadow: 0.5px 0.5px 1px #fff;
 }
 
 .daily .daily-event::after {
@@ -522,4 +541,47 @@ div.not-found {
   position: absolute;
   border-left: 1px solid #ccc;
   padding-left: 5px;
+}
+
+.daily .no-events {
+  text-align: center;
+}
+
+.showpass-calendar .multiple-event-popup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0, 0.5);
+  cursor: pointer;
+}
+
+.showpass-calendar .go-to-day {
+  display: block;
+  font-size: 12px;
+}
+
+.showpass-calendar .icon-button {
+  margin-left: 10px;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  border-radius: 50%;
+  background: #f4f4f4;
+  display: inline-block;
+  color: #999;
+  border: 1px solid #ccc;
+}
+
+.showpass-calendar .icon-button i {
+  margin-right: 0px !important;
+  line-height: 40px;
+}
+
+.showpass-calendar .icon-button.active {
+  background: #999;
+  color: white;
+  border: 0px;
 }
