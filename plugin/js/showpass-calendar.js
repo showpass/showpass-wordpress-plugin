@@ -239,7 +239,7 @@
                                 var event_slug = event.slug;
                                 var event_location = event.location.name;
                                 var event_city = event.location.city + ', ' + event.location.province;
-                                var redirect = $('#page_type').val();
+                                var redirect = '/'+$('#page_type').val();
 
                                 var html_card = "<div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card'><div class='showpass-event-layout-list showpass-layout-flex m15'><div class='flex-25 showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0'>" +
                                                 "<span class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");' href='" + redirect + "?slug=" + event_slug + "'></a>" +
