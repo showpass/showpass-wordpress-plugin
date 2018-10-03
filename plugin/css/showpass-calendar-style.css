@@ -453,7 +453,8 @@ div.not-found {
 
 .daily #schedule-display {
   width: 100%;
-  overflow: auto;
+  overflow-x: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
 }
 
 .daily .location {
