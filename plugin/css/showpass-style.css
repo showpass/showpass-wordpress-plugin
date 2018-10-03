@@ -152,8 +152,6 @@
   text-decoration: none !important;
 }
 
-
-
 .showpass-list-ticket-button:focus {
   text-decoration: none !important;
 }
@@ -462,6 +460,7 @@ a {
   padding-top: 100% !important;
   height: 100% !important;
   background-position: center !important;
+  box-sizing: border-box !important;
 }
 
 .showpass-detail-buy {
@@ -522,6 +521,10 @@ a {
   padding-bottom: 50px !important;
 }
 
-.daily-view-toggle {
-  float: right;
+.control-container {
+  width: 100%;
+}
+
+.control-container .daily-view-toggle {
+  float: right !important;
 }

@@ -242,8 +242,8 @@
                                 var redirect = $('#page_type').val();
 
                                 var html_card = "<div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card'><div class='showpass-event-layout-list showpass-layout-flex m15'><div class='flex-25 showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0'>" +
-                                                "<a class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");' href='" + redirect + "?slug=" + event_slug + "'></a>" +
-                                                "<a class='showpass-image showpass-hide-large' style='background-image: url(" + image_banner + ");' href='" + redirect + "?slug=" + event_slug + "'></a> </div>" +
+                                                "<span class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");' href='" + redirect + "?slug=" + event_slug + "'></a>" +
+                                                "<span class='showpass-image showpass-hide-large' style='background-image: url(" + image_banner + ");' href='" + redirect + "?slug=" + event_slug + "'></a> </div>" +
                                                 "<div class='flex-75 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white'><div class='showpass-full-width'><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-title-wrapper'><div class='showpass-event-title'><h3>" +
                                                 "<a href='/event-detail/?slug=wordfest-present-gary-shteyngart'>" + event_name + "</a>" +
                                                 "</h3></div></div></div><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date'><div>" +

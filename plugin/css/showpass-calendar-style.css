@@ -6,6 +6,7 @@
   display: none;
 }
 
+
 /*@media screen and (max-width: 780px) {
   .showpass-calendar .calendar-contain-desktop {
     display: none !important;
@@ -26,6 +27,7 @@
 
 
 .showpass-calendar-body {
+  width: 100%;
   min-height: 500px;
   position: relative;
 }
@@ -45,6 +47,9 @@
 	font-weight: 600;
 }
 
+.showpass-calendar-head-container {
+  width: 100%;
+}
 .showpass-calendar-week {
   width: 200px;
 }
@@ -136,6 +141,8 @@
   margin-top: 5px;
   margin-bottom: 15px;
   box-sizing: border-box;
+  width: 280px !important;
+  height: auto !important;
 }
 
 .calendar-tooltip .info {

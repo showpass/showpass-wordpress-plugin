@@ -503,7 +503,7 @@ function wpshp_calendar($atts) {
 
   $hide_daily = '';
   $hide_calendar = '';
-  $html .= "<div class='clearfix'><select id='view-select'><option class='month' value='month'>Month View</option><option class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
+  $html .= "<div class='clearfix control-container'><select id='view-select'><option  class='month' value='month'>Month View</option><option class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
   //$html .= "<div class='showpass-month-view showpass-view'>Month</div>";
   //$html .= "<div class='showpass-week-view showpass-view'>Week</div>";
   //$html .= "<div class='showpass-day-view showpass-view'>Day</div>";
