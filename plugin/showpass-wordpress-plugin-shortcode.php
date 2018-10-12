@@ -4,7 +4,7 @@
 * registering shortcode
 **************************/
 
-define('API_URL', 'https://www.showpass.com/api');
+define('API_URL', 'http://local.showpass.com:8000/api');
 // define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'&'));
 define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('API_PUBLIC_EVENTS', API_URL . '/public/events');
@@ -42,7 +42,7 @@ function wpshp_get_data( $atts ) {
 		} else if (isset($_GET['slug'])) {
 			$final_api_url = API_PUBLIC_EVENTS . "/" . $_GET['slug'] . "/";
 		} else {
-			echo "ERROR - Need parameter in URL (id or slug)";
+			return "ERROR - Need parameter in URL (id or slug)";
 		}
 	} else if ($type == "event-list" || $type == "list") {
 
@@ -71,8 +71,7 @@ function wpshp_get_data( $atts ) {
 		if (isset($atts['page_size'])) {
 			$number_of_events_one_page = $atts['page_size'];
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
-		}
-		else {
+		} else {
 			$number_of_events_one_page = 8;
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
 		}
@@ -94,13 +93,40 @@ function wpshp_get_data( $atts ) {
 
 		if(isset($atts["page"])) {
 			$detail_page = $atts["page"];
-		}
-		else {
+		} else {
 			$detail_page = NULL;
+		}
+
+		if(isset($atts['condensed'])) {
+			$condensed = $atts['condensed'];
+			$final_api_url .= "&condensed=" . $condensed;
+		}
+
+	}
+	echo $final_api_url;
+	$data = CallAPI($final_api_url);
+
+	// decode data to to append related events to process properly
+	$data = json_decode($data, TRUE);
+
+	// find related events if any
+	if ($data && $data['has_related_events'] && $type == "single") {
+		$related_url = API_URL . '/public/events/' . $_GET['slug'] . '/related/?venue_id=' . $organization_id;
+		$related_data = CallAPI($related_url);
+		$related_data = json_decode($related_data, TRUE);
+		$data['related_events'] = $related_data['results'];
+	}
+
+	// check event meta data and fill keys for easy display
+	if ($data && !empty($data['event_metadata'] && $type == "single")) {
+		foreach ($data['event_metadata'] as $key => $value) {
+			$data['event_metadata'][$value['field_name']] = $value;
+			unset($data['event_metadata'][$key]);
 		}
 	}
 
-	$data = CallAPI($final_api_url);
+	// encode json data to return properly
+	$data = json_encode($data);
 
 	if ($template == "data") {
 		return $data;
@@ -216,7 +242,7 @@ function showpass_get_event_date ($date, $zone) {
 		$otherTZ  = new DateTimeZone($zone);
 		$datetime->setTimezone($otherTZ);
 		if($format_date == "") {
-			$format_date = "l F d, Y";
+			$format_date = "D M d, Y";
 		}
 		$new_date = $datetime->format($format_date);
 		return $new_date;

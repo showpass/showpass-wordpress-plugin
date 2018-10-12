@@ -156,7 +156,7 @@
             $('.showpass-next-day').attr('data-day', moment(moment(date).format()).add(1, 'day').format('DD-MM-YYYY'));
             if (venue) {
                 // set initial URL
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + dayStart + "&ends_on__lt=" + dayEnd;
+    			var url = "http://local.showpass.com:8000/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + dayStart + "&ends_on__lt=" + dayEnd;
                 // if tags param append to url
                 if (tags) {
                     url = url+"&tags=" + tags;
@@ -322,7 +322,7 @@
     		var venue = $('#venue_id').val();
     		if (venue) {
                 // set initial URL
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startWeek + "&ends_on__lt=" + endWeek;
+    			var url = "http://local.showpass.com:8000/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startWeek + "&ends_on__lt=" + endWeek;
                 // if tags param append to url
                 if (tags) {
                     url = url+"&tags=" + tags;
@@ -441,7 +441,7 @@
 
     		if (venue) {
 
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startMonth + "&ends_on__lt=" + endMonth;
+    			var url = "http://local.showpass.com:8000/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startMonth + "&ends_on__lt=" + endMonth;
 
                 if (tags) {
                     url = url+"&tags=" + tags;
