@@ -1,9 +1,9 @@
 (function($) {
     $(window).on('load', function() {
-        showpass.tickets.addCartCountListener(function (count) {
+        showpass.tickets.addCartCountListener(function(count) {
             var html = '';
             if (count > 0) {
-                html = 'Shopping Cart ('+count+')';
+                html = 'Shopping Cart (' + count + ')';
                 Cookies.set('cart', html);
                 $('.showpass-cart-button span').html(html);
             } else {
@@ -14,63 +14,72 @@
         });
         // GET QUERY STING
         function getQueryStrings() {
-          var assoc  = {};
-          var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-          var queryString = location.search.substring(1);
-          var keyValues = queryString.split('&');
+            var assoc = {};
+            var decode = function(s) {
+                return decodeURIComponent(s.replace(/\+/g, " "));
+            };
+            var queryString = location.search.substring(1);
+            var keyValues = queryString.split('&');
 
-          for(var i in keyValues) {
-            var key = keyValues[i].split('=');
-            if (key.length > 1) {
-              assoc[decode(key[0])] = decode(key[1]);
+            for (var i in keyValues) {
+                var key = keyValues[i].split('=');
+                if (key.length > 1) {
+                    assoc[decode(key[0])] = decode(key[1]);
+                }
             }
-          }
-          return assoc;
+            return assoc;
         }
         var qs = getQueryStrings();
         // SET AFFILIATE COOKIE
         if (!$.isEmptyObject(qs) && qs.aff) {
-          Cookies.set('affiliate', qs.aff, { expires: 7 });
+            Cookies.set('affiliate', qs.aff, {
+                expires: 7
+            });
         }
 
         // SET AUTO OPEN COOKIE
         if (!$.isEmptyObject(qs) && qs.auto) {
-          Cookies.set('auto', qs.auto, { expires: 7 });
+            Cookies.set('auto', qs.auto, {
+                expires: 7
+            });
         }
 
     });
 
     $(document).ready(function() {
         function getQueryStrings() {
-          var assoc  = {};
-          var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
-          var queryString = location.search.substring(1);
-          var keyValues = queryString.split('&');
+            var assoc = {};
+            var decode = function(s) {
+                return decodeURIComponent(s.replace(/\+/g, " "));
+            };
+            var queryString = location.search.substring(1);
+            var keyValues = queryString.split('&');
 
-          for(var i in keyValues) {
-            var key = keyValues[i].split('=');
-            if (key.length > 1) {
-              assoc[decode(key[0])] = decode(key[1]);
+            for (var i in keyValues) {
+                var key = keyValues[i].split('=');
+                if (key.length > 1) {
+                    assoc[decode(key[0])] = decode(key[1]);
+                }
             }
-          }
-          return assoc;
+            return assoc;
         }
 
         var qs = getQueryStrings();
 
         if (qs.auto) {
-              var slug = qs.auto;
-              var params = {
-                  'theme-primary': $('#option_widget_color').val() || '',
-                  'keep-shopping': $('#option_keep_shopping').val() || 'true',
-                  'theme-dark': $('#option_theme_dark').val() || ''
-              };
-              setTimeout(function(){ Cookies.remove('auto');
-                                    showpass.tickets.eventPurchaseWidget(slug, params);
-                                  }, 500);
+            var slug = qs.auto;
+            var params = {
+                'theme-primary': $('#option_widget_color').val() || '',
+                'keep-shopping': $('#option_keep_shopping').val() || 'true',
+                'theme-dark': $('#option_theme_dark').val() || ''
+            };
+            setTimeout(function() {
+                Cookies.remove('auto');
+                showpass.tickets.eventPurchaseWidget(slug, params);
+            }, 500);
         }
 
-        $('body').on('click', '.open-product-widget', function (e) {
+        $('body').on('click', '.open-product-widget', function(e) {
             e.preventDefault();
             var id = $(this).attr('id');
             var params = {
@@ -86,7 +95,7 @@
             showpass.tickets.productPurchaseWidget(id, params);
         });
 
-        $('body').on('click', '.open-ticket-widget', function (e) {
+        $('body').on('click', '.open-ticket-widget', function(e) {
             e.preventDefault();
             var slug = $(this).attr('id');
             var params = {
@@ -102,17 +111,17 @@
             showpass.tickets.eventPurchaseWidget(slug, params);
         });
 
-        $('.showpass-cart-button').on('click', function(e){
-          e.preventDefault();
-          showpass.tickets.checkoutWidget({
-              'theme-primary': $('#option_widget_color').val() || '',
-              'keep-shopping': $('#option_keep_shopping').val() || 'true',
-              'theme-dark': $('#option_theme_dark').val() || ''
-          });
+        $('.showpass-cart-button').on('click', function(e) {
+            e.preventDefault();
+            showpass.tickets.checkoutWidget({
+                'theme-primary': $('#option_widget_color').val() || '',
+                'keep-shopping': $('#option_keep_shopping').val() || 'true',
+                'theme-dark': $('#option_theme_dark').val() || ''
+            });
         });
 
         if (Cookies.get('cart')) {
-          $('.showpass-cart-button span').html(Cookies.get('cart'));
+            $('.showpass-cart-button span').html(Cookies.get('cart'));
         }
 
         var span = document.createElement('span');

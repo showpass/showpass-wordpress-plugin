@@ -6,7 +6,6 @@
   display: none;
 }
 
-
 /*@media screen and (max-width: 780px) {
   .showpass-calendar .calendar-contain-desktop {
     display: none !important;
@@ -24,8 +23,6 @@
     display: none !important;
   }
 }*/
-
-
 .showpass-calendar-body {
   width: 100%;
   min-height: 500px;
@@ -40,22 +37,23 @@
 .showpass-calendar-month,
 .showpass-calendar-week,
 .showpass-calendar-day {
-	width: 170px;
-	margin:10px auto;
-	text-align: center;
-	font-size: 18px;
-	font-weight: 600;
+  width: 170px;
+  margin: 10px auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .showpass-calendar-head-container {
   width: 100%;
 }
+
 .showpass-calendar-week {
   width: 200px;
 }
 
 .showpass-calendar-month {
-	font-size: 22px;
+  font-size: 22px;
 }
 
 .showpass-calendar-week,
@@ -71,13 +69,13 @@
 }
 
 .showpass-calendar-head {
-	background:#f4f4f4;
-	text-transform: uppercase;
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	width: 14.285%;
-	float: left;
+  background: #f4f4f4;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 14.285%;
+  float: left;
   font-size: 14px;
   border: 1px solid white;
   box-sizing: border-box;
@@ -87,15 +85,15 @@
 .showpass-calendar-year p,
 .showpass-calendar-week p,
 .showpass-calendar-day p {
-	display: inline-block;
+  display: inline-block;
 }
 
 .showpass-calendar-item {
-	float: left;
-	width: 14.285%;
+  float: left;
+  width: 14.285%;
   height: 100px;
   position: relative;
-	background:#f4f4f4;
+  background: #f4f4f4;
   border: 1px solid white;
   box-sizing: border-box;
 }
@@ -121,7 +119,6 @@
   display: block;
   padding-bottom: 100%;
 }*/
-
 .showpass-calendar-item-event-container {
   display: table;
   height: 100%;
@@ -161,8 +158,8 @@
 }
 
 .showpass-calendar-item-single {
-	display: table-cell;
-	transition: all 0.5s ease;
+  display: table-cell;
+  transition: all 0.5s ease;
   background-position: center !important;
   background-size: cover !important;
 }
@@ -184,27 +181,26 @@
 	width: 100%;
 	z-index: 9999;
 }*/
-
 .showpass-calendar-item .showpass-calendar-item-single:last-child {
-	border-right: 0px;
+  border-right: 0px;
 }
 
 .showpass-calendar-item-single .link {
-	width: 100%;
-	height: 98px;
-	position: relative;
+  width: 100%;
+  height: 98px;
+  position: relative;
 }
 
 .showpass-prev-year, .showpass-prev-month, .showpass-prev-week, .showpass-prev-day {
   margin-top: 4px;
-	width: 30px;
-	height: 30px;
-	background: url(../images/arrow_left.png) no-repeat;
-	background-position: center;
-	background-size: 100%;
-	display: inline-block;
-	float: left;
-	cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background: url(../images/arrow_left.png) no-repeat;
+  background-position: center;
+  background-size: 100%;
+  display: inline-block;
+  float: left;
+  cursor: pointer;
 }
 
 .showpass-prev-month.disabled,
@@ -218,14 +214,14 @@
 
 .showpass-next-year, .showpass-next-month, .showpass-next-week, .showpass-next-day {
   margin-top: 4px;
-	width: 30px;
-	height: 30px;
-	background: url(../images/arrow_right.png) no-repeat;
-	background-position: center;
-	background-size: 100%;
-	display: inline-block;
-	float: right;
-	cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background: url(../images/arrow_right.png) no-repeat;
+  background-position: center;
+  background-size: 100%;
+  display: inline-block;
+  float: right;
+  cursor: pointer;
 }
 
 .showpass-calendar.dark .day_number_showpass {
@@ -234,10 +230,10 @@
 }
 
 .day_number_showpass {
-	text-align: right;
-	position: absolute;
-	top: 5px;
-	right: 5px;
+  text-align: right;
+  position: absolute;
+  top: 5px;
+  right: 5px;
   color: #666;
   background: rgba(255, 255, 255, 0.85);
   padding: 5px;
@@ -259,13 +255,12 @@
 }
 
 /* LOADER */
-
 .loader-home {
   top: 0;
   left: 0;
   right: 1px;
   bottom: 0;
-  background: rgba(175,175,175, .5);
+  background: rgba(175, 175, 175, .5);
   position: absolute;
   z-index: 999;
   min-height: 150px;
@@ -310,7 +305,7 @@
 }
 
 .loader:after {
-  background: rgba(121,121,121,0.5);
+  background: rgba(121, 121, 121, 0.5);
   width: 75%;
   height: 75%;
   border-radius: 50%;
@@ -328,16 +323,19 @@
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 @keyframes load3 {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -431,7 +429,6 @@
   .calendar-contain-mobile .btn {
     display: inline-block;
   }
-
 }
 
 div.not-found {
@@ -446,14 +443,14 @@ div.not-found {
   margin-right: 10px;
 }
 
-
 .daily {
   min-height: 150px;
 }
 
 .daily #schedule-display {
   width: 100%;
-  overflow-x: scroll; /* has to be scroll, not auto */
+  overflow-x: scroll;
+  /* has to be scroll, not auto */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -472,12 +469,16 @@ div.not-found {
   border-radius: 3px;
   border-bottom: 0px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+19,f4f4f4+100 */
-  background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(top, #ffffff 19%, #f4f4f4 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ffffff 19%,#f4f4f4 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ffffff 19%,#f4f4f4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
-
+  background: #ffffff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 19%, #f4f4f4 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 19%, #f4f4f4 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 19%, #f4f4f4 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f4f4f4', GradientType=0);
+  /* IE6-9 */
 }
 
 .daily .location-name .sticky {
@@ -506,11 +507,16 @@ div.not-found {
   border: 1px solid #ccc;
   position: absolute;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+19,f4f4f4+100 */
-  background: #cccccc; /* Old browsers */
-  background: -moz-linear-gradient(top, #cccccc 19%, #bbbbbb 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #cccccc 19%,#bbbbbb 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #cccccc 19%,#bbbbbb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#bbbbbb',GradientType=0 ); /* IE6-9 */
+  background: #cccccc;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #cccccc 19%, #bbbbbb 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #cccccc 19%, #bbbbbb 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #cccccc 19%, #bbbbbb 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#bbbbbb', GradientType=0);
+  /* IE6-9 */
   text-shadow: 0.5px 0.5px 1px #fff;
   cursor: pointer;
 }
@@ -531,24 +537,23 @@ div.not-found {
   height: 50px;
   box-sizing: border-box;
 }*/
-
 .daily .daily-event .event-info {
   padding: 10px;
 }
 
 .daily .daily-event .event-name {
-    font-size: 17px;
-    font-weight: 700;
-    max-height: 20px;
-    height: 20px;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 20px !important;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    display: block;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
+  font-size: 17px;
+  font-weight: 700;
+  max-height: 20px;
+  height: 20px;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 20px !important;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  display: block;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
 }
 
 .daily .time-scale {
