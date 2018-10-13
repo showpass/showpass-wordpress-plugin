@@ -226,6 +226,13 @@ a {
     text-align: center;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .showpass-hide-xs {
+    display: none !important;
+  }
+}
+
 @media screen and (max-width: 780px) {
   .showpass-hide-mobile {
     display: none !important;
@@ -240,6 +247,12 @@ a {
   }
   .showpass-detail-event-date {
     margin-top: 20px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .showpass-hide-medium {
+    display: none !important;
   }
 }
 

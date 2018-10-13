@@ -130,6 +130,7 @@
 
         // render daily calendar
         function renderDailyCalendar(date) {
+            $('.showpass-calendar').removeClass('monthly');
             $('#view-select').val('day');
             $('#schedule-display').empty();
             $("#daily-card-view .showpass-layout-flex").empty();
@@ -241,21 +242,21 @@
                                 var event_city = event.location.city + ', ' + event.location.province;
                                 var redirect = '/' + $('#page_type').val();
 
-                                var html_card = "<div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card'><div class='showpass-event-layout-list showpass-layout-flex m15'><div class='flex-25 showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0'>" +
+                                var html_card = "<div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card'><div class='showpass-event-layout-list showpass-layout-flex m15'><div class='card-image showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0'>" +
                                     "<span class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");' href='" + redirect + "?slug=" + event_slug + "'></span>" +
                                     "<span class='showpass-image showpass-hide-large' style='background-image: url(" + image_banner + ");' href='" + redirect + "?slug=" + event_slug + "'></span></div>" +
-                                    "<div class='flex-75 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white'><div class='showpass-full-width'><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-title-wrapper'><div class='showpass-event-title'><h3>" +
+                                    "<div class='list-info showpass-flex-column list-layout-flex showpass-no-border showpass-background-white'><div class='showpass-space-between showpass-full-width showpass-layout-fill'><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-title-wrapper'><div class='showpass-event-title'><h3>" +
                                     "<a href='/event-detail/?slug=wordfest-present-gary-shteyngart'>" + event_name + "</a>" +
                                     "</h3></div></div></div><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date'><div>" +
                                     "<div class='info'><i class='fa fa-calendar icon-center'></i>" + moment.tz(starts_on, timezone).format('ddd MMM D, YYYY') + "</div>" +
                                     "<div class='info'><i class='fa fa-clock-o icon-center'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + " - " + moment.tz(ends_on, timezone).format('h:mm A') + " " + timezone_abbr + "</div>" +
                                     "<div class='info'><i class='fa fa-map-marker icon-center'></i>" + event_location + "</div>" +
                                     "<div class='info'><i class='fa fa-map-marker icon-center'></i>" + event_city + "</div>" +
-                                    "</div></div></div><div class='showpass-showpass-layout-flex'><div class='showpass-layout-flex showpass-list-button-layout'><div class='flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-left'><div class='showpass-button-full-width-list'>" +
+                                    "</div></div></div><div class='showpass-layout-flex showpass-list-button-layout'><div class='flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-left'><div class='showpass-button-full-width-list'>" +
                                     "<a class='showpass-list-ticket-button showpass-button open-ticket-widget' id='" + event_slug + "'>BUY TICKETS</a>" +
                                     "</div></div><div class='flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-right'><div class='showpass-button-full-width-list'>" +
                                     "<a class='showpass-list-ticket-button showpass-button-secondary' href='" + redirect + "?slug=" + event_slug + "'>More Info</a>" +
-                                    "</div></div></div></div></div></div></div></div>";
+                                    "</div></div></div></div></div></div></div>";
                                 $("#daily-card-view > .showpass-layout-flex").append(html_card);
 
                             });
@@ -290,7 +291,7 @@
         });
 
         function renderCalendarWeek(week) {
-
+            $('.showpass-calendar').removeClass('monthly');
             $('.loader-home').show();
             $('.showpass-calendar').removeClass('daily');
             $('.horizontal-schedule-display').hide();
@@ -348,7 +349,7 @@
                             var month_event = parseInt(date_day[1]);
                             var year_event = parseInt(date_day[0]);
                             var event_name = data.results[i].name;
-                            var image_event = data.results[i].image_banner;
+                            var image_event = data.results[i].image;
                             var event_slug = data.results[i].slug;
                             var event_location = data.results[i].location.name;
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province;
@@ -365,17 +366,8 @@
                             // var tmp_event = $('.showpass-calendar-item-single[data-day=' + day_event +']').find('.a_link').attr('href');
                             var tmp = month_event + '_' + day_event;
                             // $('#event_on_' + tmp).empty();
-                            var html_tmp = "<div class='showpass-calendar-item-single show-tooltip' data-tooltip-content='#template-" + event_slug + "' style='background:url(" + image_event + ") no-repeat'>" +
-                                "<div class='day_number_showpass'>" + day_event + "</div>" +
-                                "<div class='link'></div>" +
-                                "<div class='tooltip_templates'><div class='calendar-tooltip' id='template-" + event_slug + "'><img class='tooltip-thumb' src='" + image_event + "' alt='" + event_name + "' />" +
-                                "<div class='info'><div class='event-name'>" + event_name + "</div>" +
-                                "<div class='location'><i class='fa fa-map-marker'></i>" + event_location + "</div>" +
-                                "<div class='location'><i class='fa fa-map-marker'></i>" + event_city + "</div>" +
-                                "<div class='time'><i class='fa fa-clock-o'></i>" + moment(a).format('hh:mmA') + " " + timezone + "</div>" +
-                                "<div class='buttons'><a target='" + target + "' class='calendar-button " + widget_class + "' id='" + event_slug + "' href='" + url_event + "'><i class='fa fa-tags'></i>Tickets</a></div>" +
-                                "</div></div>" +
-                                "</div>";
+                            var html_tmp = "<div class='showpass-calendar-item-single show-tooltip' style='background:url(" + image_event + ") no-repeat'>" +
+                                "<div class='link open-ticket-widget' id='" + event_slug + "'></div></div>";
                             $('#event_on_' + tmp).append(html_tmp);
                         }
 
@@ -387,7 +379,7 @@
                             var id = $(this).attr('id');
                             if (length >= 1) {
                                 var color = $('#option_widget_color').val() || '';
-                                var single_day = "<span class='go-to-day showpass-button' style='background: #" + color + "'>View Day</span>";
+                                var single_day = "<span class='go-to-day showpass-button' style='background: #" + color + "'><i class='fa fa-arrow-right'></i><span>View Day</span></span>";
                                 $(this).append(single_day);
                             }
                         });
@@ -417,6 +409,7 @@
             $('.showpass-calendar-body').empty();
             $('.showpass-calendar-mobile').empty();
             $('.showpass-calendar').removeClass('daily');
+            $('.showpass-calendar').addClass('monthly');
 
             let currentMonth = moment('01-' + month + "-" + year, "DD-MM-YYYY").format();
             let startMonth = moment(currentMonth).startOf('month').toISOString();
@@ -486,7 +479,7 @@
                                 if (j < 1) {
                                     html += "<div class='showpass-calendar-item'></div>";
                                 } else {
-                                    html += "<div class='showpass-calendar-item'><div class='day_number_showpass'>" + j + "</div><div id='event_on_" + month + "_" + j + "' class='showpass-calendar-item-event-container' data-day='" + j + "' data-month='" + month + "' data-year='" + year + "'></div></div>";
+                                    html += "<div class='showpass-calendar-item'><div class='day_number_showpass'>" + j + "</div><div class='item-container'><div id='event_on_" + month + "_" + j + "' class='showpass-calendar-item-event-container' data-day='" + j + "' data-month='" + month + "' data-year='" + year + "'></div></div></div>";
                                 }
                             }
                         }
@@ -525,8 +518,7 @@
 
                             var tmp = month_event + '_' + day_event;
 
-                            var html_tmp = "<div class='showpass-calendar-item-single' data-slug='" + event_slug + "' data-month='" + month + "' data-day='" + day_event + "' data-year='" + year + "' style='background:url(" + image_event + ") no-repeat;'></div>";
-
+                            var html_tmp = "<div class='showpass-calendar-item-single' data-slug='" + event_slug + "' data-month='" + month + "' data-day='" + day_event + "' data-year='" + year + "' style='background:url(" + image_event + ") no-repeat;'><div class='space-filler'></div></div>";
                             $('#event_on_' + tmp).append(html_tmp);
 
                             eventCounter++;
@@ -549,17 +541,12 @@
                             $('.showpass-calendar-item').each(function(index, value) {
                                 $(this).addClass('mobile');
                             });
+
                             $('.showpass-calendar-item-event-container').each(function(index, value) {
                                 var length = $(this).children('.showpass-calendar-item-single').length;
                                 var id = $(this).attr('id');
-                                if (length > 1) {
+                                if (length > 0) {
                                     var single_day = "<span class='mobile-event-popup multiple' style='background-color: #" + color + ";'></span>";
-                                    $(this).closest('.showpass-calendar-item').append(single_day);
-                                } else if (length == 1) {
-                                    var container = $(this).find('.showpass-calendar-item-single');
-                                    var slug = $(container).attr('data-slug');
-                                    var style = $(container).attr('style');
-                                    var single_day = "<span class='mobile-event-popup open-ticket-widget' id='" + slug + "'></span>";
                                     $(this).closest('.showpass-calendar-item').append(single_day);
                                 }
                             });
