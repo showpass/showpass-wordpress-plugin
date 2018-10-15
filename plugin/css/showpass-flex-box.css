@@ -165,7 +165,29 @@
     box-sizing: border-box !important;
 }
 
-.showpass
+@media screen and (min-width: 780px) {
+  .showpass-flex-box .showpass-layout-flex .showpass-flex-column.card-image {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .showpass-flex-box .showpass-layout-flex .showpass-flex-column.card-image {
+    width: 100%;
+  }
+}
+
+.showpass-flex-box .showpass-layout-flex .showpass-space-between {
+  align-items: flex-end;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column.list-info {
+  flex-grow: inherit !important;
+  flex: 1 !important;
+}
 
 .showpass-flex-box .showpass-layout-flex .showpass-flex-column .list-layout-flex{
   padding: 7px;
