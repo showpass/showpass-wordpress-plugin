@@ -20,11 +20,11 @@
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
 					<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
-						<span class="showpass-detail-buy showpass-hide-large showpass-soldout">
+						<span class="showpass-detail-buy showpass-hide-medium showpass-soldout">
 							SOLD OUT
 						</span>
 					<?php } else { ?>
-					<span class="showpass-detail-buy showpass-hide-large open-ticket-widget" id="<?php echo $event['slug']; ?>">
+					<span class="showpass-detail-buy showpass-hide-medium open-ticket-widget" id="<?php echo $event['slug']; ?>">
 						<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
 							BUY TICKETS
 						<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
