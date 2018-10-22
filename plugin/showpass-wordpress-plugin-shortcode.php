@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 * registering shortcode
 **************************/
 
-define('API_URL', 'http://local.showpass.com:8000/api');
+define('API_URL', 'https://www.showpass.com/api');
 // define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'&'));
 define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('API_PUBLIC_EVENTS', API_URL . '/public/events');

@@ -6,7 +6,7 @@ function wpshp_settings_page() {
 <h1>Showpass Events API</h1>
 
 <!-- TBD - More description -->
-<p>The main API URL is<strong> http://local.showpass.com:8000/api. </strong> <br />
+<p>The main API URL is<strong> https://www.showpass.com/api. </strong> <br />
 You will need to add Organization ID (venue ID) that you want the data from.  EX. 5 , if you want data from organization 5. You can also enter in multiple organizations 5, 10, 20, 30 - NOT RECCOMENDED FOR PURCHASE WIDGET - you cannot purchase to more than one organization at once. </p>
 
 <form method="post" action="options.php">
@@ -42,7 +42,7 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
 <div class="wrap">
 <h2>DOCS</h2>
 
-<p>This plugin is made for easily getting data from Showpass Events Public API (http://local.showpass.com:8000/api/public/events/).</p>
+<p>This plugin is made for easily getting data from Showpass Events Public API (https://www.showpass.com/api/public/events/).</p>
 <h3>Setting the venue</h3>
 <p>You can set the venue through the admin from Organization ID field. The Plugin works in that way that is sending API call and get all data from the venue with that ID. <br/></p>
 <h2><strong>Shortcode - </strong> [showpass_events]</h2>
