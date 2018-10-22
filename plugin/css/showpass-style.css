@@ -541,3 +541,17 @@ a {
 .control-container .daily-view-toggle {
   float: right !important;
 }
+
+.showpass-date-select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  padding: 10px;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  position: relative;
+  background: url(../images/down-arrow.png) no-repeat;
+  background-position: 95%;
+}

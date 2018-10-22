@@ -115,19 +115,25 @@ function wpshp_get_data( $atts ) {
 
 	}
 
-	echo $final_api_url;
+	//echo $final_api_url;
 	$data = CallAPI($final_api_url);
 
 	// decode data to to append related events to process properly
 	$data = json_decode($data, TRUE);
 
 	// find related events if any
-	if ($data && $data['has_related_events'] && $type == "single") {
+	if ($type == "single" && $data && $data['has_related_events']) {
 		$related_url = API_URL . '/public/events/' . $_GET['slug'] . '/related/?venue_id=' . $organization_id;
 		$related_data = CallAPI($related_url);
 		$related_data = json_decode($related_data, TRUE);
 		$data['related_events'] = $related_data['results'];
 	}
+
+  if (isset($atts['condensed'])) {
+    $data['condensed_display'] = true;
+  } else {
+    $data['condensed_display'] = false;
+  }
 
 	// encode json data to return properly
 	$data = json_encode($data);
