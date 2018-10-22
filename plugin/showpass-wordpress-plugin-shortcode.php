@@ -1,5 +1,6 @@
 <?php
-
+ini_set('display_errors',1);
+error_reporting(E_ALL);
 /**************************
 * registering shortcode
 **************************/
@@ -42,7 +43,7 @@ function wpshp_get_data( $atts ) {
 		} else if (isset($_GET['slug'])) {
 			$final_api_url = API_PUBLIC_EVENTS . "/" . $_GET['slug'] . "/";
 		} else {
-			echo "ERROR - Need parameter in URL (id or slug)";
+			return "ERROR - Need parameter in URL (id or slug)";
 		}
 	} else if ($type == "event-list" || $type == "list") {
 
@@ -54,32 +55,41 @@ function wpshp_get_data( $atts ) {
 		}
 
 		$final_api_url = API_PUBLIC_EVENTS . '/?venue__in=' . $organization_id;
+
+		# get any query parameters from URL
 		$parameters = $_GET;
 		foreach ($parameters as $parameter => $value) {
-			# code...
-			if($parameter == 'q' || $parameter == 'tags') {
+			if($parameter == 'q') {
 				$final_api_url .= "&" . $parameter . "=" . utf8_urldecode($value);
+			} else if($parameter == 'tags') {
+				$tags = utf8_urldecode($value);
 			} else if($parameter == 'page_number') 			{
 				$final_api_url .= "&page=" . $value;
 			} else if($parameter == 'slug') {
-				$final_api_url .= "&slug=";
-			} else {
-				$final_api_url .= "&" . $parameter . "=" . $value;
+				$final_api_url .= "&slug=" . $value;
+			} else if($parameter == 'starts_on__gte') {
+				$final_api_url .= "&starts_on__gte=" . $value;
+			} else if($parameter == 'ends_on__lt') {
+				$final_api_url .= "&ends_on__lt=" . $value;
+			} else if($parameter == 'ordering') {
+				$final_api_url .= "&ordering=" . $value;
 			}
+		}
+
+		if (isset($atts['tags']) && $tags != '') {
+			$tags .= ','.$atts['tags'];
+			$final_api_url .= "&tags_exact=" . $tags;
+		} else if (isset($atts['tags'])) {
+			$tags = $atts['tags'];
+			$final_api_url .= "&tags_exact=" . $tags;
 		}
 
 		if (isset($atts['page_size'])) {
 			$number_of_events_one_page = $atts['page_size'];
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
-		}
-		else {
+		} else {
 			$number_of_events_one_page = 8;
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
-		}
-
-		if (isset($atts['tags'])) {
-			$tags = $atts['tags'];
-			$final_api_url .= "&tags=" . $tags;
 		}
 
 		if(isset($atts['ends_on__gte'])) {
@@ -94,13 +104,39 @@ function wpshp_get_data( $atts ) {
 
 		if(isset($atts["page"])) {
 			$detail_page = $atts["page"];
-		}
-		else {
+		} else {
 			$detail_page = NULL;
 		}
+
+		if(isset($atts['condensed'])) {
+			$condensed = $atts['condensed'];
+			$final_api_url .= "&condensed=" . $condensed;
+		}
+
 	}
 
+	//echo $final_api_url;
 	$data = CallAPI($final_api_url);
+
+	// decode data to to append related events to process properly
+	$data = json_decode($data, TRUE);
+
+	// find related events if any
+	if ($type == "single" && $data && $data['has_related_events']) {
+		$related_url = API_URL . '/public/events/' . $_GET['slug'] . '/related/?venue_id=' . $organization_id;
+		$related_data = CallAPI($related_url);
+		$related_data = json_decode($related_data, TRUE);
+		$data['related_events'] = $related_data['results'];
+	}
+
+  if (isset($atts['condensed'])) {
+    $data['condensed_display'] = true;
+  } else {
+    $data['condensed_display'] = false;
+  }
+
+	// encode json data to return properly
+	$data = json_encode($data);
 
 	if ($template == "data") {
 		return $data;
@@ -216,7 +252,7 @@ function showpass_get_event_date ($date, $zone) {
 		$otherTZ  = new DateTimeZone($zone);
 		$datetime->setTimezone($otherTZ);
 		if($format_date == "") {
-			$format_date = "l F d, Y";
+			$format_date = "D M d, Y";
 		}
 		$new_date = $datetime->format($format_date);
 		return $new_date;
@@ -377,9 +413,7 @@ function wpshp_calendar($atts) {
 	wp_enqueue_style('showpass-calendar-style', plugins_url( '/css/showpass-calendar-style.css', __FILE__ ), array(), null);
   wp_enqueue_style('showpass-calendar-css', plugins_url( '/css/showpass-calendar-style.css', __FILE__ ), array(), null);
   wp_enqueue_script('dateformat-timezone-showpass');
-  wp_enqueue_script('moment-timezone-showpass');
   wp_enqueue_script('showpass-lodash');
-  wp_enqueue_script('timezone-showpass');
   wp_enqueue_script('tooltipster');
   wp_enqueue_script('showpass-calendar-script');
 
@@ -645,12 +679,14 @@ function showpass_scripts(){
   if (!is_admin()) {
     wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), '1.0.0', true );
     wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true );
-    wp_register_script('timezone-showpass', plugins_url( '/js/timezone.js', __FILE__ ), array(),false, '1.0.1');
+    wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(),false, '1.0.1');
     wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(),false, '1.0.2');
     wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(),false, '1.0.3');
     wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(),false, '4.2.5');
     wp_register_script('tooltipster', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(),false, '2.2.0');
     wp_register_script('showpass-lodash', '//cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js', array());
+		wp_enqueue_script('moment-showpass');
+		wp_enqueue_script('moment-timezone-showpass');
     wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
     wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), null);
     wp_enqueue_script('js-cookie', '//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js', array(), '2.2.0', true );

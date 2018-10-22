@@ -1,11 +1,11 @@
 <div id="page" class="showpass-flex-box">
 	<?php
 	 $event_data = json_decode($data, true);
-	if (isset($event_data['detail'])) { ?>
-		<div class="showpass-layout-flex">
-			<h2>Sorry, we cannot find the event that you are looking for!</h2>
-		</div>
-	<?php } else {
+  	if (isset($event_data['detail'])) { ?>
+  		<div class="showpass-layout-flex">
+  			<h2>Sorry, we cannot find the event that you are looking for!</h2>
+  		</div>
+  	<?php } else {
 		$event = $event_data;
 		$current_event = $event['id'];?>
 		<div class="showpass-layout-flex showpass-detail-event-name">
@@ -19,33 +19,50 @@
 		<div class="flex-container showpass-layout-flex">
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
-					<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
-						<span class="showpass-detail-buy showpass-hide-medium showpass-soldout">
-							SOLD OUT
-						</span>
-					<?php } else { ?>
-					<span class="showpass-detail-buy showpass-hide-medium open-ticket-widget" id="<?php echo $event['slug']; ?>">
-						<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
-							BUY TICKETS
-						<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
-							REGISTER
-						<?php } ?>
-					</span>
-				<?php }?>
+          <?php if (!$event['has_related_events']) { ?>
+  					<?php if(showpass_ticket_sold_out($event['ticket_types'])) { ?>
+  						<span class="showpass-detail-buy showpass-hide-medium showpass-soldout">
+  							SOLD OUT
+  						</span>
+  					<?php } else { ?>
+    					<span class="showpass-detail-buy showpass-hide-medium open-ticket-widget" id="<?php echo $event['slug']; ?>">
+    						<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+    							BUY TICKETS
+    						<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+    							REGISTER
+    						<?php } ?>
+    					</span>
+  			    <?php } ?>
+          <?php } else { ?>
+            <select class="showpass-date-select showpass-hide-medium">
+              <option value=""> - SELECT DATE - </option>
+              <option value="<?php echo $event['slug'];?>">
+                <?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?> <?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
+              </option>
+              <?php foreach ($event['related_events'] as $related) { ?>
+                <option value="<?php echo $related['slug'];?>">
+                  <?php echo showpass_get_event_date($related['starts_on'], $related['timezone'], false);?> <?php echo showpass_get_event_time($related['starts_on'], $related['timezone'], false);?> <?php echo showpass_get_timezone_abbr($related['timezone'], false);?>
+                </option>
+              <?php } ?>
+            </select>
+          <?php } ?>
 					<?php echo $event['description'];?>
 				</div>
 			</div>
 			<div class="flex-33 showpass-flex-column showpass-no-border">
 				<div class="w100">
 					<div class="showpass-detail-event-date mb30">
-						<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-						<div class="info"><i class="fa fa-clock-o icon-center"></i><?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
-							<?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
-						<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
-						<?php if ($event['ticket_types']) : ?>
-              <div class="info mb20"><i class="fa fa-tags icon-center"></i><?php echo showpass_get_price_range($event['ticket_types']);?>
-                <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?></div>
-            <?php endif; ?>
+            <?php
+            $location = $event['location'];
+            if (!$event['has_related_events']) { ?>
+  						<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+  						<div class="info"><i class="fa fa-clock-o icon-center"></i><?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
+  							<?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
+  						<div class="info"><i class="fa fa-map-marker icon-center"></i><?php echo $location['name'];?></div>
+  						<?php if ($event['ticket_types']) : ?>
+                <div class="info mb20"><i class="fa fa-tags icon-center"></i><?php echo showpass_get_price_range($event['ticket_types']);?>
+                  <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?></div>
+              <?php endif; ?>
 							<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
 								<span class="showpass-detail-buy showpass-soldout">
 									SOLD OUT
@@ -58,7 +75,20 @@
 	                  REGISTER
 	                <?php } ?>
 	            	</span>
-							<?php }?>
+							<?php } ?>
+            <?php } else { ?>
+              <select class="showpass-date-select">
+                <option value=""> - SELECT DATE - </option>
+                <option value="<?php echo $event['slug'];?>">
+                  <?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?> <?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
+                </option>
+                <?php foreach ($event['related_events'] as $related) { ?>
+                  <option value="<?php echo $related['slug'];?>">
+                    <?php echo showpass_get_event_date($related['starts_on'], $related['timezone'], false);?> <?php echo showpass_get_event_time($related['starts_on'], $related['timezone'], false);?> <?php echo showpass_get_timezone_abbr($related['timezone'], false);?>
+                  </option>
+                <?php } ?>
+              </select>
+            <?php } ?>
 					</div>
 					<div class="text-center showpass-detail-location">
 						<h3 class="showpass-event-veune-name"><?php echo $location['name'];?></h3>

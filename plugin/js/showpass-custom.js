@@ -141,6 +141,27 @@
         }
         document.body.removeChild(span);
 
+        /*
+        * Related events select box widget toggle
+        */
+
+        $('.showpass-date-select').on('change', function(e) {
+            var slug = $(this).val();
+            if (slug != '') {
+                var params = {
+                    'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+                    'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
+                    'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val()
+                };
+
+                if (Cookies.get('affiliate')) {
+                    params['tracking-id'] = Cookies.get('affiliate');
+                }
+
+                showpass.tickets.eventPurchaseWidget(slug, params);
+            }
+        });
+
     });
 
 })(jQuery);

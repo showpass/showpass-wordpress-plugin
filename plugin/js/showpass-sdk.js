@@ -19,4 +19,4 @@ jQuery.noConflict();
         var x = document.getElementsByTagName('script')[0];
         x.parentNode.insertBefore(s, x);
     }
-})(window, document, 'https://www.showpass.com/static/dist/sdk.js');
+})(window, document, 'http://local.showpass.com:8000/static/dist/sdk.js');
