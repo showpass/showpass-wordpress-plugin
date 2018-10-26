@@ -22,7 +22,8 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.5. [Tags Parameter](#25-tags-parameter)    
    2.6. [Template Parameter](#26-template-parameter)   
    2.7. [Page parameter](#27-page-parameter)   
-   2.8. [Other parameters](#28-other-parameters)   
+   2.9. [Page parameter](#28-condensed-parameter)  
+   2.9. [Other parameters](#28-other-parameters)   
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
@@ -37,6 +38,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    5.3. [Starting date parameter](#53-starting_date-paramerter)   
    5.4. [Use widget parameter](#54-use_widget-paramerter)   
    5.5. [Tags parameter](#55-tags-paramerter)   
+   5.6. [Hide schedule parameter](#55-hide_schedule-paramerter)   
    <!---5.5. [Week and month parameters](#54-week-and-month-parameters)-->
 6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
   6.1. [Parameters](#61-widget-parameter)
@@ -118,7 +120,11 @@ This parameter you can use the shortcode to return a default template provided w
 
 ex. `[showpass_events type='list' page_size='5' template='default']`
 
-Released in version 2.0 currently the plugin only has one template, which is 'default'
+**Accepted parameters**
+
+- `default`: Grid view
+- `list`: list view
+- `data`: returns raw data to use in custom templates
 
 ## 2.7. Page Redirect Parameter
 
@@ -128,7 +134,15 @@ This will be the Wordpress page with the `type="single"` shortcode usage
 
 ex. `[showpass_events type='list' page_size='5' template='default' page='event-detail']`
 
-## 2.8. Other parameters
+## 2.8. Condensed Parameter
+
+Show a condensed list of events
+
+ex. `[showpass_events type='list' page_size='5' template='default' page='event-detail' condensed='true']`
+
+Shows single events, and combines linked events under its main event
+
+## 2.9. Other parameters
 
 There are a few other parameters that API can receive and this plugin is compatible for all of these parameters. You can pass it through the URL and you will get the data from API with those parameters.
 
@@ -243,52 +257,52 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
 ## 4.1. Single event
 ```
 {  
-   "id":8996,
-   "created":"2018-02-15T23:09:54.745729Z",
-   "updated":"2018-09-07T12:18:36.919415Z",
-   "slug":"circle",
-   "name":"Circle 2018",
+   "id":19,
+   "created":"2018-09-10T21:35:17.413662Z",
+   "updated":"2018-10-26T18:31:11.180964Z",
+   "slug":"test",
+   "name":"Test event name",
    "subtitle":null,
    "venue":{  
-      "id":649,
-      "slug":"circle",
-      "name":"Circle",
-      "twitter":"https://twitter.com/circlecarnival",
-      "facebook":"https://www.facebook.com/CircleCarnival/",
-      "web_address":"http://circlecarnival.com",
+      "id":1,
+      "slug":"new-organization",
+      "name":"New Organization",
+      "twitter":null,
+      "facebook":null,
+      "web_address":null,
       "description":"",
-      "phone_number":"14034722209",
-      "street_name":"409 9A ST NE",
+      "phone_number":"14038500080",
+      "street_name":"2600 Portland St SE",
       "city":"Calgary",
-      "avatar":"https://showpass-live.s3.amazonaws.com/media/images/venues/circle/avatars/e3ae8526-4e8.png",
+      "avatar":null,
       "currency":"CAD",
-      "instagram":"https://www.instagram.com/circlecarnival/",
+      "instagram":null,
       "default_refund_policy":"",
       "allow_messages_from_customers":true,
       "is_test":false
    },
    "location":{  
-      "id":6217,
-      "street_name":"1220 9 Ave SW",
+      "id":1,
+      "street_name":"2600 Portland St SE",
       "city":"Calgary",
       "province":"Alberta",
-      "postal_code":"T2P 2C4",
-      "position":"51.046149,-114.09067900000002",
-      "venue":649,
-      "name":"Shaw Millennium Park",
+      "postal_code":"T2G 4M6",
+      "position":"51.0314208,-114.03099580000003",
+      "venue":1,
+      "name":"New Organization",
       "country":"Canada"
    },
-   "starts_on":"2018-09-08T17:00:00Z",
-   "ends_on":"2018-09-09T05:00:00Z",
-   "opens_at":"2018-09-08T17:00:00Z",
+   "starts_on":"2018-11-02T03:00:00Z",
+   "ends_on":"2018-11-02T08:00:00Z",
+   "opens_at":null,
    "terms":null,
-   "description":"",
+   "description":"<p>Looking for escape an Iranian man physically and mentally embodies a ram. The beast becomes a mechanism for survival in this visceral and visually arresting drama.</p>\n<p>&nbsp;</p>\n<p>Looking for escape an Iranian man physically and mentally embodies a ram. The beast becomes a mechanism for survival in this visceral and visually arresting drama.</p>\n<p>&nbsp;</p>\n<p>Looking for escape an Iranian man physically and mentally embodies a ram. The beast becomes a mechanism for survival in this visceral and visually arresting drama.</p>\n<p>&nbsp;</p>\n<p>Looking for escape an Iranian man physically and mentally embodies a ram. The beast becomes a mechanism for survival in this visceral and visually arresting drama.</p>\n<p>&nbsp;</p>",
    "venue_fee":"0.00",
-   "getqd_fee":"0.0700",
-   "getqd_fee_added":"1.50",
-   "image":"https://showpass-live.s3.amazonaws.com/media/images/events/circle/images/6dddbf47-34d.png",
-   "image_banner":"https://showpass-live.s3.amazonaws.com/media/images/events/circle/img-banner/4ebea0a0-e74.png",
-   "thumbnail":"https://showpass-live.s3.amazonaws.com/media/images/events/circle/thumbnails/6dddbf47-34d.png",
+   "getqd_fee":"0.0540",
+   "getqd_fee_added":"1.99",
+   "image":"http://local.showpass.com:8000/media/images/events/new-organization/images/1bb2fa0f-0a7.png",
+   "image_banner":"http://local.showpass.com:8000/media/images/events/new-organization/img-banner/1bb2fa0f-0a7.png",
+   "thumbnail":"http://local.showpass.com:8000/media/images/events/new-organization/thumbnails/1bb2fa0f-0a7.png",
    "is_published":true,
    "is_published_for_sellers":true,
    "is_featured":true,
@@ -296,85 +310,40 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
    "facebook_id":null,
    "ticket_types":[  
       {  
-         "sold_out":false,
-         "id":21486,
-         "created":"2018-02-15T23:09:55.025426Z",
-         "updated":"2018-09-04T18:26:04.981989Z",
-         "taxes":"1.75",
-         "service_charges":"3.95",
-         "total_price":"40.70",
-         "event":8996,
-         "name":"General Admission",
+         "sold_out":true,
+         "id":34,
+         "created":"2018-10-10T23:23:52.164872Z",
+         "updated":"2018-10-26T18:31:11.314003Z",
+         "taxes":"0.00",
+         "service_charges":"7.39",
+         "total_price":"107.39",
+         "event":19,
+         "name":"Sold out ticket",
          "description":null,
-         "sale_starts_on":"2018-04-20T20:11:52.739918Z",
-         "sale_ends_on":"2018-09-08T17:00:00Z",
-         "price":"35.00",
+         "sale_starts_on":"2018-10-10T23:23:52.151183Z",
+         "sale_ends_on":"2018-11-02T03:00:00Z",
+         "price":"100.00",
          "shipping_type":[  
             "st_print"
          ],
-         "base_inventory":21486,
-         "purchase_limit":10,
+         "base_inventory":34,
+         "purchase_limit":8,
          "seat_permissions":[  
 
          ],
          "voucher_purchases_only":false,
          "stats":{  
             "tickets":{  
-               "sold":1278,
-               "sold_and_basket":1280
+               "sold":8.0,
+               "sold_and_basket":8.0
             },
-            "last_updated":"2018-09-07T20:30:38.010464Z"
+            "last_updated":"2018-10-26T18:31:36.471058Z"
          },
-         "inventory":4000,
+         "inventory":8,
          "minimum_purchase_limit":null,
          "show_inventory_amount_tt":null,
          "ticket_transfer_enabled":true,
-         "collect_info_first_name":true,
-         "collect_info_last_name":true,
-         "collect_info_company":false,
-         "collect_info_phone_number":true,
-         "collect_info_email":true,
-         "collect_info_job_title":false,
-         "collect_info_student_number":false,
-         "collect_info_home_address":false,
-         "enforce_box_office_info_collection":false,
-         "info_collect_per_ticket":false,
-         "info_collection_type":"gict_standard_info"
-      },
-      {  
-         "sold_out":false,
-         "id":21488,
-         "created":"2018-02-15T23:09:55.224200Z",
-         "updated":"2018-09-04T18:26:05.027127Z",
-         "taxes":"0.25",
-         "service_charges":"1.85",
-         "total_price":"7.10",
-         "event":8996,
-         "name":"Child Age 4-14",
-         "description":"<p>Limit four per transaction.&nbsp;Kids 3 and under are free.&nbsp;</p>",
-         "sale_starts_on":"2018-02-15T23:09:55.214053Z",
-         "sale_ends_on":"2018-09-08T17:00:00Z",
-         "price":"5.00",
-         "shipping_type":[  
-            "st_print"
-         ],
-         "base_inventory":21488,
-         "purchase_limit":4,
-         "seat_permissions":[  
-
-         ],
-         "voucher_purchases_only":false,
-         "stats":{  
-            "tickets":{  
-               "sold":497,
-               "sold_and_basket":497
-            },
-            "last_updated":"2018-09-07T20:30:38.013591Z"
-         },
-         "inventory":500,
-         "minimum_purchase_limit":null,
-         "show_inventory_amount_tt":null,
-         "ticket_transfer_enabled":true,
+         "voucher_quantity":null,
          "collect_info_first_name":true,
          "collect_info_last_name":true,
          "collect_info_company":false,
@@ -389,29 +358,47 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
       }
    ],
    "assigned_space":null,
-   "frontend_details_url":"https://www.showpass.com/circle/",
+   "frontend_details_url":"http://local.showpass.com:8000/test/",
    "no_ticket_types_message":null,
    "social_share_enabled":false,
-   "social_share_reward":"2.00",
-   "timezone":"US/Mountain",
+   "social_share_reward":"1.00",
+   "timezone":"America/Edmonton",
    "currency":"CAD",
    "password_message":"",
    "external_link":null,
    "sold_out":false,
-   "refund_policy":"All tickets sales for Circle Carnival final and are non-refundable.",
-   "facebook_official_events_id":"185409158761229",
+   "refund_policy":null,
+   "facebook_official_events_id":null,
    "require_terms_acceptance":null,
    "terms_url_link":null,
-   "local_starts_on":"2018-09-08T11:00:00-06:00",
+   "local_starts_on":"2018-11-01T21:00:00-06:00",
    "info_collect_per_ticket":false,
    "initiate_purchase_button":"ipbd_buy_tickets",
    "post_purchase_message":null,
-   "is_saved":false,
+   "is_saved":true,
    "show_inventory_amount":null,
    "restrictions":[  
 
    ],
    "inventory":null,
+   "event_metadata_dict":{  
+      "director":{  
+         "type":"text",
+         "html":false,
+         "field_name":"director",
+         "value":"Directors Name Here",
+         "title":"Director"
+      },
+      "time":{  
+         "type":"text",
+         "html":false,
+         "field_name":"time",
+         "value":"22 mins",
+         "title":"Time"
+      }
+   },
+   "has_related_events":true,
+   "is_main":true,
    "collect_info_first_name":true,
    "collect_info_last_name":true,
    "collect_info_company":false,
@@ -421,15 +408,25 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
    "collect_info_student_number":false,
    "collect_info_home_address":false,
    "enforce_box_office_info_collection":false,
-   "info_collection_type":"gict_standard_info"
+   "info_collection_type":"gict_standard_info",
+   "related_events":[  
+      {  
+         "id":26,
+         "...": 'full event object',
+      },
+      {
+        "id":27,
+        "...": 'full event object',
+      }
+   ]
 }
 ```
 
 
 ## 4.2. List events
 ```
-		{  
-   "count":4,
+{  
+   "count":1,
    "next":null,
    "previous":null,
    "next_page_number":null,
@@ -439,28 +436,28 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
    "next_list":[  
 
    ],
-   "previous_list":[
+   "previous_list":[  
 
    ],
-   "results":[
-      {
-         "id":554,
-         "created":"2018-06-15T16:43:20.852436Z",
-         "updated":"2018-08-29T18:40:07.003717Z",
-         "slug":"october-5-2018",
-         "name":"October 5, 2018",
+   "results":[  
+      {  
+         "id":19,
+         "created":"2018-09-10T21:35:17.413662Z",
+         "updated":"2018-10-26T18:31:11.180964Z",
+         "slug":"test",
+         "name":"Test event name",
          "subtitle":null,
          "venue":{  
-            "id":170,
-            "slug":"screamfest",
-            "name":"ScreamFest",
+            "id":1,
+            "slug":"new-organization",
+            "name":"New Organization",
             "twitter":null,
             "facebook":null,
             "web_address":null,
             "description":"",
-            "phone_number":"14038269182",
-            "street_name":"",
-            "city":"",
+            "phone_number":"14038500080",
+            "street_name":"2600 Portland St SE",
+            "city":"Calgary",
             "avatar":null,
             "currency":"CAD",
             "instagram":null,
@@ -469,27 +466,27 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
             "is_test":false
          },
          "location":{  
-            "id":253,
-            "street_name":"20 Roundup Way SE",
+            "id":1,
+            "street_name":"2600 Portland St SE",
             "city":"Calgary",
             "province":"Alberta",
-            "postal_code":"T2G 5A2",
-            "position":"51.038176,-114.05651799999998",
-            "venue":170,
-            "name":"The Grandstand Building",
+            "postal_code":"T2G 4M6",
+            "position":"51.0314208,-114.03099580000003",
+            "venue":1,
+            "name":"New Organization",
             "country":"Canada"
          },
-         "starts_on":"2018-10-06T01:00:00Z",
-         "ends_on":"2018-10-31T08:00:00Z",
+         "starts_on":"2018-11-02T03:00:00Z",
+         "ends_on":"2018-11-02T08:00:00Z",
          "opens_at":null,
          "terms":null,
-         "description":"",
+         "description":"<p>Looking for escape an Iranian man physically and mentally embodies a ram. The beast becomes a mechanism for survival in this visceral and visually arresting drama.</p>\n<p>&nbsp;</p>\n<p>Looking for escape an Iranian man physically and mentally embodies a ram. The beast becomes a mechanism for survival in this visceral and visually arresting drama.</p>\n<p>&nbsp;</p>\n<p>Looking for escape an Iranian man physically and mentally embodies a ram. The beast becomes a mechanism for survival in this visceral and visually arresting drama.</p>\n<p>&nbsp;</p>\n<p>Looking for escape an Iranian man physically and mentally embodies a ram. The beast becomes a mechanism for survival in this visceral and visually arresting drama.</p>\n<p>&nbsp;</p>",
          "venue_fee":"0.00",
          "getqd_fee":"0.0540",
          "getqd_fee_added":"1.99",
-         "image":"https://showpass-beta.s3.amazonaws.com/media/images/events/screamfest/images/46438724-466.png",
-         "image_banner":"https://showpass-beta.s3.amazonaws.com/media/images/events/screamfest/images/46438724-466.png",
-         "thumbnail":"https://showpass-beta.s3.amazonaws.com/media/images/events/screamfest/thumbnails/46438724-466.png",
+         "image":"http://local.showpass.com:8000/media/images/events/new-organization/images/1bb2fa0f-0a7.png",
+         "image_banner":"http://local.showpass.com:8000/media/images/events/new-organization/img-banner/1bb2fa0f-0a7.png",
+         "thumbnail":"http://local.showpass.com:8000/media/images/events/new-organization/thumbnails/1bb2fa0f-0a7.png",
          "is_published":true,
          "is_published_for_sellers":true,
          "is_featured":true,
@@ -497,23 +494,23 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
          "facebook_id":null,
          "ticket_types":[  
             {  
-               "sold_out":false,
-               "id":917,
-               "created":"2018-06-15T16:43:21.192685Z",
-               "updated":"2018-08-29T18:40:07.094749Z",
+               "sold_out":true,
+               "id":34,
+               "created":"2018-10-10T23:23:52.164872Z",
+               "updated":"2018-10-26T18:31:11.314003Z",
                "taxes":"0.00",
-               "service_charges":"3.61",
-               "total_price":"33.61",
-               "event":554,
-               "name":"General Admission",
+               "service_charges":"7.39",
+               "total_price":"107.39",
+               "event":19,
+               "name":"Sold out ticket",
                "description":null,
-               "sale_starts_on":"2018-06-15T16:43:21.179608Z",
-               "sale_ends_on":"2018-10-06T01:00:00Z",
-               "price":"30.00",
+               "sale_starts_on":"2018-10-10T23:23:52.151183Z",
+               "sale_ends_on":"2018-11-02T03:00:00Z",
+               "price":"100.00",
                "shipping_type":[  
                   "st_print"
                ],
-               "base_inventory":917,
+               "base_inventory":34,
                "purchase_limit":8,
                "seat_permissions":[  
 
@@ -521,107 +518,16 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
                "voucher_purchases_only":false,
                "stats":{  
                   "tickets":{  
-                     "sold":0.0,
-                     "sold_and_basket":0.0
+                     "sold":8.0,
+                     "sold_and_basket":8.0
                   },
-                  "last_updated":"2018-09-07T20:25:59.697862Z"
+                  "last_updated":"2018-10-26T18:31:36.471058Z"
                },
-               "inventory":50,
+               "inventory":8,
                "minimum_purchase_limit":null,
                "show_inventory_amount_tt":null,
                "ticket_transfer_enabled":true,
-               "collect_info_first_name":true,
-               "collect_info_last_name":true,
-               "collect_info_company":false,
-               "collect_info_phone_number":true,
-               "collect_info_email":true,
-               "collect_info_job_title":false,
-               "collect_info_student_number":false,
-               "collect_info_home_address":false,
-               "enforce_box_office_info_collection":false,
-               "info_collect_per_ticket":false,
-               "info_collection_type":"gict_standard_info"
-            },
-            {  
-               "sold_out":false,
-               "id":918,
-               "created":"2018-06-15T16:43:21.286942Z",
-               "updated":"2018-08-29T18:40:07.130429Z",
-               "taxes":"0.00",
-               "service_charges":"4.15",
-               "total_price":"44.15",
-               "event":554,
-               "name":"Killer Cash Combo",
-               "description":null,
-               "sale_starts_on":"2018-06-15T16:43:21.279427Z",
-               "sale_ends_on":"2018-10-06T01:00:00Z",
-               "price":"40.00",
-               "shipping_type":[  
-                  "st_print"
-               ],
-               "base_inventory":918,
-               "purchase_limit":8,
-               "seat_permissions":[  
-
-               ],
-               "voucher_purchases_only":false,
-               "stats":{  
-                  "tickets":{  
-                     "sold":0.0,
-                     "sold_and_basket":0.0
-                  },
-                  "last_updated":"2018-09-07T20:25:59.717233Z"
-               },
-               "inventory":50,
-               "minimum_purchase_limit":null,
-               "show_inventory_amount_tt":null,
-               "ticket_transfer_enabled":true,
-               "collect_info_first_name":true,
-               "collect_info_last_name":true,
-               "collect_info_company":false,
-               "collect_info_phone_number":true,
-               "collect_info_email":true,
-               "collect_info_job_title":false,
-               "collect_info_student_number":false,
-               "collect_info_home_address":false,
-               "enforce_box_office_info_collection":false,
-               "info_collect_per_ticket":false,
-               "info_collection_type":"gict_standard_info"
-            },
-            {  
-               "sold_out":false,
-               "id":919,
-               "created":"2018-06-15T16:43:21.373111Z",
-               "updated":"2018-08-29T18:40:07.198052Z",
-               "taxes":"0.00",
-               "service_charges":"4.69",
-               "total_price":"54.69",
-               "event":554,
-               "name":"SpeedPass",
-               "description":null,
-               "sale_starts_on":"2018-06-15T16:43:21.365267Z",
-               "sale_ends_on":"2018-10-06T01:00:00Z",
-               "price":"50.00",
-               "shipping_type":[  
-                  "st_print"
-               ],
-               "base_inventory":919,
-               "purchase_limit":8,
-               "seat_permissions":[  
-
-               ],
-               "voucher_purchases_only":false,
-               "stats":{  
-                  "tickets":{  
-                     "sold":0.0,
-                     "sold_and_basket":0.0
-                  },
-                  "last_updated":"2018-09-07T20:25:59.730088Z"
-               },
-               "inventory":50,
-               "minimum_purchase_limit":null,
-               "show_inventory_amount_tt":null,
-               "ticket_transfer_enabled":true,
+               "voucher_quantity":null,
                "collect_info_first_name":true,
                "collect_info_last_name":true,
                "collect_info_company":false,
@@ -636,7 +542,7 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
             }
          ],
          "assigned_space":null,
-         "frontend_details_url":"https://beta.showpass.com/october-5-2018/",
+         "frontend_details_url":"http://local.showpass.com:8000/test/",
          "no_ticket_types_message":null,
          "social_share_enabled":false,
          "social_share_reward":"1.00",
@@ -649,16 +555,34 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
          "facebook_official_events_id":null,
          "require_terms_acceptance":null,
          "terms_url_link":null,
-         "local_starts_on":"2018-10-05T19:00:00-06:00",
+         "local_starts_on":"2018-11-01T21:00:00-06:00",
          "info_collect_per_ticket":false,
          "initiate_purchase_button":"ipbd_buy_tickets",
          "post_purchase_message":null,
-         "is_saved":false,
+         "is_saved":true,
          "show_inventory_amount":null,
          "restrictions":[  
 
          ],
          "inventory":null,
+         "event_metadata_dict":{  
+            "director":{  
+               "type":"text",
+               "html":false,
+               "field_name":"director",
+               "value":"Directors Name Here",
+               "title":"Director"
+            },
+            "time":{  
+               "type":"text",
+               "html":false,
+               "field_name":"time",
+               "value":"22 mins",
+               "title":"Time"
+            }
+         },
+         "has_related_events":true,
+         "is_main":true,
          "collect_info_first_name":true,
          "collect_info_last_name":true,
          "collect_info_company":false,
@@ -668,7 +592,17 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
          "collect_info_student_number":false,
          "collect_info_home_address":false,
          "enforce_box_office_info_collection":false,
-         "info_collection_type":"gict_standard_info"
+         "info_collection_type":"gict_standard_info",
+         "related_events":[  
+            {  
+               "id":26,
+               "...": 'full event object',
+            },
+            {
+              "id":27,
+              "...": 'full event object',
+            }
+         ]
       }
    ]
 }
@@ -703,6 +637,9 @@ Add `use_widget="true"` if you want the ticket button to open the widget instead
 
 ## 5.5. tags Paramerter
 Add `tags="tag"` if you want to only display events with certain tags or categories. For best results use one word lowercase tags.
+
+## 5.6. hide_schedule Paramerter
+Add `hide_schedule="true"` if you do not want to display a daily schedule grouped by location.
 
 <!---## 5.5. Week and Month Parameters - Currently Disabled
 
