@@ -466,6 +466,14 @@ function wpshp_calendar($atts) {
   } else {
 		$tags = '';
 	}
+
+  // hide schedule display
+  if (isset($atts["hide_schedule"])) {
+    $hide_schedule = $atts["hide_schedule"];
+  } else {
+    $hide_schedule = false;
+  }
+
   function createGlobalVars($value) {
     $GLOBALS['current_month'] = date('M', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
     $GLOBALS['current_month_number'] = date('n', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
@@ -526,6 +534,7 @@ function wpshp_calendar($atts) {
   $html .= "<input type='hidden' id='use-widget' value='" . $use_widget . "' />";
   $html .= "<input type='hidden' id='tags' value='" . $tags . "' />";
   $html .= "<input type='hidden' id='single-day' value='" . $single_date . "' />";
+  $html .= "<input type='hidden' id='hide-schedule' value='" . $hide_schedule . "' />";
 
   if (isset($month_enable)) {
     $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
@@ -541,8 +550,10 @@ function wpshp_calendar($atts) {
   //$html .= "<div class='showpass-month-view showpass-view'>Month</div>";
   //$html .= "<div class='showpass-week-view showpass-view'>Week</div>";
   //$html .= "<div class='showpass-day-view showpass-view'>Day</div>";
-  $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='scedule-view' class='icon-button'><i class='fa fa-list'></i></span></div></div>";
-
+  if (!$hide_schedule) {
+    $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='scedule-view' class='icon-button'><i class='fa fa-list'></i></span></div>";
+  }
+  $html .= '</div>';
   // Generate Month/Week view stuff
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month disabled' data-month='" . $GLOBALS['current_month_prev'] . "'></div><p class='showpass-month'>" . $GLOBALS['current_month'] ."</p> <p class='showpass-year'>" . $GLOBALS['current_year'] ."</p><div class='showpass-next-month' data-month='" . $GLOBALS['current_month_next'] . "'></div></div>";
 	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week=''></div><p class='showpass-week'></p><div class='showpass-next-week' data-next-week=''></div> </div>";

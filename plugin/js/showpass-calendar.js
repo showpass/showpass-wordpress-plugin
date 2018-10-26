@@ -157,7 +157,7 @@
             $('.showpass-next-day').attr('data-day', moment(moment(date).format()).add(1, 'day').format('DD-MM-YYYY'));
             if (venue) {
                 // set initial URL
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + dayStart + "&ends_on__lt=" + dayEnd;
+    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + dayStart + "&starts_on__lt=" + dayEnd;
                 // if tags param append to url
                 if (tags) {
                     url = url + "&tags=" + tags;
@@ -235,8 +235,8 @@
                                 var month_event = parseInt(date_day[1]);
                                 var year_event = parseInt(date_day[0]);
                                 var event_name = event.name;
-                                var image_thumb = event.image;
-                                var image_banner = event.image_banner;
+                                var image_thumb = event.image || 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-square.png';
+                                var image_banner = event.image_banner || 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png';
                                 var event_slug = event.slug;
                                 var event_location = event.location.name;
                                 var event_city = event.location.city + ', ' + event.location.province;
@@ -378,7 +378,7 @@
                             var length = $(this).children('.showpass-calendar-item-single').length;
                             var id = $(this).attr('id');
                             if (length >= 1) {
-                                var color = $('#option_widget_color').val() || '';
+                                var color = $('#option_widget_color').val();
                                 var single_day = "<span class='go-to-day showpass-button' style='background: #" + color + "'><i class='fa fa-arrow-right'></i><span>View Day</span></span>";
                                 $(this).append(single_day);
                             }
@@ -500,14 +500,9 @@
                             var event_location = data.results[i].location.name;
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province
                             var timezone = moment.tz(data.results[i].timezone).format('z')
-                            var image_event = data.results[i].image;
-                            var image_banner = data.results[i].image_banner;
-                            if (!image_event) {
-                                image_event = 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-square.png'
-                            }
-                            if (!image_banner) {
-                                image_banner = 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png'
-                            }
+                            var image_event = data.results[i].image || 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-square.png';
+                            var image_banner = data.results[i].image_banner || 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png';
+
                             if (page_type !== "" || widget_class !== '') {
                                 var url_event = site_url + "/" + page_type + "?slug=" + event_slug;
                                 var target = "_self";
@@ -519,7 +514,7 @@
                             var tmp = month_event + '_' + day_event;
 
                             var html_tmp = "<div class='showpass-calendar-item-single' data-slug='" + event_slug + "' data-month='" + month + "' data-day='" + day_event + "' data-year='" + year + "' style='background:url(" + image_event + ") no-repeat;'><div class='space-filler'></div></div>";
-                            $('#event_on_' + tmp).append(html_tmp);
+                            $('#event_on_' + tmp).html(html_tmp);
 
                             eventCounter++;
 
