@@ -12,12 +12,12 @@ For preparing .zip file for plugin you will need to do this:
 
 * You will have commited and pushed on master branch all the changes that you made.
 
-* Call this command `git archive -o showpass-wordpress-plugin.zip --prefix=showpass-wordpress-plugin/ HEAD:plugin`           
+* Call this command `git archive -o showpass.zip --prefix=showpass-wordpress-plugin/ HEAD:plugin`           
 
-It will create `showpass-wordpress-plugin.zip` file and it will be prepared for install through the plugin installed. Inside this .zip file are all folders and files that the plugin needs for working.
+It will create `showpass.zip` file and it will be prepared for install through the plugin installed. Inside this .zip file are all folders and files that the plugin needs for working.
 
 * If you want you can change name of .zip files acording to version of plugin          
-`git archive -o showpass-wordpress-plugin.v1.0.2.zip --prefix=showpass-wordpress-plugin/ HEAD:plugin` , or similar. You can name it whatever you want.
+`git archive -o showpass.v1.0.2.zip --prefix=showpass-wordpress-plugin/ HEAD:plugin` , or similar. You can name it whatever you want.
 
 * after that you will need to add the modification `git add .` and to commit it `git commit -m "New .zip file for plugin"`
 

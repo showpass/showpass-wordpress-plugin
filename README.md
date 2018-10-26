@@ -6,9 +6,10 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 
 ## Installation
 1. Download this repo to your desktop
-2. Login to your Wordpress Dashboard and go to Plugins > Add New and upload `showpass-wordpress-plugin.zip` OR unzip `showpass-wordpress-plugin.zip` and upload the `showpass-wordpress-plugin` folder to the `/wp-content/plugins/` directory.
+2. Login to your Wordpress Dashboard and go to Plugins > Add New and upload `showpass.zip` OR unzip `showpass.zip` and upload the `showpass` folder to the `/wp-content/plugins/` directory.
 3. Activate the plugin through the 'Plugins' menu in WordPress or by using the link provided by the plugin installer.
-4. Add your organization id found at `https://www.showpass.com/dashboard/venues/edit/` to the Showpass API admin page
+4. Register your organization and create your events if you haven't already here: `https://www.showpass.com/organizations/register/`
+5. Add your organization id found at `https://www.showpass.com/dashboard/venues/edit/` to the Showpass API admin page
 
 ## Documentation
 
