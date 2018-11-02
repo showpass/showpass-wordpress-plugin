@@ -381,8 +381,15 @@ function showpass_get_product_price_range ($data) {
 /* Function for next/prev page */
 
 function showpass_get_events_next_prev($page) {
-	if(isset($_GET['q'])) {
-		$page_link = ACTUAL_LINK . '?page_number=' . $page . "&q=" . $_GET['q'];
+	// see if any query filter parameters
+	if(isset($_GET)) {
+		if (isset($_GET['page_number'])) {
+			// if any page_number parameters, remove it and replace with current $page
+			unset($_GET['page_number']);
+			$page_link = ACTUAL_LINK . '?page_number=' . $page . '&' . http_build_query($_GET);
+		} else {
+			$page_link = ACTUAL_LINK . '?page_number=' . $page . '&' . http_build_query($_GET);
+		}
 	} else {
 		$page_link = ACTUAL_LINK . '?page_number=' . $page;
 	}
