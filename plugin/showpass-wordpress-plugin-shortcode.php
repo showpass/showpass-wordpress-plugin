@@ -113,6 +113,11 @@ function wpshp_get_data( $atts ) {
 			$final_api_url .= "&condensed=" . $condensed;
 		}
 
+    if(isset($atts['show'])) {
+			$show = $atts['show'];
+			$final_api_url .= "&show=" . $show;
+		}
+
 	}
 
 	//echo $final_api_url;
