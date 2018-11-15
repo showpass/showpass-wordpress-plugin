@@ -673,7 +673,7 @@ function wpshp_get_pricing_table( $atts ) {
     $show = $atts['show'];
     $final_api_url .= "&show=" . $show;
   }
-  echo $final_api_url;
+
 	$data = CallAPI($final_api_url);
 
   $events = array();
