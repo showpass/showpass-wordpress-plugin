@@ -92,7 +92,7 @@
   display: inline-block;
   padding: 10px 20px;
   background: #dd3333;
-  color: white;
+  color: white !important;
   cursor: pointer;
   border-radius: 5px;
   border-bottom: none !important;

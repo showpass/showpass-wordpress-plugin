@@ -76,7 +76,7 @@ function wpshp_get_data( $atts ) {
 			}
 		}
 
-		if (isset($atts['tags']) && $tags != '') {
+		if (isset($atts['tags']) && isset($tags) && $tags != '') {
 			$tags .= ','.$atts['tags'];
 			$final_api_url .= "&tags_exact=" . $tags;
 		} else if (isset($atts['tags'])) {
@@ -663,10 +663,8 @@ function wpshp_get_pricing_table( $atts ) {
 		echo "ERROR - Please enter the `ids` parameter in shortcode";
 	}
 
-
 	$final_api_url = API_PUBLIC_EVENTS;
   $filepath = 'inc/default-pricing-table.php';
-
   $final_api_url = $final_api_url . '/?id__in=' . $event_ids;
 
   if(isset($atts['show'])) {
@@ -681,12 +679,12 @@ function wpshp_get_pricing_table( $atts ) {
   $events_data = json_decode($data, true)['results'];
   $events = array();
   foreach( $sort_order as $sort_id ) {
-    foreach( $events_data as $event ) {
-      if( $event['id'] == $sort_id ) {
-        array_push($events, $event);
-        break;
-      }
-    }
+     foreach( $events_data as $event ) {
+        if( $event['id'] == $sort_id ) {
+          array_push($events, $event);
+          break;
+        }
+     }
   }
 
   ob_start();
