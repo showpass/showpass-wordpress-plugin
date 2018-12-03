@@ -76,7 +76,7 @@ function wpshp_get_data( $atts ) {
 			}
 		}
 
-		if (isset($atts['tags']) && $tags != '') {
+		if (isset($atts['tags']) && isset($tags) && $tags != '') {
 			$tags .= ','.$atts['tags'];
 			$final_api_url .= "&tags_exact=" . $tags;
 		} else if (isset($atts['tags'])) {
