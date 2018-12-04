@@ -10,7 +10,7 @@
 		$current_event = $event['id'];?>
 		<div class="showpass-layout-flex showpass-detail-event-name">
 			<div class="flex-100 showpass-flex-column showpass-no-border">
-				<img class="showpass-detail-image" alt="<?php echo $event['name']; ?>" src="<?php echo $event['image_banner']; ?>" />
+				<img class="showpass-detail-image" alt="<?php echo $event['name']; ?>" src="<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>" />
 			</div>
 		</div>
 		<div class="showpass-layout-flex showpass-detail-event-name">
