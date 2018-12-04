@@ -6,7 +6,7 @@
 				<div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
 					<div class="showpass-event-list showpass-layout-flex m15 layout-fill">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-							<span class="showpass-image" style="background-image: url('<?php echo $event['image_banner'];?>');"></span>
+							<span class="showpass-image" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></span>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">

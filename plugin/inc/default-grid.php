@@ -9,11 +9,11 @@
 					<div class="showpass-event-list showpass-layout-flex m15">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
 							<?php if ($detail_page) { ?>
-								<a class="showpass-image" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png';}?>');" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>"></a>
+								<a class="showpass-image" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>"></a>
 							<?php } else if(showpass_ticket_sold_out($event['ticket_types'])) {?>
-								<a class="showpass-image showpass-soldout" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png';}?>');"></a>
+								<a class="showpass-image showpass-soldout" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
 							<?php } else {?>
-								<a class="showpass-image open-ticket-widget" id="<?php echo $event['slug']; ?>" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png';}?>');"></a>
+								<a class="showpass-image open-ticket-widget" id="<?php echo $event['slug']; ?>" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
 							<?php } ?>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">

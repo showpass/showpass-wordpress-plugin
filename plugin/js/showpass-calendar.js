@@ -45,6 +45,8 @@
         var month_enable = $('#month_enable').val();
         var week_enable = $('#week_enable').val();
         var current_day = now.getDay();
+        let default_banner = $('#showpass-default-banner').val();
+        let default_square = $('#showpass-default-square').val();
 
         var widget_class = '';
 
@@ -235,8 +237,8 @@
                                 var month_event = parseInt(date_day[1]);
                                 var year_event = parseInt(date_day[0]);
                                 var event_name = event.name;
-                                var image_thumb = event.image || 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-square.png';
-                                var image_banner = event.image_banner || 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png';
+                                var image_thumb = event.image || default_square;
+                                var image_banner = event.image_banner || default_banner;
                                 var event_slug = event.slug;
                                 var event_location = event.location.name;
                                 var event_city = event.location.city + ', ' + event.location.province;
@@ -500,8 +502,8 @@
                             var event_location = data.results[i].location.name;
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province
                             var timezone = moment.tz(data.results[i].timezone).format('z')
-                            var image_event = data.results[i].image || 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-square.png';
-                            var image_banner = data.results[i].image_banner || 'https://showpass-live.s3.amazonaws.com/static/assets/img/default-banner.png';
+                            var image_event = data.results[i].image || default_square;
+                            var image_banner = data.results[i].image_banner || default_banner;
 
                             if (page_type !== "" || widget_class !== '') {
                                 var url_event = site_url + "/" + page_type + "?slug=" + event_slug;

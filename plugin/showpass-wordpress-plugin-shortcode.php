@@ -1,18 +1,25 @@
 <?php
-ini_set('display_errors',1);
-error_reporting(E_ALL);
+
 /**************************
 * registering shortcode
 **************************/
 
-define('API_URL', 'https://www.showpass.com/api');
-// define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'&'));
-define('ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
-define('API_PUBLIC_EVENTS', API_URL . '/public/events');
-define('API_PUBLIC_PRODUCTS', API_URL . '/public/products');
+define('SHOWPASS_API_URL', 'https://www.showpass.com/api');
+define('SHOWPASS_ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
+define('SHOWPASS_API_PUBLIC_EVENTS', SHOWPASS_API_URL . '/public/events');
+define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
 
-function wpshp_get_data( $atts ) {
+/* making connection and taking the data from API */
+function call_showpass_api($url, $method = "GET", $data = false) {
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $url);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  return $result;
+}
 
+function showpass_get_event_data( $atts ) {
 	/* get Organization ID that is configured in admin Showpass Event API page */
 	$organization_id = get_option('option_organization_id');
 
@@ -34,14 +41,14 @@ function wpshp_get_data( $atts ) {
 
 	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
-	$final_api_url = API_PUBLIC_EVENTS;
+	$final_api_url = SHOWPASS_API_PUBLIC_EVENTS;
 
 	if($type == "event-detail" || $type == "single") {
 		$filepath = 'inc/default-detail.php';
 		if(isset($_GET['id'])) {
-			$final_api_url = API_PUBLIC_EVENTS . "/" . $_GET['id'] . "/";
+			$final_api_url = SHOWPASS_API_PUBLIC_EVENTS . "/" . $_GET['id'] . "/";
 		} else if (isset($_GET['slug'])) {
-			$final_api_url = API_PUBLIC_EVENTS . "/" . $_GET['slug'] . "/";
+			$final_api_url = SHOWPASS_API_PUBLIC_EVENTS . "/" . $_GET['slug'] . "/";
 		} else {
 			return "ERROR - Need parameter in URL (id or slug)";
 		}
@@ -54,15 +61,15 @@ function wpshp_get_data( $atts ) {
 			$filepath = 'inc/default-grid.php';
 		}
 
-		$final_api_url = API_PUBLIC_EVENTS . '/?venue__in=' . $organization_id;
+		$final_api_url = SHOWPASS_API_PUBLIC_EVENTS . '/?venue__in=' . $organization_id;
 
 		# get any query parameters from URL
 		$parameters = $_GET;
 		foreach ($parameters as $parameter => $value) {
 			if($parameter == 'q') {
-				$final_api_url .= "&" . $parameter . "=" . utf8_urldecode($value);
+				$final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
 			} else if($parameter == 'tags') {
-				$tags = utf8_urldecode($value);
+				$tags = showpass_utf8_urldecode($value);
 			} else if($parameter == 'page_number') 			{
 				$final_api_url .= "&page=" . $value;
 			} else if($parameter == 'slug') {
@@ -121,7 +128,7 @@ function wpshp_get_data( $atts ) {
 	}
 
 	//echo $final_api_url;
-	$data = CallAPI($final_api_url);
+	$data = call_showpass_api($final_api_url);
 
 	// decode data to to append related events to process properly
 	$data = json_decode($data, TRUE);
@@ -129,7 +136,7 @@ function wpshp_get_data( $atts ) {
 	// find related events if any
 	if ($type == "single" && $data && $data['has_related_events']) {
 		$related_url = API_URL . '/public/events/' . $_GET['slug'] . '/related/?venue_id=' . $organization_id;
-		$related_data = CallAPI($related_url);
+		$related_data = call_showpass_api($related_url);
 		$related_data = json_decode($related_data, TRUE);
 		$data['related_events'] = $related_data['results'];
 	}
@@ -155,9 +162,9 @@ function wpshp_get_data( $atts ) {
 	}
 }
 
-add_shortcode( 'showpass_events', 'wpshp_get_data' );
+add_shortcode( 'showpass_events', 'showpass_get_event_data' );
 
-function wpshp_get_product_data( $atts ) {
+function showpass_get_product_data( $atts ) {
 
 	/* get Organization ID that is configured in admin Showpass Event API page */
 	$organization_id = get_option('option_organization_id');
@@ -180,7 +187,7 @@ function wpshp_get_product_data( $atts ) {
 
 	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
-	$final_api_url = API_PUBLIC_PRODUCTS;
+	$final_api_url = SHOWPASS_API_PUBLIC_PRODUCTS;
 
 	if ($type == "product-list") {
 
@@ -191,13 +198,13 @@ function wpshp_get_product_data( $atts ) {
 			$filepath = 'inc/default-product-grid.php';
 		}
 
-		$final_api_url = API_PUBLIC_PRODUCTS . '/?venue_id=' . $organization_id;
+		$final_api_url = SHOWPASS_API_PUBLIC_PRODUCTS . '/?venue_id=' . $organization_id;
 		$parameters = $_GET;
 
 		foreach ($parameters as $parameter => $value) {
 			# code...
 			if($parameter == 'q' || $parameter == 'tags') {
-				$final_api_url .= "&" . $parameter . "=" . utf8_urldecode($value);
+				$final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
 			} else if($parameter == 'page_number') 			{
 				$final_api_url .= "&page=" . $value;
 			} else {
@@ -215,42 +222,27 @@ function wpshp_get_product_data( $atts ) {
 		}
 	}
 
-	$data = CallAPI($final_api_url);
+	$data = call_showpass_api($final_api_url);
 
 	if ($template == "data") {
 		return $data;
 	} else {
-
 	  ob_start();
 	  include($filepath);
 	  $content = ob_get_clean();
 	  return $content;
-
 	}
-
 }
 
-add_shortcode( 'showpass_products', 'wpshp_get_product_data' );
+add_shortcode( 'showpass_products', 'showpass_get_product_data' );
 
-function utf8_urldecode($str) {
+function showpass_utf8_urldecode($str) {
   $str = preg_replace("/%u([0-9a-f]{3,4})/i","&#x\\1;",urlencode($str));
   return html_entity_decode($str,null,'UTF-8');;
 }
 
-/* making connection and taking the data from API */
-function CallAPI($url, $method = "GET", $data = false) {
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $result = curl_exec($curl);
-    curl_close($curl);
-    return $result;
-}
-
 /* Converting date */
-
 function showpass_get_event_date ($date, $zone) {
-
 	if ($date && $zone) {
 		$format_date = get_option('format_date');
 		$datetime = new Datetime($date); // current time = server time
@@ -262,23 +254,22 @@ function showpass_get_event_date ($date, $zone) {
 		$new_date = $datetime->format($format_date);
 		return $new_date;
 	}
-
 }
 
 /* Converting time */
 
 function showpass_get_event_time ($date, $zone) {
-		if ($date && $zone) {
-			$format_time = get_option('format_time');
-			$datetime = new Datetime($date); // current time = server time
-			$otherTZ  = new DateTimeZone($zone);
-			$datetime->setTimezone($otherTZ);
-			if($format_time == "") {
-				$format_time = "g:iA";
-			}
-			$new_date = $datetime->format($format_time);
-			return $new_date;
-		}
+  if ($date && $zone) {
+    $format_time = get_option('format_time');
+    $datetime = new Datetime($date); // current time = server time
+    $otherTZ  = new DateTimeZone($zone);
+    $datetime->setTimezone($otherTZ);
+    if($format_time == "") {
+      $format_time = "g:iA";
+    }
+    $new_date = $datetime->format($format_time);
+    return $new_date;
+  }
 }
 
 function showpass_get_timezone_abbr ($timezone) {
@@ -396,29 +387,11 @@ function showpass_get_events_next_prev($page) {
 	return $page_link;
 }
 
-function getSingleTemplate($data) {
-	$event = json_decode($data);
-	$html = "";
-	$html = "<div><p>" . $event->name . "</p></div>";
-	return $html;
-}
-
-function getListTemplate($data) {
-	$events = json_decode($data);
-	$html = "";
-	foreach ($events->results as $key => $event) {
-		$html .= "<div><p>" . $event->name . "</p></div>";
-	}
-	return $html;
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 //                    calendar shortcode
 ///////////////////////////////////////////////////////////////////////
 
-
-function wpshp_calendar($atts) {
+function showpass_display_calendar($atts) {
 	// registering style and script
 
   wp_enqueue_style('tooltipster-css', plugins_url( '/css/vendor/tooltipster.css', __FILE__ ), array(), '1.0.0', 'all' );
@@ -486,7 +459,7 @@ function wpshp_calendar($atts) {
     $hide_schedule = false;
   }
 
-  function createGlobalVars($value) {
+  function showpass_calendar_global_vars($value) {
     $GLOBALS['current_month'] = date('M', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
     $GLOBALS['current_month_number'] = date('n', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
     $GLOBALS['current_month_prev'] = $GLOBALS['current_month_number'] - 1;
@@ -500,12 +473,12 @@ function wpshp_calendar($atts) {
   // display a single day if query parameter set
   if ($single_date != null) {
     $value = explode('-', $single_date);
-    createGlobalVars($value);
+    showpass_calendar_global_vars($value);
   } else if (isset($atts["starting_date"])) {
     // if starting_date parameter is set 'j-n-Y' format (month, day, year) no leading zeros
     $value = explode('-', $atts["starting_date"]);
     $html .= "<input type='hidden' id='starting-date' value='" . $atts["starting_date"] . "' />";
-    createGlobalVars($value);
+    showpass_calendar_global_vars($value);
   } else {
     $GLOBALS['current_month'] = date('M');
     $GLOBALS['current_month_number'] = date('n');
@@ -535,14 +508,17 @@ function wpshp_calendar($atts) {
     $html .= "<input type='hidden' id='page_type' value='' />";
   }
 
+  $html .= "<input type='hidden' id='showpass-default-square' value='" . plugin_dir_url(__FILE__). "images/default-square.jpg' />";
+  $html .= "<input type='hidden' id='showpass-default-banner' value='" . plugin_dir_url(__FILE__). "images/default-banner.jpg' />";
+  $html .= "<input type='hidden' id='calendar-month' value='" . $GLOBALS['month'] . "' />";
   $html .= "<input type='hidden' id='calendar-day' value='" . $GLOBALS['current_day'] . "' />";
-	$html .= "<input type='hidden' id='calendar-month' value='" . $GLOBALS['month'] . "' />";
+  $html .= "<input type='hidden' id='calendar-month' value='" . $GLOBALS['month'] . "' />";
   $html .= "<input type='hidden' id='calendar-year' value='" . $GLOBALS['current_year'] . "' />";
-	$html .= "<input type='hidden' id='current_day' value='" . $GLOBALS['current_day'] . "' />";
-	$html .= "<input type='hidden' id='current-month' value='" . $GLOBALS['current_month_number'] . "' />";
+  $html .= "<input type='hidden' id='current_day' value='" . $GLOBALS['current_day'] . "' />";
+  $html .= "<input type='hidden' id='current-month' value='" . $GLOBALS['current_month_number'] . "' />";
   $html .= "<input type='hidden' id='current-year' value='" . $GLOBALS['current_year'] . "' />";
-	$html .= "<input type='hidden' id='site_url' value='" . get_home_url() . "' />";
-	$html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
+  $html .= "<input type='hidden' id='site_url' value='" . get_home_url() . "' />";
+  $html .= "<input type='hidden' id='venue_id' value='" . $organization_id . "' />";
   $html .= "<input type='hidden' id='use-widget' value='" . $use_widget . "' />";
   $html .= "<input type='hidden' id='tags' value='" . $tags . "' />";
   $html .= "<input type='hidden' id='single-day' value='" . $single_date . "' />";
@@ -559,9 +535,6 @@ function wpshp_calendar($atts) {
   $hide_daily = '';
   $hide_calendar = '';
   $html .= "<div class='clearfix control-container'><select id='view-select'><option  class='month' value='month'>Month View</option><option class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
-  //$html .= "<div class='showpass-month-view showpass-view'>Month</div>";
-  //$html .= "<div class='showpass-week-view showpass-view'>Week</div>";
-  //$html .= "<div class='showpass-day-view showpass-view'>Day</div>";
   if (!$hide_schedule) {
     $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='scedule-view' class='icon-button'><i class='fa fa-list'></i></span></div>";
   }
@@ -577,7 +550,6 @@ function wpshp_calendar($atts) {
 
   $html .= "</div>";
 	$html .= "<div class='calendar-contain'><div class='showpass-calendar-body clearfix'>";
-
   $html .= "</div></div><div class='loader-home'><div class='loader'>Loading...</div></div></div>";
   //$html .= "<div class='calendar-contain-mobile'><div class='showpass-calendar-mobile'></div><div class='loader-home'><div class='loader'>Loading...</div></div></div>";
 
@@ -587,12 +559,10 @@ function wpshp_calendar($atts) {
   $html .= "<div id='daily-card-view' class='showpass-flex-box'><div class='showpass-layout-flex'></div></div>";
   $html .= "<div class='loader-home'><div class='loader'>Loading...</div></div>";
   $html .= "</div></div></div>";
-
   return $html;
-
 }
 
-add_shortcode('showpass_calendar','wpshp_calendar');
+add_shortcode('showpass_calendar','showpass_display_calendar');
 
 //[showpass_widget label="Patrons Circle Tickets" slug="wff-patrons-circle"]
 function showpass_widget_expand($atts, $content = null) {
@@ -663,7 +633,7 @@ function wpshp_get_pricing_table( $atts ) {
 		echo "ERROR - Please enter the `ids` parameter in shortcode";
 	}
 
-	$final_api_url = API_PUBLIC_EVENTS;
+	$final_api_url = SHOWPASS_API_PUBLIC_EVENTS;
   $filepath = 'inc/default-pricing-table.php';
   $final_api_url = $final_api_url . '/?id__in=' . $event_ids;
 
@@ -672,26 +642,25 @@ function wpshp_get_pricing_table( $atts ) {
     $final_api_url .= "&show=" . $show;
   }
 
-	$data = CallAPI($final_api_url);
+	$data = call_showpass_api($final_api_url);
 
   $events = array();
   $sort_order = explode(',', $event_ids);
   $events_data = json_decode($data, true)['results'];
   $events = array();
   foreach( $sort_order as $sort_id ) {
-     foreach( $events_data as $event ) {
-        if( $event['id'] == $sort_id ) {
-          array_push($events, $event);
-          break;
-        }
-     }
+    foreach( $events_data as $event ) {
+      if( $event['id'] == $sort_id ) {
+        array_push($events, $event);
+        break;
+      }
+    }
   }
 
   ob_start();
 	include($filepath);
   $content = ob_get_clean();
   return $content;
-
 }
 
 add_shortcode( 'showpass_pricing_table', 'wpshp_get_pricing_table' );
@@ -712,13 +681,12 @@ function showpass_scripts(){
     wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(),false, '1.0.2');
     wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(),false, '1.0.3');
     wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(),false, '4.2.5');
-    wp_register_script('tooltipster', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(),false, '2.2.0');
-    wp_register_script('showpass-lodash', '//cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js', array());
-		wp_enqueue_script('moment-showpass');
-		wp_enqueue_script('moment-timezone-showpass');
+    wp_register_script('showpass-lodash', plugins_url( '/js/vendor/lodash.js', __FILE__ ), array(), '1.8.3');
+    wp_enqueue_script('moment-showpass');
+    wp_enqueue_script('moment-timezone-showpass');
     wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
     wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), null);
-    wp_enqueue_script('js-cookie', '//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js', array(), '2.2.0', true );
+    wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
     wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), null);
     wp_enqueue_script('jquery-showpass');
   }
@@ -726,21 +694,21 @@ function showpass_scripts(){
 
 add_action( 'init', 'showpass_scripts' );
 
-function your_function() {
-    echo '<input type="hidden" id="option_keep_shopping" value="'.get_option('option_keep_shopping').'">';
-    echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
-    echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
+function showpass_widget_options() {
+  echo '<input type="hidden" id="option_keep_shopping" value="'.get_option('option_keep_shopping').'">';
+  echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
+  echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
 }
-add_action( 'wp_footer', 'your_function', 100 );
+add_action( 'wp_footer', 'showpass_widget_options', 100 );
 
-function style_function() {
-		echo '<style>';
-    echo '.showpass-button { background-color: #'.get_option('option_widget_color').' !important; }';
-    echo '.showpass-button:hover { background-color: #'.get_option('option_widget_color').' !important; }';
-    echo '.showpass-detail-buy { background-color: #'.get_option('option_widget_color').' !important; }';
-    echo '.showpass-detail-buy:hover { background-color: #'.get_option('option_widget_color').' !important; }';
-    echo '.showpass-pagination .current { background-color: #'.get_option('option_widget_color').' !important; }';
-    echo '.showpass-price-display { color: #'.get_option('option_widget_color').' !important; }';
-		echo '</style>';
+function showpass_style_function() {
+  echo '<style>';
+  echo '.showpass-button { background-color: #'.get_option('option_widget_color').' !important; }';
+  echo '.showpass-button:hover { background-color: #'.get_option('option_widget_color').' !important; }';
+  echo '.showpass-detail-buy { background-color: #'.get_option('option_widget_color').' !important; }';
+  echo '.showpass-detail-buy:hover { background-color: #'.get_option('option_widget_color').' !important; }';
+  echo '.showpass-pagination .current { background-color: #'.get_option('option_widget_color').' !important; }';
+  echo '.showpass-price-display { color: #'.get_option('option_widget_color').' !important; }';
+  echo '</style>';
 }
-add_action( 'wp_head', 'style_function', 100 );
+add_action( 'wp_head', 'showpass_style_function', 100 );
