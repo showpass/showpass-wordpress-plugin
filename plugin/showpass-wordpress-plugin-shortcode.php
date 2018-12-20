@@ -11,8 +11,13 @@ define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
 
 /* making connection and taking the data from API */
 function call_showpass_api($url) {
-  $result = wp_remote_get($url);
-  return $result['body'];
+  $response = wp_remote_get($url, $args);
+  $http_code = wp_remote_retrieve_response_code($response);
+  if ($http_code === 200) {
+    return wp_remote_retrieve_body($response);
+  } else {
+    print_r ($response);
+  }
 }
 
 function showpass_get_event_data( $atts ) {
@@ -125,6 +130,7 @@ function showpass_get_event_data( $atts ) {
 
 	//echo $final_api_url;
 	$data = call_showpass_api($final_api_url);
+
 	// decode data to to append related events to process properly
 	$data = json_decode($data, TRUE);
 
