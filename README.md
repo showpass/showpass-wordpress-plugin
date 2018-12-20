@@ -39,14 +39,15 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    5.3. [Starting date parameter](#53-starting_date-paramerter)   
    5.4. [Use widget parameter](#54-use_widget-paramerter)   
    5.5. [Tags parameter](#55-tags-paramerter)   
-   5.6. [Hide schedule parameter](#55-hide_schedule-paramerter)   
+   5.6. [Hide schedule parameter](#56-hide_schedule-paramerter)   
    <!---5.5. [Week and month parameters](#54-week-and-month-parameters)-->
-6. [Shortcode - [showpas_widget]](#5-shortcode-showpass_widget)       
-  6.1. [Parameters](#61-widget-parameter)
-  6.2. [Widget Tracking](#62-widget-tracking)
+6. [Shortcode - [showpas_widget]](#6-shortcode-showpass_widget)       
+  6.1. [Parameters](#61-parameters)    
+  6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
 7. [Shortcode - [showpass_cart_button]](#7-shortcode-showpass_cart_button)
 8. [Query Param - ?auto=slug](#8-auto-query-parameter)
-
+9. [Shortcode - [showpass_products]](#9-shortcode-showpass_products)
+  9.1. [Parameters](#91-parameters)    
 
 ## 1. Admin page
 
@@ -72,13 +73,16 @@ More about date and time format <a href="http://php.net/manual/en/function.date.
 If you wish to make custom templates for your event lists and detail pages use the following shortcode in your template files.
 
 The shortcode returns JSON format data from API , so you can easily get it in page template with
-`<?php $data = do_shortcode('[showpass_events]'); ?>` .
+
+`<?php $data = do_shortcode('[showpass_events]'); ?>` 
+
+Use the method above to generate your own custom templates using Showpass data.
 
 Because it is JSON data you need to decode it `$data = json_decode($data)` .
 
 It will be received all data from API for the venue that is set from Admin Page ( organization ID ).
 
-Also , there are few parameters that you can send it to the shortcode.
+Also, there are few parameters that you can send it to the shortcode.
 
 ## 2.2. Type Parameter
 
@@ -86,14 +90,18 @@ Type parameter is required for shortcode to work.  You have `type="single"` for 
 
 ### `type="single"`
 
-This type `[showpass_events type="single"]` will get the data from the event specified with the `event_id` in the url.
+This type `[showpass_events type="single"]` will get the data from the event specified with the `slug` in the url.
 
-ex. `www.website.com/?event=123` or `www.website.com/?event=event_slug` - will get all data for the event with ID = 123 or with slug = event_slug . So `?event` in url is required for `type="single"` type of shortcode.
+This will by default use the `default-detail.php`, use the `template="data"` parameter to customize your own template.
+
+ex. `www.website.com/?event=123` or `www.website.com/?slug=event_slug` - will get all data for the event with `id = 123` or with `slug = event_slug` . So `?slug` in url is required for `type="single"` type of shortcode.
 `event` parameter receive event ID or event slug (id or slug from API).
 
 ### `type="list"`
 
 This type `[showpass_events type="list"]` will get all the data from the venue with the ID set on the Admin page ( organization ID ).
+
+This type uses the `default-grid.php` as a base template - use the `template="data"` parameter to customize your own template.
 
 ## 2.3. Page size parameter
 
@@ -656,7 +664,7 @@ If there is neither of this parameters, both views are enabled.-->
 
 Use the showpass_widget shortcode to embed a button with the ticket widget on any page or post.
 
-`[showpass_widget label="Button Label" slug="this-is-the-slug" class="button" keep_shopping="false" theme="dark"]`
+`[showpass_widget label="Button Label" slug="this-is-the-slug" class="button-class" keep_shopping="false"]`
 
 ### 6.1. Parameters
 
@@ -710,3 +718,17 @@ You can automatically open the ticket widget as soon as a customer lands on any 
 http://example.com?auto=this-is-the-slug
 
 Just include the slug of your event in place of `this-is-the-slug`
+
+## 9. Shortcode [showpass_products]
+
+List & sell products from your Showpass organization account
+
+`[showpass_products template="list" page_size="8"]`
+
+9.1 Parameters
+
+#### `template="list|grid"`
+Set the display layout `Default: grid`
+
+#### `page_size="int"`
+Set the number of results per page `Default: 20`
