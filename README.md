@@ -46,7 +46,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
   6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
 7. [Shortcode - [showpass_cart_button]](#7-shortcode-showpass_cart_button)
 8. [Query Param - ?auto=slug](#8-auto-query-parameter)
-9. [Shortcode - [showpass_products]](#9-shortcode-showpass_products)
+9. [Shortcode - [showpass_products]](#9-shortcode-showpass_products)    
   9.1. [Parameters](#91-parameters)    
 
 ## 1. Admin page
