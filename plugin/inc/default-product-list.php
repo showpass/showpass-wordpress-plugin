@@ -8,11 +8,11 @@
 					if($product['is_public']) {?>
 					<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card">
 						<div class="showpass-event-layout-list showpass-layout-flex m15">
-							<div class="flex-30 showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0">
+							<div class="card-image showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0">
                 <a class="showpass-image-banner open-product-widget" style="background-image: url('<?php if ($product['thumbnail']) { echo $product['thumbnail']; } else { echo plugin_dir_url(__FILE__).'../images/default-square.jpg';}?>');"></a>
 							</div>
-							<div class="flex-70 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white">
-								<div class="showpass-full-width">
+							<div class="list-info flex-70 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white">
+								<div class="showpass-space-between showpass-full-width showpass-layout-fill">
 									<div class="showpass-layout-flex">
 										<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border">
 											<div class="product-price"><?php if ($product['product_attributes']) : ?>
