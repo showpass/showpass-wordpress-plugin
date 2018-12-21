@@ -1,5 +1,5 @@
 === Showpass Events & Ticketing ===
-Tags: events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
+Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.5
 Tested up to: 5.0.2
 Stable tag: 3.1.1
