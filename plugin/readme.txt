@@ -1,13 +1,16 @@
-=== Showpass Events & Ticketing ===
+=== Showpass Wordpress Extension ===
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.5
 Tested up to: 5.0.2
 Stable tag: 3.1.1
 Requires PHP: 5.4.45
+Contributors: marcshowpass
 
-List events, display event details and products. Use the Showpass purchase widget for on site ticket & product purchases all with easy to use shortcodes.
+List events, display event details and products. Use the Showpass purchase widget seamless purchases with no redirects, all with easy to use shortcodes.
 
 == Description ==
+
+List events, display event details and products. Use the Showpass purchase widget seamless purchases with no redirects, all with easy to use shortcodes.
 
 Showpass is a full event management solution, allowing organizations and individuals to organize and execute successful events.
 
