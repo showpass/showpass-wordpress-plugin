@@ -22,9 +22,6 @@ For plugin and theme support please email us at wordpress-support@showpass.com
 * List and grid views for events and products
 * Our integrated shopping experience keeps your brand in the forefront, no redirecting to complete purchases
 
-= Localization =
-* English (default) - always included
-
 = Feedback =
 * We are open for your suggestions and feedback
 * Drop us a line [@showpassevents](http://twitter.com/#!/showpassevents) on Twitter
