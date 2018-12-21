@@ -68,6 +68,10 @@ More about date and time format <a href="http://php.net/manual/en/function.date.
 
 ## 2. Shortcode [showpass_events]
 
+Use the `[showpass_events type="list"]` shortcode to automatically display a list of upcoming events on any page or post.
+
+By default it will use the grid template, and the page_size will be 20 
+
 ## 2.1. Adding shortcode and get data
 
 If you wish to make custom templates for your event lists and detail pages use the following shortcode in your template files.
@@ -86,7 +90,11 @@ Also, there are few parameters that you can send it to the shortcode.
 
 ## 2.2. Type Parameter
 
-Type parameter is required for shortcode to work.  You have `type="single"` for getting one specified event or `type="list"` to get all data(events) from the venue that is set in the admin page.
+Type parameter is required for shortcode to work. 
+
+`type="single"` is for getting one specified event and displaying the event detail page
+ 
+ `type="list"` is to get all upcoming events from the organization that is set in the admin page.
 
 ### `type="single"`
 
