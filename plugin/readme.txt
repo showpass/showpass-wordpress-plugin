@@ -32,7 +32,7 @@ For plugin and theme support please email us at wordpress-support@showpass.com
 1. Upload the entire `showpass` folder to the `/wp-content/plugins/` directory
 2. Register your organization with Showpass at [https://www.showpass.com/organizations/register/](https://www.showpass.com/organizations/register/)
 3. Find your Organization ID at [https://www.showpass.com/dashboard/venues/edit/](https://www.showpass.com/dashboard/venues/edit/) in the top right corner
-4. Enter in your organization ID in the Showpass API section of your wordpress dashboard
+4. Enter in your organization ID in the Showpass API section of your Wordpress dashboard
 5. Visit our git repo for full documentation [https://github.com/showpass/showpass-wordpress-plugin](https://github.com/showpass/showpass-wordpress-plugin)
 6. We highly recommend you enable an SSL certificate on your Wordpress installation for your customers piece of mind
 
@@ -46,7 +46,7 @@ Please visit our support documentation at [http://support.showpass.com](http://s
 1. Easily create an event calendar on any page or post
 2. Easily create event or product listings in a grid or list view, on any page or post
 3. Create event detail page to provide more information to customers
-4. This plugin utilizes the Showpass Purcahse Widget for a seamless checkout experience - no redirects means higher conversion rates
+4. This plugin utilizes the Showpass Purchase Widget for a seamless checkout experience - no redirects means higher conversion rates
 
 == Changelog ==
 
