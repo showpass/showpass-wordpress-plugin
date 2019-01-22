@@ -26,6 +26,7 @@
 
 .showpass-event-card .showpass-event-list .showpass-background-white, .showpass-event-card .showpass-event-layout-list .showpass-background-white{
   background-color: white;
+  color: black;
 }
 
 .showpass-event-card .showpass-event-list .showpass-full-width, .showpass-event-card .showpass-event-layout-list .showpass-full-width {
@@ -262,7 +263,8 @@ a {
   }
 }
 
-.showpass-event-list .showpass-price-display {
+.showpass-price-display {
+  color: #dd3333;
   font-size: 14px;
 }
 
@@ -373,15 +375,17 @@ a {
   display: inline-block;
   border-radius: 0;
   color: #0a0a0a;
+  background: white;
 }
 
 .showpass-pagination a:hover,
 .showpass-pagination button:hover {
+  color: #dd3333;
   background: #e6e6e6;
 }
 
 .showpass-pagination .current {
-  background: #1779ba;
+  background: #dd3333;
   color: #fefefe;
   cursor: default;
 }

@@ -378,12 +378,12 @@ function showpass_get_events_next_prev($page) {
 		if (isset($_GET['page_number'])) {
 			// if any page_number parameters, remove it and replace with current $page
 			unset($_GET['page_number']);
-			$page_link = ACTUAL_LINK . '?page_number=' . $page . '&' . http_build_query($_GET);
+			$page_link = SHOWPASS_ACTUAL_LINK . '?page_number=' . $page . '&' . http_build_query($_GET);
 		} else {
-			$page_link = ACTUAL_LINK . '?page_number=' . $page . '&' . http_build_query($_GET);
+			$page_link = SHOWPASS_ACTUAL_LINK . '?page_number=' . $page . '&' . http_build_query($_GET);
 		}
 	} else {
-		$page_link = ACTUAL_LINK . '?page_number=' . $page;
+		$page_link = SHOWPASS_ACTUAL_LINK . '?page_number=' . $page;
 	}
 	return $page_link;
 }
@@ -710,6 +710,8 @@ function showpass_style_function() {
   echo '.showpass-detail-buy:hover { background-color: #'.get_option('option_widget_color').' !important; }';
   echo '.showpass-pagination .current { background-color: #'.get_option('option_widget_color').' !important; }';
   echo '.showpass-price-display { color: #'.get_option('option_widget_color').' !important; }';
+  echo '.showpass-pagination a:hover, .showpass-pagination button:hover  { color: #'.get_option('option_widget_color').' !important; }';
+
   echo '</style>';
 }
 add_action( 'wp_head', 'showpass_style_function', 100 );
