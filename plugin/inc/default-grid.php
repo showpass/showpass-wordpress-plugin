@@ -46,6 +46,9 @@
 									<div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
 										<div>
 											<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+											<div class="info"><i class="fa fa-clock-o icon-center"></i>
+                        <?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
+                      </div>
 											<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
 										</div>
 									</div>
