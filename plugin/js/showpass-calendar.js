@@ -510,26 +510,34 @@
                                 var target = "_self";
                             } else {
                                 var url_event = data.results[i].frontend_details_url;
-                                var target = "_blank"
+                                var target = "_blank";
                             }
 
                             var tmp = month_event + '_' + day_event;
 
                             var html_tmp = "<div class='showpass-calendar-item-single' data-slug='" + event_slug + "' data-month='" + month + "' data-day='" + day_event + "' data-year='" + year + "' style='background:url(" + image_event + ") no-repeat;'><div class='space-filler'></div></div>";
-                            $('#event_on_' + tmp).html(html_tmp);
+
+                            $('#event_on_' + tmp).append(html_tmp);
 
                             eventCounter++;
 
                         }
 
                         let color = $('#option_widget_color').val() || '000000';
+
                         if (isMobile === false) {
                             // DISPLAY FOR DESKTOP
                             $('.showpass-calendar-item-event-container').each(function(index, value) {
                                 var length = $(this).children('.showpass-calendar-item-single').length;
                                 var id = $(this).attr('id');
                                 if (length > 0) {
-                                    var single_day = "<span class='multiple-event-popup show-tooltip' style='background-color: #" + color + ";'></span>";
+                                    let single_day = '';
+                                    if (length > 1) {
+                                        single_day += "<div class='x-events-today'><strong>" + length + "</strong> Events</div>";
+                                        let show_first = $(this).children('.showpass-calendar-item-single:first-child');
+                                        $(this).html(show_first);
+                                    }
+                                    single_day += "<span class='multiple-event-popup' style='background-color: #" + color + ";'></span>";
                                     $(this).closest('.showpass-calendar-item').append(single_day);
                                 }
                             });

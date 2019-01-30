@@ -278,7 +278,7 @@
 }
 
 /* LOADER */
-.loader-home {
+.showpass-calendar .loader-home {
   top: 0;
   left: 0;
   right: 1px;
@@ -289,7 +289,7 @@
   min-height: 150px;
 }
 
-.loader {
+.showpass-calendar .loader {
   font-size: 10px;
   margin: 50px auto;
   text-indent: -9999em;
@@ -316,7 +316,7 @@
   position: absolute;
 }
 
-.loader:before {
+.showpass-calendar .loader:before {
   width: 50%;
   height: 50%;
   background: #ffffff;
@@ -327,7 +327,7 @@
   content: '';
 }
 
-.loader:after {
+.showpass-calendar .loader:after {
   background: rgba(121, 121, 121, 0.5);
   width: 75%;
   height: 75%;
@@ -691,5 +691,22 @@ div.not-found {
   }
   .showpass-button.go-to-day i {
     margin-right: 0px !important;
+  }
+}
+
+.showpass-calendar .x-events-today {
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  color: black;
+  z-index:99;
+  font-size: 12px;
+  bottom: 0;
+  position: absolute;
+}
+
+@media screen and (max-width: 780px) {
+  .showpass-calendar .x-events-today {
+    display: none !important;
   }
 }
