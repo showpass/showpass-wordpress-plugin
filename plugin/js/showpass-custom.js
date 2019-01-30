@@ -1,5 +1,6 @@
 (function($) {
     $(window).on('load', function() {
+
         showpass.tickets.addCartCountListener(function(count) {
             var html = '';
             if (count > 0) {
@@ -163,5 +164,27 @@
         });
 
     });
+
+    /*
+    * Decorate iFrame for GA cross domain tracking
+    */
+
+    const mutationObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.target.className == 'showpass-widget-body') {
+                var gobj = window[window.GoogleAnalyticsObject];
+                var tracker, linker;
+                let iFrame = document.getElementById('showpass-widget');
+                if (gobj) {
+                    tracker = gobj.getAll()[0];
+                    linker = new window.gaplugins.Linker(tracker);
+                    iFrame.src = linker.decorate(iFrame.src);
+                }
+            }
+
+        });
+    });
+
+    mutationObserver.observe(document.documentElement, { attributes: true });
 
 })(jQuery);
