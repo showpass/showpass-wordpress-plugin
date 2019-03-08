@@ -245,10 +245,10 @@
                                 var redirect = '/' + $('#page_type').val();
 
                                 var html_card = "<div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card'><div class='showpass-event-layout-list showpass-layout-flex m15'><div class='card-image showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0'>" +
-                                    "<span class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");' href='" + redirect + "?slug=" + event_slug + "'></span>" +
-                                    "<span class='showpass-image showpass-hide-large' style='background-image: url(" + image_banner + ");' href='" + redirect + "?slug=" + event_slug + "'></span></div>" +
+                                    "<span class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");'></span>" +
+                                    "<span class='showpass-image showpass-hide-large' style='background-image: url(" + image_banner + ");'></span></div>" +
                                     "<div class='list-info showpass-flex-column list-layout-flex showpass-no-border showpass-background-white'><div class='showpass-space-between showpass-full-width showpass-layout-fill'><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-title-wrapper'><div class='showpass-event-title'><h3>" +
-                                    "<a href='/event-detail/?slug=wordfest-present-gary-shteyngart'>" + event_name + "</a>" +
+                                    "<span>" + event_name + "</span>" +
                                     "</h3></div></div></div><div class='showpass-layout-flex'><div class='flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date'><div>" +
                                     "<div class='info'><i class='fa fa-calendar icon-center'></i>" + moment.tz(starts_on, timezone).format('ddd MMM D, YYYY') + "</div>" +
                                     "<div class='info'><i class='fa fa-clock-o icon-center'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + " - " + moment.tz(ends_on, timezone).format('h:mm A') + " " + timezone_abbr + "</div>" +
