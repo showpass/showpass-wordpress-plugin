@@ -583,6 +583,12 @@ function showpass_widget_expand($atts, $content = null) {
 			$label = 'Tickets';
 		}
 
+		if ($atts['tracking_id']) {
+      $tracking = $atts['tracking_id'];
+    } else {
+    $tracking = '';
+    }
+
     if (isset($atts['class'])) {
 			$class = $atts['class'];
 		} else {
@@ -614,7 +620,7 @@ function showpass_widget_expand($atts, $content = null) {
 
 		//update to template as needed
 		$button = '';
-		$button .= $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+		$button .= $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'" data-tracking="'.$tracking.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
 		$button .= '<span>'.$label.'</span></div>';
 		return $button;
 
