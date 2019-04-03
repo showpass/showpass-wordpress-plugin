@@ -98,6 +98,23 @@
             showpass.tickets.productPurchaseWidget(id, params);
         });
 
+        $('body').on('click', '#force-showpass-widget a[href*="showpass.com"]', function(e) {
+            e.preventDefault();
+            var slug = $(this).attr('href').split('.com/')[1];
+            var params = {
+                'theme-primary': $('#option_widget_color').val(),
+                'keep-shopping':$('#option_keep_shopping').val() || true,
+                'theme-dark': $('#option_theme_dark').val(),
+            };
+
+            // Overwrite tracking-id if set in URL
+            if (Cookies.get('affiliate')) {
+                params['tracking-id'] = Cookies.get('affiliate');
+            }
+
+            showpass.tickets.eventPurchaseWidget(slug, params);
+        });
+
         $('body').on('click', '.open-ticket-widget', function(e) {
             e.preventDefault();
             var slug = $(this).attr('id');
