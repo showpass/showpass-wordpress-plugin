@@ -459,16 +459,17 @@ function showpass_display_calendar($atts) {
   } else {
     $hide_schedule = false;
   }
-
-  function showpass_calendar_global_vars($value) {
-    $GLOBALS['current_month'] = date('M', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
-    $GLOBALS['current_month_number'] = date('n', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
-    $GLOBALS['current_month_prev'] = $GLOBALS['current_month_number'] - 1;
-    $GLOBALS['current_month_next'] = $GLOBALS['current_month_number'] + 1;
-    $GLOBALS['current_year'] = date('Y', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
-    $GLOBALS['current_day'] = date('j', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
-    $GLOBALS['month'] = date('m', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
-    $GLOBALS['days'] = date('t', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
+  if (!function_exists('showpass_calendar_global_vars')) {
+    function showpass_calendar_global_vars ($value) {
+      $GLOBALS['current_month'] = date('M', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
+      $GLOBALS['current_month_number'] = date('n', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
+      $GLOBALS['current_month_prev'] = $GLOBALS['current_month_number'] - 1;
+      $GLOBALS['current_month_next'] = $GLOBALS['current_month_number'] + 1;
+      $GLOBALS['current_year'] = date('Y', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
+      $GLOBALS['current_day'] = date('j', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
+      $GLOBALS['month'] = date('m', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
+      $GLOBALS['days'] = date('t', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
+    }
   }
   $html = "";
   // display a single day if query parameter set
