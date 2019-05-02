@@ -218,7 +218,8 @@
                                     var event_duration = moment.duration(moment(ends_on).diff(moment(starts_on))).asHours();
                                     var tile_width = event_duration * time_scale;
                                     var horizontal_position = moment.duration(moment(starts_on).diff(moment(start_of_schedule))).asHours() * time_scale;
-                                    var html_tmp = "<div class='daily-event gradient open-ticket-widget'id=" + event_slug + " style='width: " + tile_width + "px; left: " + horizontal_position + "px'><div class='event-info'><div class='event-name'>" + event_name + "</div>" +
+                                    var external_link = locationEvents[e].external_link;
+                                    var html_tmp = "<div class='daily-event gradient" + (external_link ? "' href='" + external_link : " open-ticket-widget' id='" + event_slug) + "' style='width: " + tile_width + "px; left: " + horizontal_position + "px'><div class='event-info'><div class='event-name'>" + event_name + "</div>" +
                                         "<div class='time'><i class='fa fa-clock-o'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + " - " + moment.tz(ends_on, timezone).format('h:mm A') + " " + timezone_abbr + "</div></div></div></div>";
                                     $('.location-' + locationEvents[e].location.id + ' .daily-contain').append(html_tmp);
                                 }
@@ -243,6 +244,7 @@
                                 var event_location = event.location.name;
                                 var event_city = event.location.city + ', ' + event.location.province;
                                 var redirect = '/' + $('#page_type').val();
+                                var external_link = event.external_link;
 
                                 var html_card = "<div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card'><div class='showpass-event-layout-list showpass-layout-flex m15'><div class='card-image showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0'>" +
                                     "<span class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");'></span>" +
@@ -255,7 +257,7 @@
                                     "<div class='info'><i class='fa fa-map-marker icon-center'></i>" + event_location + "</div>" +
                                     "<div class='info'><i class='fa fa-map-marker icon-center'></i>" + event_city + "</div>" +
                                     "</div></div></div><div class='showpass-layout-flex showpass-list-button-layout'><div class='flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-left'><div class='showpass-button-full-width-list'>" +
-                                    "<a class='showpass-list-ticket-button showpass-button open-ticket-widget' id='" + event_slug + "'>BUY TICKETS</a>" +
+                                    "<a class='showpass-list-ticket-button showpass-button" + (external_link ? "' href='" + external_link : " open-ticket-widget' id='" + event_slug) + "'>BUY TICKETS</a>" +
                                     "</div></div><div class='flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-right'><div class='showpass-button-full-width-list'>" +
                                     "<a class='showpass-list-ticket-button showpass-button-secondary' href='" + redirect + "?slug=" + event_slug + "'>More Info</a>" +
                                     "</div></div></div></div></div></div></div>";
@@ -356,6 +358,7 @@
                             var event_location = data.results[i].location.name;
                             var event_city = data.results[i].location.city + ', ' + data.results[i].location.province;
                             var timezone = moment.tz(data.results[i].timezone).format('z');
+                            var external_link = data.results[i].external_link
 
                             if (page_type !== "" || widget_class !== '') {
                                 var url_event = site_url + "/" + page_type + "?slug=" + event_slug;
@@ -369,7 +372,7 @@
                             var tmp = month_event + '_' + day_event;
                             // $('#event_on_' + tmp).empty();
                             var html_tmp = "<div class='showpass-calendar-item-single show-tooltip' style='background:url(" + image_event + ") no-repeat'>" +
-                                "<div class='link open-ticket-widget' id='" + event_slug + "'></div></div>";
+                                "<div class='link" + (external_link ? "' href='" + external_link : " open-ticket-widget' id='" + event_slug) + "'></div></div>";
                             $('#event_on_' + tmp).append(html_tmp);
                         }
 

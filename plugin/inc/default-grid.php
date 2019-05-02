@@ -13,7 +13,7 @@
 							<?php } else if(showpass_ticket_sold_out($event['ticket_types'])) {?>
 								<a class="showpass-image showpass-soldout" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
 							<?php } else {?>
-								<a class="showpass-image open-ticket-widget" id="<?php echo $event['slug']; ?>" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
+								<a class="showpass-image <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?> style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
 							<?php } ?>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
@@ -37,7 +37,7 @@
 											<?php if ($detail_page) { ?>
 												<h3><a href="/<?php echo $detail_page ?>/?slug=<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
 											<?php } else {?>
-												<h3><a class="open-ticket-widget" id="<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
+												<h3><a <?php if (!$event['external_link']) { ?>class="open-ticket-widget"<?php } ?> <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>><?php echo $event['name']; ?></a></h3>
 											<?php } ?>
 										</div>
 									</div>
@@ -67,7 +67,7 @@
       													SOLD OUT
       												</a>
       											<?php } else { ?>
-        											<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>">
+															<a class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
         												<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
         													BUY TICKETS
         												<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>

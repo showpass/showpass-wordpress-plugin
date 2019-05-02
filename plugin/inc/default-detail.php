@@ -25,7 +25,7 @@
   							SOLD OUT
   						</span>
   					<?php } else { ?>
-    					<span class="showpass-detail-buy showpass-hide-medium open-ticket-widget" id="<?php echo $event['slug']; ?>">
+							<span class="showpass-detail-buy showpass-hide-medium <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
     						<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
     							BUY TICKETS
     						<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
@@ -68,7 +68,7 @@
 									SOLD OUT
 								</span>
 							<?php } else { ?>
-								<span class="showpass-detail-buy open-ticket-widget" id="<?php echo $event['slug']; ?>">
+								<span class="showpass-detail-buy <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
 	                <?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
 	                  BUY TICKETS
 	                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
