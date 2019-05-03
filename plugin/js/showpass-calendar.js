@@ -577,7 +577,7 @@
         } else if (month_enable === 'disabled') {
             let startingDate = $('#starting-date').val();
             let initiateTime;
-            if (startingDate != '') {
+            if (startingDate) {
                 // USE STARTING_DATE PARAM
                 initiateTime = moment(startingDate, "DD-MM-YYYY").startOf('week').format();
             } else {
