@@ -148,6 +148,9 @@
             var dayEnd = moment(date).endOf('day').toISOString();
             var tags = $('#tags').val();
             var venue = $('#venue_id').val();
+            var only_parents = $('#only-parents').val();
+            var hide_children = $('#hide-children').val();
+            
 
             // Set values for display toggle
             $('#view-select .month').attr('current_date', moment(date).startOf('month').format());
@@ -163,6 +166,14 @@
                 // if tags param append to url
                 if (tags) {
                     url = url + "&tags=" + tags;
+                }
+
+                if (hide_children) {
+                    url = url + "&hide_children=" + hide_children;
+                }
+                
+                if(only_parents) {
+                    url = url + "&only_parents=" + only_parents;
                 }
 
                 $.ajax({
@@ -325,13 +336,24 @@
             $('.showpass-calendar-body').empty();
             var html = "";
             var venue = $('#venue_id').val();
+            var only_parents = $('#only-parents').val();
+            var hide_children = $('#hide-children').val();
             if (venue) {
                 // set initial URL
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startWeek + "&ends_on__lt=" + endWeek;
+    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startWeek;
                 // if tags param append to url
                 if (tags) {
                     url = url + "&tags=" + tags;
                 }
+
+                if (hide_children) {
+                    url = url + "&hide_children=" + hide_children;
+                }
+                
+                if(only_parents) {
+                    url = url + "&only_parents=" + only_parents;
+                }
+
                 $('.showpass-week').html('Week of <br/>' + moment(currentWeek).format('MMM') + ' ' + moment(currentWeek).format('D'));
                 $.ajax({
                     method: "GET",
@@ -432,6 +454,8 @@
             var page_type = $('#page_type').val();
             var site_url = $('#site_url').val();
             var tags = $('#tags').val();
+            var only_parents = $('#only-parents').val();
+            var hide_children = $('#hide-children').val();
 
             var firstDay = new Date(year, month - 1, 1); //  number + 1 = current
             var firstDayString = firstDay.toString();
@@ -445,11 +469,20 @@
 
             if (venue) {
 
-    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startMonth + "&ends_on__lt=" + endMonth;
+    			var url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startMonth;
 
                 if (tags) {
                     url = url + "&tags=" + tags;
                 }
+
+                if (hide_children) {
+                    url = url + "&hide_children=" + hide_children;
+                }
+                
+                if(only_parents) {
+                    url = url + "&only_parents=" + only_parents;
+                }
+                console.log(url)
 
                 $.ajax({
                     method: "GET",
