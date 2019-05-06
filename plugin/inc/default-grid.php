@@ -10,7 +10,7 @@
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
 							<?php if ($detail_page) { ?>
 								<a class="showpass-image" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>"></a>
-							<?php } else if(showpass_ticket_sold_out($event['ticket_types'])) {?>
+							<?php } else if(showpass_event_not_available($event)) {?>
 								<a class="showpass-image showpass-soldout" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
 							<?php } else {?>
 								<a class="showpass-image <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?> style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
@@ -57,25 +57,21 @@
 									<div class="showpass-layout-flex showpass-list-button-layout">
 											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
 												<div class="showpass-button-full-width-grid">
-                          <?php if ($event['has_related_events'] && $event_data['condensed_display']) { ?>
-                            <a class="showpass-list-ticket-button showpass-button" href="/<?php if($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>">
-                              SELECT DATE
-                            </a>
-                          <?php } else { ?>
-      											<?php if(showpass_ticket_sold_out($event['ticket_types'])) { ?>
-      												<a class="showpass-list-ticket-button showpass-button showpass-soldout">
-      													SOLD OUT
-      												</a>
-      											<?php } else { ?>
-															<a class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
-        												<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
-        													BUY TICKETS
-        												<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
-        													REGISTER
-        												<?php } ?>
-        											</a>
-                            <?php } ?>
-                          <?php } ?>
+													<?php if(showpass_event_not_available($event)) { ?>
+														<a class="showpass-list-ticket-button showpass-button showpass-soldout">
+															SOLD OUT
+														</a>
+													<?php } else { ?>
+														<a class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
+															<?php if ($event['is_recurring_parent']) { ?>
+																SELECT DATE
+															<?php } else if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+																BUY TICKETS
+															<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+																REGISTER
+															<?php } ?>
+														</a>
+													<?php } ?>
 												</div>
 											</div>
 										<?php if ($detail_page) {?>

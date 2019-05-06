@@ -48,7 +48,7 @@
 								<div class="pricing-table-buy-now">
 									<div class="showpass-list-button-layout">
 										<div class="showpass-no-border">
-											<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
+											<?php if(showpass_event_not_available($event)) {?>
 												<a class="showpass-list-ticket-button showpass-button showpass-soldout">
 													SOLD OUT
 												</a>
