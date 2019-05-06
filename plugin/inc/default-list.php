@@ -24,14 +24,18 @@
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border">
 										<div>
-                      <?php if ($event['ticket_types']) : ?>
+                      <?php if (!showpass_event_not_available($event)) : ?>
                         <small class="showpass-price-display">
-                          <?php echo showpass_get_price_range($event['ticket_types']);?>
-                          <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
+													<?php if ($event['is_recurring_parent']) { ?>
+															Multiple Events Available
+													<?php } else {?>
+														<?php echo showpass_get_price_range($event['ticket_types']);?>
+														<?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
+													<?php } ?>
                         </small>
                       <?php endif; ?>
                     </div>
-                    <div><?php if (!$event['ticket_types']) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
+                    <div><?php if (showpass_event_not_available($event)) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
                   </div>
 								</div>
 								<div class="showpass-layout-flex">
@@ -48,10 +52,23 @@
 								<div class="showpass-layout-flex">
                   <div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
 										<div>
-											<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-                      <div class="info"><i class="fa fa-clock-o icon-center"></i>
-                        <?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
-                      </div>
+											<?php if ($event['is_recurring_parent']) { ?>
+												<?php if (showpass_get_event_date($event['starts_on'], $event['timezone'], false) === showpass_get_event_date($event['ends_on'], $event['timezone'], false)) { ?>
+													<!-- If recurring children on the same day -->
+													<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+													<div class="info"><i class="fa fa-clock-o icon-center"></i>
+														<?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
+													</div>
+												<?php } else { ?>
+													<!-- If recurring children on different days -->
+													<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_date($event['ends_on'], $event['timezone'], false);?></div>
+												<?php } ?>
+											<?php } else {?>
+												<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+												<div class="info"><i class="fa fa-clock-o icon-center"></i>
+													<?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
+												</div>
+											<?php } ?>
 											<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
 										</div>
 									</div>
@@ -65,9 +82,7 @@
 												</a>
 											<?php } else { ?>
 												<a class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
-													<?php if ($event['is_recurring_parent']) { ?>
-														SELECT DATE
-													<?php } else if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+													<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
 														BUY TICKETS
 													<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
 														REGISTER
