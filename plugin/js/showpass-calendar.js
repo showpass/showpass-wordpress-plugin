@@ -482,7 +482,6 @@
                 if(only_parents) {
                     url = url + "&only_parents=" + only_parents;
                 }
-                console.log(url)
 
                 $.ajax({
                     method: "GET",
