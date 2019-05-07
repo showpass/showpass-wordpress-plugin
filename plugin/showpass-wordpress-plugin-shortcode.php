@@ -131,6 +131,10 @@ function showpass_get_event_data( $atts ) {
 			$final_api_url .= "&only_parents=" . true;
 		}
 
+    if(isset($atts['ordering'])) {
+			$ordering = $atts['ordering'];
+			$final_api_url .= "&ordering=" . $ordering;
+		}
 	}
 
 	//echo $final_api_url;
