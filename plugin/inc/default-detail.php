@@ -19,9 +19,9 @@
 		<div class="flex-container showpass-layout-flex">
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
-					<?php if(showpass_ticket_sold_out($event)) { ?>
+					<?php if(showpass_ticket_sold_out($event['ticket_type'])) { ?>
 						<span class="showpass-detail-buy showpass-hide-medium showpass-soldout">
-							SOLD OUT
+							<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 						</span>
 					<?php } else { ?>
 						<span class="showpass-detail-buy showpass-hide-medium <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
@@ -55,7 +55,7 @@
               <?php endif; ?>
 							<?php if(showpass_ticket_sold_out($event)) {?>
 								<span class="showpass-detail-buy showpass-soldout">
-									SOLD OUT
+									<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 								</span>
 							<?php } else { ?>
 								<span class="showpass-detail-buy <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>

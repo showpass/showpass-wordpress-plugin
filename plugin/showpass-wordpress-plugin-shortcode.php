@@ -138,7 +138,7 @@ function showpass_get_event_data( $atts ) {
 
     if(isset($atts['show_past_events'])) {
 			$show_past_events = $atts['show_past_events'];
-			if($show_past_events === true) {
+			if($show_past_events === "true") {
 				$now = new DateTime;
 				$formatted_date = $now->format('Y-m-d\TH:i:s.u\Z');
 				$final_api_url .= "&ends_on__lt=" . $formatted_date;
