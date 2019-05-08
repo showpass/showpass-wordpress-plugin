@@ -292,7 +292,7 @@ function showpass_ticket_sold_out ($data) {
 		if ($data['id']) {
 			// If $data contains an id then it is receiving the event object (new function)
 			if ($data['is_recurring_parent']) {
-				return $data['child_count'] === 0 || $data['inventory_sold_out'] || $data['sold_out'] || $data['stats']['is_available'];
+				return $data['child_count'] === 0 || $data['inventory_sold_out'] || $data['sold_out'] || !$data['stats']['is_available'];
 			}
 			return count($data['ticket_types']) === 0 || $data['inventory_sold_out'] || $data['sold_out'];
 		} else {
