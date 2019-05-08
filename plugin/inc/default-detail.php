@@ -19,7 +19,7 @@
 		<div class="flex-container showpass-layout-flex">
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
-					<?php if(showpass_ticket_sold_out($event['ticket_type'])) { ?>
+					<?php if(showpass_ticket_sold_out($event['ticket_types'])) { ?>
 						<span class="showpass-detail-buy showpass-hide-medium showpass-soldout">
 							<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 						</span>
@@ -40,13 +40,13 @@
 			<div class="flex-33 showpass-flex-column showpass-no-border">
 				<div class="w100">
 					<div class="showpass-detail-event-date mb30">
-            <?php
-            $location = $event['location']; ?>
-							<?php
-							if (!$event['is_recurring_parent']) { ?>
-  						<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-  						<div class="info"><i class="fa fa-clock-o icon-center"></i><?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
-  							<?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
+            <?php $location = $event['location']; ?>
+              <?php if (!$event['is_recurring_parent']) { ?>
+                <div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+                <div class="info"><i class="fa fa-clock-o icon-center"></i><?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
+                <?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
+							<?php } else { ?>
+                <div class="info"><i class="fa fa-calendar-plus-o icon-center"></i> Multiple Events</div>
 							<?php } ?>
   						<div class="info"><i class="fa fa-map-marker icon-center"></i><?php echo $location['name'];?></div>
   						<?php if ($event['ticket_types']) : ?>

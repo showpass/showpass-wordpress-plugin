@@ -27,7 +27,7 @@
                       <?php if (!showpass_ticket_sold_out($event)) : ?>
                         <small class="showpass-price-display">
 													<?php if ($event['is_recurring_parent']) { ?>
-															Multiple Events Available
+															Multiple Events
 													<?php } else {?>
 														<?php echo showpass_get_price_range($event['ticket_types']);?>
 														<?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
