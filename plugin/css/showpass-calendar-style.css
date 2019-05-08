@@ -607,8 +607,13 @@ div.not-found {
   padding-left: 5px;
 }
 
-.daily .no-events {
+.daily .no-events,
+.weekly .no-events {
   text-align: center;
+}
+
+.weekly .no-events {
+ padding-top: 50px;
 }
 
 .showpass-calendar .multiple-event-popup,
