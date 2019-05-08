@@ -19,7 +19,7 @@
 		<div class="flex-container showpass-layout-flex">
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
-					<?php if(showpass_event_not_available($event)) { ?>
+					<?php if(showpass_ticket_sold_out($event)) { ?>
 						<span class="showpass-detail-buy showpass-hide-medium showpass-soldout">
 							SOLD OUT
 						</span>
@@ -53,7 +53,7 @@
                 <div class="info mb20"><i class="fa fa-tags icon-center"></i><?php echo showpass_get_price_range($event['ticket_types']);?>
                   <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?></div>
               <?php endif; ?>
-							<?php if(showpass_event_not_available($event)) {?>
+							<?php if(showpass_ticket_sold_out($event)) {?>
 								<span class="showpass-detail-buy showpass-soldout">
 									SOLD OUT
 								</span>

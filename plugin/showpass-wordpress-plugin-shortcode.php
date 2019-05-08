@@ -285,12 +285,38 @@ function showpass_get_timezone_abbr ($timezone) {
 	}
 }
 
-/* RETURN TRUE IF EVENT SOLD OUT OR UNAVAILABLE */
-function showpass_event_not_available ($data) {
-	if ($data['is_recurring_parent']) {
-		return $data['child_count'] === 0 || $data['inventory_sold_out'] || $data['sold_out'] || $data['stats']['is_available'];
+/* RETURNS TRUE IF ALL TICKET TYPES ARE SOLD OUT OR NOT AVAILABLE */
+function showpass_ticket_sold_out ($data) {
+	if ($data) {
+		// Check what the parameter object is passed in
+		if ($data['id']) {
+			// If $data contains an id then it is receiving the event object (new function)
+			if ($data['is_recurring_parent']) {
+				return $data['child_count'] === 0 || $data['inventory_sold_out'] || $data['sold_out'] || $data['stats']['is_available'];
+			}
+			return count($data['ticket_types']) === 0 || $data['inventory_sold_out'] || $data['sold_out'];
+		} else {
+			// Receiving ticket type object (old functionality)
+			// The below should be depreciated in the future as it does not account for recurring events
+			$ticket_types = $data;
+			if (!$ticket_types) {
+				return null;
+			}
+			$soldout_count = 0;
+			$ticket_types_count = sizeOf($data);
+			foreach ($ticket_types as $ticket) {
+				if ($ticket['sold_out']) {
+						$soldout_count ++ ;
+				}
+			}
+			if($soldout_count == $ticket_types_count){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
 	}
-	return count($data['ticket_types']) === 0 || $data['inventory_sold_out'] || $data['sold_out'];
 }
 
 /* GET PRICE RANGE FOR TICKETS */

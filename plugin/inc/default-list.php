@@ -11,7 +11,7 @@
 							<?php if ($detail_page) { // if detail redirect url set ?>
 								<a class="showpass-image-banner showpass-hide-mobile" style="background-image: url('<?php if ($event['image']) { echo $event['image']; } else { echo plugin_dir_url(__FILE__).'../images/default-square.jpg';}?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
 								<a class="showpass-image showpass-hide-large" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');" href="/<?php if ($detail_page) { echo $detail_page; } else { echo 'event-detail'; } ?>/?slug=<?php echo $event['slug']; ?>"></a>
-							<?php } else if (showpass_event_not_available($event)) { // if tickets sold out ?>
+							<?php } else if (showpass_ticket_sold_out($event)) { // if tickets sold out ?>
 								<a class="showpass-image-banner showpass-hide-mobile showpass-soldout" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
 								<a class="showpass-image showpass-hide-large showpass-soldout" style="background-image: url('<?php echo $event['image_banner'];?>');"></a>
 							<?php } else { ?>
@@ -24,7 +24,7 @@
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border">
 										<div>
-                      <?php if (!showpass_event_not_available($event)) : ?>
+                      <?php if (!showpass_ticket_sold_out($event)) : ?>
                         <small class="showpass-price-display">
 													<?php if ($event['is_recurring_parent']) { ?>
 															Multiple Events Available
@@ -35,7 +35,7 @@
                         </small>
                       <?php endif; ?>
                     </div>
-                    <div><?php if (showpass_event_not_available($event)) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
+                    <div><?php if (showpass_ticket_sold_out($event)) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
                   </div>
 								</div>
 								<div class="showpass-layout-flex">
@@ -76,7 +76,7 @@
 								<div class="showpass-layout-flex showpass-list-button-layout">
 									<div class="flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-left">
 										<div class="showpass-button-full-width-list">
-											<?php if(showpass_event_not_available($event)) { ?>
+											<?php if(showpass_ticket_sold_out($event)) { ?>
 												<a class="showpass-list-ticket-button showpass-button showpass-soldout">
 													SOLD OUT
 												</a>
