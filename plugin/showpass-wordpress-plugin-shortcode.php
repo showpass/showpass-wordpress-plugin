@@ -122,28 +122,28 @@ function showpass_get_event_data( $atts ) {
 		}
 
     if (isset($atts['hide_children'])) {
-			$hide_children = $atts['hide_children'];
-			$final_api_url .= "&hide_children=" . $hide_children;
-		} else if (isset($atts['only_parents'])) {
-			$only_parents = $atts['only_parents'];
-			$final_api_url .= "&only_parents=" . $only_parents;
-		} else {
-			$final_api_url .= "&only_parents=true";
-		}
+      $hide_children = $atts['hide_children'];
+      $final_api_url .= "&hide_children=" . $hide_children;
+    } else if (isset($atts['only_parents'])) {
+      $only_parents = $atts['only_parents'];
+      $final_api_url .= "&only_parents=" . $only_parents;
+    } else {
+      $final_api_url .= "&only_parents=true";
+    }
 
     if (isset($atts['ordering'])) {
-			$ordering = $atts['ordering'];
-			$final_api_url .= "&ordering=" . $ordering;
-		}
+      $ordering = $atts['ordering'];
+      $final_api_url .= "&ordering=" . $ordering;
+    }
 
     if (isset($atts['show_past_events'])) {
-			$show_past_events = $atts['show_past_events'];
-			if ($show_past_events === 'true') {
-				$now = new DateTime;
-				$formatted_date = $now->format('Y-m-d\TH:i:s.u\Z');
-				$final_api_url .= "&ends_on__lt=" . $formatted_date;
-			}
-		}
+      $show_past_events = $atts['show_past_events'];
+      if ($show_past_events === 'true') {
+        $now = new DateTime;
+        $formatted_date = $now->format('Y-m-d\TH:i:s.u\Z');
+        $final_api_url .= "&ends_on__lt=" . $formatted_date;
+      }
+    }
 	}
 
 	//echo $final_api_url;
