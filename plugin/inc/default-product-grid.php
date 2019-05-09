@@ -8,7 +8,7 @@
 				<div class="flex-50 showpass-prodcut-grid-flex showpass-flex-column showpass-no-border showpass-event-card">
 					<div class="showpass-event-list showpass-layout-flex m15">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-							<a class="showpass-image-banner open-product-widget" style="background-image: url('<?php if ($product['thumbnail']) { echo $product['thumbnail']; } else { echo plugin_dir_url(__FILE__).'../images/default-square.jpg';}?>');"></a>
+							<a class="showpass-image-banner open-product-widget" id="<?php echo $product['id']; ?>" style="background-image: url('<?php if ($product['thumbnail']) { echo $product['thumbnail']; } else { echo plugin_dir_url(__FILE__).'../images/default-square.jpg';}?>');"></a>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">

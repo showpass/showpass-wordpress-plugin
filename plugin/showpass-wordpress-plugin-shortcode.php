@@ -11,7 +11,7 @@ define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
 
 /* making connection and taking the data from API */
 function call_showpass_api($url) {
-  $response = wp_remote_get($url, $args);
+  $response = wp_remote_get($url);
   $http_code = wp_remote_retrieve_response_code($response);
   if ($http_code === 200) {
     return wp_remote_retrieve_body($response);
@@ -24,17 +24,17 @@ function showpass_get_event_data( $atts ) {
 	/* get Organization ID that is configured in admin Showpass Event API page */
 	$organization_id = get_option('option_organization_id');
 
-	if(isset($atts["type"])) {
+	if (isset($atts["type"])) {
 		$type = $atts["type"];
 	} else {
 		$type = "event-list";
 	}
 
-	if($type == NULL) {
+	if ($type == NULL) {
 		echo "ERROR - Please enter type parameter in shortcode";
 	}
 
-	if(isset($atts["template"])){
+	if (isset($atts["template"])){
 		$template = $atts["template"];
 	} else {
 		$template = "default";
@@ -44,9 +44,9 @@ function showpass_get_event_data( $atts ) {
 
 	$final_api_url = SHOWPASS_API_PUBLIC_EVENTS;
 
-	if($type == "event-detail" || $type == "single") {
+	if ($type == "event-detail" || $type == "single") {
 		$filepath = 'inc/default-detail.php';
-		if(isset($_GET['id'])) {
+		if (isset($_GET['id'])) {
 			$final_api_url = SHOWPASS_API_PUBLIC_EVENTS . "/" . $_GET['id'] . "/";
 		} else if (isset($_GET['slug'])) {
 			$final_api_url = SHOWPASS_API_PUBLIC_EVENTS . "/" . $_GET['slug'] . "/";
@@ -55,7 +55,7 @@ function showpass_get_event_data( $atts ) {
 		}
 	} else if ($type == "event-list" || $type == "list") {
 
-		if($template == "list"){
+		if ($template == "list"){
 			$filepath = 'inc/default-list.php';
 		}
 		else {
@@ -67,19 +67,19 @@ function showpass_get_event_data( $atts ) {
 		# get any query parameters from URL
 		$parameters = $_GET;
 		foreach ($parameters as $parameter => $value) {
-			if($parameter == 'q') {
+			if ($parameter == 'q') {
 				$final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
-			} else if($parameter == 'tags') {
+			} else if ($parameter == 'tags') {
 				$tags = showpass_utf8_urldecode($value);
-			} else if($parameter == 'page_number') 			{
+			} else if ($parameter == 'page_number') 			{
 				$final_api_url .= "&page=" . $value;
-			} else if($parameter == 'slug') {
+			} else if ($parameter == 'slug') {
 				$final_api_url .= "&slug=" . $value;
-			} else if($parameter == 'starts_on__gte') {
+			} else if ($parameter == 'starts_on__gte') {
 				$final_api_url .= "&starts_on__gte=" . $value;
-			} else if($parameter == 'ends_on__lt') {
+			} else if ($parameter == 'ends_on__lt') {
 				$final_api_url .= "&ends_on__lt=" . $value;
-			} else if($parameter == 'ordering') {
+			} else if ($parameter == 'ordering') {
 				$final_api_url .= "&ordering=" . $value;
 			}
 		}
@@ -100,32 +100,50 @@ function showpass_get_event_data( $atts ) {
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
 		}
 
-		if(isset($atts['ends_on__gte'])) {
-			$ends_on__gte = $atts['ends_on__gte'];
-			$final_api_url .= "&ends_on__gte=" . $ends_on__gte;
-		}
+    if (isset($atts['ends_on__gte'])) {
+      $ends_on__gte = $atts['ends_on__gte'];
+      $final_api_url .= "&ends_on__gte=" . $ends_on__gte;
+    }
 
-		if(isset($atts['ends_on__lt'])) {
-			$ends_on__lte = $atts['ends_on__lt'];
-			$final_api_url .= "&ends_on__lt=" . $ends_on__lte;
-		}
+    if (isset($atts['ends_on__lt'])) {
+      $ends_on__lte = $atts['ends_on__lt'];
+      $final_api_url .= "&ends_on__lt=" . $ends_on__lte;
+    }
 
-		if(isset($atts["page"])) {
-			$detail_page = $atts["page"];
-		} else {
-			$detail_page = NULL;
-		}
+    if (isset($atts["page"])) {
+      $detail_page = $atts["page"];
+    } else {
+      $detail_page = NULL;
+    }
 
-		if(isset($atts['condensed'])) {
-			$condensed = $atts['condensed'];
-			$final_api_url .= "&condensed=" . $condensed;
-		}
+    if (isset($atts['show'])) {
+      $show = $atts['show'];
+      $final_api_url .= "&show=" . $show;
+    }
 
-    if(isset($atts['show'])) {
-			$show = $atts['show'];
-			$final_api_url .= "&show=" . $show;
-		}
+    if (isset($atts['hide_children'])) {
+      $hide_children = $atts['hide_children'];
+      $final_api_url .= "&hide_children=" . $hide_children;
+    } else if (isset($atts['only_parents'])) {
+      $only_parents = $atts['only_parents'];
+      $final_api_url .= "&only_parents=" . $only_parents;
+    } else {
+      $final_api_url .= "&only_parents=true";
+    }
 
+    if (isset($atts['ordering'])) {
+      $ordering = $atts['ordering'];
+      $final_api_url .= "&ordering=" . $ordering;
+    }
+
+    if (isset($atts['show_past_events'])) {
+      $show_past_events = $atts['show_past_events'];
+      if ($show_past_events === 'true') {
+        $now = new DateTime;
+        $formatted_date = $now->format('Y-m-d\TH:i:s.u\Z');
+        $final_api_url .= "&ends_on__lt=" . $formatted_date;
+      }
+    }
 	}
 
 	//echo $final_api_url;
@@ -133,20 +151,6 @@ function showpass_get_event_data( $atts ) {
 
 	// decode data to to append related events to process properly
 	$data = json_decode($data, TRUE);
-
-	// find related events if any
-	if ($type == "single" && $data && $data['has_related_events']) {
-		$related_url = API_URL . '/public/events/' . $_GET['slug'] . '/related/?venue_id=' . $organization_id;
-		$related_data = call_showpass_api($related_url);
-		$related_data = json_decode($related_data, TRUE);
-		$data['related_events'] = $related_data['results'];
-	}
-
-  if (isset($atts['condensed'])) {
-    $data['condensed_display'] = true;
-  } else {
-    $data['condensed_display'] = false;
-  }
 
 	// encode json data to return properly
 	$data = json_encode($data);
@@ -170,17 +174,17 @@ function showpass_get_product_data( $atts ) {
 	/* get Organization ID that is configured in admin Showpass Event API page */
 	$organization_id = get_option('option_organization_id');
 
-	if(isset($atts["type"])) {
+	if (isset($atts["type"])) {
 		$type = $atts["type"];
 	} else {
 		$type = "product-list";
 	}
 
-	if($type == NULL) {
+	if ($type == NULL) {
 		echo "ERROR - Please enter type parameter in shortcode";
 	}
 
-	if(isset($atts["template"])){
+	if (isset($atts["template"])){
 		$template = $atts["template"];
 	} else {
 		$template = "default";
@@ -192,7 +196,7 @@ function showpass_get_product_data( $atts ) {
 
 	if ($type == "product-list") {
 
-		if($template == "list"){
+		if ($template == "list"){
 			$filepath = 'inc/default-product-list.php';
 		}
 		else {
@@ -204,9 +208,9 @@ function showpass_get_product_data( $atts ) {
 
 		foreach ($parameters as $parameter => $value) {
 			# code...
-			if($parameter == 'q' || $parameter == 'tags') {
+			if ($parameter == 'q' || $parameter == 'tags') {
 				$final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
-			} else if($parameter == 'page_number') 			{
+			} else if ($parameter == 'page_number') 			{
 				$final_api_url .= "&page=" . $value;
 			} else {
 				$final_api_url .= "&" . $parameter . "=" . $value;
@@ -249,7 +253,7 @@ function showpass_get_event_date ($date, $zone) {
 		$datetime = new Datetime($date); // current time = server time
 		$otherTZ  = new DateTimeZone($zone);
 		$datetime->setTimezone($otherTZ);
-		if($format_date == "") {
+		if ($format_date == "") {
 			$format_date = "D M d, Y";
 		}
 		$new_date = $datetime->format($format_date);
@@ -265,7 +269,7 @@ function showpass_get_event_time ($date, $zone) {
     $datetime = new Datetime($date); // current time = server time
     $otherTZ  = new DateTimeZone($zone);
     $datetime->setTimezone($otherTZ);
-    if($format_time == "") {
+    if ($format_time == "") {
       $format_time = "g:iA";
     }
     $new_date = $datetime->format($format_time);
@@ -281,29 +285,36 @@ function showpass_get_timezone_abbr ($timezone) {
 	}
 }
 
-/* RETURN TRUE IF ALL TICKET TYPES ARE SOLD OUT */
+/* RETURNS TRUE IF ALL TICKET TYPES ARE SOLD OUT OR NOT AVAILABLE */
 function showpass_ticket_sold_out ($data) {
 	if ($data) {
-		$ticket_types = $data;
-
-		if (!$ticket_types) {
-			return null;
-		}
-
-		$soldout_count = 0;
-		$ticket_types_count = sizeOf($data);
-
-		foreach ($ticket_types as $ticket) {
-			if ($ticket['sold_out']) {
-					$soldout_count ++ ;
+		// Check what the parameter object is passed in
+		if ($data['id']) {
+			// If $data contains an id then it is receiving the event object (new function)
+			if ($data['is_recurring_parent']) {
+				return $data['child_count'] === 0 || $data['inventory_sold_out'] || $data['sold_out'] || !$data['stats']['is_available'];
 			}
-		}
-
-		if($soldout_count == $ticket_types_count){
-			return true;
-		}
-		else{
-			return false;
+			return count($data['ticket_types']) === 0 || $data['inventory_sold_out'] || $data['sold_out'];
+		} else {
+			// Receiving ticket type object (old functionality)
+			// The below should be depreciated in the future as it does not account for recurring events
+			$ticket_types = $data;
+			if (!$ticket_types) {
+				return null;
+			}
+			$soldout_count = 0;
+			$ticket_types_count = sizeOf($data);
+			foreach ($ticket_types as $ticket) {
+				if ($ticket['sold_out']) {
+						$soldout_count ++ ;
+				}
+			}
+			if ($soldout_count == $ticket_types_count){
+				return true;
+			}
+			else{
+				return false;
+			}
 		}
 	}
 }
@@ -374,7 +385,7 @@ function showpass_get_product_price_range ($data) {
 
 function showpass_get_events_next_prev($page) {
 	// see if any query filter parameters
-	if(isset($_GET)) {
+	if (isset($_GET)) {
 		if (isset($_GET['page_number'])) {
 			// if any page_number parameters, remove it and replace with current $page
 			unset($_GET['page_number']);
@@ -409,26 +420,26 @@ function showpass_display_calendar($atts) {
   $parameters = $_GET;
 
   // set single date var if query param present
-	if(isset($parameters["date"])) {
+	if (isset($parameters["date"])) {
 		$single_date = $parameters["date"];
 	} else if (isset($atts["single_date"])) {
     $single_date = $atts["single_date"];
   } else {
     $single_date = null;
-  }
+	}
 
   // redirection page for event detail
-	if(isset($atts["page"])) {
+	if (isset($atts["page"])) {
 		$page = $atts["page"];
 	}
 
   // Month view enabled by default - to disable month="disabled"
-	if(isset($atts["month"])) {
+	if (isset($atts["month"])) {
 		$month_enable = $atts["month"];
 	}
 
   // week view enabled by default - to disable week="disabled"
-	if(isset($atts["week"])) {
+	if (isset($atts["week"])) {
 		$week_enable = $atts["week"];
 	}
 
@@ -457,8 +468,22 @@ function showpass_display_calendar($atts) {
   if (isset($atts["hide_schedule"])) {
     $hide_schedule = $atts["hide_schedule"];
   } else {
-    $hide_schedule = false;
+    $hide_schedule = true;
+	}
+
+	// show children by default if recurring events is not hidden
+	if (isset($atts['hide_children'])) {
+		$hide_children = $atts['hide_children'];
+	} else {
+	  $hide_children = false;
+	}
+	
+  if (isset($atts['only_parents'])) {
+    $only_parents = $atts['only_parents'];
+  } else {
+    $only_parents = false;
   }
+
   if (!function_exists('showpass_calendar_global_vars')) {
     function showpass_calendar_global_vars ($value) {
       $GLOBALS['current_month'] = date('M', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
@@ -471,6 +496,7 @@ function showpass_display_calendar($atts) {
       $GLOBALS['days'] = date('t', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
     }
   }
+
   $html = "";
   // display a single day if query parameter set
   if ($single_date != null) {
@@ -525,6 +551,8 @@ function showpass_display_calendar($atts) {
   $html .= "<input type='hidden' id='tags' value='" . $tags . "' />";
   $html .= "<input type='hidden' id='single-day' value='" . $single_date . "' />";
   $html .= "<input type='hidden' id='hide-schedule' value='" . $hide_schedule . "' />";
+  $html .= "<input type='hidden' id='only-parents' value='" . $only_parents . "' />";
+  $html .= "<input type='hidden' id='hide-children' value='" . $hide_children . "' />";
 
   if (isset($month_enable)) {
     $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
@@ -542,7 +570,7 @@ function showpass_display_calendar($atts) {
   $hide_calendar = '';
   $html .= "<div class='clearfix control-container'><select id='view-select'><option ". $month_enable . " class='month' value='month'>Month View</option><option ". $week_enable . " class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
   if (!$hide_schedule) {
-    $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='scedule-view' class='icon-button'><i class='fa fa-list'></i></span></div>";
+    $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='schedule-view' class='icon-button'><i class='fa fa-list'></i></span></div>";
   }
   $html .= '</div>';
   // Generate Month/Week view stuff
@@ -570,69 +598,69 @@ function showpass_display_calendar($atts) {
 
 add_shortcode('showpass_calendar','showpass_display_calendar');
 
-//[showpass_widget label="Patrons Circle Tickets" slug="wff-patrons-circle"]
 function showpass_widget_expand($atts, $content = null) {
-  if (get_option('option_widget_color')) {
-    $widget_color = get_option('option_widget_color');
-  } else {
-    $widget_color = 'DD3333';
-  }
 
-	if ($atts['slug']) {
+    if (get_option('option_widget_color')) {
+      $widget_color = get_option('option_widget_color');
+    } else {
+      $widget_color = 'DD3333';
+    }
 
-		$slug = $atts['slug'];
+  if (isset($atts['slug'])) {
+    $slug = $atts['slug'];
 
-		if ($atts['label']) {
-			$label = $atts['label'];
-		} else {
-			$label = 'Tickets';
-		}
+    if (isset($atts['label'])) {
+      $label = $atts['label'];
+    } else {
+      $label = 'Tickets';
+    }
 
-		if ($atts['tracking_id']) {
+    if (isset($atts['tracking_id'])) {
       $tracking = $atts['tracking_id'];
     } else {
-    $tracking = '';
+      $tracking = '';
     }
 
     if (isset($atts['class'])) {
-			$class = $atts['class'];
-		} else {
+      $class = $atts['class'];
+    } else {
       if ($widget_color) {
         $style = '<style type="text/css">.showpass-button {background-color:#'.$widget_color.' !important;}</style>';
       } else {
         $style = '';
       }
-			$class = 'showpass-button';
-		}
+      $class = 'showpass-button';
+    }
 
     if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') || (get_option('option_keep_shopping') === 'false')) {
-			$keep_shopping = 'true';
-		} else {
-			$keep_shopping = 'false';
-		}
+      $keep_shopping = 'true';
+    } else {
+      $keep_shopping = 'false';
+    }
 
     if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'false') || (get_option('option_keep_shopping') != 'false')) {
-			$keep_shopping = 'false';
-		} else {
-			$keep_shopping = 'true';
-		}
+      $keep_shopping = 'false';
+    } else {
+      $keep_shopping = 'true';
+    }
 
-		if( (get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')){
-			$theme_dark = 'true';
-		} else {
-			$theme_dark = 'false';
-		}
+    if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')){
+      $theme_dark = 'true';
+    } else {
+      $theme_dark = 'false';
+    }
 
-		//update to template as needed
-		$button = '';
-		$button .= $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'" data-tracking="'.$tracking.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
-		$button .= '<span>'.$label.'</span></div>';
-		return $button;
+    //update to template as needed
+    $button = '';
+    $button .= $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'" data-tracking="'.$tracking.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+    $button .= '<span>'.$label.'</span></div>';
+    return $button;
 
-	} else {
-		return 'No slug provided for Showpass widget';
-	}
+  } else {
+    return 'No slug provided for Showpass widget';
+  }
 }
+
 add_shortcode('showpass_widget', 'showpass_widget_expand');
 
 function wpshp_get_pricing_table( $atts ) {
@@ -641,7 +669,7 @@ function wpshp_get_pricing_table( $atts ) {
 	$organization_id = get_option('option_organization_id');
   $event_ids = str_replace(' ', '', $atts['ids']);
 
-	if($event_ids == NULL) {
+	if ($event_ids == NULL) {
 		echo "ERROR - Please enter the `ids` parameter in shortcode";
 	}
 
@@ -649,7 +677,7 @@ function wpshp_get_pricing_table( $atts ) {
   $filepath = 'inc/default-pricing-table.php';
   $final_api_url = $final_api_url . '/?id__in=' . $event_ids;
 
-  if(isset($atts['show'])) {
+  if (isset($atts['show'])) {
     $show = $atts['show'];
     $final_api_url .= "&show=" . $show;
   }
@@ -662,7 +690,7 @@ function wpshp_get_pricing_table( $atts ) {
   $events = array();
   foreach( $sort_order as $sort_id ) {
     foreach( $events_data as $event ) {
-      if( $event['id'] == $sort_id ) {
+      if ( $event['id'] == $sort_id ) {
         array_push($events, $event);
         break;
       }
@@ -722,7 +750,6 @@ function showpass_style_function() {
   echo '.showpass-pagination .current { background-color: #'.get_option('option_widget_color').' !important; }';
   echo '.showpass-price-display { color: #'.get_option('option_widget_color').' !important; }';
   echo '.showpass-pagination a:hover, .showpass-pagination button:hover  { color: #'.get_option('option_widget_color').' !important; }';
-
   echo '</style>';
 }
 add_action( 'wp_head', 'showpass_style_function', 100 );

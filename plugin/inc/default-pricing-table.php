@@ -48,12 +48,12 @@
 								<div class="pricing-table-buy-now">
 									<div class="showpass-list-button-layout">
 										<div class="showpass-no-border">
-											<?php if(showpass_ticket_sold_out($event['ticket_types'])) {?>
+											<?php if(showpass_ticket_sold_out($event)) {?>
 												<a class="showpass-list-ticket-button showpass-button showpass-soldout">
-													SOLD OUT
+													<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 												</a>
 											<?php } else { ?>
-											<a class="showpass-list-ticket-button showpass-button open-ticket-widget" id="<?php echo $event['slug']; ?>" href="#">
+											<a class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>" href="#"<?php } ?>>
 												<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
 													BUY TICKETS
 												<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
