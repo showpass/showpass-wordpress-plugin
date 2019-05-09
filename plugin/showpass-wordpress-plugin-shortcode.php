@@ -556,15 +556,19 @@ function showpass_display_calendar($atts) {
 
   if (isset($month_enable)) {
     $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
+  } else {
+    $month_enable = "";
   }
 
   if (isset($week_enable)) {
     $html .= "<input type='hidden' id='week_enable' value='" . $week_enable . "' />";
+  } else {
+    $week_enable = "";
   }
 
   $hide_daily = '';
   $hide_calendar = '';
-  $html .= "<div class='clearfix control-container'><select id='view-select'><option  class='month' value='month'>Month View</option><option class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
+  $html .= "<div class='clearfix control-container'><select id='view-select'><option ". $month_enable . " class='month' value='month'>Month View</option><option ". $week_enable . " class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
   if (!$hide_schedule) {
     $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='schedule-view' class='icon-button'><i class='fa fa-list'></i></span></div>";
   }
