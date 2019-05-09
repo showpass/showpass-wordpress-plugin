@@ -100,26 +100,26 @@ function showpass_get_event_data( $atts ) {
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
 		}
 
-		if (isset($atts['ends_on__gte'])) {
-			$ends_on__gte = $atts['ends_on__gte'];
-			$final_api_url .= "&ends_on__gte=" . $ends_on__gte;
-		}
+    if (isset($atts['ends_on__gte'])) {
+      $ends_on__gte = $atts['ends_on__gte'];
+      $final_api_url .= "&ends_on__gte=" . $ends_on__gte;
+    }
 
-		if (isset($atts['ends_on__lt'])) {
-			$ends_on__lte = $atts['ends_on__lt'];
-			$final_api_url .= "&ends_on__lt=" . $ends_on__lte;
-		}
+    if (isset($atts['ends_on__lt'])) {
+      $ends_on__lte = $atts['ends_on__lt'];
+      $final_api_url .= "&ends_on__lt=" . $ends_on__lte;
+    }
 
-		if (isset($atts["page"])) {
-			$detail_page = $atts["page"];
-		} else {
-			$detail_page = NULL;
-		}
+    if (isset($atts["page"])) {
+      $detail_page = $atts["page"];
+    } else {
+      $detail_page = NULL;
+    }
 
     if (isset($atts['show'])) {
-			$show = $atts['show'];
-			$final_api_url .= "&show=" . $show;
-		}
+      $show = $atts['show'];
+      $final_api_url .= "&show=" . $show;
+    }
 
     if (isset($atts['hide_children'])) {
       $hide_children = $atts['hide_children'];
@@ -550,9 +550,9 @@ function showpass_display_calendar($atts) {
   $html .= "<input type='hidden' id='use-widget' value='" . $use_widget . "' />";
   $html .= "<input type='hidden' id='tags' value='" . $tags . "' />";
   $html .= "<input type='hidden' id='single-day' value='" . $single_date . "' />";
-	$html .= "<input type='hidden' id='hide-schedule' value='" . $hide_schedule . "' />";
-	$html .= "<input type='hidden' id='only-parents' value='" . $only_parents . "' />";
-	$html .= "<input type='hidden' id='hide-children' value='" . $hide_children . "' />";
+  $html .= "<input type='hidden' id='hide-schedule' value='" . $hide_schedule . "' />";
+  $html .= "<input type='hidden' id='only-parents' value='" . $only_parents . "' />";
+  $html .= "<input type='hidden' id='hide-children' value='" . $hide_children . "' />";
 
   if (isset($month_enable)) {
     $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
@@ -598,69 +598,69 @@ function showpass_display_calendar($atts) {
 
 add_shortcode('showpass_calendar','showpass_display_calendar');
 
-//[showpass_widget label="Patrons Circle Tickets" slug="wff-patrons-circle"]
 function showpass_widget_expand($atts, $content = null) {
-  if (get_option('option_widget_color')) {
-    $widget_color = get_option('option_widget_color');
-  } else {
-    $widget_color = 'DD3333';
-  }
 
-	if (isset($atts['slug'])) {
+    if (get_option('option_widget_color')) {
+      $widget_color = get_option('option_widget_color');
+    } else {
+      $widget_color = 'DD3333';
+    }
 
-		$slug = $atts['slug'];
+  if (isset($atts['slug'])) {
+    $slug = $atts['slug'];
 
-		if (isset($atts['label'])) {
-			$label = $atts['label'];
-		} else {
-			$label = 'Tickets';
-		}
+    if (isset($atts['label'])) {
+      $label = $atts['label'];
+    } else {
+      $label = 'Tickets';
+    }
 
-		if (isset($atts['tracking_id'])) {
+    if (isset($atts['tracking_id'])) {
       $tracking = $atts['tracking_id'];
     } else {
       $tracking = '';
     }
 
     if (isset($atts['class'])) {
-			$class = $atts['class'];
-		} else {
+      $class = $atts['class'];
+    } else {
       if ($widget_color) {
         $style = '<style type="text/css">.showpass-button {background-color:#'.$widget_color.' !important;}</style>';
       } else {
         $style = '';
       }
-			$class = 'showpass-button';
-		}
+      $class = 'showpass-button';
+    }
 
     if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') || (get_option('option_keep_shopping') === 'false')) {
-			$keep_shopping = 'true';
-		} else {
-			$keep_shopping = 'false';
-		}
+      $keep_shopping = 'true';
+    } else {
+      $keep_shopping = 'false';
+    }
 
     if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'false') || (get_option('option_keep_shopping') != 'false')) {
-			$keep_shopping = 'false';
-		} else {
-			$keep_shopping = 'true';
-		}
+      $keep_shopping = 'false';
+    } else {
+      $keep_shopping = 'true';
+    }
 
-		if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')){
-			$theme_dark = 'true';
-		} else {
-			$theme_dark = 'false';
-		}
+    if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')){
+      $theme_dark = 'true';
+    } else {
+      $theme_dark = 'false';
+    }
 
-		//update to template as needed
-		$button = '';
-		$button .= $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'" data-tracking="'.$tracking.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
-		$button .= '<span>'.$label.'</span></div>';
-		return $button;
+    //update to template as needed
+    $button = '';
+    $button .= $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'" data-tracking="'.$tracking.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+    $button .= '<span>'.$label.'</span></div>';
+    return $button;
 
-	} else {
-		return 'No slug provided for Showpass widget';
-	}
+  } else {
+    return 'No slug provided for Showpass widget';
+  }
 }
+
 add_shortcode('showpass_widget', 'showpass_widget_expand');
 
 function wpshp_get_pricing_table( $atts ) {
