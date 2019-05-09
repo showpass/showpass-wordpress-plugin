@@ -5,7 +5,7 @@
 			if ($product_data['count'] > 0) {
 				$products = $product_data['results'];
 				foreach ($products as $key => $product) {
-					if($product['is_public']) {?>
+					if ($product['is_public']) {?>
 					<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card">
 						<div class="showpass-event-layout-list showpass-layout-flex m15">
 							<div class="card-image showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0">
@@ -18,7 +18,7 @@
 											<div class="product-price"><?php if ($product['product_attributes']) : ?>
                         <small class="showpass-price-display">
                           <?php echo showpass_get_product_price_range($product['product_attributes']);?>
-                          <?php if (showpass_get_product_price_range($product['product_attributes']) != 'FREE') { echo $event['currency']; } ?>
+                          <?php if (showpass_get_product_price_range($product['product_attributes']) != 'FREE') { echo $product['currency']; } ?>
                         </small><?php endif; ?>
                       </div>
 	                    <div class="product-price"><?php if (!$product['product_attributes']) : ?><small class="showpass-price-display"> No Items Available</small><?php endif; ?></div>

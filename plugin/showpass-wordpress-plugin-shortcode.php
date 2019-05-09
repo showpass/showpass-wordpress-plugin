@@ -128,7 +128,7 @@ function showpass_get_event_data( $atts ) {
 			$only_parents = $atts['only_parents'];
 			$final_api_url .= "&only_parents=" . $only_parents;
 		} else {
-			$final_api_url .= "&only_parents=" . true;
+			$final_api_url .= "&only_parents=true";
 		}
 
     if (isset($atts['ordering'])) {
@@ -138,7 +138,7 @@ function showpass_get_event_data( $atts ) {
 
     if (isset($atts['show_past_events'])) {
 			$show_past_events = $atts['show_past_events'];
-			if ($show_past_events === true) {
+			if ($show_past_events === 'true') {
 				$now = new DateTime;
 				$formatted_date = $now->format('Y-m-d\TH:i:s.u\Z');
 				$final_api_url .= "&ends_on__lt=" . $formatted_date;
@@ -496,6 +496,7 @@ function showpass_display_calendar($atts) {
       $GLOBALS['days'] = date('t', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
     }
   }
+
   $html = "";
   // display a single day if query parameter set
   if ($single_date != null) {

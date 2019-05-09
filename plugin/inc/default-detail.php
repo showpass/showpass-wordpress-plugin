@@ -25,9 +25,7 @@
 						</span>
 					<?php } else { ?>
 						<span class="showpass-detail-buy showpass-hide-medium <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
-							<?php if ($event['is_recurring_parent']) { ?>
-								SELECT DATE
-							<?php } else if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+							<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
 								BUY TICKETS
 							<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
 								REGISTER
@@ -46,7 +44,7 @@
                 <div class="info"><i class="fa fa-clock-o icon-center"></i><?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
                 <?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
 							<?php } else { ?>
-                <div class="info"><i class="fa fa-calendar-plus-o icon-center"></i> Multiple Events</div>
+                <div class="info"><i class="fa fa-calendar-plus-o icon-center"></i> Multiple Dates</div>
 							<?php } ?>
   						<div class="info"><i class="fa fa-map-marker icon-center"></i><?php echo $location['name'];?></div>
   						<?php if ($event['ticket_types']) : ?>
@@ -59,9 +57,7 @@
 								</span>
 							<?php } else { ?>
 								<span class="showpass-detail-buy <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
-									<?php if ($event['is_recurring_parent']) { ?>
-										SELECT DATE
-	                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+									<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
 	                  BUY TICKETS
 	                <?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
 	                  REGISTER
