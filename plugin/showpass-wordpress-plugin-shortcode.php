@@ -478,11 +478,11 @@ function showpass_display_calendar($atts) {
 	  $hide_children = false;
 	}
 	
-	if (isset($atts['only_parents'])) {
-		$only_parents = $atts['only_parents'];
-	} else {
-		$only_parents = false;
-	}
+  if (isset($atts['only_parents'])) {
+    $only_parents = $atts['only_parents'];
+  } else {
+    $only_parents = false;
+  }
 
   if (!function_exists('showpass_calendar_global_vars')) {
     function showpass_calendar_global_vars ($value) {
