@@ -70,7 +70,7 @@ function showpass_get_event_data( $atts ) {
 			if ($parameter == 'q') {
 				$final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
 			} else if ($parameter == 'tags') {
-				$tags = showpass_utf8_urldecode($value);
+				$final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
 			} else if ($parameter == 'page_number') 			{
 				$final_api_url .= "&page=" . $value;
 			} else if ($parameter == 'slug') {
