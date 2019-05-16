@@ -144,7 +144,7 @@ function showpass_get_event_data( $atts ) {
         $final_api_url .= "&ends_on__lt=" . $formatted_date;
       }
     }
-	}
+  }
 
 	//echo $final_api_url;
 	$data = call_showpass_api($final_api_url);
@@ -466,10 +466,10 @@ function showpass_display_calendar($atts) {
 
   // hide schedule display
   if (isset($atts["hide_schedule"])) {
-    $hide_schedule = $atts["hide_schedule"];
+    $hide_schedule = $atts["hide_schedule"] === 'false' ? false : true;
   } else {
     $hide_schedule = true;
-	}
+  }
 
 	// show children by default if recurring events is not hidden
 	if (isset($atts['hide_children'])) {
