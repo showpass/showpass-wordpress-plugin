@@ -87,8 +87,11 @@
                 'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
                 'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val(),
                 'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
-                'tracking-id': $(this).attr('data-tracking') || '',
             };
+
+            if ($(this).attr('data-tracking')) {
+                params['tracking-id'] = $(this).attr('data-tracking');
+            }
 
             // Overwrite tracking-id if set in URL
             if (Cookies.get('affiliate')) {
@@ -122,8 +125,11 @@
                 'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
                 'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
                 'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
-                'tracking-id': $(this).attr('data-tracking') || '',
             };
+
+            if ($(this).attr('data-tracking')) {
+                params['tracking-id'] = $(this).attr('data-tracking');
+            }
 
             // Overwrite tracking-id if set in URL
             if (Cookies.get('affiliate')) {

@@ -652,7 +652,11 @@ function showpass_widget_expand($atts, $content = null) {
 
     //update to template as needed
     $button = '';
-    $button .= $style.'<div><span id="'.$slug.'" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'" data-tracking="'.$tracking.'"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+    $button .= $style.'<div><span id="'.$slug.'" onclick="" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'"';
+    if ($tracking) {
+      $button .= 'data-tracking="'.$tracking.'"';
+    }
+    $button .='"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
     $button .= '<span>'.$label.'</span></div>';
     return $button;
 
