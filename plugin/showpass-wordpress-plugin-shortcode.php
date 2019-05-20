@@ -621,13 +621,13 @@ function showpass_widget_expand($atts, $content = null) {
       $tracking = '';
     }
 
+    $style = '';
+
     if (isset($atts['class'])) {
       $class = $atts['class'];
     } else {
       if ($widget_color) {
         $style = '<style type="text/css">.showpass-button {background-color:#'.$widget_color.' !important;}</style>';
-      } else {
-        $style = '';
       }
       $class = 'showpass-button';
     }

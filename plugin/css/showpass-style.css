@@ -559,3 +559,8 @@ a {
   background: url(../images/down-arrow.png) no-repeat;
   background-position: 95%;
 }
+
+.open-product-widget,
+.open-ticket-widget {
+  cursor: pointer !important;
+}
