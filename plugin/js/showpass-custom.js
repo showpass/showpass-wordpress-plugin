@@ -195,12 +195,11 @@
     /*
     * Decorate iFrame for GA cross domain tracking
     */
-
     const mutationObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-            if (mutation.target.className == 'showpass-widget-body') {
-                var gobj = window[window.GoogleAnalyticsObject];
-                var tracker, linker;
+            if (mutation.target.className.includes('showpass-widget-body')) {
+                let gobj = window[window.GoogleAnalyticsObject];
+                let tracker, linker;
                 let iFrame = document.getElementById('showpass-widget');
                 if (gobj) {
                     tracker = gobj.getAll()[0];
@@ -208,7 +207,6 @@
                     iFrame.src = linker.decorate(iFrame.src);
                 }
             }
-
         });
     });
 

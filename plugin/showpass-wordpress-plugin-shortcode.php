@@ -21,6 +21,7 @@ function call_showpass_api($url) {
 }
 
 function showpass_get_event_data( $atts ) {
+
 	/* get Organization ID that is configured in admin Showpass Event API page */
 	$organization_id = get_option('option_organization_id');
 
