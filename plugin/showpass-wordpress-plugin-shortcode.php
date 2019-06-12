@@ -38,13 +38,13 @@ function showpass_get_event_data( $atts ) {
 		$template = $atts["template"];
 	} else {
 		$template = "default";
-	}
+  }
 
 	/* passed in shortcode ex. type=single/list  ---> type can be single or list*/
 
 	$final_api_url = SHOWPASS_API_PUBLIC_EVENTS;
 
-	if ($type == "event-detail" || $type == "single") {
+	if ($type == "event-detail" || $type == "single" || $type == "detail") {
 		$filepath = 'inc/default-detail.php';
 		if (isset($_GET['id'])) {
 			$final_api_url = SHOWPASS_API_PUBLIC_EVENTS . "/" . $_GET['id'] . "/";
@@ -110,8 +110,8 @@ function showpass_get_event_data( $atts ) {
       $final_api_url .= "&ends_on__lt=" . $ends_on__lte;
     }
 
-    if (isset($atts["page"])) {
-      $detail_page = $atts["page"];
+    if (isset($atts["page"]) || isset($atts["detail_page"])) {
+      $detail_page = $atts["page"] || $atts["detail_page"];
     } else {
       $detail_page = NULL;
     }
@@ -143,6 +143,11 @@ function showpass_get_event_data( $atts ) {
         $formatted_date = $now->format('Y-m-d\TH:i:s.u\Z');
         $final_api_url .= "&ends_on__lt=" . $formatted_date;
       }
+    }
+
+    if (isset($atts['event_ids'])) {
+      $event_ids = $atts['event_ids'];
+      $final_api_url .= "&id__in=" . $event_ids;
     }
   }
 
@@ -177,7 +182,7 @@ function showpass_get_product_data( $atts ) {
 	if (isset($atts["type"])) {
 		$type = $atts["type"];
 	} else {
-		$type = "product-list";
+		$type = "list";
 	}
 
 	if ($type == NULL) {
@@ -194,14 +199,13 @@ function showpass_get_product_data( $atts ) {
 
 	$final_api_url = SHOWPASS_API_PUBLIC_PRODUCTS;
 
-	if ($type == "product-list") {
+	if ($type == "list") {
 
 		if ($template == "list"){
 			$filepath = 'inc/default-product-list.php';
-		}
-		else {
+		} else {
 			$filepath = 'inc/default-product-grid.php';
-		}
+    }
 
 		$final_api_url = SHOWPASS_API_PUBLIC_PRODUCTS . '/?venue_id=' . $organization_id;
 		$parameters = $_GET;
@@ -220,12 +224,16 @@ function showpass_get_product_data( $atts ) {
 		if (isset($atts['page_size'])) {
 			$number_of_events_one_page = $atts['page_size'];
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
-		}
-		else {
+		} else {
 			$number_of_events_one_page = 8;
 			$final_api_url .= "&page_size=" . $number_of_events_one_page;
+    }
+    
+    if (isset($atts['product_ids'])) {
+			$product_ids = $atts['product_ids'];
+			$final_api_url .= "&id__in=" . $product_ids;
 		}
-	}
+  }
 
 	$data = call_showpass_api($final_api_url);
 
@@ -682,6 +690,14 @@ function wpshp_get_pricing_table( $atts ) {
     $final_api_url .= "&show=" . $show;
   }
 
+  if (isset($atts['show_event_details'])) {
+    $show_event_details = $atts['show_event_details'] === 'false' ? false : true;
+  }
+
+  if (isset($atts['show_event_description'])) {
+    $show_event_description = $atts['show_event_description'] === 'false' ? false : true;
+  }
+
 	$data = call_showpass_api($final_api_url);
 
   $events = array();
@@ -698,7 +714,7 @@ function wpshp_get_pricing_table( $atts ) {
   }
 
   ob_start();
-	include($filepath);
+  include($filepath);
   $content = ob_get_clean();
   return $content;
 }

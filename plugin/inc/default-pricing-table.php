@@ -10,7 +10,7 @@
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
-								<?php /* <div class="showpass-layout-flex">
+								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border">
                     <div>
                       <?php if ($event['ticket_types']) : ?>
@@ -30,21 +30,25 @@
 										</div>
 									</div>
 								</div>
-								<div class="showpass-layout-flex">
-									<div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
-										<div>
-											<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-											<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
-										</div>
-									</div>
-								</div> */?>
-                <div class="showpass-layout-flex">
-									<div class="flex-100 showpass-flex-column showpass-no-border showpass-event-description">
-										<div class="description">
-                      <?php echo $event['description']; ?>
-										</div>
-									</div>
-								</div>
+								<?php if ($show_event_details) { ?>
+                  <div class="showpass-layout-flex">
+                    <div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
+                      <div>
+                        <div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+                        <div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
+                      </div>
+                    </div>
+                  </div>
+                <?php } ?>
+                <?php if ($show_event_description) { ?>
+                  <div class="showpass-layout-flex">
+                    <div class="flex-100 showpass-flex-column showpass-no-border showpass-event-description">
+                      <div class="description">
+                        <?php echo $event['description']; ?>
+                      </div>
+									  </div>
+                  </div>
+                <?php } ?>
 								<div class="pricing-table-buy-now">
 									<div class="showpass-list-button-layout">
 										<div class="showpass-no-border">
