@@ -672,9 +672,6 @@ function showpass_widget_expand($atts, $content = null) {
 add_shortcode('showpass_widget', 'showpass_widget_expand');
 
 function wpshp_get_pricing_table( $atts ) {
-
-	/* get Organization ID that is configured in admin Showpass Event API page */
-	$organization_id = get_option('option_organization_id');
   $event_ids = str_replace(' ', '', $atts['ids']);
 
 	if ($event_ids == NULL) {
