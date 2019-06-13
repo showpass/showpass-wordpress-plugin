@@ -691,11 +691,11 @@ function wpshp_get_pricing_table( $atts ) {
   }
 
   if (isset($atts['show_event_details'])) {
-    $show_event_details = $atts['show_event_details'] === 'false' ? false : true;
+    $show_event_details = $atts['show_event_details'] === 'true' ? true : false;
   }
 
   if (isset($atts['show_event_description'])) {
-    $show_event_description = $atts['show_event_description'] === 'false' ? false : true;
+    $show_event_description = $atts['show_event_description'] === 'true' ? true : false;
   }
 
 	$data = call_showpass_api($final_api_url);
