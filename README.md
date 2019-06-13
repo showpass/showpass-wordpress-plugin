@@ -832,8 +832,9 @@ Display specific products by specifying the IDs of the products you would like t
 ex. `[showpass_products template="list" product_ids="2,6,7"]`
 
 ## 10. Shortcode [showpass_pricing_table]
+Similar to the grid view for the `[showpass_events]` shortcode, but displays events in a grid where all columns are of equal height. Allows you to customize what information is shown and include the event description. You must specify event IDs for events you want to display.
 
-`[showpass_pricing_table]`
+`[showpass_pricing_table ids="10125,10254,10288"]`
 
 ## 10.1. Parameters
 
