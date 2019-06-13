@@ -22,9 +22,9 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.4. [Page number parameter](#24-page-number-parameter)    
    2.5. [Tags parameter](#25-tags-parameter)    
    2.6. [Template parameter](#26-template-parameter)   
-   2.7. [Page redirect parameter](#27-page-parameter)   
+   2.7. [Page redirect parameter](#27-page-redirect-parameter)   
    2.8. [Past events parameter](#28-past-events-parameter)   
-   2.9. [Events ending on parameter](#29-ends-on-parameter)   
+   2.9. [Events ending on parameter](#29-events-ending-on-parameter)   
    2.10. [Event IDs parameter](#210-event-ids-parameter)   
    2.11. [Recurring event parameters](#211-recurring-event-parameters)   
    2.12. [Ordering parameter](#212-ordering-parameter)   
@@ -34,7 +34,8 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
    3.3. [Showpass get Timezone](#33-showpass-get-timezone)    
-   3.4. [Showpass get Previous or next page](#34-showpass-get-previous-or-next-page)   
+   3.4. [Showpass get Price Range](#34-showpass-get-price-range)   
+   3.5. [Showpass get Previous or next page](#35-showpass-get-previous-or-next-page)   
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
    4.2. [List events](#42-list-events)    
@@ -290,7 +291,7 @@ It will print the *time* when the event starts (ex. 9:00AM).
 
 It will print the timezone of event (MDT, PDT ect.).
 
-## 3.4. Showpass get price range
+## 3.4. Showpass get Price Range
 
 * *`showpass_get_price_range($ticket_types)`* - This is function for getting a price range for the event's tickets.
 
@@ -786,7 +787,7 @@ Once you create your tracking link you will have a unique token `(ie 8ee54af5)` 
 
 `www.website.com/?event=event_slug&aff=8ee54af5`
 
-##7 Shortcode [showpass_cart_button]
+## 7. Shortcode [showpass_cart_button]
 Add a button to initiate the shopping cart and checkout widget
 
 `[showpass_cart_button]`
