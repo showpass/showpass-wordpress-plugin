@@ -16,21 +16,20 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 1. [Admin page](#1-admin-page)        
    1.1. [Configure parameters](#11-configure-parameters)    
 2. [Shortcode - [showpass_events]](#2-shortcode-showpass_events)       
-   2.1. [Adding shortcode and get data](#21-adding-shortcode-and-get-data)   
+   2.1. [Creating custom templates](#21-creating-custom-templates)   
    2.2. [Type parameter](#22-type-parameter)   
    2.3. [Page size parameter](#23-page-size-parameter)   
    2.4. [Page number parameter](#24-page-number-parameter)    
    2.5. [Tags parameter](#25-tags-parameter)    
    2.6. [Template parameter](#26-template-parameter)   
    2.7. [Page redirect parameter](#27-page-parameter)   
-   2.8. [Condensed parameter](#28-condensed-parameter)  
-   2.9. [Past events parameter](#29-past-events-parameter)   
-   2.10. [Events ending on parameter](#210-ends-on-parameter)   
-   2.11. [Event IDs parameter](#211-event-ids-parameter)   
-   2.12. [Recurring event parameters](#212-recurring-event-parameters)   
-   2.13. [Ordering parameter](#213-ordering-parameter)   
-   2.14. [Show parameter](#214-show-parameter)   
-   2.15. [Other parameters](#215-other-parameters)   
+   2.8. [Past events parameter](#28-past-events-parameter)   
+   2.9. [Events ending on parameter](#29-ends-on-parameter)   
+   2.10. [Event IDs parameter](#210-event-ids-parameter)   
+   2.11. [Recurring event parameters](#211-recurring-event-parameters)   
+   2.12. [Ordering parameter](#212-ordering-parameter)   
+   2.13. [Show parameter](#213-show-parameter)   
+   2.14. [Other parameters](#214-other-parameters)   
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
@@ -82,7 +81,7 @@ Use the `[showpass_events type="list"]` shortcode to automatically display a lis
 
 By default it will use the grid template, and the page_size will be 20 
 
-## 2.1. Adding shortcode and get data
+## 2.1. Creating Custom Templates
 
 If you wish to make custom templates for your event lists and detail pages use the following shortcode in your template files.
 
@@ -161,21 +160,13 @@ This will be the Wordpress page with the `type="detail"` shortcode usage
 
 ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail']`
 
-## 2.8. Condensed Parameter
-
-Show a condensed list of events
-
-ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail' condensed='true']`
-
-Shows single events, and combines linked events under its main event
-
-## 2.9. Past Events Parameter
+## 2.8. Past Events Parameter
 
 Use this parameter to show past events from the current date.
 
 ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail' show_past_events='true']`
 
-## 2.10. Events Ending On Parameter
+## 2.9. Events Ending On Parameter
 
 Use this parameter to get events ending on certain dates.
 
@@ -189,13 +180,13 @@ ex. `[showpass_events type='list' page_size='5' template='default' detail_page='
 
 This will get events ending on and after `June 23, 2019 19:30:00.000`.
 
-## 2.11. Event IDs Parameter
+## 2.10. Event IDs Parameter
 
 This parameter will let you display one or multiple specific events using the `type="list"` template. Specify the IDs of the events you would like to display.
 
 ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail' event_ids='254,288,292']`
 
-## 2.12. Recurring Event Parameters
+## 2.11. Recurring Event Parameters
 
 If you have recurring events, you can set whether or not you want to display them or if you want to display only the main event and not each recurrence.
 
@@ -205,7 +196,7 @@ If you have recurring events, you can set whether or not you want to display the
 
 By default `hide_children='false'` and `only_parents='true'`.
 
-## 2.13. Ordering Parameter
+## 2.12. Ordering Parameter
 
 This parameter is used to manipulate the order the events appear in. By default events will be ordered by start date, from earliest to the latest.
 
@@ -223,13 +214,13 @@ ex. `[showpass_events type='list' page_size='5' template='default' detail_page='
 
 This will order events by name starting from Z to A.
 
-## 2.14. Show Parameter
+## 2.13. Show Parameter
 
 Use this parameter for testing purposes. Using `show='all'` will show all events you have, including past events.
 
 ex. `[showpass_events type='list' template='default' detail_page='event-detail' show='all']`
 
-## 2.15. Other Parameters
+## 2.14. Other Parameters
 
 There are a few other parameters that API can receive and this plugin is compatible for all of these parameters. You can pass it through the URL and you will get the data from API with those parameters.
 
