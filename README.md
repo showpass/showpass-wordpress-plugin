@@ -28,7 +28,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.10. [Event IDs parameter](#210-event-ids-parameter)   
    2.11. [Recurring event parameters](#211-recurring-event-parameters)   
    2.12. [Ordering parameter](#212-ordering-parameter)   
-   2.13. [Show parameter](#213-show-parameter)   
+   2.13. [Show parameter & testing](#213-show-parameter-&-testing)   
    2.14. [Other parameters](#214-other-parameters)   
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
@@ -47,7 +47,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    5.5. [Tags parameter](#55-tags-parameter)   
    5.6. [Hide schedule parameter](#56-hide_schedule-parameter)   
    5.7. [Recurring events parameter](#57-recurring-events-parameter)   
-   5.8. [Show parameter](#58-show-parameter)   
+   5.8. [Show parameter & testing](#58-show-parameter-&-testing)   
    <!---5.5. [Week and month parameters](#54-week-and-month-parameters)-->
 6. [Shortcode - [showpas_widget]](#6-shortcode-showpass_widget)       
   6.1. [Parameters](#61-parameters)    
@@ -215,7 +215,7 @@ ex. `[showpass_events type='list' page_size='5' template='default' detail_page='
 
 This will order events by name starting from Z to A.
 
-## 2.13. Show Parameter
+## 2.13. Show Parameter & Testing
 
 Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
 
@@ -729,7 +729,7 @@ If you have recurring events, you can set whether or not you want to display the
 
 By default `hide_children='false'` and `only_parents='false'`. In this case, non-recurring events are shown, as well as each occurence of a recurring event.
 
-## 5.8. Show Parameter
+## 5.8. Show Parameter & Testing
 
 Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
 
