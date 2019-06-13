@@ -46,9 +46,9 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
 <h3>Setting the venue</h3>
 <p>You can set the venue through the admin from Organization ID field. The Plugin works in that way that is sending API call and get all data from the venue with that ID. <br/></p>
 <h2><strong>Shortcode - </strong> [showpass_events]</h2>
-<p>- The shortcode receives parameter <strong>type</strong> and it can be <strong>single</strong> or <strong>list</strong>.
+<p>- The shortcode receives parameter <strong>type</strong> and it can be <strong>detail</strong> or <strong>list</strong>.
 <br/>
-* <strong>[showpass_events type="single"]</strong> is for receiving the data from single event that is specified through the event_id parameter in URL... ex. www.website.com/?event_id=123
+* <strong>[showpass_events type="detail"]</strong> is for receiving the data from single event that is specified through the event_id parameter in URL... ex. www.website.com/?event_id=123
 <br/>
 * <strong>[showpass_events type="list"]</strong> is for receiving the data from specified venue that is set in admin page (field organization ID). The API receives all events from the venue. <br/>
 Also you can set in shortcode how many events do you want on page. Ex. <strong>[showpass_events type="list" page_size="5"]</strong> - it will receive 5 events on each page. The default page_size is 20 (20 events on page).
@@ -90,7 +90,7 @@ Click for more <a href="https://github.com/showpass/showpass-wordpress-plugin" t
 <p>If you want disable week view you will need to put [showpass_calendar week="disabled"]</p>
 <p>If you want disable month view you will need to put [showpass_calendar month="disabled"]</p>
 <p>If there is none of this parameters, there will be both views</p>
-<p>Enyoj!</p>
+<p>Enjoy!</p>
 
 <?php }
 
