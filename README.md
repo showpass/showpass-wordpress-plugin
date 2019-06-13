@@ -217,7 +217,7 @@ This will order events by name starting from Z to A.
 
 ## 2.13. Show Parameter
 
-Use this parameter for testing purposes. Using `show='all'` will show all events you have, including hidden events.
+Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
 
 ex. `[showpass_events type='list' template='default' detail_page='event-detail' show='all']`
 
@@ -731,7 +731,7 @@ By default `hide_children='false'` and `only_parents='false'`. In this case, non
 
 ## 5.8. Show Parameter
 
-Use this parameter for testing purposes. Using `show='all'` will show all events you have, including hidden events.
+Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
 
 <!---## 5.5. Week and Month Parameters - Currently Disabled
 
