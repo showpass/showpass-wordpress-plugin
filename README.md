@@ -48,8 +48,8 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    5.6. [Hide schedule parameter](#56-hide_schedule-parameter)   
    5.7. [Recurring events parameter](#57-recurring-events-parameter)   
    5.8. [Show parameter & testing](#58-show-parameter-&-testing)   
-   <!---5.5. [Week and month parameters](#54-week-and-month-parameters)-->
-6. [Shortcode - [showpas_widget] - Buy Now Button](#6-shortcode-showpass_widget)       
+   5.9. [Week and month parameters](#59-week-and-month-parameters)
+6. [Shortcode - [showpas_widget] - Buy Now Button](#6-shortcode-showpass_widget---buy-now-button)       
   6.1. [Parameters](#61-parameters)    
   6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
 7. [Shortcode - [showpass_cart_button]](#7-shortcode-showpass_cart_button)
