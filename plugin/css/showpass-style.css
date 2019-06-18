@@ -532,6 +532,8 @@ a {
 .showpass-pricing-table .description ol,
 .showpass-pricing-table .description ul {
   font-size: 14px !important;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .showpass-pricing-table .showpass-background-white {

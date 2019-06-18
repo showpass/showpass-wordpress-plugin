@@ -110,8 +110,10 @@ function showpass_get_event_data( $atts ) {
       $final_api_url .= "&ends_on__lt=" . $ends_on__lte;
     }
 
-    if (isset($atts["page"]) || isset($atts["detail_page"])) {
-      $detail_page = $atts["page"] || $atts["detail_page"];
+    if (isset($atts['page'])) {
+      $detail_page = $atts['page'];
+    } else if (isset($atts['detail_page'])) {
+       $detail_page = $atts['detail_page'];
     } else {
       $detail_page = NULL;
     }
@@ -151,7 +153,6 @@ function showpass_get_event_data( $atts ) {
     }
   }
 
-	//echo $final_api_url;
 	$data = call_showpass_api($final_api_url);
 
 	// decode data to to append related events to process properly
@@ -297,7 +298,7 @@ function showpass_get_timezone_abbr ($timezone) {
 function showpass_ticket_sold_out ($data) {
 	if ($data) {
 		// Check what the parameter object is passed in
-		if ($data['id']) {
+		if (isset($data['id'])) {
 			// If $data contains an id then it is receiving the event object (new function)
 			if ($data['is_recurring_parent']) {
 				return $data['child_count'] === 0 || $data['inventory_sold_out'] || $data['sold_out'] || !$data['stats']['is_available'];
@@ -439,6 +440,8 @@ function showpass_display_calendar($atts) {
   // redirection page for event detail
 	if (isset($atts["page"])) {
 		$page = $atts["page"];
+	} else if (isset($atts["detail_page"])) {
+	  $page = $atts["detail_page"];
 	}
 
   // Month view enabled by default - to disable month="disabled"
@@ -689,10 +692,14 @@ function wpshp_get_pricing_table( $atts ) {
 
   if (isset($atts['show_event_details'])) {
     $show_event_details = $atts['show_event_details'] === 'true' ? true : false;
+  } else {
+    $show_event_details = true;
   }
 
   if (isset($atts['show_event_description'])) {
     $show_event_description = $atts['show_event_description'] === 'true' ? true : false;
+  } else {
+    $show_event_description = 'true';
   }
 
 	$data = call_showpass_api($final_api_url);
@@ -701,11 +708,13 @@ function wpshp_get_pricing_table( $atts ) {
   $sort_order = explode(',', $event_ids);
   $events_data = json_decode($data, true)['results'];
   $events = array();
-  foreach( $sort_order as $sort_id ) {
-    foreach( $events_data as $event ) {
-      if ( $event['id'] == $sort_id ) {
-        array_push($events, $event);
-        break;
+  if ($events_data) {
+    foreach( $sort_order as $sort_id ) {
+      foreach( $events_data as $event ) {
+        if ( $event['id'] == $sort_id ) {
+          array_push($events, $event);
+          break;
+        }
       }
     }
   }

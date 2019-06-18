@@ -24,8 +24,8 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.6. [Template parameter](#26-template-parameter)   
    2.7. [Page redirect parameter](#27-page-redirect-parameter)   
    2.8. [Past events parameter](#28-past-events-parameter)   
-   2.9. [Events ending on parameter](#29-events-ending-on-parameter)   
-   2.10. [Event IDs parameter](#210-event-ids-parameter)   
+   2.9. [Event ends on parameter](#29-events-ending-on-parameter)   
+   2.10. [Event IDs parameter to display specific events](#210-event-ids-parameter)   
    2.11. [Recurring event parameters](#211-recurring-event-parameters)   
    2.12. [Ordering parameter](#212-ordering-parameter)   
    2.13. [Show parameter & testing](#213-show-parameter-&-testing)   
@@ -49,7 +49,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    5.7. [Recurring events parameter](#57-recurring-events-parameter)   
    5.8. [Show parameter & testing](#58-show-parameter-&-testing)   
    <!---5.5. [Week and month parameters](#54-week-and-month-parameters)-->
-6. [Shortcode - [showpas_widget]](#6-shortcode-showpass_widget)       
+6. [Shortcode - [showpas_widget] - Buy Now Button](#6-shortcode-showpass_widget)       
   6.1. [Parameters](#61-parameters)    
   6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
 7. [Shortcode - [showpass_cart_button]](#7-shortcode-showpass_cart_button)
@@ -96,15 +96,23 @@ Because it is JSON data you need to decode it `$data = json_decode($data)` .
 
 It will be received all data from API for the venue that is set from Admin Page ( organization ID ).
 
+Please see our plugin/inc folder for examples and visit the wordpress custom template documentation: https://developer.wordpress.org/themes/template-files-section/page-template-files/
+
 Also, there are few parameters that you can send it to the shortcode.
 
 ## 2.2. Type Parameter
 
-Type parameter is required for shortcode to work. 
+The `type` parameter is **required** for this shortcode to work.
 
-`type="detail"` is for getting one specified event and displaying the event detail page
- 
- `type="list"` is to get all upcoming events from the organization that is set in the admin page.
+### `type="list"`
+
+This type `[showpass_events type="list"]` will get all the data from the venue with the ID set on the Admin page ( organization ID ).
+
+This type uses the `default-grid.php` as a base template - use the `template="data"` parameter to customize your own template.
+
+#### More Info Button
+
+Please see [Page redirect parameter](#27-page-redirect-parameter) if you wish to show a More Info button and redirect visitors to an event detail page.
 
 ### `type="detail"`
 
@@ -112,14 +120,8 @@ This type `[showpass_events type="detail"]` will get the data from the event spe
 
 This will by default use `default-detail.php`. Use the `template="data"` parameter to customize your own template.
 
-ex. `www.website.com/?event=123` or `www.website.com/?slug=event_slug` - will get all data for the event with `id = 123` or with `slug = event_slug` . So `?slug` in url is required for `type="detail"` type of shortcode.
+ex. `www.website.com/event-detail?event=123` or `www.website.com/event-detail?slug=event_slug` - will get all data for the event with `id = 123` or with `slug = event_slug` . So `?slug` in url is required for `type="detail"` type of shortcode.
 `event` parameter receive event ID or event slug (id or slug from API).
-
-### `type="list"`
-
-This type `[showpass_events type="list"]` will get all the data from the venue with the ID set on the Admin page ( organization ID ).
-
-This type uses the `default-grid.php` as a base template - use the `template="data"` parameter to customize your own template.
 
 ## 2.3. Page size parameter
 
@@ -157,9 +159,9 @@ ex. `[showpass_events type='list' page_size='5' template='default']`
 
 When using included templates, use this parameter to set the redirect location for the event detail page.
 
-This will be the Wordpress page with the `type="detail"` shortcode usage
-
 ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail']`
+
+This will require you to create a new Wordpress page with the url `event-detail` with the `type="detail"` shortcode usage
 
 ## 2.8. Past Events Parameter
 
@@ -167,21 +169,21 @@ Use this parameter to show past events from the current date.
 
 ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail' show_past_events='true']`
 
-## 2.9. Events Ending On Parameter
+## 2.9. Event Ends On Parameter
 
-Use this parameter to get events ending on certain dates.
+Use this parameter to get events ending before or after certain dates.
 
-`ends_on_gte` will get events ending on and after the date specified.
+`ends_on__gte` will get events ending on and after the date specified.
 
-`ends_on_lt` will get events ending before the date specified.
+`ends_on__lt` will get events ending before the date specified.
 
 The date specified must be in ISO format `YYYY-MM-DD'T'HH:MM:SS.SSS'Z'`, for example `2019-06-23T19:30:00.000Z`.
 
-ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail' ends_on_gte='2019-06-23T19:30:00.000Z']`
+ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail' ends_on__gte='2019-06-23T19:30:00.000Z']`
 
 This will get events ending on and after `June 23, 2019 19:30:00.000`.
 
-## 2.10. Event IDs Parameter
+## 2.10. Event IDs Parameter to Display Specific Events
 
 This parameter will let you display one or multiple specific events using the `type="list"` template. Specify the IDs of the events you would like to display.
 
@@ -207,11 +209,11 @@ This parameter is used to manipulate the order the events appear in. By default 
 - `id`: Order events by ID number
 - `name`: Order alphabetically by event name
 
-ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail' ordering='name']`
+ex. `[showpass_events ordering='name' type='list' page_size='5' template='default' detail_page='event-detail']`
 
 To reverse the order add `-` before the parameter.
 
-ex. `[showpass_events type='list' page_size='5' template='default' detail_page='event-detail' ordering='-name']`
+ex. `[showpass_events  ordering='-name' type='list' page_size='5' template='default' detail_page='event-detail']`
 
 This will order events by name starting from Z to A.
 
@@ -696,13 +698,13 @@ The calendar can also be set to Week view, where you are able to see the events 
 
 The calendar events have the all the Showpass event info that you need, and link directly to the event page (external link).
 
-## 5.1. Page parameter
+## 5.1. Deatil page parameter
 
-This shortcode recieves `page` parameter. If this parameter is set, it tells the plugin to use custom links for event's redirect.
+This shortcode recieves `detail_page` parameter. If this parameter is set, it tells the plugin to use custom links for event's redirect.
 
-Example:  `[showpass_calendar page="event-detail"]`  - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: `website.main.url/event-detail?slug=event-slug`
+Example:  `[showpass_calendar detail_page="event-detail"]`  - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: `website.main.url/event-detail?slug=event-slug`
 
-The `page` parameter is `event-detail` in this example, but can be set to whatevet page you want.
+The `detail_page` parameter is `event-detail` in this example, but can be set to any slug
 
 ## 5.2. theme_dark Parameter
 Add `theme_dark="true"` to use a dark theme for the calendar instead of the default light theme.
@@ -733,7 +735,7 @@ By default `hide_children='false'` and `only_parents='false'`. In this case, non
 
 Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
 
-<!---## 5.5. Week and Month Parameters - Currently Disabled
+## 5.9. Week and Month Parameters
 
 This shortcode also receives parameters `week` and `month` if you want to disable a view.
 
@@ -741,9 +743,9 @@ If you want disable week view you will need to put `[showpass_calendar week="dis
 
 If you want disable month view you will need to put `[showpass_calendar month="disabled"]`
 
-If there is neither of this parameters, both views are enabled.-->
+If both views are disabled, it will default to the week view, and by default both views are made available.
 
-## 6. Shortcode [showpass_widget]
+## 6. Shortcode [showpass_widget] - Buy Now Button
 
 Use the showpass_widget shortcode to embed a button with the ticket widget on any page or post.
 

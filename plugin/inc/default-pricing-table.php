@@ -25,8 +25,8 @@
 								</div>
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border showpass-title-wrapper">
-										<div class="showpass-event-title">
-                      <h3><a class="open-ticket-widget" id="<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
+										<div>
+                      <h3><?php echo $event['name']; ?></h3>
 										</div>
 									</div>
 								</div>
