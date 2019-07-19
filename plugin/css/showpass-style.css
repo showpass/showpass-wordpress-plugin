@@ -266,6 +266,7 @@ a {
 .showpass-price-display {
   color: #dd3333;
   font-size: 14px;
+  display: block !important;
 }
 
 .showpass-event-list .showpass-detail-event-date .info {
@@ -275,6 +276,7 @@ a {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
+  text-align: left;
 }
 
 .showpass-event-title h3 {

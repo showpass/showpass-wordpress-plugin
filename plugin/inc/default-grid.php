@@ -81,11 +81,7 @@
 														</a>
 													<?php } else { ?>
 														<a class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
-															<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
-																BUY TICKETS
-															<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
-																REGISTER
-															<?php } ?>
+                              <?php include 'button-verbiage.php'; ?>
 														</a>
 													<?php } ?>
 												</div>
