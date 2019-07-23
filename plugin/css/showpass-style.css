@@ -269,13 +269,16 @@ a {
   display: block !important;
 }
 
-.showpass-event-list .showpass-detail-event-date .info {
+.showpass-event-list {
   font-size: 16px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
+}
+
+.showpass-detail-event-date .info {
   text-align: left;
 }
 

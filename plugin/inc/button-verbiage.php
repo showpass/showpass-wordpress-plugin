@@ -1,16 +1,16 @@
-<?php if ($event['initiate_purchase_button'] == 'ipbd_buy_tickets') { ?>
+<?php if ($event['initiate_purchase_button'] === 'ipbd_buy_tickets') { ?>
   BUY TICKETS
-<?php } else if ($event['initiate_purchase_button'] == 'ipbd_register') { ?>
+<?php } else if ($event['initiate_purchase_button'] === 'ipbd_register') { ?>
   REGISTER
-<?php } else if ($event['initiate_purchase_button'] == 'ipbd_buy_passes') { ?>
+<?php } else if ($event['initiate_purchase_button'] === 'ipbd_buy_passes') { ?>
   BUY PASSES
-<?php } else if ($event['initiate_purchase_button'] == 'ipbd_select_date') { ?>
+<?php } else if ($event['initiate_purchase_button'] === 'ipbd_select_date') { ?>
   SELECT DATE
-<?php } else if ($event['initiate_purchase_button'] == 'ipbd_select_time') { ?>
+<?php } else if ($event['initiate_purchase_button'] === 'ipbd_select_time') { ?>
   SELECT TIME
-<?php } else if ($event['initiate_purchase_button'] == 'ipbd_select_seats') { ?>
+<?php } else if ($event['initiate_purchase_button'] === 'ipbd_select_seats') { ?>
   SELECT SEATS
-<?php } else if ($event['initiate_purchase_button'] == 'ipbd_rsvp') { ?>
+<?php } else if ($event['initiate_purchase_button'] === 'ipbd_rsvp') { ?>
   RSVP
 <?php } else { ?>
   BUY TICKETS
