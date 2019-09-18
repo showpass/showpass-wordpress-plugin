@@ -11,7 +11,10 @@ define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
 
 /* making connection and taking the data from API */
 function call_showpass_api($url) {
-  $response = wp_remote_get($url);
+  $args = array(
+      'timeout' => 30,
+  );
+  $response = wp_remote_get($url, $args);
   $http_code = wp_remote_retrieve_response_code($response);
   if ($http_code === 200) {
     return wp_remote_retrieve_body($response);
