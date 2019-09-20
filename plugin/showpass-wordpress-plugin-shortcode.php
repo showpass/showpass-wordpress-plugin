@@ -156,25 +156,31 @@ function showpass_get_event_data( $atts ) {
       $final_api_url .= "&id__in=" . $event_ids;
     }
   }
+  if (!is_admin()) {
+    $data = call_showpass_api($final_api_url);
 
-	$data = call_showpass_api($final_api_url);
+    // decode data to to append related events to process properly
+    $data = json_decode($data, TRUE);
 
-	// decode data to to append related events to process properly
-	$data = json_decode($data, TRUE);
+    // Add tracking_id to data before encode
+    if (isset($atts['tracking_id'])) {
+        $data['tracking_id'] = $atts['tracking_id'];
+    }
 
-	// encode json data to return properly
-	$data = json_encode($data);
+    // encode json data to return properly
+    $data = json_encode($data);
 
-	if ($template == "data") {
-		return $data;
-	} else {
+    if ($template == "data") {
+      return $data;
+    } else {
 
-		ob_start();
-	  include($filepath);
-	  $content = ob_get_clean();
-	  return $content;
+      ob_start();
+      include($filepath);
+      $content = ob_get_clean();
+      return $content;
 
-	}
+    }
+  }
 }
 
 add_shortcode( 'showpass_events', 'showpass_get_event_data' );
@@ -240,15 +246,17 @@ function showpass_get_product_data( $atts ) {
 		}
   }
 
-	$data = call_showpass_api($final_api_url);
+  if (!is_admin()) {
+    $data = call_showpass_api($final_api_url);
 
-	if ($template == "data") {
-		return $data;
-	} else {
-	  ob_start();
-	  include($filepath);
-	  $content = ob_get_clean();
-	  return $content;
+    if ($template == "data") {
+      return $data;
+    } else {
+      ob_start();
+      include($filepath);
+      $content = ob_get_clean();
+      return $content;
+    }
 	}
 }
 
@@ -710,27 +718,29 @@ function wpshp_get_pricing_table( $atts ) {
     $show_event_description = 'true';
   }
 
-	$data = call_showpass_api($final_api_url);
+  if (!is_admin()) {
+  	$data = call_showpass_api($final_api_url);
 
-  $events = array();
-  $sort_order = explode(',', $event_ids);
-  $events_data = json_decode($data, true)['results'];
-  $events = array();
-  if ($events_data) {
-    foreach( $sort_order as $sort_id ) {
-      foreach( $events_data as $event ) {
-        if ( $event['id'] == $sort_id ) {
-          array_push($events, $event);
-          break;
+    $events = array();
+    $sort_order = explode(',', $event_ids);
+    $events_data = json_decode($data, true)['results'];
+    $events = array();
+    if ($events_data) {
+      foreach( $sort_order as $sort_id ) {
+        foreach( $events_data as $event ) {
+          if ( $event['id'] == $sort_id ) {
+            array_push($events, $event);
+            break;
+          }
         }
       }
     }
-  }
 
-  ob_start();
-  include($filepath);
-  $content = ob_get_clean();
-  return $content;
+    ob_start();
+    include($filepath);
+    $content = ob_get_clean();
+    return $content;
+  }
 }
 
 add_shortcode( 'showpass_pricing_table', 'wpshp_get_pricing_table' );
