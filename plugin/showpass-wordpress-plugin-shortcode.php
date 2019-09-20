@@ -162,6 +162,11 @@ function showpass_get_event_data( $atts ) {
 	// decode data to to append related events to process properly
 	$data = json_decode($data, TRUE);
 
+	// Add tracking_id to data before encode
+	if (isset($atts['tracking_id'])) {
+  	  $data['tracking_id'] = $atts['tracking_id'];
+  }
+
 	// encode json data to return properly
 	$data = json_encode($data);
 
