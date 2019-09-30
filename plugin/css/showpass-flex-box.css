@@ -155,7 +155,7 @@
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column, .showpass-flex-box .showpass-layout-flex .showpass-flex-column {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     flex-grow: 0 !important;
     flex-wrap: nowrap !important;
     align-content: flex-start;

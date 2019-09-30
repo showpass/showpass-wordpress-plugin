@@ -20,20 +20,19 @@
 							<div class="showpass-full-width">
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border">
-                    <div>
-                      <?php if (!showpass_ticket_sold_out($event)) : ?>
-                        <small class="showpass-price-display">
-													<?php if ($event['is_recurring_parent']) { ?>
-														Multiple Dates
-													<?php } else {?>
-														<?php echo showpass_get_price_range($event['ticket_types']);?>
-														<?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
-													<?php } ?>
-                        </small>
-                      <?php endif; ?>
-                    </div>
-                    <div><?php if (showpass_ticket_sold_out($event)) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
-                  </div>
+										<?php if (!showpass_ticket_sold_out($event)) : ?>
+											<small class="showpass-price-display">
+												<?php if ($event['is_recurring_parent']) { ?>
+													Multiple Dates
+												<?php } else {?>
+													<?php echo showpass_get_price_range($event['ticket_types']);?>
+													<?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
+												<?php } ?>
+											</small>
+										<?php else: ?>
+											<small class="showpass-price-display"><br/></small>
+										<?php endif; ?>
+									</div>
 								</div>
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border showpass-title-wrapper">
