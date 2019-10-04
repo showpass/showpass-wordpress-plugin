@@ -131,6 +131,10 @@
                 params['tracking-id'] = $(this).attr('data-tracking');
             }
 
+            if ($(this).attr('data-eyereturn')) {
+                params['show-eyereturn'] = $(this).attr('data-eyereturn');
+            }
+
             // Overwrite tracking-id if set in URL
             if (Cookies.get('affiliate')) {
                 params['tracking-id'] = Cookies.get('affiliate');
@@ -147,6 +151,10 @@
                 'theme-dark': $('#option_theme_dark').val() || ''
             });
         });
+
+        if ($(this).attr('data-eyereturn')) {
+            params['show-eyereturn'] = $(this).attr('data-eyereturn');
+        }
 
         if (Cookies.get('cart')) {
             $('.showpass-cart-button span').html(Cookies.get('cart'));
