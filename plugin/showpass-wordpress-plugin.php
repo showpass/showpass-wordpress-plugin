@@ -17,6 +17,13 @@ if (! defined('ABSPATH')) {
 *************************************/
 add_action('admin_menu', 'wpshp_admin_menu');
 
+add_action( 'template_redirect', function() {
+    require_once plugin_dir_path( __FILE__ ) . 'inc/image-formatter.class.php';
+
+    global $sp_image_formatter;
+    $sp_image_formatter = new Showpass\ImageFormater();    
+ } );
+
 function wpshp_admin_menu()
 {
 
