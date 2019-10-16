@@ -1,27 +1,25 @@
 <?php
 	global $showpass_image_formatter;
 
-	$event_data = json_decode($data, true);
+	$event = json_decode($data, true);
 ?>
-
 
 <div id="page" class="showpass-flex-box">	
 	<?php
 	 
-  	if (isset($event_data['detail'])) { ?>
+  	if (isset($event['detail'])) { ?>
   		<div class="showpass-layout-flex">
   			<h2>Sorry, we cannot find the event that you are looking for!</h2>
   		</div>
   	<?php } else {
-		$event = $event_data;
 		$current_event = $event['id'];?>
 		<div class="showpass-layout-flex showpass-detail-event-name">
 			<div class="flex-100 showpass-no-border showpass-flex-column">
 				<div class="showpass-detail-image-container">
 					<?= 
-						isset($event_data['image_banner']) 
-							? $showpass_image_formatter->getResponsiveImage($event_data['image_banner'], ['alt' => $event_data['name'], 'title' => $event_data['name'], 'attr' => ['class' => 'showpass-detail-image'] ]) 
-							: sprintf('<img class="showpass-detail-image" src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event_data['name']);
+						isset($event['image_banner']) 
+							? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name'], 'title' => $event['name'], 'attr' => ['class' => 'showpass-detail-image'] ]) 
+							: sprintf('<img class="showpass-detail-image" src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event['name']);
 					?>
 				</div>
 			</div>
@@ -37,7 +35,7 @@
 							<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 						</span>
 					<?php } else { ?>
-						<span class="showpass-detail-buy showpass-hide-medium <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
+						<span class="showpass-detail-buy showpass-hide-medium <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if (isset($event['show_eyereturn'])) {?> data-eyereturn="<?php echo $event['show_eyereturn']; ?>" <?php } ?> <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
 							<?php include 'button-verbiage.php'; ?>
 						</span>
 					<?php } ?>
@@ -65,7 +63,7 @@
 									<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 								</span>
 							<?php } else { ?>
-								<span class="showpass-detail-buy <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
+								<span class="showpass-detail-buy <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if (isset($event['show_eyereturn'])) {?> data-eyereturn="<?php echo $event['show_eyereturn']; ?>" <?php } ?> <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
                   <?php include 'button-verbiage.php'; ?>
 	            	</span>
 							<?php } ?>

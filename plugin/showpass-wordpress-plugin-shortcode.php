@@ -167,6 +167,11 @@ function showpass_get_event_data( $atts ) {
         $data['tracking_id'] = $atts['tracking_id'];
     }
 
+    // Add show_eyereturn to data before encode
+    if (isset($atts['show_eyereturn'])) {
+        $data['show_eyereturn'] = $atts['show_eyereturn'];
+    }
+
     // encode json data to return properly
     $data = json_encode($data);
 
