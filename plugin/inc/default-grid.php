@@ -2,7 +2,7 @@
 	global $sp_image_formatter;
 	/**
 	 * Custom breakpoints for responsive image.
-	 * Add max 980-1920 breakpoint, column layout only allow for a max width of 640px up to 1920.
+	 * Add max 980-1920 breakpoint, column layout only allows for a max width of 640px.
 	 * 600px x 600px is already cached, so use that image.
 	 */
 	$image_breakpoints = [

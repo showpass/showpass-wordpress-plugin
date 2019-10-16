@@ -1,14 +1,44 @@
+<?php 
+	global $sp_image_formatter;
+	/**
+	 * Custom breakpoints for responsive image.
+	 * Add max 980-1920 breakpoint, column layout only allows for a max width of 640px.
+	 * 600px x 600px is already cached, so use that image.
+	 */
+	$image_breakpoints = [
+		[600, '(max-width: 1920px) and (min-width: 981px)'],
+		[960, '(max-width: 980px) and (min-width: 781px)'], 
+		[780, '(max-width: 780px) and (min-width: 601px)'], 
+		[600, '(max-width: 600px) and (min-width: 376px)'], 
+		[375, '(max-width: 375px)']
+	];
+
+	$product_data = json_decode($data, true);
+
+	// <pre style="font-size: 12px">
+
+	// </pre>
+?>
+
 <div class="showpass-flex-box">
 	<div class="showpass-layout-flex">
 			<?php
-			$product_data = json_decode($data, true);
 			if ($product_data['count'] > 0) {
 				$products = $product_data['results'];
 				foreach ($products as $key => $product) { ?>
+				
 				<div class="flex-50 showpass-prodcut-grid-flex showpass-flex-column showpass-no-border showpass-event-card">
 					<div class="showpass-event-list showpass-layout-flex m15">
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-							<a class="showpass-image-banner open-product-widget" id="<?php echo $product['id']; ?>" style="background-image: url('<?php if ($product['thumbnail']) { echo $product['thumbnail']; } else { echo plugin_dir_url(__FILE__).'../images/default-square.jpg';}?>');"></a>
+							<a 
+								id="<?php echo $product['id']; ?>" 
+								class="showpass-image open-product-widget ratio square" 
+							>
+								<?= isset($product['image']) 
+									? $sp_image_formatter->getResponsiveImage($product['image'], ['alt' => $product['name']]) 
+									: sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-square.jpg', $product['name']);
+								?>
+							</a>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
