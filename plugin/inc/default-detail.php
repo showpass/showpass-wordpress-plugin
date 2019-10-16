@@ -16,12 +16,14 @@
 		$event = $event_data;
 		$current_event = $event['id'];?>
 		<div class="showpass-layout-flex showpass-detail-event-name">
-			<div class="flex-100 showpass-flex-column showpass-no-border">
-				<?= 
-					isset($event_data['image_banner']) 
-						? $sp_image_formatter->getResponsiveImage($event_data['image_banner'], ['alt' => $event_data['name'], 'title' => $event_data['name'], 'attr' => ['class' => 'showpass-detail-image'] ]) 
-						: sprintf('<img class="showpass-detail-image" src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event_data['name']);
-				?>
+			<div class="flex-100 showpass-no-border showpass-flex-column">
+				<div class="showpass-detail-image-container">
+					<?= 
+						isset($event_data['image_banner']) 
+							? $sp_image_formatter->getResponsiveImage($event_data['image_banner'], ['alt' => $event_data['name'], 'title' => $event_data['name'], 'attr' => ['class' => 'showpass-detail-image'] ]) 
+							: sprintf('<img class="showpass-detail-image" src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event_data['name']);
+					?>
+				</div>
 			</div>
 		</div>
 		<div class="showpass-layout-flex showpass-detail-event-name">
