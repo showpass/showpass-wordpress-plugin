@@ -1,5 +1,5 @@
 <?php
-	global $sp_image_formatter;
+	global $showpass_image_formatter;
 	
 	// image container is a static 300x300 @ 780px wide
 	const BREAKPOINTS = [
@@ -27,7 +27,7 @@
 									class="showpass-image open-product-widget ratio square" 
 								>
 									<?= isset($product['image']) 
-										? $sp_image_formatter->getResponsiveImage($product['image'], ['alt' => $product['name']]) 
+										? $showpass_image_formatter->getResponsiveImage($product['image'], ['alt' => $product['name']]) 
 										: sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-square.jpg', $product['name']);
 									?>
 								</a>

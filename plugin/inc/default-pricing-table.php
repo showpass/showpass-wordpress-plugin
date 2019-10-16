@@ -1,5 +1,5 @@
 <?php 
-	global $sp_image_formatter;
+	global $showpass_image_formatter;
 	/**
 	 * Custom breakpoints for responsive image.
 	 * Add max 980-1920 breakpoint, column layout only allow for a max width of 640px up to 1920.
@@ -24,7 +24,7 @@
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
 							<div class="showpass-image ratio banner">
 								<?= isset($event['image_banner']) 
-									? $sp_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name'], 'breakpoints' => $image_breakpoints]) 
+									? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name'], 'breakpoints' => $image_breakpoints]) 
 									: sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event['name']);
 						 		?>
 							</div>

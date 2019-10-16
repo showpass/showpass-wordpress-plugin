@@ -1,5 +1,5 @@
 <?php
-	global $sp_image_formatter;
+	global $showpass_image_formatter;
 
 	$event_data = json_decode($data, true);
 ?>
@@ -20,7 +20,7 @@
 				<div class="showpass-detail-image-container">
 					<?= 
 						isset($event_data['image_banner']) 
-							? $sp_image_formatter->getResponsiveImage($event_data['image_banner'], ['alt' => $event_data['name'], 'title' => $event_data['name'], 'attr' => ['class' => 'showpass-detail-image'] ]) 
+							? $showpass_image_formatter->getResponsiveImage($event_data['image_banner'], ['alt' => $event_data['name'], 'title' => $event_data['name'], 'attr' => ['class' => 'showpass-detail-image'] ]) 
 							: sprintf('<img class="showpass-detail-image" src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event_data['name']);
 					?>
 				</div>

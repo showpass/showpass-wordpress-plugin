@@ -1,5 +1,5 @@
 <?php 
-	global $sp_image_formatter;
+	global $showpass_image_formatter;
 	/**
 	 * Custom breakpoints for responsive image.
 	 * Add max 980-1920 breakpoint, column layout only allows for a max width of 640px.
@@ -35,7 +35,7 @@
 								class="showpass-image open-product-widget ratio square" 
 							>
 								<?= isset($product['image']) 
-									? $sp_image_formatter->getResponsiveImage($product['image'], ['alt' => $product['name']]) 
+									? $showpass_image_formatter->getResponsiveImage($product['image'], ['alt' => $product['name']]) 
 									: sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-square.jpg', $product['name']);
 								?>
 							</a>

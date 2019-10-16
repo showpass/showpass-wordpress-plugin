@@ -1,5 +1,5 @@
 <?php
-	global $sp_image_formatter;
+	global $showpass_image_formatter;
 
 	$event_data = json_decode($data, true);
 ?>
@@ -38,7 +38,7 @@
               <?php endif ?> 
             >
               <?= isset($event['image']) 
-                ? $sp_image_formatter->getResponsiveImage($event['image'], ['alt' => $event['name']]) 
+                ? $showpass_image_formatter->getResponsiveImage($event['image'], ['alt' => $event['name']]) 
                 : sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-square.jpg', $event['name']);
               ?>
             </a>
@@ -51,7 +51,7 @@
               <?php endif ?> 
             >
               <?= isset($event['image_banner']) 
-                ? $sp_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name']]) 
+                ? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name']]) 
                 : sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event['name']);
               ?>
             </a>

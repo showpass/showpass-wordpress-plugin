@@ -1,5 +1,6 @@
 <?php 
   namespace Showpass;
+  use Exception;
 
   class ImageFormater {
 
@@ -37,6 +38,10 @@
        * $splitURL[1] = relative path
        */
       $splitURL = preg_split(self::CLOUDFRONT_REGEX, $src, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+
+      if (count($splitURL) < 2) {
+        throw new Exception('Error: must supply cloudfront image.');
+      } 
 
       $sources = [];
       for ($i = 0; $i < count($breakpoints); $i++) {
