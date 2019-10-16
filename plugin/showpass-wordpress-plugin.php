@@ -17,12 +17,15 @@ if (! defined('ABSPATH')) {
 *************************************/
 add_action('admin_menu', 'wpshp_admin_menu');
 
+/**
+ * imports and sets Showpass\ImageFormatter whenever a frontend template is loaded.
+ */
 add_action( 'template_redirect', function() {
     require_once plugin_dir_path( __FILE__ ) . 'inc/image-formatter.class.php';
 
     global $showpass_image_formatter;
-    $showpass_image_formatter = new Showpass\ImageFormater();    
- } );
+    $showpass_image_formatter = new Showpass\ImageFormatter();    
+});
 
 function wpshp_admin_menu()
 {

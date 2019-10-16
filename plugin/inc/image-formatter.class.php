@@ -2,7 +2,7 @@
   namespace Showpass;
   use Exception;
 
-  class ImageFormater {
+  class ImageFormatter {
 
     const CLOUDFRONT_REGEX = '/(https:\/\/\w*\.cloudfront.net\/)/';
     const CLOUDFRON_BASE_URL = 'https://dcm1eeuyachdi.cloudfront.net/';
@@ -11,6 +11,13 @@
 
     function __construct() {}
 
+      /**
+       * Creates a responsive image using the CloudFront service.
+       * Will create a <picture> <source> for each breakpoint/size.
+       * 
+       * @param String $src - img src
+       * @param Array $options - options key/value array
+       */
     public function getResponsiveImage(
       $src, 
       $options = []
@@ -58,6 +65,14 @@
       return $this->generateResponsiveTag($src, $sources, $attr);
     }
 
+    /**
+     * Creates an html <picture> tag.
+     * Generates a <source> tag for each item in the $source array
+     * 
+     * @param String $default - default img src
+     * @param Array $sources - source image array
+     * @param Array $attr - html attributes to apply to the <picture> tag.
+     */
     private function generateResponsiveTag($default, $sources, $attr = []) {
       // create attributes string
       $attributes = '';
