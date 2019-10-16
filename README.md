@@ -35,7 +35,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
    3.3. [Showpass get Timezone](#33-showpass-get-timezone)    
    3.4. [Showpass get Price Range](#34-showpass-get-price-range)   
-   3.5. [Showpass get Previous or next page](#35-showpass-get-previous-or-next-page)   
+   3.5. [Showpass get Previous or next page](#35-showpass-get-previous-or-next-page)  
    3.6. [Showpass get Responsive Image](#36-showpass-get-responsive-image)
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
@@ -338,10 +338,15 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
 ### Usage
 ```php
 <?php
+   // must declare showpass_image_formatter
    global $showpass_image_formatter;
+
+   // get showpass event data
    $event_data = json_decode(do_shortcode('[showpass_events template="data"]'), true);
 
+   // img src
    $img_url = $event_data['image_banner'];
+   // img options
    $options = [
       'alt' => $event_data['name'], 
       'title' => $event_data['name']
@@ -353,11 +358,12 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
 ?>
 // template implementation ...
 
+// echo responsive image: <picure>
 <?= $showpass_image_formatter->getResponsiveImage($img_url, $options)  ?>
 
 ```
 
-`$showpass_image_formatter->getResponsiveImage($src, $options)`  
+### `$showpass_image_formatter->getResponsiveImage($src, $options)`  
 This function generates a responsive image.
 
 - `$src` - __String__ Showpass event image source. __Must be a `CloudFront` image__  
