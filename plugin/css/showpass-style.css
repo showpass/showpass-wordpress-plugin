@@ -282,6 +282,20 @@ a {
   text-align: left;
 }
 
+.showpass-detail-event-date .info.event-date {
+  display: flex;
+}
+
+.info span.start-date.multi-date::after {
+  content: "-";
+  margin: 0 5px;
+}
+
+.showpass-detail-event-date .info.event-date span.start-date,
+.showpass-detail-event-date .info.event-date span.end-date {
+  display: block;
+}
+
 .showpass-event-title h3 {
   color: black !important;
   font-weight: 100 !important;

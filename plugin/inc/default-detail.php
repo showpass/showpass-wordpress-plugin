@@ -34,8 +34,13 @@
 				<div class="w100">
 					<div class="showpass-detail-event-date mb30">
             <?php $location = $event['location']; ?>
-              <?php if (!$event['is_recurring_parent']) { ?>
-                <div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+							<?php if (!$event['is_recurring_parent']) { ?>
+								<div class="info event-date">
+									<i class="fa fa-calendar icon-center"></i>
+									<div>
+										<?= showpass_display_date($event['starts_on'], $event['ends_on'], $event['timezone']) ?>
+									</div>
+								</div>
                 <div class="info"><i class="fa fa-clock-o icon-center"></i><?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?>
                 <?php echo showpass_get_timezone_abbr($event['timezone'], false);?></div>
 							<?php } else { ?>

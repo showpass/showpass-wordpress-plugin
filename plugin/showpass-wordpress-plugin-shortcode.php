@@ -272,6 +272,30 @@ function showpass_utf8_urldecode($str) {
   return html_entity_decode($str,null,'UTF-8');;
 }
 
+/**
+ * Get formatted event dates string.
+ * 
+ * @param String $start_date - date string
+ * @param String $end_date - date string
+ * @param String $timezone
+ * 
+ * @return String html date element
+ */
+function showpass_display_date ($start_date, $end_date, $timezone) {
+  $diff_in_seconds = strtotime($end_date) - strtotime($start_date);
+  $diff_in_hours = $diff_in_seconds / 3600; // 3600 seconds in an hour
+
+  /**
+   * If the difference between start and end date is > 24 hours,
+   * then return start and end date.
+   * Else just return start date
+   */
+  if ($diff_in_hours >= 24) {
+    return sprintf('<span class="start-date multi-date">%s</span><span class="end-date multi-date">%s</span>', showpass_get_event_date($start_date, $timezone), showpass_get_event_date($end_date, $timezone));
+  }
+  return sprintf('<span class="start-date">%s</span>', showpass_get_event_date($start_date, $timezone));
+}
+
 /* Converting date */
 function showpass_get_event_date ($date, $zone) {
 	if ($date && $zone) {
