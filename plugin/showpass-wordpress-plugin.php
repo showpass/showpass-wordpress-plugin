@@ -36,6 +36,7 @@ function register_wpshp_settings()
     register_setting('wpshp-settings-group', 'format_time');
     register_setting('wpshp-settings-group', 'option_theme_dark');
     register_setting('wpshp-settings-group', 'option_keep_shopping');
+    register_setting('wpshp-settings-group', 'option_show_widget_description');
 }
 
 /******************************

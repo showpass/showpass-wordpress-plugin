@@ -32,7 +32,7 @@ function showpass_get_event_data( $atts ) {
 		$type = $atts["type"];
 	} else {
 		$type = "event-list";
-	}
+  }
 
 	if ($type == NULL) {
 		echo "ERROR - Please enter type parameter in shortcode";
@@ -178,12 +178,17 @@ function showpass_get_event_data( $atts ) {
     if ($template == "data") {
       return $data;
     } else {
+      // set shortcode flags for widget
+      if (isset($atts['show_widget_description'])) {
+        $show_widget_description = $atts['show_widget_description'];
+      } else {
+        $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+      }
 
       ob_start();
       include($filepath);
       $content = ob_get_clean();
       return $content;
-
     }
   }
 }
@@ -253,6 +258,13 @@ function showpass_get_product_data( $atts ) {
 
   if (!is_admin()) {
     $data = call_showpass_api($final_api_url);
+
+    // set shortcode flags for widget
+    if (isset($atts['show_widget_description'])) {
+      $show_widget_description = $atts['show_widget_description'];
+    } else {
+      $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+    }
 
     if ($template == "data") {
       return $data;
@@ -680,12 +692,27 @@ function showpass_widget_expand($atts, $content = null) {
       $theme_dark = 'false';
     }
 
+    if (isset($atts['show_description'])) {
+      $show_description = $atts['show_description'];
+    } else {
+      $show_description = get_option('option_show_widget_description') ? 'true' : 'false';
+    }
+
     //update to template as needed
     $button = '';
-    $button .= $style.'<div><span id="'.$slug.'" onclick="" class="open-ticket-widget '.$class.'" data-color="'.$widget_color.'" data-shopping="'.$keep_shopping.'" data-theme="'.$theme_dark.'"';
+    $button .= $style.'<div>'
+            .'<span onclick="" '
+            .sprintf('id="%s" ', $slug)
+            .sprintf('class="open-ticket-widget %s" ', $class)
+            .sprintf('data-color="%s" ', $widget_color)
+            .sprintf('data-shopping="%s" ', $keep_shopping)
+            .sprintf('data-theme="%s" ', $theme_dark)
+            .sprintf('data-show-description="%s" ', $show_description);
+
     if ($tracking) {
-      $button .= 'data-tracking="'.$tracking.'"';
+      $button .= sprintf('data-tracking="%s" ', $tracking);
     }
+    
     $button .='"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
     $button .= '<span>'.$label.'</span></div>';
     return $button;
@@ -743,6 +770,13 @@ function wpshp_get_pricing_table( $atts ) {
       }
     }
 
+    // set shortcode flags for widget
+    if (isset($atts['show_widget_description'])) {
+      $show_widget_description = $atts['show_widget_description'];
+    } else {
+      $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+    }
+
     ob_start();
     include($filepath);
     $content = ob_get_clean();
@@ -783,6 +817,7 @@ add_action( 'init', 'showpass_scripts' );
 
 function showpass_widget_options() {
   echo '<input type="hidden" id="option_keep_shopping" value="'.get_option('option_keep_shopping').'">';
+  echo '<input type="hidden" id="option_show_widget_description" value="'.get_option('option_show_widget_description').'">';
   echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
   echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
 }
