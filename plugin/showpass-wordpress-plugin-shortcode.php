@@ -167,6 +167,11 @@ function showpass_get_event_data( $atts ) {
         $data['tracking_id'] = $atts['tracking_id'];
     }
 
+    // Add show_eyereturn to data before encode
+    if (isset($atts['show_eyereturn'])) {
+        $data['show_eyereturn'] = $atts['show_eyereturn'];
+    }
+
     // encode json data to return properly
     $data = json_encode($data);
 
@@ -326,14 +331,16 @@ function showpass_ticket_sold_out ($data) {
 			$soldout_count = 0;
 			$ticket_types_count = sizeOf($data);
 			foreach ($ticket_types as $ticket) {
-				if ($ticket['sold_out']) {
+        // use isset to make sure there is no error if the key doesn't exist
+        // or if sold_out exists but is falsy
+				if (isset($ticket['sold_out'])) {
 						$soldout_count ++ ;
 				}
-			}
+      }
 			if ($soldout_count == $ticket_types_count){
 				return true;
 			}
-			else{
+			else {
 				return false;
 			}
 		}

@@ -1,12 +1,11 @@
 <div id="page" class="showpass-flex-box">
 	<?php
-	 $event_data = json_decode($data, true);
+	 $event = json_decode($data, true);
   	if (isset($event_data['detail'])) { ?>
   		<div class="showpass-layout-flex">
   			<h2>Sorry, we cannot find the event that you are looking for!</h2>
   		</div>
   	<?php } else {
-		$event = $event_data;
 		$current_event = $event['id'];?>
 		<div class="showpass-layout-flex showpass-detail-event-name">
 			<div class="flex-100 showpass-flex-column showpass-no-border">
@@ -24,7 +23,7 @@
 							<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 						</span>
 					<?php } else { ?>
-						<span class="showpass-detail-buy showpass-hide-medium <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
+						<span class="showpass-detail-buy showpass-hide-medium <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['show_eyereturn']) {?> data-eyereturn="<?php echo $event['show_eyereturn']; ?>" <?php } ?> <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
 							<?php include 'button-verbiage.php'; ?>
 						</span>
 					<?php } ?>
@@ -52,7 +51,7 @@
 									<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 								</span>
 							<?php } else { ?>
-								<span class="showpass-detail-buy <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
+								<span class="showpass-detail-buy <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['show_eyereturn']) {?> data-eyereturn="<?php echo $event['show_eyereturn']; ?>" <?php } ?> <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
                   <?php include 'button-verbiage.php'; ?>
 	            	</span>
 							<?php } ?>
