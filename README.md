@@ -780,7 +780,7 @@ Button to close widget says `Keep Shopping` if true, and `Close` if set to false
 Use the dark theme on the widget, default is the light theme.
 
 
-#### `show_widget_description='true'`
+#### `show_description='true'`
 
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
