@@ -692,8 +692,8 @@ function showpass_widget_expand($atts, $content = null) {
       $theme_dark = 'false';
     }
 
-    if (isset($atts['show_description'])) {
-      $show_description = $atts['show_description'];
+    if (isset($atts['show_widget_description'])) {
+      $show_description = $atts['show_widget_description'];
     } else {
       $show_description = get_option('option_show_widget_description') ? 'true' : 'false';
     }
