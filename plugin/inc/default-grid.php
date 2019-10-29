@@ -38,8 +38,8 @@
 					}
 				?>	
 				<div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
-					<div class="showpass-event-list showpass-layout-flex m15">
-					<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
+					<div class="showpass-event-grid showpass-layout-flex m15">
+						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
 							<a href="<?= $event_href ?>" class="showpass-image ratio banner">
 								<?= isset($event['image_banner']) 
 									? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name'], 'title' => $event['name'], 'breakpoints' => $image_breakpoints]) 
@@ -77,7 +77,7 @@
 									</div>
 								</div>
 								<!-- Event Name -->
-
+							
 								<!-- Event Date(s) & Badges -->
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
@@ -98,35 +98,37 @@
 									</div>
 								</div>
 								<!-- Event Date(s) & Badges -->
-
-								<!-- Action Buttons -->
-								<div class="showpass-layout-flex">
-									<div class="showpass-layout-flex showpass-list-button-layout">
-											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
-												<div class="showpass-button-full-width-grid">
-													<?php if(showpass_ticket_sold_out($event)) { ?>
-														<a class="showpass-list-ticket-button showpass-button showpass-soldout">
-															<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
-														</a>
-													<?php } else { ?>
-														<a class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
-                              <?php include 'button-verbiage.php'; ?>
-														</a>
-													<?php } ?>
-												</div>
-											</div>
-										<?php if ($detail_page) {?>
-											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">
-												<div class="showpass-button-full-width-grid">
-													<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
-												</div>
-											</div>
-										<?php } ?>
-									</div>
-								</div>
-								<!-- Action Buttons -->
 							</div>
 						</div>
+
+						<!-- Action Buttons -->
+						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white action-bar">
+							<div class="showpass-layout-flex">
+								<div class="showpass-layout-flex showpass-list-button-layout">
+										<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
+											<div class="showpass-button-full-width-grid">
+												<?php if(showpass_ticket_sold_out($event)) { ?>
+													<a class="showpass-list-ticket-button showpass-button showpass-soldout no-margin">
+														<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
+													</a>
+												<?php } else { ?>
+													<a class="showpass-list-ticket-button showpass-button no-margin <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>>
+														<?php include 'button-verbiage.php'; ?>
+													</a>
+												<?php } ?>
+											</div>
+										</div>
+									<?php if ($detail_page) {?>
+										<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">
+											<div class="showpass-button-full-width-grid">
+												<a class="showpass-list-ticket-button showpass-button-secondary no-margin" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
+											</div>
+										</div>
+									<?php } ?>
+								</div>
+							</div>
+						</div>
+						<!-- Action Buttons -->
 					</div>
 				</div>
 			<?php } ?>

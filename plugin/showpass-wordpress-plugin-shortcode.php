@@ -300,20 +300,20 @@ function showpass_display_date ( $event ) {
   if ($diff_in_hours >= 24) {
     // start element
     $starts_date_element = ''
-      .'<div class="info">'
-      .'<i class="fa fa-calendar icon-center"></i>'
+      .'<div class="info dates">'
+      .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
       .'<span class="start-date">'
-      .sprintf('<span>Starts: </span><span>%s</span> ', showpass_get_event_date($starts_on, $timezone))
-      .sprintf('<span>&commat; %s %s</span>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone))
+      .sprintf('<div class="display-inline-block label">Starts: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($starts_on, $timezone))
+      .sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone))
       .'</span>'
       .'</div>';
     // end element
     $ends_date_element = ''
-      .'<div class="info">'
-      .'<i class="fa fa-calendar icon-center"></i>'
+      .'<div class="info dates">'
+      .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
       .'<span class="end-date">'
-      .sprintf('<span>Ends: </span><span>%s</span> ', showpass_get_event_date($ends_on, $timezone))
-      .sprintf('<span>&commat; %s %s</span>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
+      .sprintf('<div class="display-inline-block label">Ends: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($ends_on, $timezone))
+      .sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
       .'</span>'
       .'</div>';
     
@@ -325,7 +325,7 @@ function showpass_display_date ( $event ) {
   $element =  ''
     .'<div>'
     .sprintf('<div class="info"><i class="fa fa-calendar icon-center"></i><span>%s</span></div>', showpass_get_event_date($starts_on, $timezone))
-    .sprintf('<div class="info"><i class="fa fa-clock-o icon-center"></i><span>%s</span> - <span>%s</span></div>', showpass_get_event_time($starts_on, $timezone), showpass_get_event_time($ends_on, $timezone))
+    .sprintf('<div class="info"><i class="fa fa-clock-o icon-center"></i><span>%s</span> - <span>%s</span> <span>%s</span></div>', showpass_get_event_time($starts_on, $timezone), showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
     .'</div>';
 
   return $element;

@@ -24,6 +24,36 @@
   }
 }
 
+/* ---- Grid Overrides ---- */
+.showpass-event-card.showpass-grid {
+  position: relative;
+  align-items: stretch!important;
+}
+
+.showpass-event-grid {
+  min-height: 230px;
+  background: none !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  margin-bottom: 30px;
+  position: relative;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (min-width: 600px) {
+  .showpass-grid .action-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .showpass-event-grid {
+    padding-bottom: 56px;
+  }
+}
+
+/* ---- Grid Overrides ---- */
+
 .showpass-event-card .showpass-event-list .showpass-background-white, .showpass-event-card .showpass-event-layout-list .showpass-background-white{
   background-color: white;
   color: black;
@@ -151,6 +181,10 @@
   box-sizing: border-box;
   margin-top: 15px;
   text-decoration: none !important;
+}
+
+.showpass-list-ticket-button.no-margin {
+  margin-top: 0;
 }
 
 .showpass-list-ticket-button:focus {
@@ -593,6 +627,15 @@ a {
 
 .showpass-detail-event-date .info {
   margin-bottom: 10px;
+}
+
+.showpass-detail-event-date .info.dates .display-inline-block {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.showpass-detail-event-date .info.dates .label {
+  margin-right: 10px;
 }
 
 .showpass-detail-event-date .info.badges {
