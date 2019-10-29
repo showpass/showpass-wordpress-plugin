@@ -35,7 +35,8 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
    3.3. [Showpass get Timezone](#33-showpass-get-timezone)    
    3.4. [Showpass get Price Range](#34-showpass-get-price-range)   
-   3.5. [Showpass get Previous or next page](#35-showpass-get-previous-or-next-page)   
+   3.5. [Showpass get Previous or next page](#35-showpass-get-previous-or-next-page)  
+   3.6. [Showpass get Responsive Image](#36-showpass-get-responsive-image)
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
    4.2. [List events](#42-list-events)    
@@ -332,6 +333,57 @@ ex. You will have (the API will receive) 5 pages with 6 events on each page. So,
 
 		?>
 
+## 3.6. Showpass get responsive image
+
+### Usage
+```php
+<?php
+   // must declare showpass_image_formatter
+   global $showpass_image_formatter;
+
+   // get showpass event data
+   $event_data = json_decode(do_shortcode('[showpass_events template="data"]'), true);
+
+   // img src
+   $img_url = $event_data['image_banner'];
+   // img options
+   $options = [
+      'alt' => $event_data['name'], 
+      'title' => $event_data['name']
+      'attr' => [
+         'id' => 'custom-id',
+         'class' => 'custom-class'
+      ]
+   ];
+?>
+// template implementation ...
+
+// echo responsive image: <picture>
+<?= $showpass_image_formatter->getResponsiveImage($img_url, $options)  ?>
+
+```
+
+### `$showpass_image_formatter->getResponsiveImage($src, $options)`  
+This function generates a responsive image.
+
+- `$src` - __String__ Showpass event image source. __Must be a `CloudFront` image__  
+
+- `$options` - __Array__  Image Options. `['option_name' => value]`
+   - `alt` - __String__ Alt attribute.
+   - `title` - __String__ Title attrinute.
+   - `image-format` - __String__ Desired image format.  
+   __default:__ `'jpeg'`
+   - `attr` - __Array__ Additional html attributes. `['attribute_name' => value]`
+   - `breakpoints` - __Array__ List of desired breakpoints. `[[size, media-query]]`.  
+   __default:__
+      ```php
+      [
+         [960, '(max-width: 960px) and (min-width: 781px)'], 
+         [780, '(max-width: 780px) and (min-width: 601px)'], 
+         [600, '(max-width: 600px) and (min-width: 376px)'], 
+         [375, '(max-width: 375px)']
+      ]
+      ```
 
 ## 4. JSON Data
 
