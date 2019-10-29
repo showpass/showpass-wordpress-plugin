@@ -93,7 +93,7 @@
 													</span>
 												</div>
 											<?php endif; ?>
-											<?= showpass_display_date($event) ?>
+											<?= showpass_display_date($event, true) ?>
 										</div>
 									</div>
 								</div>

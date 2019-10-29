@@ -279,7 +279,7 @@ function showpass_utf8_urldecode($str) {
  * 
  * @return String html date element
  */
-function showpass_display_date ( $event ) {
+function showpass_display_date ( $event, $small = false ) {
   // grab values needed to calculate event times
   $starts_on = $event['starts_on'];
   $ends_on = $event['ends_on'];
@@ -298,25 +298,50 @@ function showpass_display_date ( $event ) {
    * Else just return start day and event times.
    */
   if ($diff_in_hours >= 24) {
-    // start element
-    $starts_date_element = ''
-      .'<div class="info dates">'
-      .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
-      .'<span class="start-date">'
-      .sprintf('<div class="display-inline-block label">Starts: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($starts_on, $timezone))
-      .sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone))
-      .'</span>'
-      .'</div>';
-    // end element
-    $ends_date_element = ''
-      .'<div class="info dates">'
-      .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
-      .'<span class="end-date">'
-      .sprintf('<div class="display-inline-block label">Ends: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($ends_on, $timezone))
-      .sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
-      .'</span>'
-      .'</div>';
-    
+    $starts_date_element = '';
+    $ends_date_element = '';
+
+    // small elements used for grids, so text does not get cut off
+    if ($small) {
+      // start element
+      $starts_date_element .= ''
+        .'<div class="info dates">'
+        .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
+        .'<span class="start-date">'
+        .sprintf('<div class="display-inline-block label">Starts: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($starts_on, $timezone))
+        .sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone))
+        .'</span>'
+        .'</div>';
+      // end element
+      $ends_date_element .= ''
+        .'<div class="info dates">'
+        .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
+        .'<span class="end-date">'
+        .sprintf('<div class="display-inline-block label">Ends: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($ends_on, $timezone))
+        .sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
+        .'</span>'
+        .'</div>';
+    } else {
+      // start element
+      $starts_date_element .= ''
+        .'<div class="info dates">'
+        .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
+        .'<span class="start-date">'
+        .sprintf('<span>Starts: </span><span class="day">%s</span> ', showpass_get_event_date($starts_on, $timezone))
+        .sprintf('<span class="time">&commat; %s %s</span>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone))
+        .'</span>'
+        .'</div>';
+      // end element
+      $ends_date_element .= ''
+        .'<div class="info dates">'
+        .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
+        .'<span class="end-date">'
+        .sprintf('<span>Ends: </span><span><span class="day">%s</span> ', showpass_get_event_date($ends_on, $timezone))
+        .sprintf('<span class="time">&commat; %s %s</span>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
+        .'</span>'
+        .'</div>';
+    }
+
     // concat start and end element, then wrap in a div
     return sprintf('%s%s', $starts_date_element , $ends_date_element);
   }
