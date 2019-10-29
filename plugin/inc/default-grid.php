@@ -1,20 +1,51 @@
+<?php 
+	global $showpass_image_formatter;
+	/**
+	 * Custom breakpoints for responsive image.
+	 * Add max 980-1920 breakpoint, column layout only allows for a max width of 640px.
+	 * 600px x 600px is already cached, so use that image.
+	 */
+	$image_breakpoints = [
+		[600, '(max-width: 1920px) and (min-width: 981px)'],
+		[960, '(max-width: 980px) and (min-width: 781px)'], 
+		[780, '(max-width: 780px) and (min-width: 601px)'], 
+		[600, '(max-width: 600px) and (min-width: 376px)'], 
+		[375, '(max-width: 375px)']
+	];
+
+	$event_data = json_decode($data, true);
+?>
+
 <div class="showpass-flex-box">
 	<div class="showpass-layout-flex">
 			<?php
-			$event_data = json_decode($data, true);
 			if ($event_data['count'] > 0) {
 				$events = $event_data['results'];
-				foreach ($events as $key => $event) { ?>
+				foreach ($events as $key => $event) {
+					// default event link does nothing
+					$event_href = 'javascript:void(0);';
+					// only set link if not sold out
+					if ( !showpass_ticket_sold_out($event) ) {
+						/**
+						 * if detail_page is setup, then link to the detail page
+						 * otherwise link externally
+						 */
+						if (isset($detail_page)) {
+							$event_href = sprintf('/%s/?slug=%s', $detail_page, $event['slug']);
+						} else if (isset($event['external_link'])) {
+							$event_href = $event['external_link'];
+						}
+					}
+				?>	
 				<div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
 					<div class="showpass-event-list showpass-layout-flex m15">
-						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-							<?php if ($detail_page) { ?>
-								<a class="showpass-image" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>"></a>
-							<?php } else if(showpass_ticket_sold_out($event)) {?>
-								<a class="showpass-image showpass-soldout" style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
-							<?php } else {?>
-								<a class="showpass-image <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?> style="background-image: url('<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>');"></a>
-							<?php } ?>
+					<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
+							<a href="<?= $event_href ?>" class="showpass-image ratio banner">
+								<?= isset($event['image_banner']) 
+									? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name'], 'title' => $event['name'], 'breakpoints' => $image_breakpoints]) 
+									: sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event['name']);
+						 		?>
+							</a>
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">

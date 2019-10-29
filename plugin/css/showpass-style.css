@@ -437,13 +437,44 @@ a {
   content: '\00bb';
 }
 
-.showpass-detail-image {
-  max-width: 100% !important;
-  width: 100% !important;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
+.showpass-detail-image-container {
+  /* 2-1 ratio fix */
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* end 2-1 ratio fix */
   margin-bottom: 20px;
   margin-top: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+}
+/* 2-1 ratio fix */
+.showpass-detail-image-container::before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 50%;
+}
+/* 2-1 ratio fix */
+.showpass-detail-image-container > picture {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.showpass-detail-image-container .showpass-detail-image {
+  /* object-fit contain fix */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .showpass-detail-event-name {
@@ -481,10 +512,47 @@ a {
 }
 
 .showpass-image {
-  max-width: 100% !important;
-  width: 100% !important;
-  padding-top: 50% !important;
-  background-size: cover !important;
+  max-width: 100%;
+  width: 100%;
+  padding-top: 50%;
+  background-size: cover;
+}
+
+.showpass-image.ratio {
+  width: 100%;
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.showpass-image.ratio.banner {
+  padding-top: 50%;
+}
+
+.showpass-image.ratio.square {
+  padding-top: 100%;
+}
+
+.showpass-image.ratio.full-height {
+  height: 100%;
+}
+
+.showpass-image.ratio > picture {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.showpass-image.ratio > picture > img,
+.showpass-image.ratio > img {
+  position: absolute;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .showpass-image-banner {

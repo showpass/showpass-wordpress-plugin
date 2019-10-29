@@ -1,15 +1,27 @@
-<div id="page" class="showpass-flex-box">
+<?php
+	global $showpass_image_formatter;
+
+	$event = json_decode($data, true);
+?>
+
+<div id="page" class="showpass-flex-box">	
 	<?php
-	 $event = json_decode($data, true);
-  	if (isset($event_data['detail'])) { ?>
+	 
+  	if (isset($event['detail'])) { ?>
   		<div class="showpass-layout-flex">
   			<h2>Sorry, we cannot find the event that you are looking for!</h2>
   		</div>
   	<?php } else {
 		$current_event = $event['id'];?>
 		<div class="showpass-layout-flex showpass-detail-event-name">
-			<div class="flex-100 showpass-flex-column showpass-no-border">
-				<img class="showpass-detail-image" alt="<?php echo $event['name']; ?>" src="<?php if ($event['image_banner']) { echo $event['image_banner']; } else { echo plugin_dir_url(__FILE__).'../images/default-banner.jpg';}?>" />
+			<div class="flex-100 showpass-no-border showpass-flex-column">
+				<div class="showpass-detail-image-container">
+					<?= 
+						isset($event['image_banner']) 
+							? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name'], 'title' => $event['name'], 'attr' => ['class' => 'showpass-detail-image'] ]) 
+							: sprintf('<img class="showpass-detail-image" src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event['name']);
+					?>
+				</div>
 			</div>
 		</div>
 		<div class="showpass-layout-flex showpass-detail-event-name">
