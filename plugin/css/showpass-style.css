@@ -263,6 +263,20 @@ a {
   }
 }
 
+/* ================
+   COMPONENT STYLES 
+   ================ */
+.badge {
+  background: #bfbfbf;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 4px 6px;
+  text-transform: uppercase;
+}
+
 .showpass-price-display {
   color: #dd3333;
   font-size: 14px;
@@ -278,23 +292,7 @@ a {
   text-overflow: ellipsis;
 }
 
-.showpass-detail-event-date .info {
-  text-align: left;
-}
 
-.showpass-detail-event-date .info.event-date {
-  display: flex;
-}
-
-.info span.start-date.multi-date::after {
-  content: "-";
-  margin: 0 5px;
-}
-
-.showpass-detail-event-date .info.event-date span.start-date,
-.showpass-detail-event-date .info.event-date span.end-date {
-  display: block;
-}
 
 .showpass-event-title h3 {
   color: black !important;
@@ -527,6 +525,10 @@ a {
 
 .showpass-detail-event-date .info {
   margin-bottom: 10px;
+}
+
+.showpass-detail-event-date .info.badges {
+  padding-left: 10px;
 }
 
 .showpass-pricing-table .pricing-table-buy-now {

@@ -275,25 +275,60 @@ function showpass_utf8_urldecode($str) {
 /**
  * Get formatted event dates string.
  * 
- * @param String $start_date - date string
- * @param String $end_date - date string
- * @param String $timezone
+ * @param Object $event
  * 
  * @return String html date element
  */
-function showpass_display_date ($start_date, $end_date, $timezone) {
-  $diff_in_seconds = strtotime($end_date) - strtotime($start_date);
+function showpass_display_date ( $event ) {
+  // grab values needed to calculate event times
+  $starts_on = $event['starts_on'];
+  $ends_on = $event['ends_on'];
+  $timezone = $event['timezone'];
+
+  /**
+   * get difference between start and end times
+   * Used to display multi day vs single day events
+   */
+  $diff_in_seconds = strtotime($ends_on) - strtotime($starts_on);
   $diff_in_hours = $diff_in_seconds / 3600; // 3600 seconds in an hour
 
   /**
    * If the difference between start and end date is > 24 hours,
-   * then return start and end date.
-   * Else just return start date
+   * then display start and end dates/times.
+   * Else just return start day and event times.
    */
   if ($diff_in_hours >= 24) {
-    return sprintf('<span class="start-date multi-date">%s</span><span class="end-date multi-date">%s</span>', showpass_get_event_date($start_date, $timezone), showpass_get_event_date($end_date, $timezone));
+    // start element
+    $starts_date_element = ''
+      .'<div class="info">'
+      .'<i class="fa fa-calendar icon-center"></i>'
+      .'<span class="start-date">'
+      .sprintf('<span>Starts: </span><span>%s</span> ', showpass_get_event_date($starts_on, $timezone))
+      .sprintf('<span>&commat; %s %s</span>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone))
+      .'</span>'
+      .'</div>';
+    // end element
+    $ends_date_element = ''
+      .'<div class="info">'
+      .'<i class="fa fa-calendar icon-center"></i>'
+      .'<span class="end-date">'
+      .sprintf('<span>Ends: </span><span>%s</span> ', showpass_get_event_date($ends_on, $timezone))
+      .sprintf('<span>&commat; %s %s</span>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
+      .'</span>'
+      .'</div>';
+    
+    // concat start and end element, then wrap in a div
+    return sprintf('%s%s', $starts_date_element , $ends_date_element);
   }
-  return sprintf('<span class="start-date">%s</span>', showpass_get_event_date($start_date, $timezone));
+  
+  // element with start date and event times
+  $element =  ''
+    .'<div>'
+    .sprintf('<div class="info"><i class="fa fa-calendar icon-center"></i><span>%s</span></div>', showpass_get_event_date($starts_on, $timezone))
+    .sprintf('<div class="info"><i class="fa fa-clock-o icon-center"></i><span>%s</span> - <span>%s</span></div>', showpass_get_event_time($starts_on, $timezone), showpass_get_event_time($ends_on, $timezone))
+    .'</div>';
+
+  return $element;
 }
 
 /* Converting date */
@@ -320,7 +355,7 @@ function showpass_get_event_time ($date, $zone) {
     $otherTZ  = new DateTimeZone($zone);
     $datetime->setTimezone($otherTZ);
     if ($format_time == "") {
-      $format_time = "g:iA";
+      $format_time = "g:i A";
     }
     $new_date = $datetime->format($format_time);
     return $new_date;
