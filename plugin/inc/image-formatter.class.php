@@ -47,7 +47,14 @@
       $splitURL = preg_split(self::CLOUDFRONT_REGEX, $src, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
       if (count($splitURL) < 2) {
-        throw new Exception('Error: must supply cloudfront image.');
+        // create attributes string
+        $attributes = '';
+        foreach ($attr as $key => $value) {
+          $attributes .= sprintf('%s="%s" ', $key, $value);
+        }
+        unset($key, $value);
+
+        return sprintf('<img src="%s" %s />', $src, $attributes);
       } 
 
       $sources = [];

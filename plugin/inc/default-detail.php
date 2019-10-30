@@ -60,7 +60,7 @@
 										</span>
 									</div>
 								<?php endif; ?>
-								<?= showpass_display_date($event) ?>
+								<?= showpass_display_date($event, true) ?>
 								<div class="info"><i class="fa fa-map-marker icon-center"></i><?= $event['location']['name'] ?></div>
 							</div>
 						</div>
