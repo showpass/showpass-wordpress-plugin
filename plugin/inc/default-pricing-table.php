@@ -78,7 +78,16 @@
 													<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
 												</a>
 											<?php } else { ?>
-											<a class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>" href="#"<?php } ?>>
+											<a 
+												class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" 
+												<?php if ($event['external_link']) { ?>
+													href="<?php echo $event['external_link']; ?>"
+												<?php } else { ?>
+													id="<?php echo $event['slug']; ?>" 
+													href="#"
+												<?php } ?>
+												data-show-description="<?= $show_widget_description ?>"
+											>
                         <?php include 'button-verbiage.php'; ?>
 											</a>
 											<?php } ?>

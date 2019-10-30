@@ -63,7 +63,11 @@
 											<div class="clearfix showpass-layout-flex showpass-list-button-layout">
 												<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-left">
 													<div class="showpass-button-full-width-list">
-														<a class="showpass-list-ticket-button showpass-button open-product-widget" id="<?php echo $product['id']; ?>">Buy Now</a>
+														<a 
+															class="showpass-list-ticket-button showpass-button open-product-widget" 
+															id="<?php echo $product['id']; ?>"
+															data-show-description="<?= $show_widget_description ?>"
+														>Buy Now</a>
 													</div>
 												</div>
 											</div>

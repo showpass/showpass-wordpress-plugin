@@ -69,16 +69,13 @@
                   <div>
                     <?php if (!showpass_ticket_sold_out($event)) : ?>
                       <small class="showpass-price-display">
-                        <?php if ($event['is_recurring_parent']) { ?>
-                            Multiple Dates
-                        <?php } else {?>
+                        <?php if (!$event['is_recurring_parent']) { ?>
                           <?php echo showpass_get_price_range($event['ticket_types']);?>
                           <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
                         <?php } ?>
                       </small>
                     <?php endif; ?>
                   </div>
-                  <div><?php if (showpass_ticket_sold_out($event)) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
                 </div>
               </div>
               <div class="showpass-layout-flex">
@@ -137,6 +134,7 @@
                         <?php if (isset($event_data['show_eyereturn'])) :?> 
                           data-eyereturn="<?= $event_data['show_eyereturn']; ?>"
                         <?php endif ?>
+                        data-show-description="<?= $show_widget_description ?>"
                       >
                         <?php include 'button-verbiage.php'; ?>
                       </a>
