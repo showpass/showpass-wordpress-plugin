@@ -55,7 +55,7 @@
                   <div class="showpass-layout-flex">
                     <div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
                       <div>
-                        <div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
+												<?= showpass_display_date($event, true) ?>
                         <div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
                       </div>
                     </div>
