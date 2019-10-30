@@ -1,7 +1,20 @@
+<?php
+	global $showpass_image_formatter;
+	
+	// image container is a static 300x300 @ 780px wide
+	const BREAKPOINTS = [
+		[300, '(min-width: 781px)'], 
+		[780, '(max-width: 780px) and (min-width: 601px)'], 
+		[600, '(max-width: 600px) and (min-width: 376px)'], 
+		[375, '(max-width: 375px)']
+	];
+
+	$product_data = json_decode($data, true);
+?>
+
 <div class="showpass-flex-box">
 	<div class="showpass-layout-flex">
 			<?php
-			$product_data = json_decode($data, true);
 			if ($product_data['count'] > 0) {
 				$products = $product_data['results'];
 				foreach ($products as $key => $product) {
@@ -9,7 +22,15 @@
 					<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card">
 						<div class="showpass-event-layout-list showpass-layout-flex m15">
 							<div class="card-image showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0">
-                <a class="showpass-image-banner open-product-widget" style="background-image: url('<?php if ($product['thumbnail']) { echo $product['thumbnail']; } else { echo plugin_dir_url(__FILE__).'../images/default-square.jpg';}?>');"></a>
+								<a 
+									id="<?php echo $product['id']; ?>" 
+									class="showpass-image open-product-widget ratio square" 
+								>
+									<?= isset($product['image']) 
+										? $showpass_image_formatter->getResponsiveImage($product['image'], ['alt' => $product['name']]) 
+										: sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-square.jpg', $product['name']);
+									?>
+								</a>
 							</div>
 							<div class="list-info flex-70 showpass-flex-column list-layout-flex showpass-no-border showpass-background-white">
 								<div class="showpass-space-between showpass-full-width showpass-layout-fill">
