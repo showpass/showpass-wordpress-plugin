@@ -1,5 +1,6 @@
 .showpass-flex-box {
   padding-bottom: 50px;
+  width: 100%;
 }
 
 #daily-card-view.showpass-flex-box {
@@ -7,105 +8,108 @@
 }
 
 .showpass-flex-table.showpass-flex-table-striped .showpass-flex-row:nth-child(odd), .showpass-flex-box.showpass-flex-table-striped .showpass-flex-row:nth-child(odd) {
-    background: #f4f4f4;
+  background: #f4f4f4;
 }
 
 .showpass-flex-table.showpass-flex-table-striped .showpass-flex-row:nth-child(even), .showpass-flex-box.showpass-flex-table-striped .showpass-flex-row:nth-child(even) {
-    background: white;
+  background: white;
 }
 
 .showpass-flex-table.no-right-border .showpass-flex-column, .showpass-flex-box.no-right-border .showpass-flex-column {
-    border-right: 0 !important;
+  border-right: 0 !important;
 }
 
 .showpass-flex-table .flex-sub-layer, .showpass-flex-box .flex-sub-layer {
-    background: #f4f4f4;
+  background: #f4f4f4;
 }
 
 @media screen and (min-width: 960px) {
   .showpass-prodcut-grid-flex {
     flex: 1 1 33% !important;
+    max-width: 33%;
   }
 }
 @media screen and (max-width: 960px) {
   .showpass-flex-table .showpass-flex-row, .showpass-flex-box .showpass-flex-row {
-      margin-bottom: 20px;
-    }
+    margin-bottom: 20px;
+  }
   .showpass-flex-table .showpass-layout-flex .flex-header, .showpass-flex-box .showpass-layout-flex .flex-header {
-      display: none !important;
-    }
+    display: none !important;
+  }
   .showpass-prodcut-grid-flex {
     flex: 1 1 50% !important;
+    max-width: 50%;
   }
 }
 
 @media screen and (max-width: 600px){
   .showpass-prodcut-grid-flex {
     flex: 1 1 100% !important;
+    max-width: 100%;
   }
   .showpass-full-width {
     width: 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .w50, .showpass-flex-box .showpass-layout-flex .w50 {
-      width: 100% !important;
+    width: 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .w75, .showpass-flex-box .showpass-layout-flex .w75 {
-      width: 100% !important;
+    width: 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .w100, .showpass-flex-box .showpass-layout-flex .w100 {
-      width: 100% !important;
+    width: 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .w150, .showpass-flex-box .showpass-layout-flex .w150 {
-      width: 100% !important;
+    width: 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .w200, .showpass-flex-box .showpass-layout-flex .w200 {
-      width: 100% !important;
+    width: 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .w250, .showpass-flex-box .showpass-layout-flex .w250 {
-      width: 100% !important;
+    width: 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .w300, .showpass-flex-box .showpass-layout-flex .w300 {
-      width: 100% !important;
+    width: 100% !important;
   }
 
   .showpass-flex-table .showpass-layout-flex .flex-10, .showpass-flex-box .showpass-layout-flex .flex-10 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-20, .showpass-flex-box .showpass-layout-flex .flex-20 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-25, .showpass-flex-box .showpass-layout-flex .flex-25 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-30, .showpass-flex-box .showpass-layout-flex .flex-30 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-33, .showpass-flex-box .showpass-layout-flex .flex-33 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-40, .showpass-flex-box .showpass-layout-flex .flex-40 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-50, .showpass-flex-box .showpass-layout-flex .flex-50 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-60, .showpass-flex-box .showpass-layout-flex .flex-60 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-66, .showpass-flex-box .showpass-layout-flex .flex-66 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-70, .showpass-flex-box .showpass-layout-flex .flex-70 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-75, .showpass-flex-box .showpass-layout-flex .flex-75 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-80, .showpass-flex-box .showpass-layout-flex .flex-80 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-100, .showpass-flex-box .showpass-layout-flex .flex-100 {
-      flex: 1 1 100% !important;
+    flex: 1 1 100% !important;
   }
 
   .showpass-flex-table .showpass-layout-flex .text-left, .showpass-flex-box .showpass-layout-flex .text-left {
@@ -127,26 +131,26 @@
 }
 
 .showpass-flex-table .showpass-layout-fill, .showpass-flex-box .showpass-layout-fill {
-    height: 100%;
+  height: 100%;
 }
 
 .showpass-flex-table .showpass-layout-flex, .showpass-flex-box .showpass-layout-flex {
-    width: 100%;
-    height: auto;
-    display: flex;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    flex-flow: row wrap;
-    -webkit-flex-flow: row wrap;
-    align-content: flex-start;
-    box-sizing: border-box !important;
+  width: 100%;
+  height: auto;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-flow: row wrap;
+  -webkit-flex-flow: row wrap;
+  align-content: flex-start;
+  box-sizing: border-box !important;
 }
 
 .showpass-flex-box .showpass-layout-flex.justify-center {
-    justify-content: center;
-    flex-wrap: wrap;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .showpass-flex-box .showpass-layout-flex.layout-fill {
@@ -154,15 +158,15 @@
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column, .showpass-flex-box .showpass-layout-flex .showpass-flex-column {
-    display: flex;
-    align-items: flex-start;
-    flex-grow: 0 !important;
-    flex-wrap: nowrap !important;
-    align-content: flex-start;
-    border-bottom: 1px solid #eeeeee;
-    border-right: 1px solid #eeeeee;
-    padding: 10px;
-    box-sizing: border-box !important;
+  display: flex;
+  align-items: flex-start;
+  flex-grow: 0 !important;
+  flex-wrap: nowrap !important;
+  align-content: flex-start;
+  border-bottom: 1px solid #eeeeee;
+  border-right: 1px solid #eeeeee;
+  padding: 10px;
+  box-sizing: border-box !important;
 }
 
 @media screen and (min-width: 780px) {
@@ -193,111 +197,134 @@
   padding: 7px;
 }
 
-.showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex, .showpass-flex-box .showpass-layout-flex.showpass-flex-column .sub-flex {
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex,
+.showpass-flex-box .showpass-layout-flex.showpass-flex-column .sub-flex {
   -webkit-transition: all .5s ease-in-out;
-    -moz-transition: all .5s ease-in-out;
-    -ms-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
-
-    opacity: 1;
-    max-height: 999px;
-    max-width: 999px;
+  -moz-transition: all .5s ease-in-out;
+  -ms-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  opacity: 1;
+  max-height: 999px;
+  max-width: 999px;
 }
-.showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex .ng-hide , .showpass-flex-box .showpass-layout-flex .showpass-flex-column.sub-flex .ng-hide {
-    opacity: 0;
-    max-height: 0;
-    max-width: 0;
-}
-
-.showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex-no-animate, .showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex, .showpass-flex-box .showpass-layout-flex .showpass-flex-column .sub-flex-no-animate, .showpass-flex-box .showpass-layout-flex .showpass-flex-column .sub-flex {
-    background: #ddd;
-    overflow-y: scroll;
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex .ng-hide,
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column.sub-flex .ng-hide {
+  opacity: 0;
+  max-height: 0;
+  max-width: 0;
 }
 
-.showpass-flex-table .showpass-layout-flex .showpass-no-border, .showpass-flex-box .showpass-layout-flex .showpass-no-border {
-    border: 0 !important;
-    line-height: 1.15 !important;
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex-no-animate,
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column .sub-flex,
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column .sub-flex-no-animate,
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column .sub-flex {
+  background: #ddd;
+  overflow-y: scroll;
 }
 
-.showpass-flex-table .showpass-layout-flex .showpass-flex-column.text-left, .showpass-flex-box .showpass-layout-flex .showpass-flex-column .text-left {
-    justify-content: flex-start;
-    text-align: left;
+.showpass-flex-table .showpass-layout-flex .showpass-no-border,
+.showpass-flex-box .showpass-layout-flex .showpass-no-border {
+  border: 0 !important;
+  line-height: 1.15 !important;
 }
 
-.showpass-flex-table .showpass-layout-flex .showpass-flex-column .text-center, .showpass-flex-box .showpass-layout-flex .showpass-flex-column .text-center {
-    justify-content: center;
-    text-align: center;
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column.text-left,
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column .text-left {
+  justify-content: flex-start;
+  text-align: left;
 }
 
-.showpass-flex-table .showpass-layout-flex .showpass-flex-column .text-right, .showpass-flex-box .showpass-layout-flex .showpass-flex-column .text-right {
-    justify-content: flex-end;
-    text-align: right;
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column .text-center,
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column .text-center {
+  justify-content: center;
+  text-align: center;
 }
 
-.showpass-flex-table .showpass-layout-flex .showpass-flex-column .text-center-force, .showpass-flex-box .showpass-layout-flex .showpass-flex-column .text-center-force {
-    justify-content: center;
-    text-align: center;
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column .text-right,
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column .text-right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.showpass-flex-table .showpass-layout-flex .showpass-flex-column .text-center-force,
+.showpass-flex-box .showpass-layout-flex .showpass-flex-column .text-center-force {
+  justify-content: center;
+  text-align: center;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-10, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-10 {
-    flex: 1 1 10%;
+  flex: 1 1 10%;
+  max-width: 10%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-20, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-20 {
-    flex: 1 1 20%;
+  flex: 1 1 20%;
+  max-width: 20%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-25, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-25 {
-    flex: 1 1 25%;
+  flex: 1 1 25%;
+  max-width: 20%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-30, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-30 {
-    flex: 1 1 30%;
+  flex: 1 1 30%;
+  max-width: 30%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-33, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-33 {
-    flex: 1 1 33.33%;
+  flex: 1 1 33.33%;
+  max-width: 33.33%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-40, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-40 {
-    flex: 1 1 40%;
+  flex: 1 1 40%;
+  max-width: 33.33%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-50, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-50 {
-    flex: 1 1 50%;
+  flex: 1 1 50%;
+  max-width: 50%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-60, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-60 {
-    flex: 1 1 60%;
+  flex: 1 1 60%;
+  max-width: 50%;
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-66, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-66 {
-    flex: 1 1 66.66%;
+  flex: 1 1 66.66%;
+  max-width: 66.66%
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-70, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-70 {
-    flex: 1 1 70%;
+  flex: 1 1 70%;
+  max-width: 70%
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-75, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-75 {
-    flex: 1 1 75%;
+  flex: 1 1 75%;
+  max-width: 75%
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-80, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-80 {
-    flex: 1 1 80%;
+  flex: 1 1 80%;
+  max-width: 80%
 }
 
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-100, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-100 {
-    flex: 1 1 100%;
+  flex: 1 1 100%;
+  max-width: 100%;
 }
 .showpass-flex-table .showpass-layout-flex .showpass-flex-column.flex-100.showpass-title-wrapper, .showpass-flex-box .showpass-layout-flex .showpass-flex-column.flex-100.showpass-title-wrapper {
-    flex: 1 1 100%;
+  flex: 1 1 100%;
+  max-width: 100%;
 }
 
 .showpass-flex-table .showpass-layout-flex .flex-header .showpass-flex-column, .showpass-flex-box .showpass-layout-flex .flex-header .showpass-flex-column {
-    background: #f4f4f4;
-    font-weight: bold;
-    border-bottom: 2px solid #eeeeee;
-    color: #333 !important;
+  background: #f4f4f4;
+  font-weight: bold;
+  border-bottom: 2px solid #eeeeee;
+  color: #333 !important;
 }
