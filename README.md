@@ -379,7 +379,7 @@ This function generates a responsive image.
 
 - `$options` - __Array__  Image Options. `['option_name' => value]`
    - `alt` - __String__ Alt attribute.
-   - `title` - __String__ Title attrinute.
+   - `title` - __String__ Title attribute.
    - `image-format` - __String__ Desired image format.  
    __default:__ `'jpeg'`
    - `attr` - __Array__ Additional html attributes. `['attribute_name' => value]`
