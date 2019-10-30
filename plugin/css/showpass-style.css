@@ -548,7 +548,7 @@ a {
 .showpass-image {
   max-width: 100%;
   width: 100%;
-  padding-top: 50%;
+  padding-top: 0;
   background-size: cover;
 }
 
@@ -697,4 +697,9 @@ a {
 .open-product-widget,
 .open-ticket-widget {
   cursor: pointer !important;
+}
+
+.showpass-event-description img {
+  max-width: 100% !important;
+  height: auto;
 }

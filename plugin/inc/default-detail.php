@@ -6,7 +6,6 @@
 
 <div id="page" class="showpass-flex-box">	
 	<?php
-	 
   	if (isset($event['detail'])) { ?>
   		<div class="showpass-layout-flex">
   			<h2>Sorry, we cannot find the event that you are looking for!</h2>
@@ -27,7 +26,6 @@
 		<div class="showpass-layout-flex showpass-detail-event-name">
 			<div class="flex-100 showpass-flex-column showpass-no-border"><h1 class="w100"><?php echo $event['name']; ?></h1></div>
 		</div>
-	
 		<div class="flex-container showpass-layout-flex">
 			<div class="flex-66 showpass-flex-column showpass-no-border">
 				<div class="w100">
@@ -40,11 +38,12 @@
 							<?php include 'button-verbiage.php'; ?>
 						</span>
 					<?php } ?>
-					<?php echo $event['description'];?>
+            <div class="showpass-event-description">
+              <?php echo $event['description'];?>
+            </div>
 				</div>
 			</div>
 			<div class="flex-33 showpass-flex-column showpass-no-border">
-
 				<div class="w100">
 					<!-- Event Date(s) & Badges -->
 					<div>
@@ -67,7 +66,6 @@
 						</div>
 					</div>
 					<!-- Event Date(s) & Badges -->
-
 					<div class="showpass-detail-event-date mb30">
 						<?php if ($event['ticket_types']) : ?>
 							<div class="info mb20"><i class="fa fa-tags icon-center"></i><?php echo showpass_get_price_range($event['ticket_types']);?>
@@ -83,7 +81,6 @@
 							</span>
 						<?php } ?>
 					</div>
-
 					<div class="text-center showpass-detail-location">
 						<?php $location = $event['location'] ?>
 						<h3 class="showpass-event-veune-name"><?php echo $location['name'];?></h3>
@@ -95,7 +92,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	<?php } ?>
 </div>
