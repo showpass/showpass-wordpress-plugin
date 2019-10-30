@@ -28,8 +28,9 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.10. [Event IDs parameter to display specific events](#210-event-ids-parameter)   
    2.11. [Recurring event parameters](#211-recurring-event-parameters)   
    2.12. [Ordering parameter](#212-ordering-parameter)   
-   2.13. [Show parameter & testing](#213-show-parameter-&-testing)   
-   2.14. [Other parameters](#214-other-parameters)   
+   2.13. [Show widget description](#213-show-widget-description)  
+   2.14. [Show parameter & testing](#214-show-parameter-&-testing)   
+   2.15. [Other parameters](#215-other-parameters)   
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
    3.2. [Showpass get Event Time](#32-showpass-get-event-time)    
@@ -218,13 +219,21 @@ ex. `[showpass_events  ordering='-name' type='list' page_size='5' template='defa
 
 This will order events by name starting from Z to A.
 
-## 2.13. Show Parameter & Testing
+
+## 2.13. Show widget description
 
 Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
 
 ex. `[showpass_events type='list' template='default' detail_page='event-detail' show='all']`
 
-## 2.14. Other Parameters
+## 2.14. Show Parameter & Testing
+
+Use this parameter to hide/show the widget description panel.  
+__This will override the admin setting.__
+
+ex. `[showpass_events type='list' template='default' show_widget_description='true']`
+
+## 2.15. Other Parameters
 
 There are a few other parameters that API can receive and this plugin is compatible for all of these parameters. You can pass it through the URL and you will get the data from API with those parameters.
 
@@ -822,6 +831,12 @@ Button to close widget says `Keep Shopping` if true, and `Close` if set to false
 #### `theme="dark"`
 Use the dark theme on the widget, default is the light theme.
 
+
+#### `show_widget_description='true'`
+
+Use this parameter to hide/show the widget description panel.  
+__This will override the admin setting.__
+
 ## 6.2 Widget Tracking using Affiliate Tracking Links
 
 ### How it Works
@@ -877,6 +892,11 @@ Display specific products by specifying the IDs of the products you would like t
 
 ex. `[showpass_products template="list" product_ids="2,6,7"]`
 
+#### `show_widget_description='true'`
+
+Use this parameter to hide/show the widget description panel.  
+__This will override the admin setting.__
+
 ## 10. Shortcode [showpass_pricing_table]
 Similar to the grid view for the `[showpass_events]` shortcode, but displays events in a grid where all columns are of equal height. Allows you to customize what information is shown and include the event description. You must specify event IDs for events you want to display.
 
@@ -889,3 +909,8 @@ Set `show_event_details='true'` to display the event date, time, and location. B
 
 #### `show_event_description`
 Set `show_event_description='true'` to display the event description. By default this is hidden.
+
+#### `show_widget_description='true'`
+
+Use this parameter to hide/show the widget description panel.  
+__This will override the admin setting.__

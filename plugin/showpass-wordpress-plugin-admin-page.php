@@ -32,6 +32,9 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
         <input type="checkbox" name="option_keep_shopping" value="false" <?php checked('false', get_option('option_keep_shopping'), true); ?>/>
         <label for="main_api_url">Use "Close" verbiage on buttons instead of "Keep Shopping" to close the widget.</label><br/><br/>
 
+        <input type="checkbox" name="option_show_widget_description" value="true" <?php checked('true', get_option('option_show_widget_description'), true); ?>/>
+        <label for="main_api_url">Show Product/Event description tab in the purchase widget.</label><br/><br/>
+
     <?php submit_button(); ?>
 
 </form>

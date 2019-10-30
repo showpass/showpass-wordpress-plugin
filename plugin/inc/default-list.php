@@ -137,6 +137,7 @@
                         <?php if (isset($event_data['show_eyereturn'])) :?> 
                           data-eyereturn="<?= $event_data['show_eyereturn']; ?>"
                         <?php endif ?>
+                        data-show-description="<?= $show_widget_description ?>"
                       >
                         <?php include 'button-verbiage.php'; ?>
                       </a>
