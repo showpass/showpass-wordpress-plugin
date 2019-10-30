@@ -38,8 +38,8 @@
 					}
 				?>	
 				<div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
-					<div class="showpass-event-list showpass-layout-flex m15">
-					<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
+					<div class="showpass-event-grid showpass-layout-flex m15">
+						<div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
 							<a href="<?= $event_href ?>" class="showpass-image ratio banner">
 								<?= isset($event['image_banner']) 
 									? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name'], 'title' => $event['name'], 'breakpoints' => $image_breakpoints]) 
@@ -49,23 +49,22 @@
 						</div>
 						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white">
 							<div class="showpass-full-width">
+								<!-- Ticket Pricing -->
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border">
-                    <div>
-                      <?php if (!showpass_ticket_sold_out($event)) : ?>
-                        <small class="showpass-price-display">
-													<?php if ($event['is_recurring_parent']) { ?>
-														Multiple Dates
-													<?php } else {?>
-														<?php echo showpass_get_price_range($event['ticket_types']);?>
-														<?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
-													<?php } ?>
-                        </small>
-                      <?php endif; ?>
-                    </div>
-                    <div><?php if (showpass_ticket_sold_out($event)) : ?><small class="showpass-price-display"> No Tickets Available</small><?php endif; ?></div>
-                  </div>
+										<?php if (!showpass_ticket_sold_out($event)) : ?>
+											<small class="showpass-price-display">
+												<?php if (!$event['is_recurring_parent']) { ?>
+													<?php echo showpass_get_price_range($event['ticket_types']);?>
+													<?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
+												<?php } ?>
+											</small>
+										<?php endif; ?>
+									</div>
 								</div>
+								<!-- Ticket Pricing -->
+								
+								<!-- Event Name -->
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border showpass-title-wrapper">
 										<div class="showpass-event-title">
@@ -77,65 +76,67 @@
 										</div>
 									</div>
 								</div>
+								<!-- Event Name -->
+							
+								<!-- Event Date(s) & Badges -->
 								<div class="showpass-layout-flex">
 									<div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
 										<div>
-											<?php if ($event['is_recurring_parent']) { ?>
-												<?php if (showpass_get_event_date($event['starts_on'], $event['timezone'], false) === showpass_get_event_date($event['ends_on'], $event['timezone'], false)) { ?>
-													<!-- If recurring children on the same day -->
-													<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-													<div class="info"><i class="fa fa-clock-o icon-center"></i>
-														<?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
-													</div>
-												<?php } else { ?>
-													<!-- If recurring children on different days -->
-													<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?> -</div>
-													<div class="info"><i class="fa icon-center"></i><?php echo showpass_get_event_date($event['ends_on'], $event['timezone'], false);?></div>
-												<?php } ?>
-											<?php } else {?>
-												<div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-												<div class="info"><i class="fa fa-clock-o icon-center"></i>
-													<?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
+											<?php if (!showpass_ticket_sold_out($event) && $event['is_recurring_parent']) : ?>
+												<div class="info badges">
+													<span class="badge">
+														<?php if (showpass_get_event_date($event['starts_on'], $event['timezone']) === showpass_get_event_date($event['ends_on'], $event['timezone'])): ?>
+															Multiple Times
+														<?php else: ?>
+															Multiple Dates
+														<?php endif ?>
+													</span>
 												</div>
-											<?php } ?>
-											<div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
+											<?php endif; ?>
+											<?= showpass_display_date($event, true) ?>
 										</div>
 									</div>
 								</div>
-								<div class="showpass-layout-flex">
-									<div class="showpass-layout-flex showpass-list-button-layout">
-											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
-												<div class="showpass-button-full-width-grid">
-													<?php if(showpass_ticket_sold_out($event)) { ?>
-														<a class="showpass-list-ticket-button showpass-button showpass-soldout">
-															<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
-														</a>
-													<?php } else { ?>
-														<a 
-															class="showpass-list-ticket-button showpass-button <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" 
-															<?php if ($event['external_link']) { ?>
-																href="<?php echo $event['external_link']; ?>"
-															<?php } else { ?>
-																id="<?php echo $event['slug']; ?>"
-															<?php } ?>
-															data-show-description="<?= $show_widget_description ?>"
-														>
-                              <?php include 'button-verbiage.php'; ?>
-														</a>
-													<?php } ?>
-												</div>
+								<!-- Event Date(s) & Badges -->
+							</div>
+						</div>
+
+						<!-- Action Buttons -->
+						<div class="flex-100 showpass-flex-column showpass-no-border showpass-background-white action-bar">
+							<div class="showpass-layout-flex">
+								<div class="showpass-layout-flex showpass-list-button-layout">
+										<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-left">
+											<div class="showpass-button-full-width-grid">
+												<?php if(showpass_ticket_sold_out($event)) { ?>
+													<a class="showpass-list-ticket-button showpass-button showpass-soldout no-margin">
+														<?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
+													</a>
+												<?php } else { ?>
+													<a 
+														class="showpass-list-ticket-button showpass-button no-margin <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>" 
+														<?php if ($event['external_link']) { ?>
+															href="<?php echo $event['external_link']; ?>"
+														<?php } else { ?>
+															id="<?php echo $event['slug']; ?>"
+														<?php } ?>
+														data-show-description="<?= $show_widget_description ?>"
+													>
+														<?php include 'button-verbiage.php'; ?>
+													</a>
+												<?php } ?>
 											</div>
-										<?php if ($detail_page) {?>
-											<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">
-												<div class="showpass-button-full-width-grid">
-													<a class="showpass-list-ticket-button showpass-button-secondary" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
-												</div>
+										</div>
+									<?php if ($detail_page) {?>
+										<div class="flex-50 showpass-flex-column showpass-no-border showpass-button-pull-right">
+											<div class="showpass-button-full-width-grid">
+												<a class="showpass-list-ticket-button showpass-button-secondary no-margin" href="/<?php echo $detail_page; ?>/?slug=<?php echo $event['slug']; ?>">More Info</a>
 											</div>
-										<?php } ?>
-									</div>
+										</div>
+									<?php } ?>
 								</div>
 							</div>
 						</div>
+						<!-- Action Buttons -->
 					</div>
 				</div>
 			<?php } ?>

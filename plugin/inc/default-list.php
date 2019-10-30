@@ -92,30 +92,30 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Event Date(s) & Badges -->
               <div class="showpass-layout-flex">
+               
                 <div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
                   <div>
-                    <?php if ($event['is_recurring_parent']) { ?>
-                      <?php if (showpass_get_event_date($event['starts_on'], $event['timezone'], false) === showpass_get_event_date($event['ends_on'], $event['timezone'], false)) { ?>
-                        <!-- If recurring children on the same day -->
-                        <div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-                        <div class="info"><i class="fa fa-clock-o icon-center"></i>
-                          <?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
-                        </div>
-                      <?php } else { ?>
-                        <!-- If recurring children on different days -->
-                        <div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_date($event['ends_on'], $event['timezone'], false);?></div>
-                      <?php } ?>
-                    <?php } else {?>
-                      <div class="info"><i class="fa fa-calendar icon-center"></i><?php echo showpass_get_event_date($event['starts_on'], $event['timezone'], false);?></div>
-                      <div class="info"><i class="fa fa-clock-o icon-center"></i>
-                        <?php echo showpass_get_event_time($event['starts_on'], $event['timezone'], false);?> - <?php echo showpass_get_event_time($event['ends_on'], $event['timezone'], false);?> <?php echo showpass_get_timezone_abbr($event['timezone'], false);?>
+                    <?php if (!showpass_ticket_sold_out($event) && $event['is_recurring_parent']) : ?>
+                      <div class="info badges">
+                        <span class="badge">
+                          <?php if (showpass_get_event_date($event['starts_on'], $event['timezone']) === showpass_get_event_date($event['ends_on'], $event['timezone'])): ?>
+                            Multiple Times
+                          <?php else: ?>
+                            Multiple Dates
+                          <?php endif ?>
+                        </span>
                       </div>
-                    <?php } ?>
+                    <?php endif; ?>
+                    <?= showpass_display_date($event) ?>
                     <div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
                   </div>
                 </div>
               </div>
+              <!-- Event Date(s) & Badges -->
+                
               <div class="showpass-layout-flex showpass-list-button-layout">
                 <div class="flex-50 showpass-flex-column list-layout-flex showpass-no-border showpass-button-pull-left">
                   <div class="showpass-button-full-width-list">
