@@ -38,9 +38,9 @@
 							<?php include 'button-verbiage.php'; ?>
 						</span>
 					<?php } ?>
-					<div class="showpass-event-description">
-            <?php echo $event['description'];?>
-					</div>
+            <div class="showpass-event-description">
+              <?php echo $event['description'];?>
+            </div>
 				</div>
 			</div>
 			<div class="flex-33 showpass-flex-column showpass-no-border">
