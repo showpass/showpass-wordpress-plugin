@@ -629,6 +629,12 @@ a {
   margin-bottom: 10px;
 }
 
+.showpass-detail-event-date .info:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .showpass-detail-event-date .info.dates .display-inline-block {
   display: inline-block;
   vertical-align: top;
@@ -636,10 +642,19 @@ a {
 
 .showpass-detail-event-date .info.dates .label {
   margin-right: 10px;
+  width: 55px;
 }
 
 .showpass-detail-event-date .info.badges {
   padding-left: 10px;
+}
+
+.showpass-detail-event-date .info .info-icon {
+  display: table-cell;
+}
+
+.showpass-detail-event-date .info .info-display {
+  display: table-cell;
 }
 
 .showpass-pricing-table .pricing-table-buy-now {

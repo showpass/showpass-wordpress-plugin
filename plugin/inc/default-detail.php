@@ -61,7 +61,14 @@
 									</div>
 								<?php endif; ?>
 								<?= showpass_display_date($event, true) ?>
-								<div class="info"><i class="fa fa-map-marker icon-center"></i><?= $event['location']['name'] ?></div>
+                <div class="info">
+                  <div class="info-icon">
+                    <i class="fa fa-map-marker icon-center"></i>
+                  </div>
+                  <div class="info-display">
+                    <?= $event['location']['name'] ?>
+                  </div>
+                </div>
 							</div>
 						</div>
 					</div>

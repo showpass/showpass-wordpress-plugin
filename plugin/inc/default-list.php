@@ -94,7 +94,7 @@
               <div class="showpass-layout-flex">
                
                 <div class="flex-100 showpass-flex-column showpass-no-border showpass-detail-event-date">
-                  <div>
+                  <div class="w100">
                     <?php if (!showpass_ticket_sold_out($event) && $event['is_recurring_parent']) : ?>
                       <div class="info badges">
                         <span class="badge">
@@ -106,8 +106,20 @@
                         </span>
                       </div>
                     <?php endif; ?>
-                    <?= showpass_display_date($event) ?>
-                    <div class="info"><i class="fa fa-map-marker icon-center"></i><?php $location = $event['location']; echo $location['name'];?></div>
+                    <div class="showpass-hide-large">
+                      <?= showpass_display_date($event, true) ?>
+                    </div>
+                    <div class="showpass-hide-mobile">
+                      <?= showpass_display_date($event) ?>
+                    </div>
+                    <div class="info">
+                      <div class="info-icon">
+                        <i class="fa fa-map-marker icon-center"></i>
+                      </div>
+                      <div class="info-display">
+                        <?= $event['location']['name'] ?>
+                      </div>
+                     </div>
                   </div>
                 </div>
               </div>
