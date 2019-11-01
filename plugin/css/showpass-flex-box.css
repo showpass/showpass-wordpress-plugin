@@ -49,67 +49,88 @@
   }
   .showpass-full-width {
     width: 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .w50, .showpass-flex-box .showpass-layout-flex .w50 {
     width: 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .w75, .showpass-flex-box .showpass-layout-flex .w75 {
     width: 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .w100, .showpass-flex-box .showpass-layout-flex .w100 {
     width: 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .w150, .showpass-flex-box .showpass-layout-flex .w150 {
     width: 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .w200, .showpass-flex-box .showpass-layout-flex .w200 {
     width: 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .w250, .showpass-flex-box .showpass-layout-flex .w250 {
     width: 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .w300, .showpass-flex-box .showpass-layout-flex .w300 {
     width: 100% !important;
+    max-width: 100%!important;
   }
 
   .showpass-flex-table .showpass-layout-flex .flex-10, .showpass-flex-box .showpass-layout-flex .flex-10 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-20, .showpass-flex-box .showpass-layout-flex .flex-20 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-25, .showpass-flex-box .showpass-layout-flex .flex-25 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-30, .showpass-flex-box .showpass-layout-flex .flex-30 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-33, .showpass-flex-box .showpass-layout-flex .flex-33 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-40, .showpass-flex-box .showpass-layout-flex .flex-40 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-50, .showpass-flex-box .showpass-layout-flex .flex-50 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-60, .showpass-flex-box .showpass-layout-flex .flex-60 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-66, .showpass-flex-box .showpass-layout-flex .flex-66 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-70, .showpass-flex-box .showpass-layout-flex .flex-70 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-75, .showpass-flex-box .showpass-layout-flex .flex-75 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-80, .showpass-flex-box .showpass-layout-flex .flex-80 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
   .showpass-flex-table .showpass-layout-flex .flex-100, .showpass-flex-box .showpass-layout-flex .flex-100 {
     flex: 1 1 100% !important;
+    max-width: 100%!important;
   }
 
   .showpass-flex-table .showpass-layout-flex .text-left, .showpass-flex-box .showpass-layout-flex .text-left {
