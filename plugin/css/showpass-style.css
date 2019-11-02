@@ -627,6 +627,7 @@ a {
 
 .showpass-detail-event-date .info {
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .showpass-detail-event-date .info:after {

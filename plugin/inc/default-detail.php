@@ -3,7 +3,6 @@
 
 	$event = json_decode($data, true);
 ?>
-
 <div id="page" class="showpass-flex-box">	
 	<?php
   	if (isset($event['detail'])) { ?>
