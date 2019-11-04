@@ -408,17 +408,7 @@ a {
   border-radius: 0;
   padding: 5px 10px;
   font-size: 0.875rem;
-  display: none;
-}
-
-.showpass-pagination li:last-child, .showpass-pagination li:first-child {
   display: inline-block;
-}
-
-@media print, screen and (min-width: 48.75em) {
-  .showpass-pagination li {
-    display: inline-block;
-  }
 }
 
 .showpass-pagination a, .showpass-pagination button {
