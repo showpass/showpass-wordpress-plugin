@@ -286,11 +286,12 @@ function showpass_utf8_urldecode($str) {
  * 
  * @return String html date element
  */
-function showpass_display_date ( $event, $small = false ) {
+function showpass_display_date ($event, $small = false) {
   // grab values needed to calculate event times
   $starts_on = $event['starts_on'];
   $ends_on = $event['ends_on'];
   $timezone = $event['timezone'];
+  $recurring = $event['is_recurring_parent'];
 
   /**
    * get difference between start and end times
@@ -315,18 +316,26 @@ function showpass_display_date ( $event, $small = false ) {
         .'<div class="info dates">'
         .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
         .'<span class="start-date">'
-        .sprintf('<div class="display-inline-block label">Starts: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($starts_on, $timezone))
-        .sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone))
-        .'</span>'
-        .'</div>';
+        .sprintf('<div class="display-inline-block label">Starts: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($starts_on, $timezone));
+        if (!$recurring) {
+          $starts_date_element .= sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone));
+        } else {
+          $starts_date_element .= '</div>';
+        }
+        $starts_date_element .= '</span>'
+          .'</div>';
       // end element
       $ends_date_element .= ''
         .'<div class="info dates">'
         .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
         .'<span class="end-date">'
-        .sprintf('<div class="display-inline-block label">Ends: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($ends_on, $timezone))
-        .sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
-        .'</span>'
+        .sprintf('<div class="display-inline-block label">Ends: </div><div class="display-inline-block"><div class="day">%s</div>', showpass_get_event_date($ends_on, $timezone));
+        if (!$recurring) {
+          $ends_date_element .= sprintf('<div class="time">%s %s</div></div>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone));
+        } else {
+          $ends_date_element .= '</div>';
+        }
+        $ends_date_element .= '</span>'
         .'</div>';
     } else {
       // start element
@@ -334,18 +343,22 @@ function showpass_display_date ( $event, $small = false ) {
         .'<div class="info dates">'
         .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
         .'<span class="start-date">'
-        .sprintf('<span>Starts: </span><span class="day">%s</span> ', showpass_get_event_date($starts_on, $timezone))
-        .sprintf('<span class="time">&commat; %s %s</span>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone))
-        .'</span>'
+        .sprintf('<span>Starts: </span><span class="day">%s</span> ', showpass_get_event_date($starts_on, $timezone));
+      if (!$recurring) {
+        $starts_date_element .= sprintf('<span class="time">&commat; %s %s</span>', showpass_get_event_time($starts_on, $timezone), showpass_get_timezone_abbr($timezone));
+      }
+      $starts_date_element .= '</span>'
         .'</div>';
       // end element
       $ends_date_element .= ''
         .'<div class="info dates">'
         .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
         .'<span class="end-date">'
-        .sprintf('<span>Ends: </span><span><span class="day">%s</span> ', showpass_get_event_date($ends_on, $timezone))
-        .sprintf('<span class="time">&commat; %s %s</span>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone))
-        .'</span>'
+        .sprintf('<span>Ends: </span><span><span class="day">%s</span> ', showpass_get_event_date($ends_on, $timezone));
+      if (!$recurring) {
+        $ends_date_element .= sprintf('<span class="time">&commat; %s %s</span>', showpass_get_event_time($ends_on, $timezone), showpass_get_timezone_abbr($timezone));
+      }
+      $ends_date_element .='</span>'
         .'</div>';
     }
 
