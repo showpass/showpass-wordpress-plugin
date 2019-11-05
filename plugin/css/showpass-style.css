@@ -205,7 +205,7 @@ a:focus {
   text-decoration: none !important;
 }
 
-.product-price {
+.showpass-product-price {
   margin-top: 10px;
 }
 
@@ -217,7 +217,7 @@ a:focus {
     display: block;
     margin-top: 0px;
   }
-  .product-price {
+  .showpass-product-price {
     margin-top: 0px;
   }
 }
@@ -228,12 +228,6 @@ a:focus {
 
 .showpass-button-pull-left {
   justify-content: flex-start;
-}
-
-a {
-  box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-  text-decoration: none;
 }
 
 .showpass-list-button-layout{
@@ -528,7 +522,7 @@ a {
   text-align: center;
 }
 
-a {
+.showpass-flex-box a {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
   text-decoration: none;
