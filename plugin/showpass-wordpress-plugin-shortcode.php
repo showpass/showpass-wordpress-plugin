@@ -803,7 +803,12 @@ function showpass_widget_expand($atts, $content = null) {
       $button .= sprintf('data-tracking="%s" ', $tracking);
     }
     
-    $button .='"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+    if (!isset($atts['label']) || !isset($atts['class'])) {
+      $button .='"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+    } else {
+      $button .='">';
+    }
+    
     $button .= '<span>'.$label.'</span></div>';
     return $button;
 
