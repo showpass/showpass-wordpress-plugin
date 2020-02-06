@@ -4,7 +4,7 @@ Requires at least: 4.5
 Tested up to: 5.3.2
 Stable tag: 3.4.4
 Requires PHP: 5.4.45
-Contributors: marcshowpass
+Contributors: marcshowpass, spapril, spzachary
 
 List events, display event details and products. Use the Showpass purchase widget seamless purchases with no redirects, all with easy to use shortcodes.
 
