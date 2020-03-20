@@ -149,7 +149,7 @@ ex. `[showpass_events type='list' page_size='5' tags='featured']` - It will get 
 
 This parameter you can use the shortcode to return a default template provided with the plugin
 
-ex. `[showpass_events type='list' page_size='5' template='default']`
+ex. `[showpass_events type='list' page_size='5' template='list']`
 
 **Accepted parameters**
 
