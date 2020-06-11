@@ -105,7 +105,8 @@
 
         $('body').on('click', '#force-showpass-widget a[href*="showpass.com"]', function(e) {
             e.preventDefault();
-            var slug = $(this).attr('href').split('.com/')[1];
+            slug = $(this).attr('href').split('.com/')[1];
+            
             var params = {
                 'theme-primary': $('#option_widget_color').val(),
                 'keep-shopping':$('#option_keep_shopping').val() || true,

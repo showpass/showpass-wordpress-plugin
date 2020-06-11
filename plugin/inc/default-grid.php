@@ -71,7 +71,18 @@
 											<?php if ($detail_page) { ?>
 												<h3><a href="/<?php echo $detail_page ?>/?slug=<?php echo $event['slug']; ?>"><?php echo $event['name']; ?></a></h3>
 											<?php } else {?>
-												<h3><a <?php if (!$event['external_link']) { ?>class="open-ticket-widget"<?php } ?> <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"<?php } else { ?>id="<?php echo $event['slug']; ?>"<?php } ?>><?php echo $event['name']; ?></a></h3>
+                        <h3>
+                          <a 
+                            <?php if (!$event['external_link']) { ?>class="open-ticket-widget"<?php } ?> 
+                            <?php if ($event['external_link']) { ?>
+                              href="<?php echo $event['external_link']; ?>"
+                            <?php } else { ?>
+                              id="<?php echo $event['slug']; ?>"<?php } ?>
+                              <?php if (isset($event_data['tracking_id'])) {?> data-tracking="<?php echo $event_data['tracking_id']; ?>" <?php } ?>
+                            >
+                              <?php echo $event['name']; ?>
+                          </a>
+                        </h3>
 											<?php } ?>
 										</div>
 									</div>
@@ -120,6 +131,7 @@
 															id="<?php echo $event['slug']; ?>"
 														<?php } ?>
 														data-show-description="<?= $show_widget_description ?>"
+                            <?php if (isset($event_data['tracking_id'])) {?> data-tracking="<?php echo $event_data['tracking_id']; ?>" <?php } ?>
 													>
 														<?php include 'button-verbiage.php'; ?>
 													</a>
