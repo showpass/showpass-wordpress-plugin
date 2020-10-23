@@ -47,8 +47,9 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    5.3. [Tags parameter](#53-tags-parameter)   
    5.4. [Hide schedule parameter](#54-hide_schedule-parameter)   
    5.5. [Recurring events parameter](#55-recurring-events-parameter)   
-   5.6. [Show parameter & testing](#56-show-parameter-&-testing)   
-   5.7. [Week and month parameters](#57-week-and-month-parameters)
+   5.6. [Week and month parameter](#56-week-and-month-parameters)
+   5.7. [Arrow parameter](#56-week-and-month-parameters)
+   5.8. [Hide view select parameter](#56-week-and-month-parameters)
 6. [Shortcode - [showpas_widget] - Buy Now Button](#6-shortcode-showpass_widget---buy-now-button)       
   6.1. [Parameters](#61-parameters)    
   6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
@@ -779,11 +780,7 @@ If you have recurring events, you can set whether or not you want to display the
 
 By default `hide_children='false'` and `only_parents='false'`. In this case, non-recurring events are shown, as well as each occurence of a recurring event.
 
-## 5.6. Show Parameter & Testing
-
-Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
-
-## 5.7. Week and Month Parameters
+## 5.6. Week and Month Parameters
 
 This shortcode also receives parameters `week` and `month` if you want to disable a view.
 
@@ -792,6 +789,14 @@ If you want disable week view you will need to put `[showpass_calendar week="dis
 If you want disable month view you will need to put `[showpass_calendar month="disabled"]`
 
 If both views are disabled, it will default to the week view, and by default both views are made available.
+
+## 5.7. Arrows Parameter
+
+Use `[showpass_calendar arrows="white-arrows"]` to show white arrows to switch between months, weeks or days
+
+## 5.7. Hide View Select Parameter
+
+Use `[showpass_calendar hide_view_select="true"]` to hide the select box to switch between month, week or day view
 
 ## 6. Shortcode [showpass_widget] - Buy Now Button
 

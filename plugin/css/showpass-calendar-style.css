@@ -70,6 +70,7 @@
 
 .showpass-calendar-head {
   background: #f4f4f4;
+  color: #333333;
   text-transform: uppercase;
   text-align: center;
   padding-top: 10px;
@@ -86,6 +87,8 @@
 .showpass-calendar-week p,
 .showpass-calendar-day p {
   display: inline-block;
+  line-height: 30px;
+  margin: 0px;
 }
 
 .showpass-calendar-item {
@@ -206,15 +209,17 @@
 }
 
 .showpass-prev-year, .showpass-prev-month, .showpass-prev-week, .showpass-prev-day {
-  margin-top: 4px;
   width: 30px;
   height: 30px;
   background: url(../images/arrow_left.png) no-repeat;
   background-position: center;
   background-size: 100%;
-  display: inline-block;
   float: left;
   cursor: pointer;
+}
+
+.showpass-prev-year.white-arrows, .showpass-prev-month.white-arrows, .showpass-prev-week.white-arrows, .showpass-prev-day.white-arrows {
+  background-image: url(../images/arrow_left_white.png) !important;
 }
 
 .showpass-prev-month.disabled,
@@ -227,15 +232,17 @@
 }
 
 .showpass-next-year, .showpass-next-month, .showpass-next-week, .showpass-next-day {
-  margin-top: 4px;
   width: 30px;
   height: 30px;
   background: url(../images/arrow_right.png) no-repeat;
   background-position: center;
   background-size: 100%;
-  display: inline-block;
   float: right;
   cursor: pointer;
+}
+
+.showpass-next-year.white-arrows, .showpass-next-month.white-arrows, .showpass-next-week.white-arrows, .showpass-next-day.white-arrows {
+  background-image: url(../images/arrow_right_white.png) !important;
 }
 
 .showpass-calendar.dark .day_number_showpass {
