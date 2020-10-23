@@ -735,7 +735,7 @@ function showpass_display_calendar($atts) {
   // Generate Month/Week view stuff
 	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month disabled " . $arrows . "' data-month='" . $GLOBALS['current_month_prev'] . "'></div><p class='showpass-month'>" . $GLOBALS['current_month'] ."</p> <p class='showpass-year'>" . $GLOBALS['current_year'] ."</p><div class='showpass-next-month " . $arrows . "' data-month='" . $GLOBALS['current_month_next'] . "'></div></div>";
 	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week " . $arrows . "' data-prev-week=''></div><p class='showpass-week'></p><div class='showpass-next-week " . $arrows . "' data-next-week=''></div> </div>";
-  $html .= "<div class='calendar-contain-desktop'></div><div class='showpass-calendar-head-container clearfix'>";
+  $html .= "<div class='calendar-contain-desktop'><div class='showpass-calendar-head-container clearfix'>";
 
   for($i = 0; $i < sizeof($array_days); $i++) {
 		$html .= "<div class='showpass-calendar-head'>" . $array_days[$i] ."</div>";
