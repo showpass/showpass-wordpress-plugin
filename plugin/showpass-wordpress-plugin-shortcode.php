@@ -11,10 +11,17 @@ define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
 
 /* making connection and taking the data from API */
 function call_showpass_api($url) {
+  
   $args = array(
-      'timeout' => 30,
+    'timeout' => 30,
+    'sslverify' => true
   );
-  $response = wp_remote_get($url, $args);
+
+  if (get_option('option_disable_verify_ssl')) {
+    $args['sslverify'] = false;
+  };
+
+  $response = wp_safe_remote_get($url, $args);
   $http_code = wp_remote_retrieve_response_code($response);
   if ($http_code === 200) {
     return wp_remote_retrieve_body($response);
@@ -164,12 +171,12 @@ function showpass_get_event_data( $atts ) {
 
     // Add tracking_id to data before encode
     if (isset($atts['tracking_id'])) {
-        $data['tracking_id'] = $atts['tracking_id'];
+      $data['tracking_id'] = $atts['tracking_id'];
     }
 
     // Add show_eyereturn to data before encode
     if (isset($atts['show_eyereturn'])) {
-        $data['show_eyereturn'] = $atts['show_eyereturn'];
+      $data['show_eyereturn'] = $atts['show_eyereturn'];
     }
 
     // encode json data to return properly
@@ -587,7 +594,7 @@ function showpass_display_calendar($atts) {
   // open widget when user clicks the ticket button
   if (isset($atts["use_widget"])) {
     $use_widget = true;
-  }else {
+  } else {
 		$use_widget = false;
 	}
 

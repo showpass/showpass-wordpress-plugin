@@ -41,16 +41,14 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
    4.2. [List events](#42-list-events)    
-5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)       
-   5.1. [Page parameter](#51-page-parameter)     
-   5.2. [Theme Dark parameter](#52-theme_dark-parameter)                                       
-   5.3. [Starting date parameter](#53-starting_date-parameter)   
-   5.4. [Use widget parameter](#54-use_widget-parameter)   
-   5.5. [Tags parameter](#55-tags-parameter)   
-   5.6. [Hide schedule parameter](#56-hide_schedule-parameter)   
-   5.7. [Recurring events parameter](#57-recurring-events-parameter)   
-   5.8. [Show parameter & testing](#58-show-parameter-&-testing)   
-   5.9. [Week and month parameters](#59-week-and-month-parameters)
+5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)         
+   5.1. [Theme Dark parameter](#51-theme_dark-parameter)                                       
+   5.2. [Starting date parameter](#52-starting_date-parameter)   
+   5.3. [Tags parameter](#53-tags-parameter)   
+   5.4. [Hide schedule parameter](#54-hide_schedule-parameter)   
+   5.5. [Recurring events parameter](#55-recurring-events-parameter)   
+   5.6. [Show parameter & testing](#56-show-parameter-&-testing)   
+   5.7. [Week and month parameters](#57-week-and-month-parameters)
 6. [Shortcode - [showpas_widget] - Buy Now Button](#6-shortcode-showpass_widget---buy-now-button)       
   6.1. [Parameters](#61-parameters)    
   6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
@@ -759,31 +757,20 @@ The calendar can also be set to Week view, where you are able to see the events 
 
 The calendar events have the all the Showpass event info that you need, and link directly to the event page (external link).
 
-## 5.1. Deatil page parameter
-
-This shortcode recieves `detail_page` parameter. If this parameter is set, it tells the plugin to use custom links for event's redirect.
-
-Example:  `[showpass_calendar detail_page="event-detail"]`  - This will tell the plugin that on click on event it will not redirect to external link for event, but it will redirect on the same website with this url: `website.main.url/event-detail?slug=event-slug`
-
-The `detail_page` parameter is `event-detail` in this example, but can be set to any slug
-
-## 5.2. theme_dark Parameter
+## 5.1. theme_dark Parameter
 Add `theme_dark="true"` to use a dark theme for the calendar instead of the default light theme.
 
-## 5.3. starting_date Parameter
+## 5.2. starting_date Parameter
 Add `starting_date="1-12-2018"` use day-month-year to set a starting date for the calendar on initial load
 Format is day, month, year with no leading zeros
 
-## 5.4. use_widget Parameter
-Add `use_widget="true"` if you want the ticket button to open the widget instead of redirecting to showpass or an event detail page use this
-
-## 5.5. tags Parameter
+## 5.3. tags Parameter
 Add `tags="tag"` if you want to only display events with certain tags or categories. For best results use one word lowercase tags.
 
-## 5.6. hide_schedule Parameter
+## 5.4. hide_schedule Parameter
 Add `hide_schedule="true"` if you do not want to display a daily schedule grouped by location.
 
-## 5.7. Recurring Events Parameter
+## 5.5. Recurring Events Parameter
 If you have recurring events, you can set whether or not you want to display them on the calendar or if you want to display only the main event and not each recurrence.
 
 `hide_children='true'` will not show any recurring events at all.
@@ -792,11 +779,11 @@ If you have recurring events, you can set whether or not you want to display the
 
 By default `hide_children='false'` and `only_parents='false'`. In this case, non-recurring events are shown, as well as each occurence of a recurring event.
 
-## 5.8. Show Parameter & Testing
+## 5.6. Show Parameter & Testing
 
 Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
 
-## 5.9. Week and Month Parameters
+## 5.7. Week and Month Parameters
 
 This shortcode also receives parameters `week` and `month` if you want to disable a view.
 

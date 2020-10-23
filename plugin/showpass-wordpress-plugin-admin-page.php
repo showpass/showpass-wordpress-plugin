@@ -36,6 +36,10 @@ You will need to add Organization ID (venue ID) that you want the data from.  EX
         <input type="checkbox" name="option_show_widget_description" value="true" <?php checked('true', get_option('option_show_widget_description'), true); ?>/>
         <label for="main_api_url">Show Product/Event description tab in the purchase widget.</label><br/><br/>
 
+        <input type="checkbox" name="option_disable_verify_ssl" value="true" <?php checked('true', get_option('option_disable_verify_ssl'), true); ?>/>
+        <label for="main_api_url">Disable SSL verification when connecting to the API..</label><br />
+        <small>Disable to fix Local SSL Expired issue.</small><br/><br/>
+
     <?php submit_button(); ?>
 
 </form>
