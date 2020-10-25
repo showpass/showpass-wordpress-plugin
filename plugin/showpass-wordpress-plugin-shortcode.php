@@ -625,6 +625,20 @@ function showpass_display_calendar($atts) {
     $only_parents = false;
   }
 
+  // white arrows
+  if (isset($atts['arrows'])) {
+    $arrows = $atts['arrows'];
+  } else {
+    $arrows = '';
+  }
+
+  // white arrows
+  if (isset($atts['hide_view_select'])) {
+    $hide_view_select = $atts["hide_view_select"] === 'true' ? true : false;
+  } else {
+    $hide_view_select = false;
+  }
+
   if (!function_exists('showpass_calendar_global_vars')) {
     function showpass_calendar_global_vars ($value) {
       $GLOBALS['current_month'] = date('M', mktime(0, 0, 0, $value[1], $value[0], $value[2]));
@@ -709,14 +723,18 @@ function showpass_display_calendar($atts) {
 
   $hide_daily = '';
   $hide_calendar = '';
-  $html .= "<div class='clearfix control-container'><select id='view-select'><option ". $month_enable . " class='month' value='month'>Month View</option><option ". $week_enable . " class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
+  $html .= "<div class='clearfix control-container'>";
+  
+  if (!$hide_view_select) {
+    $html .= "<select id='view-select'><option ". $month_enable . " class='month' value='month'>Month View</option><option ". $week_enable . " class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
+  }
   if (!$hide_schedule) {
     $html .= "<div class='daily-view-toggle'><span id='card-view' class='icon-button'><i class='fa fa-list-alt'></i></span><span id='schedule-view' class='icon-button'><i class='fa fa-list'></i></span></div>";
   }
   $html .= '</div>';
   // Generate Month/Week view stuff
-	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month disabled' data-month='" . $GLOBALS['current_month_prev'] . "'></div><p class='showpass-month'>" . $GLOBALS['current_month'] ."</p> <p class='showpass-year'>" . $GLOBALS['current_year'] ."</p><div class='showpass-next-month' data-month='" . $GLOBALS['current_month_next'] . "'></div></div>";
-	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week' data-prev-week=''></div><p class='showpass-week'></p><div class='showpass-next-week' data-next-week=''></div> </div>";
+	$html .= "<div class='showpass-calendar-month'><div class='showpass-prev-month disabled " . $arrows . "' data-month='" . $GLOBALS['current_month_prev'] . "'></div><p class='showpass-month'>" . $GLOBALS['current_month'] ."</p> <p class='showpass-year'>" . $GLOBALS['current_year'] ."</p><div class='showpass-next-month " . $arrows . "' data-month='" . $GLOBALS['current_month_next'] . "'></div></div>";
+	$html .= "<div class='showpass-calendar-week'><div class='showpass-prev-week " . $arrows . "' data-prev-week=''></div><p class='showpass-week'></p><div class='showpass-next-week " . $arrows . "' data-next-week=''></div> </div>";
   $html .= "<div class='calendar-contain-desktop'><div class='showpass-calendar-head-container clearfix'>";
 
   for($i = 0; $i < sizeof($array_days); $i++) {
@@ -729,7 +747,7 @@ function showpass_display_calendar($atts) {
   //$html .= "<div class='calendar-contain-mobile'><div class='showpass-calendar-mobile'></div><div class='loader-home'><div class='loader'>Loading...</div></div></div>";
 
   // Generate single day html
-  $html .= "<div class='horizontal-schedule-display'><div class='showpass-calendar-day'><div class='showpass-prev-day' data-day='dummy'></div><p class='showpass-day'></p><div class='showpass-next-day' data-date='dummy'></div></div>";
+  $html .= "<div class='horizontal-schedule-display'><div class='showpass-calendar-day'><div class='showpass-prev-day " . $arrows . "' data-day='dummy'></div><p class='showpass-day'></p><div class='showpass-next-day " . $arrows . "' data-date='dummy'></div></div>";
   $html .= "<div id='schedule-display'></div>";
   $html .= "<div id='daily-card-view' class='showpass-flex-box'><div class='showpass-layout-flex'></div></div>";
   $html .= "<div class='loader-home'><div class='loader'>Loading...</div></div>";
