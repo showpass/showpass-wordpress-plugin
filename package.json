@@ -1,0 +1,19 @@
+{
+	"name": "showpass-wordpress-blocks",
+	"version": "0.1.0",
+	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build showpass-block-src/index.js --output-path=plugin/build-blocks",
+		"format:js": "wp-scripts format-js",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"start": "wp-scripts start showpass-block-src/index.js --output-path=plugin/build-blocks",
+		"packages-update": "wp-scripts packages-update"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^12.5.0"
+	}
+}
