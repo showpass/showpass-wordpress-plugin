@@ -6,8 +6,8 @@
 
 import { Component } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
-import { TextControl, Button, Dashicon } from '@wordpress/components';
-
+import { TextControl, Button, Dashicon, Spinner } from '@wordpress/components';
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -34,22 +34,41 @@ class BuyTicketBlock extends Component {
 
 	render() {
 		const { attributes: { ticketLink, buttonLabel, dataError }, setAttributes } = this.props;
+
 		const onChangeLink = (newContent) => {
 			setAttributes({ ticketLink: newContent });
 		};
+
 		const onChangeLabel = (newContent) => {
 			setAttributes({ buttonLabel: newContent });
 		};
+
 		const onClickGo = () => {
-			let slugParse = ticketLink && ticketLink.split('/')[3];
-			if (slugParse) {
-				setAttributes({ slug: slugParse });
-				setAttributes({ dataError: false });
-			} else {
-				setAttributes({ slug: '' });
-				setAttributes({ dataError: true });
-			}
+			this.setState({
+				loading: true
+			});
+			checkValidURL().then(data => {
+				this.setState({
+					loading: false
+				});
+				let slugParse = ticketLink && ticketLink.split('/')[3];
+
+				if (slugParse) {
+					setAttributes({ slug: slugParse });
+					setAttributes({ dataError: false });
+				} else {
+					setAttributes({ slug: '' });
+					setAttributes({ dataError: true });
+				}
+			});
 		};
+
+		const checkValidURL = () => {
+			return apiFetch({
+				path: 'showpass/v1/process-url',
+			});
+		};
+
 		return (
 			<div class="wp-showpass-block-container">
 				<span class="dashicons dashicons-tickets-alt"></span>
@@ -71,9 +90,13 @@ class BuyTicketBlock extends Component {
 				<div class="control-container">
 					<Button
 						isSecondary
+						isBusy = { this.state.loading }
 						onClick = { onClickGo }>
 						Add Button!
 					</Button>
+					{this.state.loading && (
+						<Spinner />
+					)}
 					{dataError && (
 						<Dashicon
 							className = 'validate'
