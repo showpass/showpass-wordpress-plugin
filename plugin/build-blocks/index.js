@@ -170,17 +170,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./showpass-block-src/editor.scss":
-/*!****************************************!*\
-  !*** ./showpass-block-src/editor.scss ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./showpass-block-src/index.js":
 /*!*************************************!*\
   !*** ./showpass-block-src/index.js ***!
@@ -202,8 +191,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index.scss */ "./showpass-block-src/index.scss");
 /* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./editor.scss */ "./showpass-block-src/editor.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_6__);
 
 
 /**
@@ -228,8 +215,9 @@ __webpack_require__.r(__webpack_exports__);
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 
+ // display style on front end
 
-
+ // editor style
 
 /**
  * Every block starts by registering a new block type definition.
@@ -249,12 +237,20 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cre
     buttonLabel: {
       type: 'string',
       default: 'Buy Now'
+    },
+    slug: {
+      type: 'string'
+    },
+    dataError: {
+      type: 'boolean',
+      default: null
     }
   },
   edit: function edit(props) {
     var _props$attributes = props.attributes,
         ticketLink = _props$attributes.ticketLink,
         buttonLabel = _props$attributes.buttonLabel,
+        dataError = _props$attributes.dataError,
         setAttributes = props.setAttributes;
 
     var onChangeLink = function onChangeLink(newContent) {
@@ -267,6 +263,28 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cre
       setAttributes({
         buttonLabel: newContent
       });
+    };
+
+    var onClickGo = function onClickGo() {
+      var slugParse = ticketLink && ticketLink.split('/')[3];
+
+      if (slugParse) {
+        setAttributes({
+          slug: slugParse
+        });
+        setAttributes({
+          dataError: false
+        });
+      } else {
+        setAttributes({
+          slug: ''
+        });
+        setAttributes({
+          dataError: true
+        });
+      }
+
+      console.log(dataError);
     };
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -285,11 +303,21 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cre
       onChange: onChangeLink,
       key: "ticketLink",
       help: "Example: https://showpass.com/event-slug/"
-    }));
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "control-container"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      isSecondary: true,
+      onClick: onClickGo
+    }, "Go!"), dataError && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Dashicon"], {
+      className: "validate",
+      icon: "no"
+    }), dataError === false && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Dashicon"], {
+      className: "validate",
+      icon: "yes"
+    })));
   },
   save: function save(props) {
-    var slug = props.attributes.ticketLink && props.attributes.ticketLink.split('/')[3];
-    return '[showpass_widget slug="' + slug + '" label="' + props.attributes.buttonLabel + '"]';
+    return !props.attributes.dataError && '[showpass_widget slug="' + props.attributes.slug + '" label="' + props.attributes.buttonLabel + '"]';
   }
 });
 

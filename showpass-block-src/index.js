@@ -4,7 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { TextControl } from '@wordpress/components';
+import { TextControl, Button, Dashicon } from '@wordpress/components';
 
 /**
  * Retrieves the translation of text.
@@ -20,9 +20,8 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import './style.scss';
-import './index.scss';
-import './editor.scss';
+import './style.scss'; // display style on front end
+import './index.scss'; // editor style
 
 /**
  * Every block starts by registering a new block type definition.
@@ -41,15 +40,33 @@ registerBlockType('create-block/showpass-button-block', {
 		buttonLabel: {
 			type: 'string',
 			default: 'Buy Now',
+		},
+		slug: {
+			type: 'string'
+		},
+		dataError: {
+			type: 'boolean',
+			default: null
 		}
 	},
 	edit(props) {
-		const { attributes: { ticketLink, buttonLabel }, setAttributes } = props;
+		const { attributes: { ticketLink, buttonLabel, dataError }, setAttributes } = props;
 		const onChangeLink = (newContent) => {
 			setAttributes({ ticketLink: newContent });
 		};
 		const onChangeLabel = (newContent) => {
 			setAttributes({ buttonLabel: newContent });
+		};
+		const onClickGo = () => {
+			let slugParse = ticketLink && ticketLink.split('/')[3];
+			if (slugParse) {
+				setAttributes({ slug: slugParse });
+				setAttributes({ dataError: false });
+			} else {
+				setAttributes({ slug: '' });
+				setAttributes({ dataError: true });
+			}
+			console.log(dataError);
 		};
 		return (
 			<div class="wp-showpass-block-container">
@@ -68,12 +85,28 @@ registerBlockType('create-block/showpass-button-block', {
 					onChange = { onChangeLink }
 					key = 'ticketLink'
 					help = 'Example: https://showpass.com/event-slug/'
-					/>
+				/>
+				<div class="control-container">
+					<Button
+						isSecondary
+						onClick = { onClickGo }>
+						Go!
+					</Button>
+					{dataError && (
+						<Dashicon
+							className = 'validate'
+							icon = 'no' />
+					)}
+					{dataError === false && (
+						<Dashicon
+							className = 'validate'
+							icon = 'yes' />
+					)}
+				</div>
 			</div>
 		);
 	},
 	save(props) {
-		let slug = props.attributes.ticketLink && props.attributes.ticketLink.split('/')[3];
-        return  '[showpass_widget slug="' + slug + '" label="' + props.attributes.buttonLabel + '"]';
+        return  !props.attributes.dataError && '[showpass_widget slug="' + props.attributes.slug + '" label="' + props.attributes.buttonLabel + '"]';
     },
 } );

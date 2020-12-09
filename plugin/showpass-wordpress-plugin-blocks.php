@@ -18,7 +18,7 @@ function create_block_showpass_wordpress_blocks_block_init() {
 	$index_js     = 'build-blocks/index.js';
 	$script_asset = require( $script_asset_path );
 	wp_register_script(
-		'create-block-showpass-wordpress-blocks-block-editor',
+		'create-block-showpass-wordpress-blocks-block-editor-script',
 		plugins_url( $index_js, __FILE__ ),
 		$script_asset['dependencies'],
 		false
@@ -28,7 +28,7 @@ function create_block_showpass_wordpress_blocks_block_init() {
 
 	$editor_css = 'build-blocks/index.css';
 	wp_register_style(
-		'create-block-showpass-wordpress-blocks-block-editor',
+		'create-block-showpass-wordpress-blocks-block-editor-style',
 		plugins_url( $editor_css, __FILE__ ),
 		array(),
 		filemtime( "$dir/$editor_css" ),
@@ -37,7 +37,7 @@ function create_block_showpass_wordpress_blocks_block_init() {
 
 	$style_css = 'build-blocks/style-index.css';
 	wp_register_style(
-		'create-block-showpass-wordpress-blocks-block',
+		'create-block-showpass-wordpress-blocks-block-style',
 		plugins_url( $style_css, __FILE__ ),
 		array(),
 		filemtime( "$dir/$style_css" ),
@@ -45,9 +45,9 @@ function create_block_showpass_wordpress_blocks_block_init() {
 	);
 
 	register_block_type( 'create-block/showpass-wordpress-blocks', array(
-		'editor_script' => 'create-block-showpass-wordpress-blocks-block-editor',
-		'editor_style'  => 'create-block-showpass-wordpress-blocks-block-editor',
-		'style'         => 'create-block-showpass-wordpress-blocks-block',
+		'editor_script' => 'create-block-showpass-wordpress-blocks-block-editor-script',
+		'editor_style'  => 'create-block-showpass-wordpress-blocks-block-editor-style',
+		'style'         => 'create-block-showpass-wordpress-blocks-block-style',
 	) );
 }
 add_action( 'init', 'create_block_showpass_wordpress_blocks_block_init' );

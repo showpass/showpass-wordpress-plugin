@@ -9,4 +9,19 @@
 	p {
 		margin-bottom: 0px !important;
 	}
-  }
+	.control-container {
+		margin-top: 10px;
+	}
+	.dashicon.validate {
+		float: right;
+		margin-left: 10px;
+		height: 30px;
+		width: 30px;
+		&.dashicons-no {
+			color: red;
+		}
+		&.dashicons-yes {
+			color: green;
+		}
+	}
+}

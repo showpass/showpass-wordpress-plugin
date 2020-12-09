@@ -1,13 +1,6 @@
 /**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
+ * The following styles get applied on the front of the site
  */
-.wp-block-create-block-showpass-wordpress-blocks {
-  background-color: var(--wp-admin-theme-color);
-  color: #fff;
-  padding: 2px; }
 
 
 /*# sourceMappingURL=style-index.css.map*/
