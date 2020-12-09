@@ -66,7 +66,6 @@ registerBlockType('create-block/showpass-button-block', {
 				setAttributes({ slug: '' });
 				setAttributes({ dataError: true });
 			}
-			console.log(dataError);
 		};
 		return (
 			<div class="wp-showpass-block-container">
@@ -90,7 +89,7 @@ registerBlockType('create-block/showpass-button-block', {
 					<Button
 						isSecondary
 						onClick = { onClickGo }>
-						Go!
+						Add Button!
 					</Button>
 					{dataError && (
 						<Dashicon
