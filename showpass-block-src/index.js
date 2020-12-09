@@ -3,15 +3,11 @@
  *
  * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
+
+import { Component } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
 import { TextControl, Button, Dashicon } from '@wordpress/components';
 
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -24,33 +20,20 @@ import './style.scss'; // display style on front end
 import './index.scss'; // editor style
 
 /**
- * Every block starts by registering a new block type definition.
- *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
+ * edit buy tickets block class
  */
-registerBlockType('create-block/showpass-button-block', {
-	title: 'Buy Now Button',
-	category: 'showpass-blocks',
-	icon: 'tickets-alt',
-	supports: {},
-	attributes: {
-		ticketLink: {
-			type: 'string',
-		},
-		buttonLabel: {
-			type: 'string',
-			default: 'Buy Now',
-		},
-		slug: {
-			type: 'string'
-		},
-		dataError: {
-			type: 'boolean',
-			default: null
+class BuyTicketBlock extends Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			loading: false
 		}
-	},
-	edit(props) {
-		const { attributes: { ticketLink, buttonLabel, dataError }, setAttributes } = props;
+	}
+
+	render() {
+		const { attributes: { ticketLink, buttonLabel, dataError }, setAttributes } = this.props;
 		const onChangeLink = (newContent) => {
 			setAttributes({ ticketLink: newContent });
 		};
@@ -104,8 +87,38 @@ registerBlockType('create-block/showpass-button-block', {
 				</div>
 			</div>
 		);
+	}
+}
+
+/**
+ * Every block starts by registering a new block type definition.
+ *
+ * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
+ */
+registerBlockType('create-block/showpass-button-block', {
+	title: 'Buy Now Button',
+	category: 'showpass-blocks',
+	icon: 'tickets-alt',
+	supports: {},
+	attributes: {
+		ticketLink: {
+			type: 'string',
+		},
+		buttonLabel: {
+			type: 'string',
+			default: 'Buy Now',
+		},
+		slug: {
+			type: 'string'
+		},
+		dataError: {
+			type: 'boolean',
+			default: null
+		}
 	},
-	save(props) {
-        return  !props.attributes.dataError && '[showpass_widget slug="' + props.attributes.slug + '" label="' + props.attributes.buttonLabel + '"]';
+	edit: BuyTicketBlock,
+	save: (props) => {
+		const { attributes } = props;
+        return  !attributes.dataError && attributes.slug && '[showpass_widget slug="' + attributes.slug + '" label="' + attributes.buttonLabel + '"]';
     },
-} );
+});

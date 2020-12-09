@@ -58,3 +58,4 @@ function register_wpshp_settings() {
  @include('showpass-wordpress-plugin-admin-page.php');
  @include('showpass-wordpress-plugin-shortcode.php');
  @include('showpass-wordpress-plugin-blocks.php');
+ @include('showpass-wordpress-custom-api.php');
