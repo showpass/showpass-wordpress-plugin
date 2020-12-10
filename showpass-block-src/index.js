@@ -82,7 +82,7 @@ class BuyTicketBlock extends Component {
 					value = { buttonLabel }
 					onChange = { onChangeLabel }
 					key='ticketLink'
-					default="Buy Now"
+					default="Get Tickets"
 					/>
 				<TextControl
 					label = "Enter in the full URL"
