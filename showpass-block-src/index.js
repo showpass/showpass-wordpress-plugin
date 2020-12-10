@@ -28,7 +28,8 @@ class BuyTicketBlock extends Component {
 		super(props);
 
 		this.state = {
-			loading: false
+			loading: false,
+			errorMessage: ''
 		}
 	}
 
@@ -44,29 +45,35 @@ class BuyTicketBlock extends Component {
 		};
 
 		const onClickGo = () => {
+			setAttributes({ dataError: null });
 			this.setState({
 				loading: true
 			});
-			checkValidURL().then(data => {
+			checkValidURL(ticketLink).then(data => {
 				this.setState({
 					loading: false
 				});
-				let slugParse = ticketLink && ticketLink.split('/')[3];
-
-				if (slugParse) {
-					setAttributes({ slug: slugParse });
-					setAttributes({ dataError: false });
-				} else {
-					setAttributes({ slug: '' });
-					setAttributes({ dataError: true });
+				if (data) {
+					setAttributes({ slug: data });
 				}
+			}).catch(error => {
+				console.log(error.data);
+				this.setState({
+					loading: false,
+					errorMessage: error.data
+				});
+				console.log(this.state);
+				setAttributes({ dataError: true });
 			});
 		};
 
-		const checkValidURL = () => {
-			return apiFetch({
-				path: 'showpass/v1/process-url',
-			});
+		const checkValidURL = (url) => {
+			if (url) {
+				return apiFetch({
+					path: 'showpass/v1/process-url/?url=' + encodeURI(url),
+					method: 'GET'
+				});
+			}
 		};
 
 		return (
@@ -106,6 +113,9 @@ class BuyTicketBlock extends Component {
 						<Dashicon
 							className = 'validate'
 							icon = 'yes' />
+					)}
+					{this.state.errorMessage && (
+						<p class="error-message">{ this.state.errorMessage }</p>
 					)}
 				</div>
 			</div>

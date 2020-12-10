@@ -428,7 +428,8 @@ var BuyTicketBlock = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      loading: false
+      loading: false,
+      errorMessage: ''
     };
     return _this;
   }
@@ -458,39 +459,46 @@ var BuyTicketBlock = /*#__PURE__*/function (_Component) {
       };
 
       var onClickGo = function onClickGo() {
+        setAttributes({
+          dataError: null
+        });
+
         _this2.setState({
           loading: true
         });
 
-        checkValidURL().then(function (data) {
+        checkValidURL(ticketLink).then(function (data) {
           _this2.setState({
             loading: false
           });
 
-          var slugParse = ticketLink && ticketLink.split('/')[3];
-
-          if (slugParse) {
+          if (data) {
             setAttributes({
-              slug: slugParse
-            });
-            setAttributes({
-              dataError: false
-            });
-          } else {
-            setAttributes({
-              slug: ''
-            });
-            setAttributes({
-              dataError: true
+              slug: data
             });
           }
+        }).catch(function (error) {
+          console.log(error.data);
+
+          _this2.setState({
+            loading: false,
+            errorMessage: error.data
+          });
+
+          console.log(_this2.state);
+          setAttributes({
+            dataError: true
+          });
         });
       };
 
-      var checkValidURL = function checkValidURL() {
-        return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_8___default()({
-          path: 'showpass/v1/process-url'
-        });
+      var checkValidURL = function checkValidURL(url) {
+        if (url) {
+          return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_8___default()({
+            path: 'showpass/v1/process-url/?url=' + encodeURI(url),
+            method: 'GET'
+          });
+        }
       };
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
@@ -521,7 +529,9 @@ var BuyTicketBlock = /*#__PURE__*/function (_Component) {
       }), dataError === false && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Dashicon"], {
         className: "validate",
         icon: "yes"
-      })));
+      }), this.state.errorMessage && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("p", {
+        class: "error-message"
+      }, this.state.errorMessage)));
     }
   }]);
 

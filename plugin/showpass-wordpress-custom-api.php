@@ -17,10 +17,22 @@ add_action('rest_api_init', function() {
 		'permission_callback' => function() {
 			return current_user_can('edit_posts');
 		},
+		'args' => [
+			'url' => [
+				'required' => true,
+			],
+		]
 	]);
 });
 
 function showpass_api_process_url($data) {
-	$response = 'Hello there!';
-	return rest_ensure_response($response);
+	$url = $data['url'];
+	$validURL = wp_http_validate_url($url);
+	if ($validURL) {
+		$splitURL = explode('/', $url);
+		$slug = $splitURL[3];
+		return rest_ensure_response($slug);
+	} else {
+		return wp_send_json_error('Error: Invalid URL provided, please enter a valid URL', $status_code = 400);
+	}
 }
