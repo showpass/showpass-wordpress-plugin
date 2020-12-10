@@ -123,58 +123,58 @@
             showpass.tickets.eventPurchaseWidget(slug, params);
         });
 
-	$('body').on('click', '.open-ticket-widget', function (e) {
-		e.preventDefault();
+        $('body').on('click', '.open-ticket-widget', function (e) {
+            e.preventDefault();
 
-		let slug = $(this).attr('id');
+            let slug = $(this).attr('id');
 
-		const openWidget = () => {
-			let params = {
-				'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
-				'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
-				'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
-				'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val() || 'false'
-			};
+            const openWidget = () => {
+                let params = {
+                    'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+                    'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
+                    'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
+                    'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val() || 'false'
+                };
 
-			if ($(this).attr('data-tracking')) {
-				params['tracking-id'] = $(this).attr('data-tracking');
-			}
+                if ($(this).attr('data-tracking')) {
+                    params['tracking-id'] = $(this).attr('data-tracking');
+                }
 
-			if ($(this).attr('data-eyereturn')) {
-				params['show-eyereturn'] = $(this).attr('data-eyereturn');
-			}
+                if ($(this).attr('data-eyereturn')) {
+                    params['show-eyereturn'] = $(this).attr('data-eyereturn');
+                }
 
-			// Overwrite tracking-id if set in URL
-			if (Cookies.get('affiliate')) {
-				params['tracking-id'] = Cookies.get('affiliate');
-			}
-			showpass.tickets.eventPurchaseWidget(slug, params);
-		}
+                // Overwrite tracking-id if set in URL
+                if (Cookies.get('affiliate')) {
+                    params['tracking-id'] = Cookies.get('affiliate');
+                }
+                showpass.tickets.eventPurchaseWidget(slug, params);
+            }
 
-		/**
-		 * Handle the redirect if distribution partner with an external link
-		 */
-		if ($(this).attr('data-distribution') === 'true') {
-			const checkEvent = async () => {
-				const response = fetch('https://local.showpass.com:9000/api/public/events/' + slug + '/');
-				await response
-					.then(response => response.json())
-					.then(data => {
-						if (data.id && data.external_link) {
-							window.location.href = data.external_link;
-						} else {
-							openWidget();
-						}
-					}).catch(() => {
-						openWidget();
-					});
-			}
-			checkEvent();
-		} else {
-			openWidget();
-		}
+            /**
+             * Handle the redirect if distribution partner with an external link
+             */
+            if ($(this).attr('data-distribution') === 'true') {
+                const checkEvent = async () => {
+                    const response = fetch('https://local.showpass.com:9000/api/public/events/' + slug + '/');
+                    await response
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.id && data.external_link) {
+                                window.location.href = data.external_link;
+                            } else {
+                                openWidget();
+                            }
+                        }).catch(() => {
+                            openWidget();
+                        });
+                }
+                checkEvent();
+            } else {
+                openWidget();
+            }
 
-	});
+        });
 
         $('.showpass-cart-button').on('click', function(e) {
             e.preventDefault();
