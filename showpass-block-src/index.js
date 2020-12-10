@@ -64,7 +64,7 @@ class BuyTicketBlock extends Component {
 					loading: false,
 					errorMessage: error.data
 				});
-				console.log(this.state);
+				console.log(error);
 				setAttributes({ dataError: true });
 			});
 		};

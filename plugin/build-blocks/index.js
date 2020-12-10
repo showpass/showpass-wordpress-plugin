@@ -489,7 +489,7 @@ var BuyTicketBlock = /*#__PURE__*/function (_Component) {
             errorMessage: error.data
           });
 
-          console.log(_this2.state);
+          console.log(error);
           setAttributes({
             dataError: true
           });
