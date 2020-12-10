@@ -13,7 +13,7 @@ if (! defined('ABSPATH')) {
 add_action('rest_api_init', function() {
 	register_rest_route('showpass/v1', '/process-url', [
 		'method' => 'GET',
-		'callback' => 'create_showpass_event',
+		'callback' => 'showpass_api_process_url',
 		'permission_callback' => function() {
 			return current_user_can('edit_posts');
 		},
@@ -32,7 +32,6 @@ add_action('rest_api_init', function() {
 function create_showpass_event($event_url) {
 	$token = get_option('option_showpass_access_token');
 	$request_url = 'https://local.showpass.com:9000/api/venue/22/events/';
-
 	$body = json_encode([
 		'name' => 'New Event request from Bits + Pieces', // event name [required]
 		'venue' => 22,
@@ -41,7 +40,8 @@ function create_showpass_event($event_url) {
 		'ends_on' => '2021-07-01T06:53:32.355349+00:00', // event end utc [required]
 		'timezone' => 'Canada/Mountain', // [required]
 		'address' => 'My Address', // event address [required]
-		'visibility' => 2
+    'visibility' => 2,
+    'external_link' => $event_url
 	]);
 
 	$request = wp_remote_post($request_url, array(
@@ -60,8 +60,7 @@ function create_showpass_event($event_url) {
 
 	$response_code = wp_remote_retrieve_response_code( $request );
 	if ( $response_code !== 201 ) {
-		$error_message = $request->get_error_message();
-		return rest_ensure_response(wp_send_json_error($error_message, $status_code = 400));
+		return rest_ensure_response(wp_send_json_error($request['body'], $status_code = 400));
 		#return wp_send_json_error($error_message, $status_code = 400);
 	} else {
     $data = json_decode($request['body']);
@@ -70,7 +69,7 @@ function create_showpass_event($event_url) {
 }
 
 function showpass_api_process_url($data) {
-	$url = esc_url_raw($data['url']);
+  $url = esc_url_raw($data['url']);
 	$validURL = wp_http_validate_url($url);
 	$showpassEvent = strpos($validURL, 'showpass.com');
 	if ($validURL && $showpassEvent) {
@@ -78,7 +77,7 @@ function showpass_api_process_url($data) {
 		$slug = $splitURL[3];
 		return rest_ensure_response($slug);
 	} else if ($validURL && !$showpassEvent) {
-		$create_event = create_showpass_event($validURL);
+		$create_event = create_showpass_event($url);
 		return $create_event;
 	} else {
 		return rest_ensure_response(wp_send_json_error('Error: Invalid URL provided, please enter a valid URL', $status_code = 400));
