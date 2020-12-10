@@ -1,5 +1,15 @@
 # Showpass Events API plugin - Releases
 
+## Develop and Build
+
+When developing and editing blocks, we need to run webpack from the root folder
+
+`npm install`
+
+`npm run build`
+
+`npm start`
+
 ## 1. Make .zip file for plugin (ready for install)
 
 As you know, you can instal through plugin installer or you can extract the plugin folder in `wp-content/plugins`.
@@ -44,3 +54,17 @@ It will create `showpass.zip` file and it will be prepared for install through t
 * If the release is unstable, select This is a pre-release to notify users that it's not ready for production.
 
 * If you're ready to publicize your release, click Publish release. Otherwise, click Save draft to work on it later.
+
+
+
+## 3. Relase to Wordpress SVN
+
+* You will need to be a developer in our Wordpress plugin project
+
+* Clone the SVN repo locally https://plugins.svn.wordpress.org/showpass/
+
+* Please manually update the version number in showpass-wordpress-plugin.php
+
+* Copy over the contents git repo plugin folder to the svn trunk folder
+
+* Make sure to add all new files to the svn tracker before committing 
