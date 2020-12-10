@@ -464,10 +464,13 @@ var BuyTicketBlock = /*#__PURE__*/function (_Component) {
         });
 
         _this2.setState({
-          loading: true
+          loading: true,
+          errorMessage: ''
         });
 
         checkValidURL(ticketLink).then(function (data) {
+          console.log(data);
+
           _this2.setState({
             loading: false
           });
@@ -476,10 +479,11 @@ var BuyTicketBlock = /*#__PURE__*/function (_Component) {
             setAttributes({
               slug: data
             });
+            setAttributes({
+              dataError: false
+            });
           }
         }).catch(function (error) {
-          console.log(error.data);
-
           _this2.setState({
             loading: false,
             errorMessage: error.data

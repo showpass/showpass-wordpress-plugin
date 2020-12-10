@@ -20,18 +20,25 @@ add_action('rest_api_init', function() {
 		'args' => [
 			'url' => [
 				'required' => true,
+				'type' => 'string',
 			],
 		]
 	]);
 });
 
 function showpass_api_process_url($data) {
-	$url = $data['url'];
+	$url = esc_url_raw($data['url']);
 	$validURL = wp_http_validate_url($url);
-	if ($validURL) {
+	$showpassEvent = strpos($validURL, 'showpass.com');
+	if ($validURL && $showpassEvent) {
 		$splitURL = explode('/', $url);
 		$slug = $splitURL[3];
 		return rest_ensure_response($slug);
+	} else if ($validURL && !$showpassEvent) {
+		/**
+		 * Get token from plugin options and post event to Showpass
+		 */
+		return ' do da query man ';
 	} else {
 		return wp_send_json_error('Error: Invalid URL provided, please enter a valid URL', $status_code = 400);
 	}

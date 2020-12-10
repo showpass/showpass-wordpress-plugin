@@ -47,17 +47,19 @@ class BuyTicketBlock extends Component {
 		const onClickGo = () => {
 			setAttributes({ dataError: null });
 			this.setState({
-				loading: true
+				loading: true,
+				errorMessage: ''
 			});
 			checkValidURL(ticketLink).then(data => {
+				console.log(data);
 				this.setState({
 					loading: false
 				});
 				if (data) {
 					setAttributes({ slug: data });
+					setAttributes({ dataError: false });
 				}
 			}).catch(error => {
-				console.log(error.data);
 				this.setState({
 					loading: false,
 					errorMessage: error.data
