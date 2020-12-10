@@ -166,7 +166,6 @@
 								openWidget();
 							}
 						}).catch(() => {
-							console.log('fuckin error bro');
 							openWidget();
 						});
 				}
