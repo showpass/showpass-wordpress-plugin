@@ -1,8 +1,8 @@
 {
 	"name": "showpass-wordpress-blocks",
 	"version": "0.1.0",
-	"description": "Example block written with ESNext standard and JSX support – build step required.",
-	"author": "The WordPress Contributors",
+	"description": "Wordpress blocks with ESNext standard and JSX support – build step required.",
+	"author": "Showpass",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {

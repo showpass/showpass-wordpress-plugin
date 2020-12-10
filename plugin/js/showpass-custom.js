@@ -156,7 +156,7 @@
              */
             if ($(this).attr('data-distribution') === 'true') {
                 const checkEvent = async () => {
-                    const response = fetch('https://local.showpass.com:9000/api/public/events/' + slug + '/');
+                    const response = fetch('https://www.showpass.com/api/public/events/' + slug + '/');
                     await response
                         .then(response => response.json())
                         .then(data => {
