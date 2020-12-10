@@ -29,6 +29,7 @@ function wpshp_settings_page() {
             value="<?php echo esc_attr( get_option('option_showpass_access_token') ); ?>" /><br />
         <label>Only required for distributor partners.</label><br /><br />
 
+        <?php /*
         <label for="main_api_url">Enter Date Format: (if empty "l F d, Y" - ex. Friday April 21, 2017)</label><br />
         <input type="text" placeholder="l F d, Y" name="format_date"
             value="<?php echo esc_attr( get_option('format_date') ); ?>" /><br /><br />
@@ -36,6 +37,7 @@ function wpshp_settings_page() {
         <label for="main_api_url">Enter Time Format: (if empty "g:iA" - ex. 9:00AM)</label><br />
         <input type="text" placeholder="g:iA" name="format_time"
             value="<?php echo esc_attr( get_option('format_time') ); ?>" /><br /><br />
+        */ ?>
 
         <input type="checkbox" name="option_theme_dark" value="true"
             <?php checked('true', get_option('option_theme_dark'), true); ?> />
