@@ -1,26 +1,21 @@
 /**
- * Registers a new block provided a unique name and an object defining its behavior.
- *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
+ * Showpass buy tickets block
  */
 
+import apiFetch from '@wordpress/api-fetch';
 import { Component } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
 import { TextControl, Button, Dashicon, Spinner } from '@wordpress/components';
-import apiFetch from '@wordpress/api-fetch';
 
 /**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * All files containing `style` keyword are bundled together. The code used
- * gets applied both to the front of your site and to the editor.
- *
+ * Import scss files for webpack to process
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 import './style.scss'; // display style on front end
 import './index.scss'; // editor style
 
 /**
- * edit buy tickets block class
+ * Display and logic for the buy tickets button block editor
  */
 class BuyTicketBlock extends Component {
 
@@ -126,7 +121,7 @@ class BuyTicketBlock extends Component {
 }
 
 /**
- * Every block starts by registering a new block type definition.
+ * Register the showpass buy tickets button block
  *
  * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
