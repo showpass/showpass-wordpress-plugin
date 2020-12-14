@@ -63,6 +63,7 @@ function create_showpass_event($event_url) {
 		'timezone'      => 'Canada/Mountain',
 		'visibility'    => 2,
 		'external_link' => $event_url,
+		'third_party_ticketing_link' => $event_url,
 	]);
 
 	$request = wp_remote_post($request_url, array(
