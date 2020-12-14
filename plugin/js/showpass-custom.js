@@ -162,7 +162,7 @@
 							const data = await response.json();
 							if (data) {
 								if (data.id && data.external_link) {
-									window.location.href = data.external_link;
+									window.open(data.external_link, '_blank');
 								} else {
 									openWidget();
 								}
