@@ -40,8 +40,22 @@ function create_showpass_event($event_url) {
 	}
     $request_url = 'https://www.showpass.com/api/venue/5511/events/';
 
+	/**
+	 * Get the page title from the provided URL for the event name
+	 */
+	function get_title($url){
+		$str = file_get_contents($url);
+		if(strlen($str)>0){
+			$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+			preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title); // ignore case
+			return substr($title[1], 0, 80); // limit to 80 characters
+		} else {
+			return 'Event Addition Request';
+		}
+	}
+
 	$body = json_encode([
-		'name'          => 'New Event request from Bits + Pieces',
+		'name'          => get_title($event_url),
 		'venue'         => 5511,
 		'location'      => 12903,
 		'starts_on'     => '2021-07-01T05:53:32.355328+00:00',
