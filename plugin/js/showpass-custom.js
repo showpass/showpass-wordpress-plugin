@@ -156,18 +156,23 @@
              */
             if ($(this).attr('data-distribution') === 'true') {
                 const checkEvent = async () => {
-                    const response = fetch('https://www.showpass.com/api/public/events/' + slug + '/');
-                    await response
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.id && data.external_link) {
-                                window.location.href = data.external_link;
-                            } else {
-                                openWidget();
-                            }
-                        }).catch(() => {
-                            openWidget();
-                        });
+                    try {
+						const response = await fetch('https://www.showpass.com/api/public/events/' + slug + '/')
+						if (response) {
+							const data = await response.json();
+							if (data) {
+								if (data.id && data.external_link) {
+									window.location.href = data.external_link;
+								} else {
+									openWidget();
+								}
+							}
+							return data;
+						}
+						return response;
+					} catch (error) {
+						openWidget();
+					};
                 }
                 checkEvent();
             } else {
