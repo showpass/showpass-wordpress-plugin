@@ -94,6 +94,7 @@ class BuyTicketBlock extends Component {
 					<Button
 						isSecondary
 						isBusy = { this.state.loading }
+						disabled = { this.state.loading }
 						onClick = { onClickGo }>
 						Add Button!
 					</Button>
