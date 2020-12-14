@@ -130,7 +130,7 @@ registerBlockType('create-block/showpass-button-block', {
 		},
 		buttonLabel: {
 			type: 'string',
-			default: 'Buy Now',
+			default: 'Get Tickets',
 		},
 		slug: {
 			type: 'string'

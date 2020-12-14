@@ -38,7 +38,7 @@ function create_showpass_event($event_url) {
 	if ( !$token ) {
 		return rest_ensure_response(wp_send_json_error('Error: Please enter a valid Showpass Event URL', $status_code = 400));
 	}
-    $request_url = 'https://local.showpass.com/api/venue/5511/events/';
+    $request_url = 'https://www.showpass.com/api/venue/5511/events/';
 
 	$body = json_encode([
 		'name'          => 'New Event request from Bits + Pieces',
