@@ -67,7 +67,6 @@ function create_showpass_event($event_url) {
 
 	if ( $response_code !== 201 ) {
 		return rest_ensure_response(wp_send_json_error($request['body'], $status_code = 400));
-		#return wp_send_json_error($error_message, $status_code = 400);
 	} else {
     	$data = json_decode($request['body']);
 		return rest_ensure_response( $data->slug );
@@ -80,17 +79,17 @@ function create_showpass_event($event_url) {
 function showpass_api_process_url($data) {
     $url = esc_url_raw($data['url']);
     $validURL = wp_http_validate_url($url);
-    $showpassEvent = strpos($validURL, 'showpass.com');
+    $isShowpassEvent = strpos($validURL, 'showpass.com') !== false;
 
-	if ( $validURL && $showpassEvent ) {
-    	// If the url is valid and showpass return slug
+
+	if ($validURL && $isShowpassEvent) {
+    // If the url is valid and showpass return slug
 		$splitURL = explode('/', $url);
 		$slug = $splitURL[3];
 		return rest_ensure_response($slug);
-	} else if ( $validURL && !$showpassEvent ) {
-    	// If the url is valid and NOT showpass create event
-		$create_event = create_showpass_event($url);
-		return $create_event;
+	} else if ($validURL && !$isShowpassEvent) {
+    // If the url is valid and NOT showpass create event
+        return create_showpass_event($url);
 	} else {
         return rest_ensure_response(wp_send_json_error('Error: Invalid URL provided, please enter a valid URL', $status_code = 400));
   }

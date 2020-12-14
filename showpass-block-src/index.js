@@ -46,7 +46,6 @@ class BuyTicketBlock extends Component {
 				errorMessage: ''
 			});
 			checkValidURL(ticketLink).then(data => {
-				console.log(data);
 				this.setState({
 					loading: false
 				});
@@ -101,15 +100,10 @@ class BuyTicketBlock extends Component {
 					{this.state.loading && (
 						<Spinner />
 					)}
-					{dataError && (
+					{dataError !== null && (
 						<Dashicon
 							className = 'validate'
-							icon = 'no' />
-					)}
-					{dataError === false && (
-						<Dashicon
-							className = 'validate'
-							icon = 'yes' />
+							icon = { dataError ? 'no' : 'yes' } />
 					)}
 					{this.state.errorMessage && (
 						<p class="error-message">{ this.state.errorMessage }</p>
