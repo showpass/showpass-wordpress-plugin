@@ -46,7 +46,6 @@ class BuyTicketBlock extends Component {
 				errorMessage: ''
 			});
 			checkValidURL(ticketLink).then(data => {
-				console.log(data);
 				this.setState({
 					loading: false
 				});

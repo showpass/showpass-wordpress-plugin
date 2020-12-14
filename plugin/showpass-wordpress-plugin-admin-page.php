@@ -8,7 +8,7 @@ function wpshp_settings_page() {
     <!-- TBD - More description -->
     <p>The main API URL is<strong> https://www.showpass.com/api. </strong> <br />
         You will need to add Organization ID (venue ID) that you want the data from. EX. 5 , if you want data from
-        organization 5. You can also enter in multiple organizations 5, 10, 20, 30 - NOT RECCOMENDED FOR PURCHASE WIDGET
+        organization 5. You can also enter in multiple organizations 5, 10, 20, 30 - NOT RECOMENDED FOR PURCHASE WIDGET
         - you cannot purchase to more than one organization at once. </p>
 
     <form method="post" action="options.php">
