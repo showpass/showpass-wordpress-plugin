@@ -1,0 +1,23 @@
+.wp-showpass-block-container {
+  border: 1px solid #000;
+  padding: 20px; }
+  .wp-showpass-block-container h4 {
+    margin-top: 0px !important;
+    display: inline-block;
+    margin-left: 10px; }
+  .wp-showpass-block-container p {
+    margin-bottom: 0px !important; }
+  .wp-showpass-block-container .control-container {
+    margin-top: 10px; }
+  .wp-showpass-block-container .dashicon.validate {
+    float: right;
+    margin-left: 10px;
+    height: 30px;
+    width: 30px; }
+    .wp-showpass-block-container .dashicon.validate.dashicons-no {
+      color: red; }
+    .wp-showpass-block-container .dashicon.validate.dashicons-yes {
+      color: green; }
+
+
+/*# sourceMappingURL=index.css.map*/
