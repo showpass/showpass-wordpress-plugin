@@ -83,7 +83,8 @@
 
         $('body').on('click', '.open-product-widget', function(e) {
             e.preventDefault();
-            var id = $(this).attr('id');
+
+			var id = $(this).attr('id');
             var params = {
                 'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
                 'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val(),
@@ -106,7 +107,7 @@
         $('body').on('click', '#force-showpass-widget a[href*="showpass.com"]', function(e) {
             e.preventDefault();
             slug = $(this).attr('href').split('.com/')[1];
-            
+
             var params = {
                 'theme-primary': $('#option_widget_color').val(),
                 'keep-shopping':$('#option_keep_shopping').val() || true,
@@ -122,30 +123,62 @@
             showpass.tickets.eventPurchaseWidget(slug, params);
         });
 
-        $('body').on('click', '.open-ticket-widget', function(e) {
+        $('body').on('click', '.open-ticket-widget', function (e) {
             e.preventDefault();
-            var slug = $(this).attr('id');
-            var params = {
-                'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
-                'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
-                'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
-                'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val() || 'false'
-            };
 
-            if ($(this).attr('data-tracking')) {
-                params['tracking-id'] = $(this).attr('data-tracking');
+            let slug = $(this).attr('id');
+
+            const openWidget = () => {
+                let params = {
+                    'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+                    'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
+                    'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
+                    'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val() || 'false'
+                };
+
+                if ($(this).attr('data-tracking')) {
+                    params['tracking-id'] = $(this).attr('data-tracking');
+                }
+
+                if ($(this).attr('data-eyereturn')) {
+                    params['show-eyereturn'] = $(this).attr('data-eyereturn');
+                }
+
+                // Overwrite tracking-id if set in URL
+                if (Cookies.get('affiliate')) {
+                    params['tracking-id'] = Cookies.get('affiliate');
+                }
+                showpass.tickets.eventPurchaseWidget(slug, params);
             }
 
-            if ($(this).attr('data-eyereturn')) {
-                params['show-eyereturn'] = $(this).attr('data-eyereturn');
+            /**
+             * Handle the redirect if distribution partner with an external link
+             */
+            if ($(this).attr('data-distribution') === 'true') {
+                const checkEvent = async () => {
+                    try {
+						const response = await fetch('https://www.showpass.com/api/public/events/' + slug + '/')
+						if (response) {
+							const data = await response.json();
+							if (data) {
+								if (data.id && data.external_link) {
+									window.open(data.external_link, '_blank');
+								} else {
+									openWidget();
+								}
+							}
+							return data;
+						}
+						return response;
+					} catch (error) {
+						openWidget();
+					};
+                }
+                checkEvent();
+            } else {
+                openWidget();
             }
 
-            // Overwrite tracking-id if set in URL
-            if (Cookies.get('affiliate')) {
-                params['tracking-id'] = Cookies.get('affiliate');
-            }
-
-            showpass.tickets.eventPurchaseWidget(slug, params);
         });
 
         $('.showpass-cart-button').on('click', function(e) {

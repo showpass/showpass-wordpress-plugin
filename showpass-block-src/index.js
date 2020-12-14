@@ -81,7 +81,7 @@ class BuyTicketBlock extends Component {
 					value = { buttonLabel }
 					onChange = { onChangeLabel }
 					key='ticketLink'
-					default="Buy Now"
+					default="Get Tickets"
 					/>
 				<TextControl
 					label = "Enter in the full URL"
@@ -130,7 +130,7 @@ registerBlockType('create-block/showpass-button-block', {
 		},
 		buttonLabel: {
 			type: 'string',
-			default: 'Buy Now',
+			default: 'Get Tickets',
 		},
 		slug: {
 			type: 'string'

@@ -15,7 +15,6 @@ function wpshp_settings_page() {
         <?php settings_fields( 'wpshp-settings-group' ); ?>
         <?php do_settings_sections( 'wpshp-settings-group' ); ?>
 
-
         <label for="main_api_url">Organization ID (required):</label><br />
         <input type="text" placeholder="Venue ID Ex. 5" name="option_organization_id"
             value="<?php echo esc_attr( get_option('option_organization_id') ); ?>" /><br /><br />
