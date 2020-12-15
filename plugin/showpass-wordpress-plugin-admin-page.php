@@ -26,7 +26,7 @@ function wpshp_settings_page() {
         <label for="option_showpass_access_token">Access Token</label><br />
         <input type="text" placeholder="" name="option_showpass_access_token"
             value="<?php echo esc_attr( get_option('option_showpass_access_token') ); ?>" /><br />
-        <label>Only required for distributor partners.</label><br /><br />
+        <label>Only required for distribution partners.</label><br /><br />
 
         <?php /*
         <label for="main_api_url">Enter Date Format: (if empty "l F d, Y" - ex. Friday April 21, 2017)</label><br />
