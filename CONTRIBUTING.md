@@ -59,9 +59,13 @@ It will create `showpass.zip` file and it will be prepared for install through t
 
 ## 3. Relase to Wordpress SVN
 
+Using Subversion with the WordPress Plugin Directory:
+
+https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
+
 * You will need to be a developer in our Wordpress plugin project
 
-* Clone the SVN repo locally https://plugins.svn.wordpress.org/showpass/
+* Checkout the SVN repo locally https://plugins.svn.wordpress.org/showpass/
 
 * Please manually update the version number in showpass-wordpress-plugin.php
 

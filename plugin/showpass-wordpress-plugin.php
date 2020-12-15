@@ -49,6 +49,7 @@ function register_wpshp_settings() {
     register_setting('wpshp-settings-group', 'option_keep_shopping');
     register_setting('wpshp-settings-group', 'option_show_widget_description');
     register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
+    register_setting('wpshp-settings-group', 'option_showpass_access_token');
 }
 
 /******************************
@@ -58,3 +59,4 @@ function register_wpshp_settings() {
  @include('showpass-wordpress-plugin-admin-page.php');
  @include('showpass-wordpress-plugin-shortcode.php');
  @include('showpass-wordpress-plugin-blocks.php');
+ @include('showpass-wordpress-custom-api.php');

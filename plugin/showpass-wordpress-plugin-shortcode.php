@@ -11,7 +11,7 @@ define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
 
 /* making connection and taking the data from API */
 function call_showpass_api($url) {
-  
+
   $args = array(
     'timeout' => 30,
     'sslverify' => true
@@ -288,9 +288,9 @@ function showpass_utf8_urldecode($str) {
 
 /**
  * Get formatted event dates string.
- * 
+ *
  * @param Object $event
- * 
+ *
  * @return String html date element
  */
 function showpass_display_date ($event, $small = false) {
@@ -372,7 +372,7 @@ function showpass_display_date ($event, $small = false) {
     // concat start and end element, then wrap in a div
     return sprintf('%s%s', $starts_date_element , $ends_date_element);
   }
-  
+
   // element with start date and event times
   $element =  ''
     .'<div>'
@@ -618,7 +618,7 @@ function showpass_display_calendar($atts) {
 	} else {
 	  $hide_children = false;
 	}
-	
+
   if (isset($atts['only_parents'])) {
     $only_parents = $atts['only_parents'];
   } else {
@@ -724,7 +724,7 @@ function showpass_display_calendar($atts) {
   $hide_daily = '';
   $hide_calendar = '';
   $html .= "<div class='clearfix control-container'>";
-  
+
   if (!$hide_view_select) {
     $html .= "<select id='view-select'><option ". $month_enable . " class='month' value='month'>Month View</option><option ". $week_enable . " class='week' value='week'>Week View</option><option class='day' value='day'>Day View</option></select>";
   }
@@ -769,7 +769,7 @@ function showpass_widget_expand($atts, $content = null) {
     if (isset($atts['label'])) {
       $label = $atts['label'];
     } else {
-      $label = 'Tickets';
+      $label = 'Get Tickets';
     }
 
     if (isset($atts['tracking_id'])) {
@@ -811,30 +811,37 @@ function showpass_widget_expand($atts, $content = null) {
       $show_description = $atts['show_widget_description'];
     } else {
       $show_description = get_option('option_show_widget_description') ? 'true' : 'false';
-    }
+	}
+
+	if (get_option('option_showpass_access_token')) {
+		$distribution_partner = 'true';
+	} else {
+		$distribution_partner = 'false';
+	}
 
     //update to template as needed
     $button = '';
-    $button .= $style.'<div>'
-            .'<span onclick="" '
+    $button .= $style
+            .'<a '
             .sprintf('id="%s" ', $slug)
             .sprintf('class="open-ticket-widget %s" ', $class)
             .sprintf('data-color="%s" ', $widget_color)
             .sprintf('data-shopping="%s" ', $keep_shopping)
-            .sprintf('data-theme="%s" ', $theme_dark)
+			.sprintf('data-theme="%s" ', $theme_dark)
+			.sprintf('data-distribution="%s" ', $distribution_partner)
             .sprintf('data-show-description="%s" ', $show_description);
 
     if ($tracking) {
       $button .= sprintf('data-tracking="%s" ', $tracking);
     }
-    
+
     if (!isset($atts['label']) || !isset($atts['class'])) {
-      $button .='"><i class="fa fa-plus" style="margin-right: 10px;"></i>';
+      $button .='"><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
     } else {
       $button .='">';
     }
-    
-    $button .= '<span>'.$label.'</span></div>';
+
+    $button .= '<span>'.$label.'</span></a>';
     return $button;
 
   } else {
@@ -915,16 +922,16 @@ function showpass_scripts(){
     wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), '1.0.0', true );
     wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true );
     wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(),false, '1.0.1');
-    wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(),false, '1.0.2');
-    wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(),false, '1.0.3');
-    wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(),false, '4.2.5');
+    wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(), false, '1.0.2');
+    wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(), false, '1.0.3');
+    wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(), false, '4.2.5');
     wp_register_script('showpass-lodash', plugins_url( '/js/vendor/lodash.js', __FILE__ ), array(), '1.8.3');
     wp_enqueue_script('moment-showpass');
     wp_enqueue_script('moment-timezone-showpass');
     wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
     wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), null);
     wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
-    wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), null);
+    wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), null, false);
     wp_enqueue_script('jquery-showpass');
   }
 }
