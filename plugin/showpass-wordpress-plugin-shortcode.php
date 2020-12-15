@@ -769,7 +769,7 @@ function showpass_widget_expand($atts, $content = null) {
     if (isset($atts['label'])) {
       $label = $atts['label'];
     } else {
-      $label = 'Tickets';
+      $label = 'Get Tickets';
     }
 
     if (isset($atts['tracking_id'])) {
@@ -821,8 +821,8 @@ function showpass_widget_expand($atts, $content = null) {
 
     //update to template as needed
     $button = '';
-    $button .= $style.'<div>'
-            .'<span onclick="" '
+    $button .= $style
+            .'<a '
             .sprintf('id="%s" ', $slug)
             .sprintf('class="open-ticket-widget %s" ', $class)
             .sprintf('data-color="%s" ', $widget_color)
@@ -841,7 +841,7 @@ function showpass_widget_expand($atts, $content = null) {
       $button .='">';
     }
 
-    $button .= '<span>'.$label.'</span></div>';
+    $button .= '<span>'.$label.'</span></a>';
     return $button;
 
   } else {
