@@ -40,15 +40,15 @@ function wpshp_admin_menu() {
 }
 
 function register_wpshp_settings() {
-    /* register our settings */
-    register_setting('wpshp-settings-group', 'option_organization_id');
-    register_setting('wpshp-settings-group', 'option_widget_color');
-    register_setting('wpshp-settings-group', 'format_date');
-    register_setting('wpshp-settings-group', 'format_time');
-    register_setting('wpshp-settings-group', 'option_theme_dark');
-    register_setting('wpshp-settings-group', 'option_keep_shopping');
-    register_setting('wpshp-settings-group', 'option_show_widget_description');
-    register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
+	/* register our settings */
+	register_setting('wpshp-settings-group', 'option_organization_id');
+	register_setting('wpshp-settings-group', 'option_widget_color');
+	register_setting('wpshp-settings-group', 'format_date');
+	register_setting('wpshp-settings-group', 'format_time');
+	register_setting('wpshp-settings-group', 'option_theme_dark');
+	register_setting('wpshp-settings-group', 'option_keep_shopping');
+	register_setting('wpshp-settings-group', 'option_show_widget_description');
+	register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
 	register_setting('wpshp-settings-group', 'option_showpass_access_token');
 	register_setting('wpshp-settings-group', 'option_showpass_distribution_tracking');
 }
