@@ -49,7 +49,8 @@ function register_wpshp_settings() {
     register_setting('wpshp-settings-group', 'option_keep_shopping');
     register_setting('wpshp-settings-group', 'option_show_widget_description');
     register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
-    register_setting('wpshp-settings-group', 'option_showpass_access_token');
+	register_setting('wpshp-settings-group', 'option_showpass_access_token');
+	register_setting('wpshp-settings-group', 'option_showpass_affiliate_tracking');
 }
 
 /******************************

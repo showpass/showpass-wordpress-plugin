@@ -142,12 +142,17 @@
 
                 if ($(this).attr('data-eyereturn')) {
                     params['show-eyereturn'] = $(this).attr('data-eyereturn');
+				}
+
+				if ($(this).attr('data-distribution-tracking')) {
+                    params['affiliate-tracking'] = $(this).attr('data-distribution-tracking');
                 }
 
                 // Overwrite tracking-id if set in URL
                 if (Cookies.get('affiliate')) {
                     params['tracking-id'] = Cookies.get('affiliate');
-                }
+				}
+
                 showpass.tickets.eventPurchaseWidget(slug, params);
             }
 

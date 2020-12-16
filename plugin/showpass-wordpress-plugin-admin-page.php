@@ -28,6 +28,11 @@ function wpshp_settings_page() {
             value="<?php echo esc_attr( get_option('option_showpass_access_token') ); ?>" /><br />
         <label>Only required for distribution partners.</label><br /><br />
 
+        <label for="option_showpass_access_token">Affiliate Tracking</label><br />
+        <input type="text" placeholder="" name="option_showpass_affiliate_tracking"
+            value="<?php echo esc_attr( get_option('option_showpass_affiliate_tracking') ); ?>" /><br />
+        <label>Only required for distribution partners.</label><br /><br />
+
         <?php /*
         <label for="main_api_url">Enter Date Format: (if empty "l F d, Y" - ex. Friday April 21, 2017)</label><br />
         <input type="text" placeholder="l F d, Y" name="format_date"

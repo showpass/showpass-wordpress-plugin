@@ -763,7 +763,7 @@ function showpass_widget_expand($atts, $content = null) {
       $widget_color = 'DD3333';
     }
 
-  if (isset($atts['slug'])) {
+  	if (isset($atts['slug'])) {
     $slug = $atts['slug'];
 
     if (isset($atts['label'])) {
@@ -832,8 +832,13 @@ function showpass_widget_expand($atts, $content = null) {
             .sprintf('data-show-description="%s" ', $show_description);
 
     if ($tracking) {
-      $button .= sprintf('data-tracking="%s" ', $tracking);
-    }
+      $button .= sprintf('data-tracking="018e39e3" ', $tracking);
+	}
+
+	if (get_option('option_showpass_affiliate_tracking')) {
+		$affiliate_tracking = get_option('option_showpass_affiliate_tracking');
+		$button .= sprintf('data-distribution-tracking="%s" ', $affiliate_tracking);
+	}
 
     if (!isset($atts['label']) || !isset($atts['class'])) {
       $button .='"><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
