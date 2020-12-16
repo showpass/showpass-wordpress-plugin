@@ -146,7 +146,7 @@
 
 				if ($(this).attr('data-distribution-tracking')) {
                     params['distribution-tracking'] = $(this).attr('data-distribution-tracking');
-                }
+				}
 
                 // Overwrite tracking-id if set in URL
                 if (Cookies.get('affiliate')) {
