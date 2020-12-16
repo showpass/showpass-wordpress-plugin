@@ -144,6 +144,9 @@
 					params['show-eyereturn'] = $(this).attr('data-eyereturn');
 				}
 
+				/**
+				 * Add query parameters if distribution tracking is enabled
+				 */
 				if ($(this).attr('data-distribution-tracking')) {
 					params['distribution-tracking'] = $(this).attr('data-distribution-tracking');
 				}
