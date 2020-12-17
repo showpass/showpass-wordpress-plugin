@@ -24,7 +24,9 @@ function create_block_showpass_wordpress_blocks_block_init() {
 		false
 		//$script_asset['version']
 	);
-	wp_set_script_translations( 'create-block-showpass-wordpress-blocks-block-editor', 'showpass-wordpress-blocks' );
+	if (function_exists('wp_set_script_translations')) {
+		wp_set_script_translations( 'create-block-showpass-wordpress-blocks-block-editor', 'showpass-wordpress-blocks' );
+	}
 
 	$editor_css = 'build-blocks/index.css';
 	wp_register_style(
@@ -43,12 +45,13 @@ function create_block_showpass_wordpress_blocks_block_init() {
 		filemtime( "$dir/$style_css" ),
 		false
 	);
-
-	register_block_type( 'create-block/showpass-wordpress-blocks', array(
-		'editor_script' => 'create-block-showpass-wordpress-blocks-block-editor-script',
-		'editor_style'  => 'create-block-showpass-wordpress-blocks-block-editor-style',
-		'style'         => 'create-block-showpass-wordpress-blocks-block-style',
-	) );
+	if (function_exists('register_block_type')) {
+		register_block_type( 'create-block/showpass-wordpress-blocks', array(
+			'editor_script' => 'create-block-showpass-wordpress-blocks-block-editor-script',
+			'editor_style'  => 'create-block-showpass-wordpress-blocks-block-editor-style',
+			'style'         => 'create-block-showpass-wordpress-blocks-block-style',
+		) );
+	}
 }
 add_action( 'init', 'create_block_showpass_wordpress_blocks_block_init' );
 

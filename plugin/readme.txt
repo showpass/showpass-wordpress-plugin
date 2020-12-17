@@ -1,6 +1,6 @@
 === Showpass Wordpress Extension ===
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
-Requires at least: 4.5
+Requires at least: 4.9
 Tested up to: 5.6
 Stable tag: 3.5.0
 Requires PHP: 5.4.45
@@ -15,6 +15,8 @@ List events, display event details and products. Use the Showpass purchase widge
 Showpass is a full event management solution, allowing organizations and individuals to organize and execute successful events.
 
 Whether you are selling tickets to your fundraiser, or an assigned seating theatre show, Showpass has the technology you need to get the job done.
+
+Wordpress version 5.3 is required for editor blocks
 
 = Plugin / Theme Support =
 
