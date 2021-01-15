@@ -758,95 +758,100 @@ function showpass_display_calendar($atts) {
 function showpass_widget_expand($atts, $content = null) {
 
     if (get_option('option_widget_color')) {
-      $widget_color = get_option('option_widget_color');
+      	$widget_color = get_option('option_widget_color');
     } else {
-      $widget_color = 'DD3333';
+      	$widget_color = 'DD3333';
     }
 
-  if (isset($atts['slug'])) {
-    $slug = $atts['slug'];
+  	if (isset($atts['slug'])) {
+    	$slug = $atts['slug'];
 
-    if (isset($atts['label'])) {
-      $label = $atts['label'];
-    } else {
-      $label = 'Get Tickets';
-    }
+		if (isset($atts['label'])) {
+			$label = $atts['label'];
+		} else {
+			$label = 'Get Tickets';
+		}
 
-    if (isset($atts['tracking_id'])) {
-      $tracking = $atts['tracking_id'];
-    } else {
-      $tracking = '';
-    }
+		if (isset($atts['tracking_id'])) {
+			$tracking = $atts['tracking_id'];
+		} else {
+			$tracking = '';
+		}
 
-    $style = '';
+    	$style = '';
 
-    if (isset($atts['class'])) {
-      $class = $atts['class'];
-    } else {
-      if ($widget_color) {
-        $style = '<style type="text/css">.showpass-button {background-color:#'.$widget_color.' !important;}</style>';
-      }
-      $class = 'showpass-button';
-    }
+		if (isset($atts['class'])) {
+			$class = $atts['class'];
+		} else {
+			if ($widget_color) {
+				$style = '<style type="text/css">.showpass-button {background-color:#'.$widget_color.' !important;}</style>';
+			}
+			$class = 'showpass-button';
+		}
 
-    if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') || (get_option('option_keep_shopping') === 'false')) {
-      $keep_shopping = 'true';
-    } else {
-      $keep_shopping = 'false';
-    }
+		if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') || (get_option('option_keep_shopping') === 'false')) {
+			$keep_shopping = 'true';
+		} else {
+			$keep_shopping = 'false';
+		}
 
-    if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'false') || (get_option('option_keep_shopping') != 'false')) {
-      $keep_shopping = 'false';
-    } else {
-      $keep_shopping = 'true';
-    }
+		if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'false') || (get_option('option_keep_shopping') != 'false')) {
+			$keep_shopping = 'false';
+		} else {
+			$keep_shopping = 'true';
+		}
 
-    if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')){
-      $theme_dark = 'true';
-    } else {
-      $theme_dark = 'false';
-    }
+		if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')){
+			$theme_dark = 'true';
+		} else {
+			$theme_dark = 'false';
+		}
 
-    if (isset($atts['show_widget_description'])) {
-      $show_description = $atts['show_widget_description'];
-    } else {
-      $show_description = get_option('option_show_widget_description') ? 'true' : 'false';
-	}
+		if (isset($atts['show_widget_description'])) {
+			$show_description = $atts['show_widget_description'];
+		} else {
+			$show_description = get_option('option_show_widget_description') ? 'true' : 'false';
+		}
 
-	if (get_option('option_showpass_access_token')) {
-		$distribution_partner = 'true';
+		if (get_option('option_showpass_access_token')) {
+			$distribution_partner = 'true';
+		} else {
+			$distribution_partner = 'false';
+		}
+
+		//update to template as needed
+		$button = '';
+		$button .= $style
+				.'<a '
+				.sprintf('id="%s" ', $slug)
+				.sprintf('class="open-ticket-widget %s" ', $class)
+				.sprintf('data-color="%s" ', $widget_color)
+				.sprintf('data-shopping="%s" ', $keep_shopping)
+				.sprintf('data-theme="%s" ', $theme_dark)
+				.sprintf('data-distribution="%s" ', $distribution_partner)
+				.sprintf('data-show-description="%s" ', $show_description);
+
+		if ($tracking) {
+			$button .= sprintf('data-tracking="%s" ', $tracking);
+		}
+
+		if (get_option('option_showpass_distribution_tracking')) {
+			$distribution_tracking = get_option('option_showpass_distribution_tracking');
+			$button .= sprintf('data-distribution-tracking="%s" ', $distribution_tracking);
+		}
+
+		if (!isset($atts['label']) || !isset($atts['class'])) {
+			$button .='"><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
+		} else {
+			$button .='">';
+		}
+
+		$button .= '<span>'.$label.'</span></a>';
+		return $button;
+
 	} else {
-		$distribution_partner = 'false';
+		return 'No slug provided for Showpass widget';
 	}
-
-    //update to template as needed
-    $button = '';
-    $button .= $style
-            .'<a '
-            .sprintf('id="%s" ', $slug)
-            .sprintf('class="open-ticket-widget %s" ', $class)
-            .sprintf('data-color="%s" ', $widget_color)
-            .sprintf('data-shopping="%s" ', $keep_shopping)
-			.sprintf('data-theme="%s" ', $theme_dark)
-			.sprintf('data-distribution="%s" ', $distribution_partner)
-            .sprintf('data-show-description="%s" ', $show_description);
-
-    if ($tracking) {
-      $button .= sprintf('data-tracking="%s" ', $tracking);
-    }
-
-    if (!isset($atts['label']) || !isset($atts['class'])) {
-      $button .='"><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
-    } else {
-      $button .='">';
-    }
-
-    $button .= '<span>'.$label.'</span></a>';
-    return $button;
-
-  } else {
-    return 'No slug provided for Showpass widget';
-  }
 }
 
 function wpshp_get_pricing_table( $atts ) {

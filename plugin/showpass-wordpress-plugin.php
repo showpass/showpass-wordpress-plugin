@@ -4,7 +4,7 @@
      Plugin URI: https://github.com/showpass/showpass-wordpress-plugin
      Description: List events, display event details and products. Use the Showpass purchase widget for on site ticket & product purchases all with easy to use shortcodes. See our git repo here for full documentation. https://github.com/showpass/showpass-wordpress-plugin
      Author: Showpass / Up In Code Inc.
-     Version: 3.5.0
+     Version: 3.5.2
      Author URI: https://www.showpass.com
      */
 
@@ -40,23 +40,24 @@ function wpshp_admin_menu() {
 }
 
 function register_wpshp_settings() {
-    /* register our settings */
-    register_setting('wpshp-settings-group', 'option_organization_id');
-    register_setting('wpshp-settings-group', 'option_widget_color');
-    register_setting('wpshp-settings-group', 'format_date');
-    register_setting('wpshp-settings-group', 'format_time');
-    register_setting('wpshp-settings-group', 'option_theme_dark');
-    register_setting('wpshp-settings-group', 'option_keep_shopping');
-    register_setting('wpshp-settings-group', 'option_show_widget_description');
-    register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
-    register_setting('wpshp-settings-group', 'option_showpass_access_token');
+	/* register our settings */
+	register_setting('wpshp-settings-group', 'option_organization_id');
+	register_setting('wpshp-settings-group', 'option_widget_color');
+	register_setting('wpshp-settings-group', 'format_date');
+	register_setting('wpshp-settings-group', 'format_time');
+	register_setting('wpshp-settings-group', 'option_theme_dark');
+	register_setting('wpshp-settings-group', 'option_keep_shopping');
+	register_setting('wpshp-settings-group', 'option_show_widget_description');
+	register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
+	register_setting('wpshp-settings-group', 'option_showpass_access_token');
+	register_setting('wpshp-settings-group', 'option_showpass_distribution_tracking');
 }
 
 /******************************
 *  includes
 *******************************/
 
- @include('showpass-wordpress-plugin-admin-page.php');
- @include('showpass-wordpress-plugin-shortcode.php');
- @include('showpass-wordpress-plugin-blocks.php');
- @include('showpass-wordpress-custom-api.php');
+@include('showpass-wordpress-plugin-admin-page.php');
+@include('showpass-wordpress-plugin-shortcode.php');
+@include('showpass-wordpress-plugin-blocks.php');
+@include('showpass-wordpress-custom-api.php');

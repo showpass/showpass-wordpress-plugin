@@ -129,26 +129,34 @@
             let slug = $(this).attr('id');
 
             const openWidget = () => {
-                let params = {
-                    'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
-                    'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
-                    'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
-                    'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val() || 'false'
-                };
+				let params = {
+					'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+					'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
+					'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
+					'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val() || 'false'
+				};
 
-                if ($(this).attr('data-tracking')) {
-                    params['tracking-id'] = $(this).attr('data-tracking');
-                }
+				if ($(this).attr('data-tracking')) {
+					params['tracking-id'] = $(this).attr('data-tracking');
+				}
 
-                if ($(this).attr('data-eyereturn')) {
-                    params['show-eyereturn'] = $(this).attr('data-eyereturn');
-                }
+				if ($(this).attr('data-eyereturn')) {
+					params['show-eyereturn'] = $(this).attr('data-eyereturn');
+				}
 
-                // Overwrite tracking-id if set in URL
-                if (Cookies.get('affiliate')) {
-                    params['tracking-id'] = Cookies.get('affiliate');
-                }
-                showpass.tickets.eventPurchaseWidget(slug, params);
+				/**
+				 * Add query parameters if distribution tracking is enabled
+				 */
+				if ($(this).attr('data-distribution-tracking')) {
+					params['distribution-tracking'] = $(this).attr('data-distribution-tracking');
+				}
+
+				// Overwrite tracking-id if set in URL
+				if (Cookies.get('affiliate')) {
+					params['tracking-id'] = Cookies.get('affiliate');
+				}
+
+				showpass.tickets.eventPurchaseWidget(slug, params);
             }
 
             /**
