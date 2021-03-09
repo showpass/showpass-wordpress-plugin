@@ -81,6 +81,18 @@
             }, 500);
         }
 
+		$('body').on('click', '.open-calendar-widget', function(e) {
+			e.preventDefault();
+
+			var id = $(this).attr('data-org-id');
+			var params = {
+				'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+				'keep-shopping': false
+			};
+
+			showpass.tickets.calendarWidget(id, params);
+		});
+
         $('body').on('click', '.open-product-widget', function(e) {
             e.preventDefault();
 

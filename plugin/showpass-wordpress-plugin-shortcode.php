@@ -921,24 +921,50 @@ function wpshp_cart_button($atts, $content = null) {
 
 add_shortcode('showpass_cart_button', 'wpshp_cart_button');
 
-function showpass_scripts(){
-  if (!is_admin()) {
-    wp_dequeue_script('jquery');
-    wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), '1.0.0', true );
-    wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true );
-    wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(),false, '1.0.1');
-    wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(), false, '1.0.2');
-    wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(), false, '1.0.3');
-    wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(), false, '4.2.5');
-    wp_register_script('showpass-lodash', plugins_url( '/js/vendor/lodash.js', __FILE__ ), array(), '1.8.3');
-    wp_enqueue_script('moment-showpass');
-    wp_enqueue_script('moment-timezone-showpass');
-    wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
-    wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), null);
-    wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
-    wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), null, false);
-    wp_enqueue_script('jquery-showpass');
+//[showpass_calendar_widget]
+function wpshp_calendar_widget($atts, $content = null) {
+
+  $organization_id = get_option('option_organization_id');
+
+  if ($organization_id) {
+    if (isset($atts['label'])) {
+      $label = $atts['label'];
+    } else {
+      $label = 'Get Tickets';
+    }
+	if (isset($atts['class'])) {
+		$class = $atts['class'];
+	} else {
+		$class = 'showpass-button';
+	}
+    $button = '<span data-org-id="'.$organization_id.'" class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
+    return $button;
+  } else {
+    return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
   }
+
+}
+
+add_shortcode('showpass_calendar_widget', 'wpshp_calendar_widget');
+
+function showpass_scripts(){
+	if (!is_admin()) {
+		wp_dequeue_script('jquery');
+		wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), '1.0.0', true );
+		wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true );
+		wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(),false, '1.0.1');
+		wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(), false, '1.0.2');
+		wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(), false, '1.0.3');
+		wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(), false, '4.2.5');
+		wp_register_script('showpass-lodash', plugins_url( '/js/vendor/lodash.js', __FILE__ ), array(), '1.8.3');
+		wp_enqueue_script('moment-showpass');
+		wp_enqueue_script('moment-timezone-showpass');
+		wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
+		wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), null);
+		wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
+		wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), null, false);
+		wp_enqueue_script('jquery-showpass');
+	}
 }
 
 add_action( 'init', 'showpass_scripts' );
