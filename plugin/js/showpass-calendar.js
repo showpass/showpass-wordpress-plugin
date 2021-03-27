@@ -8,15 +8,6 @@
             $('#view-select .week').hide();
         }
 
-        function initializeTooltip() {
-            $('.show-tooltip').tooltipster({
-                interactive: true,
-                minWidth: 300,
-                maxWidth: 320,
-                contentCloning: true
-            });
-        }
-
         function setDisplayView() {
             if (singleDisplay === 'card-view') {
                 $('#schedule-display').hide();
@@ -142,7 +133,7 @@
             let venue = $('#venue_id').val();
             let only_parents = $('#only-parents').val();
             let hide_children = $('#hide-children').val();
-            
+
 
             // Set values for display toggle
             $('#view-select .month').attr('current_date', moment(date).startOf('month').format());
@@ -163,7 +154,7 @@
                 if (hide_children) {
                     url = url + "&hide_children=" + hide_children;
                 }
-                
+
                 if(only_parents) {
                     url = url + "&only_parents=" + only_parents;
                 }
@@ -237,7 +228,7 @@
                                 let event_city = event.location.city + ', ' + event.location.province;
 
                                 let external_link = event.external_link;
-    
+
                                 let html_card = "<div class='flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card'><div class='showpass-event-layout-list showpass-layout-flex m15'><div class='card-image showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0'>" +
                                     "<span class='showpass-image-banner showpass-hide-mobile' style='background-image: url(" + image_thumb + ");'></span>" +
                                     "<span class='showpass-image showpass-hide-large' style='background-image: url(" + image_banner + ");'></span></div>" +
@@ -328,7 +319,7 @@
                 if (hide_children) {
                     url = url + "&hide_children=" + hide_children;
                 }
-                
+
                 if(only_parents) {
                     url = url + "&only_parents=" + only_parents;
                 }
@@ -394,7 +385,6 @@
 
                         current_day = 0;
                         $('.loader-home').hide();
-                        initializeTooltip();
 
                     }
 
@@ -443,7 +433,7 @@
                 if (hide_children) {
                     url = url + "&hide_children=" + hide_children;
                 }
-                
+
                 if(only_parents) {
                     url = url + "&only_parents=" + only_parents;
                 }
@@ -528,7 +518,6 @@
                             });
                         }
                         $('.loader-home').hide();
-                        initializeTooltip();
 
                     }
                 });
@@ -571,7 +560,6 @@
             $('.horizontal-schedule-display').hide();
             $('.showpass-month-view').css('border-right', '0px');
             renderCalendar(year_now, month_now + 1);
-            initializeTooltip();
         } else {
             // RENDER & SHOW BOTH WEEKLY & MONTHLY & DAILY
             $('.horizontal-schedule-display').hide();
@@ -608,7 +596,7 @@
          */
         $('body').on('click', '.multiple-event-popup, .mobile-event-popup.multiple', function (e) {
             let length = $(this).attr('data-length');
-            
+
             if (length > 1) {
                 let container = $(this).parent().find('.showpass-calendar-item-event-container');
                 let day = $(container).attr('data-day');
@@ -624,16 +612,16 @@
                     'theme-dark': $('#option_theme_dark').val(),
                     'show-description': $('#option_show_widget_description').val() || 'false'
                 };
-    
+
                 // Overwrite tracking-id if set in URL
                 if (Cookies.get('affiliate')) {
                     params['tracking-id'] = Cookies.get('affiliate');
                 }
-    
+
                 showpass.tickets.eventPurchaseWidget(slug, params);
             }
-            
-            
+
+
         });
 
         /*
