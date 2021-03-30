@@ -1,5 +1,3 @@
-jQuery.noConflict();
-
 (function(window, document, src) {
     var config = window.__shwps;
     if (typeof config === "undefined") {
