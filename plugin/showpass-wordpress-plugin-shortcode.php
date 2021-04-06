@@ -25,8 +25,6 @@ function call_showpass_api($url) {
   $http_code = wp_remote_retrieve_response_code($response);
   if ($http_code === 200) {
     return wp_remote_retrieve_body($response);
-  } else {
-    print_r ($response);
   }
 }
 
@@ -181,7 +179,6 @@ function showpass_get_event_data( $atts ) {
 
     // encode json data to return properly
     $data = json_encode($data);
-
     if ($template == "data") {
       return $data;
     } else {

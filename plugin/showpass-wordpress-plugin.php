@@ -15,7 +15,6 @@ if (! defined('ABSPATH')) {
 /*************************************
 * create custom plugin settings menu
 *************************************/
-add_action('admin_menu', 'wpshp_admin_menu');
 
 /**
  * imports and sets Showpass\ImageFormatter whenever a frontend template is loaded.
@@ -34,10 +33,9 @@ add_action( 'template_redirect', function() {
 function wpshp_admin_menu() {
     /* create new top-level menu */
     add_menu_page('Showpass Events API', 'Showpass API', 'administrator', __FILE__, 'wpshp_settings_page', plugins_url('/images/icon.png', __FILE__));
-
-    /* call register settings function */
-    add_action('admin_init', 'register_wpshp_settings');
 }
+
+add_action('admin_menu', 'wpshp_admin_menu');
 
 function register_wpshp_settings() {
 	/* register our settings */
@@ -52,6 +50,9 @@ function register_wpshp_settings() {
 	register_setting('wpshp-settings-group', 'option_showpass_access_token');
 	register_setting('wpshp-settings-group', 'option_showpass_distribution_tracking');
 }
+
+/* call register settings function */
+add_action('admin_init', 'register_wpshp_settings');
 
 /******************************
 *  includes
