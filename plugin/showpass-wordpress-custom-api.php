@@ -84,7 +84,7 @@ function create_showpass_event($event_url) {
 		return rest_ensure_response(wp_send_json_error($request['body'], $status_code = 400));
 	} else {
     	$data = json_decode($request['body']);
-		return rest_ensure_response( $data->slug );
+		return wp_send_json_success( $data->slug, $status_code = 200 );
 	}
 }
 

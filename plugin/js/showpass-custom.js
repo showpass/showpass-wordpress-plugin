@@ -1,4 +1,4 @@
-(function($) {
+(function ($, window, document) {
     $(window).on('load', function() {
 
         showpass.tickets.addCartCountListener(function(count) {
@@ -280,4 +280,4 @@
 
     mutationObserver.observe(document.documentElement, { attributes: true });
 
-})(jQuery);
+})(jQuery, window, document);

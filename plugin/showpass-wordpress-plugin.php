@@ -62,3 +62,4 @@ add_action('admin_init', 'register_wpshp_settings');
 @include('showpass-wordpress-plugin-shortcode.php');
 @include('showpass-wordpress-plugin-blocks.php');
 @include('showpass-wordpress-custom-api.php');
+@include('showpass-wordpress-edit-section.php');
