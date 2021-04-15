@@ -16,17 +16,18 @@
 						xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
 					},
 					success: function (success) {
+						console.log(success);
 						$('#showpass-get-event-url .loader').removeClass('spin');
 						console.log(success);
 						$('span#success').html('Success!')
-						$('p#showpass-url').html('https://www.showpass.com/'+success.data)
+						$('p#showpass-url').html('https://www.showpass.com/' + success.data);
 					},
 					error: function (error) {
 						console.log(error);
 						$('#showpass-get-event-url .loader').removeClass('spin');
 						if (error && error.responseText) {
 							let msg = JSON.parse(error.responseText);
-							$('span#error').html(msg.data)
+							$('span#error').html(msg.data);
 						} else {
 							$('span#error').html('Unknown Error: Please try again.');
 						}

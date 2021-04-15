@@ -25,8 +25,8 @@ add_action( 'template_redirect', function() {
     $showpass_image_formatter = new Showpass\ImageFormatter();
     add_shortcode( 'showpass_events', 'showpass_get_event_data' );
     add_shortcode( 'showpass_products', 'showpass_get_product_data' );
-    add_shortcode('showpass_calendar','showpass_display_calendar');
-    add_shortcode('showpass_widget', 'showpass_widget_expand');
+    add_shortcode( 'showpass_calendar','showpass_display_calendar');
+    add_shortcode( 'showpass_widget', 'showpass_widget_expand');
     add_shortcode( 'showpass_pricing_table', 'wpshp_get_pricing_table' );
 });
 

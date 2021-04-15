@@ -101,7 +101,7 @@ function showpass_api_process_url($data) {
     // If the url is valid and showpass return slug
 		$splitURL = explode('/', $url);
 		$slug = $splitURL[3];
-		return rest_ensure_response($slug);
+		return wp_send_json_success( $slug, $status_code = 200 );
 	} else if ($validURL && !$isShowpassEvent) {
     // If the url is valid and NOT showpass create event
         return create_showpass_event($url);

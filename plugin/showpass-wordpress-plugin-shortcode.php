@@ -630,6 +630,13 @@ function showpass_display_calendar($atts) {
   }
 
   // white arrows
+  if (isset($atts['show'])) {
+    $show_all = $atts["show"];
+  } else {
+	$show_all = false;
+  }
+
+  // white arrows
   if (isset($atts['hide_view_select'])) {
     $hide_view_select = $atts["hide_view_select"] === 'true' ? true : false;
   } else {
@@ -705,6 +712,7 @@ function showpass_display_calendar($atts) {
   $html .= "<input type='hidden' id='hide-schedule' value='" . $hide_schedule . "' />";
   $html .= "<input type='hidden' id='only-parents' value='" . $only_parents . "' />";
   $html .= "<input type='hidden' id='hide-children' value='" . $hide_children . "' />";
+  $html .= "<input type='hidden' id='show-all' value='" . $show_all . "' />";
 
   if (isset($month_enable)) {
     $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
@@ -821,20 +829,10 @@ function showpass_widget_expand($atts, $content = null) {
 		$button .= $style
 				.'<a '
 				.sprintf('id="%s" ', $slug)
-				.sprintf('class="open-ticket-widget %s" ', $class)
-				.sprintf('data-color="%s" ', $widget_color)
-				.sprintf('data-shopping="%s" ', $keep_shopping)
-				.sprintf('data-theme="%s" ', $theme_dark)
-				.sprintf('data-distribution="%s" ', $distribution_partner)
-				.sprintf('data-show-description="%s" ', $show_description);
+				.sprintf('class="open-ticket-widget %s" ', $class);
 
 		if ($tracking) {
 			$button .= sprintf('data-tracking="%s" ', $tracking);
-		}
-
-		if (get_option('option_showpass_distribution_tracking')) {
-			$distribution_tracking = get_option('option_showpass_distribution_tracking');
-			$button .= sprintf('data-distribution-tracking="%s" ', $distribution_tracking);
 		}
 
 		if (!isset($atts['label']) || !isset($atts['class'])) {
@@ -968,6 +966,7 @@ function showpass_widget_options() {
   echo '<input type="hidden" id="option_show_widget_description" value="'.get_option('option_show_widget_description').'">';
   echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
   echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
+  echo '<input type="hidden" id="option_showpass_distribution_tracking" value="'.get_option('option_showpass_distribution_tracking').'">';
 }
 
 add_action( 'wp_footer', 'showpass_widget_options', 100 );

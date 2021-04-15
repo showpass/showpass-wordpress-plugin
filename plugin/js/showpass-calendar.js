@@ -411,6 +411,7 @@
             let tags = $('#tags').val();
             let only_parents = $('#only-parents').val();
             let hide_children = $('#hide-children').val();
+            let show_all = $('#show-all').val();
 
             let firstDay = new Date(year, month - 1, 1); //  number + 1 = current
             let firstDayString = firstDay.toString();
@@ -436,6 +437,10 @@
 
                 if(only_parents) {
                     url = url + "&only_parents=" + only_parents;
+                }
+
+                if(show_all) {
+                    url = url + "&show=" + show_all;
                 }
 
                 $.ajax({
