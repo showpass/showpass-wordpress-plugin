@@ -136,10 +136,10 @@
             e.preventDefault();
 
             let slug = $(this).attr('id');
+            let params = getParams(this);
 
             const openWidget = () => {
-				let params = getParams(this);
-
+				
 				if ($(this).attr('data-tracking')) {
 					params['tracking-id'] = $(this).attr('data-tracking');
 				}
@@ -159,7 +159,7 @@
             /**
              * Handle the redirect if distribution partner with an external link
              */
-            if ($(this).attr('data-distribution') === 'true') {
+            if (params['data-distribution'] !== '') {
                 const checkEvent = async () => {
                     try {
 						const response = await fetch('https://www.showpass.com/api/public/events/' + slug + '/')
