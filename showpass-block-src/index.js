@@ -50,7 +50,7 @@ class BuyTicketBlock extends Component {
 					loading: false
 				});
 				if (data) {
-					setAttributes({ slug: data });
+					setAttributes({ slug: data.data });
 					setAttributes({ dataError: false });
 				}
 			}).catch(error => {

@@ -23,9 +23,6 @@ function showpass_edit_section_form_javascript() {
 	wp_enqueue_script('showpass-custom', plugins_url( 'js/showpass-edit-form-js.js', __FILE__ ), array('jquery'), null, false);
 }
 
-add_action( 'in_admin_footer', 'showpass_edit_section_form_javascript' );
-
-
 /**
  * Adds section to edit page/post
  *
@@ -66,4 +63,10 @@ abstract class Showpass_Meta_Box {
 
 }
 
-add_action( 'add_meta_boxes', [ 'Showpass_Meta_Box', 'add' ] );
+/**
+ * Only show the section if they have the access token filled out
+ */
+if (get_option('option_showpass_access_token')) {
+  add_action( 'in_admin_footer', 'showpass_edit_section_form_javascript' );
+  add_action( 'add_meta_boxes', [ 'Showpass_Meta_Box', 'add' ] );
+}
