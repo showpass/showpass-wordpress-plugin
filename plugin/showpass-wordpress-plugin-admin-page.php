@@ -31,11 +31,17 @@ function wpshp_settings_page() {
         <label for="main_api_url">Enter Time Format: (if empty "g:iA" - ex. 9:00AM)</label><br />
         <input type="text" placeholder="g:iA" name="format_time"
             value="<?php echo esc_attr( get_option('format_time') ); ?>" /><br /><br />
-        */ ?>
 
         <input type="checkbox" name="option_theme_dark" value="true"
             <?php checked('true', get_option('option_theme_dark'), true); ?> />
         <label for="main_api_url">Enable Dark Theme</label><br /><br />
+        */ ?>
+
+        <label for="option_showpass_default_button_class">Default Button Class</label><br />
+        <input type="text" placeholder="" name="option_showpass_default_button_class"
+            value="<?php echo esc_attr( get_option('option_showpass_default_button_class') ); ?>" /><br />
+        <small>If your theme has custom button classes, add them here. Example: btn btn-success</small>
+        <br /><br />
 
         <input type="checkbox" name="option_keep_shopping" value="false"
             <?php checked('false', get_option('option_keep_shopping'), true); ?> />

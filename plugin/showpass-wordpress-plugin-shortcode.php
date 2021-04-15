@@ -8,6 +8,7 @@ define('SHOWPASS_API_URL', 'https://www.showpass.com/api');
 define('SHOWPASS_ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('SHOWPASS_API_PUBLIC_EVENTS', SHOWPASS_API_URL . '/public/events');
 define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
+define('DEFAULT_BUTTON_VERBIAGE', 'Get Tickets');
 
 /* making connection and taking the data from API */
 function call_showpass_api($url) {
@@ -26,6 +27,16 @@ function call_showpass_api($url) {
   if ($http_code === 200) {
     return wp_remote_retrieve_body($response);
   }
+}
+
+function generate_showpass_buy_now_button_shortcode ($slug) {
+	if (get_option('option_showpass_default_button_class')) {
+		$classes = sprintf('class="%s"', get_option('option_showpass_default_button_class'));
+	} else {
+		$classes = "";
+	}
+	$shortcode = sprintf('[showpass_widget slug="%s" label="%s" %s]', $slug, DEFAULT_BUTTON_VERBIAGE, $classes);
+	return $shortcode;
 }
 
 function showpass_get_event_data( $atts ) {
@@ -774,7 +785,7 @@ function showpass_widget_expand($atts, $content = null) {
 		if (isset($atts['label'])) {
 			$label = $atts['label'];
 		} else {
-			$label = 'Get Tickets';
+			$label = DEFAULT_BUTTON_VERBIAGE;
 		}
 
 		if (isset($atts['tracking_id'])) {
@@ -785,13 +796,18 @@ function showpass_widget_expand($atts, $content = null) {
 
     	$style = '';
 
-		if (isset($atts['class'])) {
+		if (isset($atts['class']) && isset($atts['class']) != "") {
 			$class = $atts['class'];
+			$include_icon = false;
+		} else if (get_option('option_showpass_default_button_class')) {
+			$class = get_option('option_showpass_default_button_class');
+			$include_icon = false;
 		} else {
 			if ($widget_color) {
 				$style = '<style type="text/css">.showpass-button {background-color:#'.$widget_color.' !important;}</style>';
 			}
 			$class = 'showpass-button';
+			$include_icon = true;
 		}
 
 		if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') || (get_option('option_keep_shopping') === 'false')) {
@@ -835,10 +851,10 @@ function showpass_widget_expand($atts, $content = null) {
 			$button .= sprintf('data-tracking="%s" ', $tracking);
 		}
 
-		if (!isset($atts['label']) || !isset($atts['class'])) {
-			$button .='"><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
+		if ($include_icon) {
+			$button .='><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
 		} else {
-			$button .='">';
+			$button .='>';
 		}
 
 		$button .= '<span>'.$label.'</span></a>';

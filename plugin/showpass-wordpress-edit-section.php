@@ -57,7 +57,8 @@ abstract class Showpass_Meta_Box {
     <span id="submit-event-url">Submit</span> <span class="loader dashicons dashicons-update"></span>
     <span id="error"></span>
     <span id="success"></span>
-    <p id="showpass-url"></p>
+    <p class="response">URL: <span id="showpass-url"></span></p>
+    <p class="response">Shortcode: <span id="showpass-shortcode"></span></p>
 </div>
 <?php }
 

@@ -49,6 +49,7 @@ function register_wpshp_settings() {
 	register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
 	register_setting('wpshp-settings-group', 'option_showpass_access_token');
 	register_setting('wpshp-settings-group', 'option_showpass_distribution_tracking');
+  	register_setting('wpshp-settings-group', 'option_showpass_default_button_class');
 }
 
 /* call register settings function */

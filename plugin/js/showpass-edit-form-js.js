@@ -6,7 +6,7 @@
 		const checkValidURL = (url) => {
 			if (url) {
 				$('span#error').html('');
-				$('p#showpass-url').html('');
+				$('p.response').hide();
 				$('#showpass-get-event-url .loader').addClass('spin');
 				$.ajax({
 					url: wpApiSettings.root + 'showpass/v1/process-url/?url=' + encodeURI(url),
@@ -16,11 +16,11 @@
 						xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
 					},
 					success: function (success) {
-						console.log(success);
+						$('p.response').show();
 						$('#showpass-get-event-url .loader').removeClass('spin');
-						console.log(success);
 						$('span#success').html('Success!')
-						$('p#showpass-url').html('https://www.showpass.com/' + success.data);
+						$('span#showpass-url').html('https://www.showpass.com/' + success.data.slug);
+						$('span#showpass-shortcode').html(success.data.shortcode);
 					},
 					error: function (error) {
 						console.log(error);
