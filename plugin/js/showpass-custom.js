@@ -116,43 +116,10 @@
             }
 
             showpass.tickets.productPurchaseWidget(id, params);
-        });
+		});
 
-        $('body').on('click', '.force-showpass-widget a[href*="showpass.com"]', function(e) {
-            e.preventDefault();
-            slug = $(this).attr('href').split('.com/')[1];
-
-            let params = getParams(this);
-
-            // Overwrite tracking-id if set in URL
-            if (Cookies.get('affiliate')) {
-                params['tracking-id'] = Cookies.get('affiliate');
-            }
-
-            showpass.tickets.eventPurchaseWidget(slug, params);
-        });
-
-        $('body').on('click', '.open-ticket-widget', function (e) {
-            e.preventDefault();
-
-            let slug = $(this).attr('id');
-            let params = getParams(this);
-
-            const openWidget = () => {
-				
-				if ($(this).attr('data-tracking')) {
-					params['tracking-id'] = $(this).attr('data-tracking');
-				}
-
-				/**
-				 * Add query parameters if distribution tracking is enabled
-				 */
-
-				// Overwrite tracking-id if set in URL
-				if (Cookies.get('affiliate')) {
-					params['tracking-id'] = Cookies.get('affiliate');
-				}
-
+		const openShowpassWidget = (slug, params) => {
+			const openWidget = () => {
 				showpass.tickets.eventPurchaseWidget(slug, params);
             }
 
@@ -183,6 +150,51 @@
             } else {
                 openWidget();
             }
+		}
+
+		$('body').on('click', 'a[href*="showpass.com"].force-showpass-widget', function (e) {
+			console.log('test');
+            e.preventDefault();
+            slug = $(this).attr('href').split('.com/')[1];
+
+            let params = getParams(this);
+
+            if ($(this).attr('data-tracking')) {
+				params['tracking-id'] = $(this).attr('data-tracking');
+			}
+
+			/**
+			 * Add query parameters if distribution tracking is enabled
+			 */
+
+			// Overwrite tracking-id if set in URL
+			if (Cookies.get('affiliate')) {
+				params['tracking-id'] = Cookies.get('affiliate');
+			}
+
+            openShowpassWidget(slug, params);
+        });
+
+        $('body').on('click', '.open-ticket-widget', function (e) {
+            e.preventDefault();
+
+            let slug = $(this).attr('id');
+            let params = getParams(this);
+
+			if ($(this).attr('data-tracking')) {
+				params['tracking-id'] = $(this).attr('data-tracking');
+			}
+
+			/**
+			 * Add query parameters if distribution tracking is enabled
+			 */
+
+			// Overwrite tracking-id if set in URL
+			if (Cookies.get('affiliate')) {
+				params['tracking-id'] = Cookies.get('affiliate');
+			}
+
+			openShowpassWidget(slug, params);
 
         });
 
