@@ -292,7 +292,7 @@ a:focus {
 }
 
 /* ================
-   COMPONENT STYLES 
+   COMPONENT STYLES
    ================ */
 .badge {
   background: #bfbfbf;
@@ -320,7 +320,9 @@ a:focus {
   text-overflow: ellipsis;
 }
 
-
+.showpass-event-title {
+	text-align: left;
+}
 
 .showpass-event-title h3 {
   color: black !important;
