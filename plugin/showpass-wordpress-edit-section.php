@@ -38,7 +38,7 @@ abstract class Showpass_Meta_Box {
         foreach ( $screens as $screen ) {
             add_meta_box(
                 'showpass_meta_box_id',          // Unique ID
-                'Showpass API', // Box title
+                'Showpass URL & Shortcode Generator', // Box title
                 [ self::class, 'html' ],   // Content callback, must be of type callable
                 $screen
             );
@@ -54,7 +54,7 @@ abstract class Showpass_Meta_Box {
 <div id="showpass-get-event-url">
     <label for="showpass_url_field">Event URL</label><br />
     <input type="text" id="showpass_url_field" /> <br />
-    <span id="submit-event-url">Submit</span> <span class="loader dashicons dashicons-update"></span>
+    <button id="submit-event-url">Submit</button> <span class="loader dashicons dashicons-update"></span>
     <span id="error"></span>
     <span id="success"></span>
     <p class="response">URL: <span id="showpass-url"></span></p>

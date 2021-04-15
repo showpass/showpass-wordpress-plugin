@@ -14,6 +14,12 @@
 	cursor: pointer;
 	padding: 5px 10px;
 	border-radius: 2px;
+	border: 0px;
+}
+
+#showpass-get-event-url #submit-event-url:disabled {
+	background: #cccccc;
+	pointer-events: none;
 }
 
 #showpass-get-event-url span#error {
