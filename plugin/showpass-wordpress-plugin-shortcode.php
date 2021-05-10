@@ -8,6 +8,7 @@ define('SHOWPASS_API_URL', 'https://www.showpass.com/api');
 define('SHOWPASS_ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('SHOWPASS_API_PUBLIC_EVENTS', SHOWPASS_API_URL . '/public/events');
 define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
+define('DEFAULT_BUTTON_VERBIAGE', 'Get Tickets');
 
 /* making connection and taking the data from API */
 function call_showpass_api($url) {
@@ -25,9 +26,17 @@ function call_showpass_api($url) {
   $http_code = wp_remote_retrieve_response_code($response);
   if ($http_code === 200) {
     return wp_remote_retrieve_body($response);
-  } else {
-    print_r ($response);
   }
+}
+
+function generate_showpass_buy_now_button_shortcode ($slug) {
+	if (get_option('option_showpass_default_button_class')) {
+		$classes = sprintf('class="%s"', get_option('option_showpass_default_button_class'));
+	} else {
+		$classes = "";
+	}
+	$shortcode = sprintf('[showpass_widget slug="%s" label="%s" %s]', $slug, DEFAULT_BUTTON_VERBIAGE, $classes);
+	return $shortcode;
 }
 
 function showpass_get_event_data( $atts ) {
@@ -181,7 +190,6 @@ function showpass_get_event_data( $atts ) {
 
     // encode json data to return properly
     $data = json_encode($data);
-
     if ($template == "data") {
       return $data;
     } else {
@@ -633,6 +641,13 @@ function showpass_display_calendar($atts) {
   }
 
   // white arrows
+  if (isset($atts['show'])) {
+    $show_all = $atts["show"];
+  } else {
+	$show_all = false;
+  }
+
+  // white arrows
   if (isset($atts['hide_view_select'])) {
     $hide_view_select = $atts["hide_view_select"] === 'true' ? true : false;
   } else {
@@ -708,6 +723,7 @@ function showpass_display_calendar($atts) {
   $html .= "<input type='hidden' id='hide-schedule' value='" . $hide_schedule . "' />";
   $html .= "<input type='hidden' id='only-parents' value='" . $only_parents . "' />";
   $html .= "<input type='hidden' id='hide-children' value='" . $hide_children . "' />";
+  $html .= "<input type='hidden' id='show-all' value='" . $show_all . "' />";
 
   if (isset($month_enable)) {
     $html .= "<input type='hidden' id='month_enable' value='" . $month_enable . "' />";
@@ -769,7 +785,7 @@ function showpass_widget_expand($atts, $content = null) {
 		if (isset($atts['label'])) {
 			$label = $atts['label'];
 		} else {
-			$label = 'Get Tickets';
+			$label = DEFAULT_BUTTON_VERBIAGE;
 		}
 
 		if (isset($atts['tracking_id'])) {
@@ -780,13 +796,18 @@ function showpass_widget_expand($atts, $content = null) {
 
     	$style = '';
 
-		if (isset($atts['class'])) {
+		if (isset($atts['class']) && isset($atts['class']) != "") {
 			$class = $atts['class'];
+			$include_icon = false;
+		} else if (get_option('option_showpass_default_button_class')) {
+			$class = get_option('option_showpass_default_button_class');
+			$include_icon = false;
 		} else {
 			if ($widget_color) {
 				$style = '<style type="text/css">.showpass-button {background-color:#'.$widget_color.' !important;}</style>';
 			}
 			$class = 'showpass-button';
+			$include_icon = true;
 		}
 
 		if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') || (get_option('option_keep_shopping') === 'false')) {
@@ -824,26 +845,16 @@ function showpass_widget_expand($atts, $content = null) {
 		$button .= $style
 				.'<a '
 				.sprintf('id="%s" ', $slug)
-				.sprintf('class="open-ticket-widget %s" ', $class)
-				.sprintf('data-color="%s" ', $widget_color)
-				.sprintf('data-shopping="%s" ', $keep_shopping)
-				.sprintf('data-theme="%s" ', $theme_dark)
-				.sprintf('data-distribution="%s" ', $distribution_partner)
-				.sprintf('data-show-description="%s" ', $show_description);
+				.sprintf('class="open-ticket-widget %s" ', $class);
 
 		if ($tracking) {
 			$button .= sprintf('data-tracking="%s" ', $tracking);
 		}
 
-		if (get_option('option_showpass_distribution_tracking')) {
-			$distribution_tracking = get_option('option_showpass_distribution_tracking');
-			$button .= sprintf('data-distribution-tracking="%s" ', $distribution_tracking);
-		}
-
-		if (!isset($atts['label']) || !isset($atts['class'])) {
-			$button .='"><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
+		if ($include_icon) {
+			$button .='><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
 		} else {
-			$button .='">';
+			$button .='>';
 		}
 
 		$button .= '<span>'.$label.'</span></a>';
@@ -921,24 +932,47 @@ function wpshp_cart_button($atts, $content = null) {
 
 add_shortcode('showpass_cart_button', 'wpshp_cart_button');
 
-function showpass_scripts(){
-  if (!is_admin()) {
-    wp_dequeue_script('jquery');
-    wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), '1.0.0', true );
-    wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true );
-    wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(),false, '1.0.1');
-    wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(), false, '1.0.2');
-    wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(), false, '1.0.3');
-    wp_register_script('tooltipster', plugins_url( '/js/vendor/tooltipster.js', __FILE__ ), array(), false, '4.2.5');
-    wp_register_script('showpass-lodash', plugins_url( '/js/vendor/lodash.js', __FILE__ ), array(), '1.8.3');
-    wp_enqueue_script('moment-showpass');
-    wp_enqueue_script('moment-timezone-showpass');
-    wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
-    wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), null);
-    wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
-    wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), null, false);
-    wp_enqueue_script('jquery-showpass');
+//[showpass_calendar_widget]
+function wpshp_calendar_widget($atts, $content = null) {
+
+  $organization_id = get_option('option_organization_id');
+
+  if ($organization_id) {
+    if (isset($atts['label'])) {
+      $label = $atts['label'];
+    } else {
+      $label = 'Get Tickets';
+    }
+	if (isset($atts['class'])) {
+		$class = $atts['class'];
+	} else {
+		$class = 'showpass-button';
+	}
+    $button = '<span data-org-id="'.$organization_id.'" class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
+    return $button;
+  } else {
+    return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
   }
+
+}
+
+add_shortcode('showpass_calendar_widget', 'wpshp_calendar_widget');
+
+function showpass_scripts(){
+	if (!is_admin()) {
+		wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
+		wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), null);
+		wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), null, true );
+		wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true);
+		wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(), '1.0.1', true);
+		wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(), '1.0.2', true);
+		wp_register_script('dateformat-timezone-showpass', plugins_url( '/js/dateFormat.js', __FILE__ ), array(), '1.0.3', true);
+		wp_register_script('showpass-lodash', plugins_url( '/js/vendor/lodash.js', __FILE__ ), array(), '1.8.3', true);
+		wp_enqueue_script('moment-showpass');
+		wp_enqueue_script('moment-timezone-showpass');
+		wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
+		wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), null, true);
+	}
 }
 
 add_action( 'init', 'showpass_scripts' );
@@ -948,6 +982,7 @@ function showpass_widget_options() {
   echo '<input type="hidden" id="option_show_widget_description" value="'.get_option('option_show_widget_description').'">';
   echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
   echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
+  echo '<input type="hidden" id="option_showpass_distribution_tracking" value="'.get_option('option_showpass_distribution_tracking').'">';
 }
 
 add_action( 'wp_footer', 'showpass_widget_options', 100 );

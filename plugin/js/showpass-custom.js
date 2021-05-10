@@ -1,8 +1,19 @@
-(function($) {
-    $(window).on('load', function() {
+(function ($, window, document) {
+
+	const getParams = (element) => {
+		return {
+			'theme-primary': $(element).attr('data-color') || $('#option_widget_color').val() || '',
+			'keep-shopping': $(element).attr('data-shopping') || $('#option_keep_shopping').val() || 'true',
+			'theme-dark': $(element).attr('data-theme') || $('#option_theme_dark').val() || '',
+			'show-description': $(element).attr('data-show-description') || $('#option_show_widget_description').val() || 'false',
+			'distribution-tracking': $(element).attr('data-distribution-tracking') || $('#option_showpass_distribution_tracking').val() || ''
+		}
+	}
+
+	$(window).on('load', function () {
 
         showpass.tickets.addCartCountListener(function(count) {
-            var html = '';
+            let html = '';
             if (count > 0) {
                 html = 'Shopping Cart (' + count + ')';
                 Cookies.set('cart', html);
@@ -12,14 +23,15 @@
                 Cookies.set('cart', html);
                 $('.showpass-cart-button span').html(html);
             }
-        });
+		});
+
         // GET QUERY STING
         function getQueryStrings() {
-            var assoc = {};
-            var decode = function(s) {
+            let assoc = {};
+            let decode = function(s) {
                 return decodeURIComponent(s.replace(/\+/g, " "));
             };
-            var queryString = location.search.substring(1);
+            let queryString = location.search.substring(1);
             var keyValues = queryString.split('&');
 
             for (var i in keyValues) {
@@ -29,7 +41,8 @@
                 }
             }
             return assoc;
-        }
+		}
+
         var qs = getQueryStrings();
         // SET AFFILIATE COOKIE
         if (!$.isEmptyObject(qs) && qs.aff) {
@@ -69,28 +82,29 @@
 
         if (qs.auto) {
             var slug = qs.auto;
-            var params = {
-                'theme-primary': $('#option_widget_color').val() || '',
-                'keep-shopping': $('#option_keep_shopping').val() || 'true',
-                'theme-dark': $('#option_theme_dark').val() || '',
-                'show-description': $('#option_show_widget_description').val() || 'false'
-            };
             setTimeout(function() {
                 Cookies.remove('auto');
                 showpass.tickets.eventPurchaseWidget(slug, params);
             }, 500);
         }
 
+		$('body').on('click', '.open-calendar-widget', function(e) {
+			e.preventDefault();
+
+			let id = $(this).attr('data-org-id');
+			let params = {
+				'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+				'keep-shopping': false
+			};
+
+			showpass.tickets.calendarWidget(id, params);
+		});
+
         $('body').on('click', '.open-product-widget', function(e) {
             e.preventDefault();
 
-			var id = $(this).attr('id');
-            var params = {
-                'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
-                'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val(),
-                'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
-                'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val()
-            };
+			let id = $(this).attr('id');
+			let params = getParams(this);
 
             if ($(this).attr('data-tracking')) {
                 params['tracking-id'] = $(this).attr('data-tracking');
@@ -102,67 +116,17 @@
             }
 
             showpass.tickets.productPurchaseWidget(id, params);
-        });
+		});
 
-        $('body').on('click', '#force-showpass-widget a[href*="showpass.com"]', function(e) {
-            e.preventDefault();
-            slug = $(this).attr('href').split('.com/')[1];
-
-            var params = {
-                'theme-primary': $('#option_widget_color').val(),
-                'keep-shopping':$('#option_keep_shopping').val() || true,
-                'theme-dark': $('#option_theme_dark').val(),
-                'show-description': $('#option_show_widget_description').val() || 'false'
-            };
-
-            // Overwrite tracking-id if set in URL
-            if (Cookies.get('affiliate')) {
-                params['tracking-id'] = Cookies.get('affiliate');
-            }
-
-            showpass.tickets.eventPurchaseWidget(slug, params);
-        });
-
-        $('body').on('click', '.open-ticket-widget', function (e) {
-            e.preventDefault();
-
-            let slug = $(this).attr('id');
-
-            const openWidget = () => {
-				let params = {
-					'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
-					'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
-					'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
-					'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val() || 'false'
-				};
-
-				if ($(this).attr('data-tracking')) {
-					params['tracking-id'] = $(this).attr('data-tracking');
-				}
-
-				if ($(this).attr('data-eyereturn')) {
-					params['show-eyereturn'] = $(this).attr('data-eyereturn');
-				}
-
-				/**
-				 * Add query parameters if distribution tracking is enabled
-				 */
-				if ($(this).attr('data-distribution-tracking')) {
-					params['distribution-tracking'] = $(this).attr('data-distribution-tracking');
-				}
-
-				// Overwrite tracking-id if set in URL
-				if (Cookies.get('affiliate')) {
-					params['tracking-id'] = Cookies.get('affiliate');
-				}
-
+		const openShowpassWidget = (slug, params) => {
+			const openWidget = () => {
 				showpass.tickets.eventPurchaseWidget(slug, params);
             }
 
             /**
              * Handle the redirect if distribution partner with an external link
              */
-            if ($(this).attr('data-distribution') === 'true') {
+            if (params['data-distribution'] !== '') {
                 const checkEvent = async () => {
                     try {
 						const response = await fetch('https://www.showpass.com/api/public/events/' + slug + '/')
@@ -186,22 +150,59 @@
             } else {
                 openWidget();
             }
+		}
+
+		$('body').on('click', 'a[href*="showpass.com"].force-showpass-widget', function (e) {
+			console.log('test');
+            e.preventDefault();
+            slug = $(this).attr('href').split('.com/')[1];
+
+            let params = getParams(this);
+
+            if ($(this).attr('data-tracking')) {
+				params['tracking-id'] = $(this).attr('data-tracking');
+			}
+
+			/**
+			 * Add query parameters if distribution tracking is enabled
+			 */
+
+			// Overwrite tracking-id if set in URL
+			if (Cookies.get('affiliate')) {
+				params['tracking-id'] = Cookies.get('affiliate');
+			}
+
+            openShowpassWidget(slug, params);
+        });
+
+        $('body').on('click', '.open-ticket-widget', function (e) {
+            e.preventDefault();
+
+            let slug = $(this).attr('id');
+            let params = getParams(this);
+
+			if ($(this).attr('data-tracking')) {
+				params['tracking-id'] = $(this).attr('data-tracking');
+			}
+
+			/**
+			 * Add query parameters if distribution tracking is enabled
+			 */
+
+			// Overwrite tracking-id if set in URL
+			if (Cookies.get('affiliate')) {
+				params['tracking-id'] = Cookies.get('affiliate');
+			}
+
+			openShowpassWidget(slug, params);
 
         });
 
         $('.showpass-cart-button').on('click', function(e) {
-            e.preventDefault();
-            showpass.tickets.checkoutWidget({
-                'theme-primary': $('#option_widget_color').val() || '',
-                'keep-shopping': $('#option_keep_shopping').val() || 'true',
-                'theme-dark': $('#option_theme_dark').val() || '',
-                'show-description': $('#option_show_widget_description').val() || 'false'
-            });
+			e.preventDefault();
+			let params = getParams(this);
+            showpass.tickets.checkoutWidget(params);
         });
-
-        if ($(this).attr('data-eyereturn')) {
-            params['show-eyereturn'] = $(this).attr('data-eyereturn');
-        }
 
         if (Cookies.get('cart')) {
             $('.showpass-cart-button span').html(Cookies.get('cart'));
@@ -231,12 +232,7 @@
         $('.showpass-date-select').on('change', function(e) {
             var slug = $(this).val();
             if (slug != '') {
-                var params = {
-                    'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
-                    'keep-shopping': $(this).attr('data-shopping') || $('#option_keep_shopping').val() || true,
-                    'theme-dark': $(this).attr('data-theme') || $('#option_theme_dark').val(),
-                    'show-description': $(this).attr('data-show-description') || $('#option_show_widget_description').val() || 'false'
-                };
+				let params = getParams(this);
 
                 if (Cookies.get('affiliate')) {
                     params['tracking-id'] = Cookies.get('affiliate');
@@ -268,4 +264,4 @@
 
     mutationObserver.observe(document.documentElement, { attributes: true });
 
-})(jQuery);
+})(jQuery, window, document);

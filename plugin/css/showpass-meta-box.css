@@ -1,0 +1,54 @@
+#showpass-get-event-url label,
+#showpass-get-event-url input,
+#showpass-get-event-url #submit-event-url  {
+	margin-bottom: 10px;
+}
+
+#showpass-get-event-url input {
+	width: 75%;
+}
+
+#showpass-get-event-url #submit-event-url {
+	color: white;
+	background: #dd3333;
+	cursor: pointer;
+	padding: 5px 10px;
+	border-radius: 2px;
+	border: 0px;
+}
+
+#showpass-get-event-url #submit-event-url:disabled {
+	background: #cccccc;
+	pointer-events: none;
+}
+
+#showpass-get-event-url span#error {
+	color: red;
+}
+
+#showpass-get-event-url span#success {
+	color: green;
+}
+
+#showpass-get-event-url .loader.dashicons {
+	display: none;
+}
+
+#showpass-get-event-url .loader.dashicons.spin {
+	display: inline-block;
+	animation: dashicons-spin 1s infinite;
+	animation-timing-function: linear;
+ }
+
+ @keyframes dashicons-spin {
+	0% {
+	   transform: rotate( 0deg );
+	}
+	100% {
+	   transform: rotate( 360deg );
+	}
+ }
+
+ #showpass-get-event-url p.response {
+	 display: none;
+ }

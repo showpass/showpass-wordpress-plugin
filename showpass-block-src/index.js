@@ -50,7 +50,7 @@ class BuyTicketBlock extends Component {
 					loading: false
 				});
 				if (data) {
-					setAttributes({ slug: data });
+					setAttributes({ shortcode: data.data.shortcode });
 					setAttributes({ dataError: false });
 				}
 			}).catch(error => {
@@ -144,6 +144,6 @@ registerBlockType('create-block/showpass-button-block', {
 	edit: BuyTicketBlock,
 	save: (props) => {
 		const { attributes } = props;
-        return  !attributes.dataError && attributes.slug && '[showpass_widget slug="' + attributes.slug + '" label="' + attributes.buttonLabel + '"]';
+        return  !attributes.dataError && attributes.shortcode;
     },
 });
