@@ -54,7 +54,9 @@
 
 /* ---- Grid Overrides ---- */
 
-.showpass-event-card .showpass-event-list .showpass-background-white, .showpass-event-card .showpass-event-layout-list .showpass-background-white{
+.showpass-event-card .showpass-event-list .showpass-background-white,
+.showpass-event-card .showpass-event-layout-list .showpass-background-white,
+.showpass-event-card .showpass-event-grid .showpass-background-white {
   background-color: white;
   color: black;
 }
