@@ -107,9 +107,15 @@
 			script.src = 'https://showpass.com/static/dist/sdk.js';
 			script.onload = function() {
 				const id = embeddedCalendarExists.getAttribute('data-org-id');
-				const params = {
-					'theme-primary': $('#option_widget_color').val()
+				let params = {
+					'theme-primary': $('#option_widget_color').val(),
 				};
+				if (embeddedCalendarExists.getAttribute('data-tags')) {
+					const tags = {
+						tags: embeddedCalendarExists.getAttribute('data-tags')
+					};
+					params = Object.assign(params, tags);
+				}
 				showpass.tickets.mountCalendarWidget(id, params);
 			};
 			document.body.appendChild(script);

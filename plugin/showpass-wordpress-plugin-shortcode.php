@@ -962,8 +962,11 @@ add_shortcode('showpass_calendar_widget', 'wpshp_calendar_widget');
 function wpshp_embed_calendar($atts, $content = null) {
 	$organization_id = get_option('option_organization_id');
 
+	$tags = isset($atts['tags']) ? $atts['tags']
+								 : null;
+
 	if ($organization_id) {
-		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'"><div>';
+		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'"><div>';
 	} else {
 		return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
 	}
