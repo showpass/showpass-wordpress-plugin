@@ -100,6 +100,27 @@
 			showpass.tickets.calendarWidget(id, params);
 		});
 
+		const embeddedCalendarExists = document.getElementById('showpass-calendar-widget');
+		if (embeddedCalendarExists) {
+			let script = document.createElement("script");
+			script.type = "text/javascript";
+			script.src = 'https://showpass.com/static/dist/sdk.js';
+			script.onload = function() {
+				const id = embeddedCalendarExists.getAttribute('data-org-id');
+				let params = {
+					'theme-primary': $('#option_widget_color').val(),
+				};
+				if (embeddedCalendarExists.getAttribute('data-tags')) {
+					const tags = {
+						tags: embeddedCalendarExists.getAttribute('data-tags')
+					};
+					params = Object.assign(params, tags);
+				}
+				showpass.tickets.mountCalendarWidget(id, params);
+			};
+			document.body.appendChild(script);
+		}
+
         $('body').on('click', '.open-product-widget', function(e) {
             e.preventDefault();
 

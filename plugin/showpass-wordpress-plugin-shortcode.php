@@ -958,6 +958,22 @@ function wpshp_calendar_widget($atts, $content = null) {
 
 add_shortcode('showpass_calendar_widget', 'wpshp_calendar_widget');
 
+//[showpass_embed_calendar]
+function wpshp_embed_calendar($atts, $content = null) {
+	$organization_id = get_option('option_organization_id');
+
+	$tags = isset($atts['tags']) ? $atts['tags']
+								 : null;
+
+	if ($organization_id) {
+		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'"><div>';
+	} else {
+		return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
+	}
+}
+
+add_shortcode('showpass_embed_calendar', 'wpshp_embed_calendar');
+
 function showpass_scripts(){
 	if (!is_admin()) {
 		wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
