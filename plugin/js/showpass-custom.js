@@ -93,8 +93,8 @@
 
 			let id = $(this).attr('data-org-id');
 			let params = {
-				'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
-				'keep-shopping': false,
+                'theme-primary': $(this).attr('data-color') || $('#option_widget_color').val(),
+                'keep-shopping': false,
                 'tags': $(this).attr('data-tags')
 			};
 

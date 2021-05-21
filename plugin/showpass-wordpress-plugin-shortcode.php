@@ -938,7 +938,7 @@ function wpshp_calendar_widget($atts, $content = null) {
   $organization_id = get_option('option_organization_id');
 
   $tags = isset($atts['tags']) ? $atts['tags']
-  : null;
+    : null;
 
   if ($organization_id) {
     if (isset($atts['label'])) {
