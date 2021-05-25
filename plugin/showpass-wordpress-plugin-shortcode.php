@@ -937,6 +937,9 @@ function wpshp_calendar_widget($atts, $content = null) {
 
   $organization_id = get_option('option_organization_id');
 
+  $tags = isset($atts['tags']) ? $atts['tags']
+    : null;
+
   if ($organization_id) {
     if (isset($atts['label'])) {
       $label = $atts['label'];
@@ -948,7 +951,7 @@ function wpshp_calendar_widget($atts, $content = null) {
 	} else {
 		$class = 'showpass-button';
 	}
-    $button = '<span data-org-id="'.$organization_id.'" class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
+    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
     return $button;
   } else {
     return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
