@@ -41,15 +41,14 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 4. [JSON Data](#4-json-data)     
    4.1. [Single event](#41-single-event)    
    4.2. [List events](#42-list-events)    
-5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)         
-   5.1. [Theme Dark parameter](#51-theme_dark-parameter)                                       
-   5.2. [Starting date parameter](#52-starting_date-parameter)   
-   5.3. [Tags parameter](#53-tags-parameter)   
-   5.4. [Hide schedule parameter](#54-hide_schedule-parameter)   
-   5.5. [Recurring events parameter](#55-recurring-events-parameter)   
-   5.6. [Week and month parameter](#56-week-and-month-parameters)   
-   5.7. [Arrow parameter](#57-arrows-parameter)   
-   5.8. [Hide view select parameter](#57-hide-view-select-parameter)   
+5. [Shortcode - [showpass_calendar]](#5-shortcode-showpass_calendar)                               
+   5.1. [Starting date parameter](#51-starting_date-parameter)   
+   5.2. [Tags parameter](#52-tags-parameter)   
+   5.3. [Hide schedule parameter](#53-hide_schedule-parameter)   
+   5.4. [Recurring events parameter](#54-recurring-events-parameter)   
+   5.5. [Week and month parameter](#55-week-and-month-parameters)   
+   5.6. [Arrow parameter](#56-arrows-parameter)   
+   5.7. [Hide view select parameter](#57-hide-view-select-parameter)   
 6. [Shortcode - [showpas_widget] - Buy Now Button](#6-shortcode-showpass_widget---buy-now-button)       
   6.1. [Parameters](#61-parameters)    
   6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
@@ -59,8 +58,9 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
   9.1. [Parameters](#91-parameters)  
 10. [Shortcode - [showpass_pricing_table]](#10-shortcode-showpass_pricing_table)  
   10.1. [Parameters](#101-parameters)  
+11. [Calendar Widget V2.0](#11-showpass-calendar-widget) 
 
-## 1. Admin page
+# 1. Admin page
 
 ## 1.1. Configure parameters
 
@@ -69,15 +69,10 @@ After installation of the plugin, in Admin page there will be in Admin menu link
 ex. 5 - will get all events from venue with ID = 5.
 * *Widget Color* - the hex code for the primary color of the showpass widget
 ex. #ff0000 - red
-* *Date format* - You can enter format that you want the date to be converted to.
-ex. "l F d, Y" - will format to "Friday 21 April, 2017".
-* *Time format* - You can enter format that you want the time to be converted to.
-ex. "g:iA" - will format to "9:00AM".
 More about date and time format <a href="http://php.net/manual/en/function.date.php">here</a>.
-* *Enable Dark Theme* - use the dark theme for the widget instead of the default light theme
 * *Keep Shopping* - By default the widget has buttons that say "Keep Shopping" that close the widget when clicked. You can have it simply say "Close" or any other custom label
 
-## 2. Shortcode [showpass_events]
+# 2. Shortcode [showpass_events]
 
 Use the `[showpass_events type="list"]` shortcode to automatically display a list of upcoming events on any page or post.
 
@@ -196,7 +191,7 @@ If you have recurring events, you can set whether or not you want to display the
 
 `hide_children='true'` will not show any recurring events at all.
 
-`only_parents='true'` will show non-recurring events as well as the main recurring events. When using `only_parents='false'` this will show non-recurring events as well as all occurences of recurring events.
+`only_parents='true'` will show non-recurring events as well as the main recurring events. When using `only_parents='false'` this will show non-recurring events as well as all occurrences of recurring events.
 
 By default `hide_children='false'` and `only_parents='true'`.
 
@@ -246,7 +241,7 @@ ex. `www.website.com/?q=something` .
 
 * *tags parameter* - `?tags=Rock`
 
-This parameter is for filtering events through the tags. You need to pass throught the website url `?tags=tag_you_want` and it will get all events which has that tag(category). Also works with multiple tags separated by comma
+This parameter is for filtering events through the tags. You need to pass through the website url `?tags=tag_you_want` and it will get all events which has that tag(category). Also works with multiple tags separated by comma
 
 ex. `www.website.com/?tags=tag_one,tag_two`
 
@@ -258,7 +253,7 @@ ex. `www.website.com/?tags=tag_one,tag_two`
 
 These parameters receives date.
 
-## 3. Functions      
+# 3. Functions      
 
 ## 3.1. Showpass get Event Date
 
@@ -393,7 +388,7 @@ This function generates a responsive image.
       ]
       ```
 
-## 4. JSON Data
+# 4. JSON Data
 
 ## 4.1. Single event
 ```
@@ -748,9 +743,11 @@ This function generates a responsive image.
    ]
 }
 ```
-## 5. Shortcode [showpass_calendar]
+# 5. Shortcode [showpass_calendar]
 
-You will need to add just this shortcode `[showpass_calendar]` and you will get complete calendar with all the events from the venue that is set in the admin page. If the venue(organisation ID) is not set, then you will get all events from the API.
+_**We recommend using the new [Calendar Widget v2.0](#11-showpass-calendar-widget)**_
+
+You will need to add just this shortcode `[showpass_calendar]` and you will get complete calendar with all the events from the venue that is set in the admin page. If the venue(Organization ID) is not set, then you will get all events from the API.
 
 This shortcode gives you calendar view with all events bound to their start dates for up to one year from today.
 
@@ -758,29 +755,26 @@ The calendar can also be set to Week view, where you are able to see the events 
 
 The calendar events have the all the Showpass event info that you need, and link directly to the event page (external link).
 
-## 5.1. theme_dark Parameter
-Add `theme_dark="true"` to use a dark theme for the calendar instead of the default light theme.
-
-## 5.2. starting_date Parameter
+## 5.1. starting_date Parameter
 Add `starting_date="1-12-2018"` use day-month-year to set a starting date for the calendar on initial load
 Format is day, month, year with no leading zeros
 
-## 5.3. tags Parameter
+## 5.2. tags Parameter
 Add `tags="tag"` if you want to only display events with certain tags or categories. For best results use one word lowercase tags.
 
-## 5.4. hide_schedule Parameter
+## 5.3. hide_schedule Parameter
 Add `hide_schedule="true"` if you do not want to display a daily schedule grouped by location.
 
-## 5.5. Recurring Events Parameter
+## 5.4. Recurring Events Parameter
 If you have recurring events, you can set whether or not you want to display them on the calendar or if you want to display only the main event and not each recurrence.
 
 `hide_children='true'` will not show any recurring events at all.
 
-`only_parents='true'` will show non-recurring events as well as the main recurring event. When using `only_parents='false'` this will show non-recurring events as well as all occurences of recurring events.
+`only_parents='true'` will show non-recurring events as well as the main recurring event. When using `only_parents='false'` this will show non-recurring events as well as all occurrences of recurring events.
 
-By default `hide_children='false'` and `only_parents='false'`. In this case, non-recurring events are shown, as well as each occurence of a recurring event.
+By default `hide_children='false'` and `only_parents='false'`. In this case, non-recurring events are shown, as well as each occurrence of a recurring event.
 
-## 5.6. Week and Month Parameters
+## 5.5. Week and Month Parameters
 
 This shortcode also receives parameters `week` and `month` if you want to disable a view.
 
@@ -790,7 +784,7 @@ If you want disable month view you will need to put `[showpass_calendar month="d
 
 If both views are disabled, it will default to the week view, and by default both views are made available.
 
-## 5.7. Arrows Parameter
+## 5.6. Arrows Parameter
 
 Use `[showpass_calendar arrows="white-arrows"]` to show white arrows to switch between months, weeks or days
 
@@ -798,7 +792,7 @@ Use `[showpass_calendar arrows="white-arrows"]` to show white arrows to switch b
 
 Use `[showpass_calendar hide_view_select="true"]` to hide the select box to switch between month, week or day view
 
-## 6. Shortcode [showpass_widget] - Buy Now Button
+# 6. Shortcode [showpass_widget] - Buy Now Button
 
 Use the showpass_widget shortcode to embed a button with the ticket widget on any page or post.
 
@@ -820,19 +814,15 @@ Use a custom class to style your button - Showpass button style provided by defa
 Button to close widget says `Keep Shopping` if true, and `Close` if set to false.
 `Default: true`
 
-#### `theme="dark"`
-Use the dark theme on the widget, default is the light theme.
-
-
 #### `show_widget_description='true'`
 
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
 
-## 6.2 Widget Tracking using Affiliate Tracking Links
+### 6.2 Widget Tracking using Affiliate Tracking Links
 
 ### How it Works
-Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` paremeter to the showpass widget SDK. The `[showpass_widget]` shortcode is automatically set up to look for tracking tokens.
+Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` parameter to the showpass widget SDK. The `[showpass_widget]` shortcode is automatically set up to look for tracking tokens.
 
 ### Create an Affiliate Tracking link
 To learn how to create an affiliate tracking link - http://support.showpass.com/event-organizers/tracking-links/affiliate-tracking-links
@@ -848,14 +838,14 @@ Once you create your tracking link you will have a unique token `(ie 8ee54af5)` 
 
 `www.website.com/?event=event_slug&aff=8ee54af5`
 
-## 7. Shortcode [showpass_cart_button]
+# 7. Shortcode [showpass_cart_button]
 Add a button to initiate the shopping cart and checkout widget
 
 `[showpass_cart_button]`
 
 Will display `Shopping Cart (x)` inside the button, and the x variable will update with the number of items in a shopping cartx
 
-## 8. Auto Query Parameter
+# 8. Auto Query Parameter
 
 You can automatically open the ticket widget as soon as a customer lands on any page on your site by using the `auto` query parameter
 
@@ -863,7 +853,7 @@ http://example.com?auto=this-is-the-slug
 
 Just include the slug of your event in place of `this-is-the-slug`
 
-## 9. Shortcode [showpass_products]
+# 9. Shortcode [showpass_products]
 
 List & sell products from your Showpass organization account
 
@@ -889,7 +879,7 @@ ex. `[showpass_products template="list" product_ids="2,6,7"]`
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
 
-## 10. Shortcode [showpass_pricing_table]
+# 10. Shortcode [showpass_pricing_table]
 Similar to the grid view for the `[showpass_events]` shortcode, but displays events in a grid where all columns are of equal height. Allows you to customize what information is shown and include the event description. You must specify event IDs for events you want to display.
 
 `[showpass_pricing_table ids="10125,10254,10288"]`
@@ -906,3 +896,38 @@ Set `show_event_description='true'` to display the event description. By default
 
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
+
+# 11. Showpass Calendar Widget
+
+The new calendar widget is great for daily time-slot events, and is recommended instead of the `[showpass_calendar]` shortcode
+
+There are two options, you can display a button, to open a calendar in a pop up, or embed the calendar directly into the page
+
+_**If you have an event that spans multiple days, each day of the event will be highlighted on the calendar, this is a known issue and will be fixed shortly**_
+
+## 11.1. Shortcode `[showpass_calendar_widget]`
+
+This shortcode will display a button to users to open up the calendar in a pop up
+
+`[showpass_calendar_widget label="View Event Calendar" tags="comedy"]`
+
+## 11.1.1 Parameters
+### `label='View Event Calendar'`
+
+Change this parameter to the desired label on the button, if not included the default is
+
+### `tags='comedy'`
+
+Use this parameter to filter by certain categories or tags, remove entirely for all events
+
+## 11.2. Shortcode `[showpass_embed_calendar]`
+
+This shortcode will embed the calendar directly onto the page the user is viewing
+
+Ensure the container in which this is placed is over 1200px wide in order to display properly on desktop
+
+## 11.1.1 Parameters
+
+### `tags='comedy'`
+
+Use this parameter to filter by certain categories or tags, remove entirely for all events
