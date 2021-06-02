@@ -914,7 +914,7 @@ This shortcode will display a button to users to open up the calendar in a pop u
 ## 11.1.1 Parameters
 ### `label='View Event Calendar'`
 
-Change this parameter to the desired label on the button, if not included the default is
+Change this parameter to the desired label on the button, if not included the default is Get Tickets.
 
 ### `tags='comedy'`
 
