@@ -426,7 +426,7 @@
 
             if (venue) {
 
-    			let url = "https://local.showpass.com:9000/api/public/events/?venue__in=" + venue +
+    			let url = "https://www.showpass.com/api/public/events/?venue__in=" + venue +
                     "&page_size=100&starts_on__lte=" + endOfMonth + "&ends_on__gte=" + startOfMonth;
 
                 if (tags) {
