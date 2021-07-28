@@ -291,7 +291,8 @@
             // Find current week and get start end dates for event query
             // Set proper dates for selecting
             let currentWeek = moment(week).format();
-            let startWeek = moment(currentWeek).startOf('week').toISOString();
+            let startOfWeek = moment(currentWeek).startOf('week').toISOString();
+            let endOfWeek = moment(currentWeek).endOf('week').toISOString();
 
             $('#view-select .month').attr('current_date', moment(currentWeek).startOf('month').format());
             $('#view-select .week, #view-select .day').attr('current_date', moment(currentWeek).startOf('week').format());
@@ -310,7 +311,8 @@
             let hide_children = $('#hide-children').val();
             if (venue) {
                 // set initial URL
-    			let url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + startWeek;
+    			let url = "https://www.showpass.com/api/public/events/?venue__in=" + venue +
+                    "&page_size=100&starts_on__lte=" + endOfWeek + "&ends_on__gte=" + startOfWeek;
                 // if tags param append to url
                 if (tags) {
                     url = url + "&tags=" + tags;
