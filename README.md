@@ -903,8 +903,6 @@ The new calendar widget is great for daily time-slot events, and is recommended 
 
 There are two options, you can display a button, to open a calendar in a pop up, or embed the calendar directly into the page
 
-_**If you have an event that spans multiple days, each day of the event will be highlighted on the calendar, this is a known issue and will be fixed shortly**_
-
 ## 11.1. Shortcode `[showpass_calendar_widget]`
 
 This shortcode will display a button to users to open up the calendar in a pop up
