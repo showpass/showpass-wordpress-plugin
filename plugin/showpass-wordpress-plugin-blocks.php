@@ -66,4 +66,4 @@ function showpass_plugin_block_category( $categories, $post ) {
 		)
 	);
 }
-add_filter( 'block_categories', 'showpass_plugin_block_category', 10, 2);
+add_filter( 'block_categories_all', 'showpass_plugin_block_category', 10, 2);
