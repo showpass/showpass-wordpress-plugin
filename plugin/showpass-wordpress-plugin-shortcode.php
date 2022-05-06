@@ -990,7 +990,7 @@ function showpass_scripts(){
 		wp_enqueue_script('moment-showpass');
 		wp_enqueue_script('moment-timezone-showpass');
 		wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
-		wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), null, true);
+		wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), '3.6.5', true);
 	}
 }
 
