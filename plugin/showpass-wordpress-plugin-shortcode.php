@@ -969,7 +969,7 @@ function wpshp_embed_calendar($atts, $content = null) {
 								 : null;
 
 	if ($organization_id) {
-		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'"><div>';
+		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'"></div>';
 	} else {
 		return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
 	}
