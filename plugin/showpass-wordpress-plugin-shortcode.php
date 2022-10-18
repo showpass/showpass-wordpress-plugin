@@ -3,8 +3,11 @@
 /**************************
 * registering shortcode
 **************************/
-
-define('SHOWPASS_API_URL', 'https://www.showpass.com/api');
+if (get_option('option_use_showpass_beta')) {
+    define('SHOWPASS_API_URL', 'https://beta.showpass.com/api');
+} else {
+    define('SHOWPASS_API_URL', 'https://www.showpass.com/api');
+}
 define('SHOWPASS_ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('SHOWPASS_API_PUBLIC_EVENTS', SHOWPASS_API_URL . '/public/events');
 define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
@@ -981,7 +984,11 @@ function showpass_scripts(){
 	if (!is_admin()) {
 		wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), null);
 		wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), null);
-		wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), null, true );
+        if (get_option('option_use_showpass_beta')) {
+            wp_enqueue_script('showpass-beta-sdk', plugins_url( '/js/showpass-beta-sdk.js', __FILE__ ), array('jquery'), null, true );
+        } else {
+            wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), null, true );
+        }
 		wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), '1.0.0', true);
 		wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(), '1.0.1', true);
 		wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(), '1.0.2', true);
@@ -1002,6 +1009,7 @@ function showpass_widget_options() {
   echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
   echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
   echo '<input type="hidden" id="option_showpass_distribution_tracking" value="'.get_option('option_showpass_distribution_tracking').'">';
+  echo '<input type="hidden" id="option_use_showpass_beta" value="'.get_option('option_use_showpass_beta').'">';
 }
 
 add_action( 'wp_footer', 'showpass_widget_options', 100 );

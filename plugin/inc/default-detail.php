@@ -29,20 +29,9 @@
     <div class="flex-container showpass-layout-flex">
         <div class="flex-66 showpass-flex-column showpass-no-border">
             <div class="w100">
-                <?php if(showpass_ticket_sold_out($event)) { ?>
-                <span class="showpass-detail-buy showpass-hide-medium showpass-soldout">
-                    <?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
-                </span>
-                <?php } else { ?>
-                <span
-                    class="showpass-detail-buy showpass-hide-medium <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>"
-                    <?php if (isset($event['show_eyereturn'])) {?>
-                    data-eyereturn="<?php echo $event['show_eyereturn']; ?>" <?php } ?>
-                    <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"
-                    <?php } else { ?>id="<?php echo $event['slug']; ?>" <?php } ?>>
-                    <?php include 'button-verbiage.php'; ?>
-                </span>
-                <?php } ?>
+                <div class="showpass-detail-buy showpass-hide-medium">
+                    <?php include 'button-logic.php'; ?>
+                </div>
                 <div class="showpass-event-description">
                     <?php echo $event['description'];?>
                 </div>
@@ -85,20 +74,9 @@
                         <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
                     </div>
                     <?php endif; ?>
-                    <?php if(showpass_ticket_sold_out($event)) {?>
-                    <span class="showpass-detail-buy showpass-soldout">
-                        <?php echo($event['inventory_sold_out'] || $event['sold_out'] ? 'SOLD OUT' : 'NOT AVAILABLE'); ?>
-                    </span>
-                    <?php } else { ?>
-                    <span class="showpass-detail-buy <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>"
-                        <?php if (isset($event['show_eyereturn'])) {?>
-                        data-eyereturn="<?php echo $event['show_eyereturn']; ?>" <?php } ?>
-                        <?php if ($event['external_link']) { ?>href="<?php echo $event['external_link']; ?>"
-                        <?php } else { ?>id="<?php echo $event['slug']; ?>" <?php } ?>
-                        data-show-description="<?= $show_widget_description ?>">
-                        <?php include 'button-verbiage.php'; ?>
-                    </span>
-                    <?php } ?>
+                    <div class="showpass-detail-buy">
+                        <?php include 'button-logic.php'; ?>
+                    </div>
                 </div>
                 <div class="text-center showpass-detail-location">
                     <?php $location = $event['location'] ?>

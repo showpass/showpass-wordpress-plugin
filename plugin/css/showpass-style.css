@@ -181,7 +181,6 @@
   display: block;
   text-shadow: none !important;
   box-sizing: border-box;
-  margin-top: 15px;
   text-decoration: none !important;
 }
 
@@ -587,7 +586,7 @@ a:focus {
   box-sizing: border-box !important;
 }
 
-.showpass-detail-buy {
+.showpass-detail-buy a.showpass-list-ticket-button.showpass-button {
   display: block;
   width: 100%;
   margin-right: 0;
@@ -597,14 +596,14 @@ a:focus {
   font-weight: bold !important;
   color: #fefefe;
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
   border-radius: 4px;
 }
 
-.showpass-detail-buy:hover {
+.showpass-detail-buy a:hover {
   background-color: #921818 !important;
 }
 
