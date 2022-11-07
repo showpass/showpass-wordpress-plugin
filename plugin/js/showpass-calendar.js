@@ -1,6 +1,14 @@
 (function($) {
 
-    $(window).ready(function() {
+    $(window).ready(function () {
+        
+        let apiURL = 'https://www.showpass.com/api'
+
+        let useBeta = $('#option_use_showpass_beta').val();
+
+        if (useBeta) {
+            apiURL = 'https://beta.showpass.com/api'
+        }
 
         let isMobile = /Mobi/.test(navigator.userAgent);
 
@@ -145,7 +153,7 @@
             $('.showpass-next-day').attr('data-day', moment(moment(date).format()).add(1, 'day').format('DD-MM-YYYY'));
             if (venue) {
                 // set initial URL
-    			let url = "https://www.showpass.com/api/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + dayStart + "&starts_on__lt=" + dayEnd;
+    			let url = apiURL + "/public/events/?venue__in=" + venue + "&page_size=100&starts_on__gte=" + dayStart + "&starts_on__lt=" + dayEnd;
                 // if tags param append to url
                 if (tags) {
                     url = url + "&tags=" + tags;
@@ -311,7 +319,7 @@
             let hide_children = $('#hide-children').val();
             if (venue) {
                 // set initial URL
-    			let url = "https://www.showpass.com/api/public/events/?venue__in=" + venue +
+    			let url = apiURL + "/public/events/?venue__in=" + venue +
                     "&page_size=100&starts_on__lte=" + endOfWeek + "&ends_on__gte=" + startOfWeek;
                 // if tags param append to url
                 if (tags) {
@@ -428,7 +436,7 @@
 
             if (venue) {
 
-    			let url = "https://www.showpass.com/api/public/events/?venue__in=" + venue +
+    			let url = apiURL + "/public/events/?venue__in=" + venue +
                     "&page_size=100&starts_on__lte=" + endOfMonth + "&ends_on__gte=" + startOfMonth;
 
                 if (tags) {

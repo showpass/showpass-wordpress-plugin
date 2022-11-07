@@ -248,23 +248,6 @@
 				$('.showpass-cart-button span').html(Cookies.get('cart'));
 			}
 
-			var span = document.createElement('span');
-
-			span.className = 'fa';
-			span.style.display = 'none';
-			document.body.insertBefore(span, document.body.firstChild);
-
-			function css(element, property) {
-				return window.getComputedStyle(element, null).getPropertyValue(property);
-			}
-
-			if (css(span, 'font-family') !== 'FontAwesome') {
-				var headHTML = document.head.innerHTML;
-				headHTML += '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">';
-				document.head.innerHTML = headHTML;
-			}
-			document.body.removeChild(span);
-
 			/*
 			* Related events select box widget toggle
 			*/
