@@ -4,7 +4,7 @@
 /**
 * 
 */
-class EventTest extends PHPUnit\Framework\TestCase
+class EventTest extends PHPUnit_Framework_TestCase
 {
 	
 	public function testGetEventName(){

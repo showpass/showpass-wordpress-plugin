@@ -4,7 +4,7 @@
 /**
 * 
 */
-class TimezoneTest extends PHPUnit\Framework\TestCase
+class TimezoneTest extends PHPUnit_Framework_TestCase
 {
 	
 	public function testTimezone(){

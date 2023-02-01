@@ -4,7 +4,7 @@
 /**
 * 
 */
-class Date_formatTest extends PHPUnit\Framework\TestCase
+class Date_formatTest extends PHPUnit_Framework_TestCase
 {
 	
 	public function testDate_format(){

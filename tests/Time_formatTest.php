@@ -4,7 +4,7 @@
 /**
 * 
 */
-class Time_formatTest extends PHPUnit\Framework\TestCase
+class Time_formatTest extends PHPUnit_Framework_TestCase
 {
 	
 	public function testTime_format(){
