@@ -89,8 +89,9 @@ function showpass_get_event_data( $atts ) {
 
       # get any query parameters from URL
       $parameters = $_GET;
+
       foreach ($parameters as $parameter => $value) {
-        if ($parameter == 'q') {
+        if ($parameter == 'q' && !isset($atts['override_q'])) {
           $final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
         } else if ($parameter == 'tags') {
           $final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
@@ -174,6 +175,7 @@ function showpass_get_event_data( $atts ) {
         $event_ids = $atts['event_ids'];
         $final_api_url .= "&id__in=" . $event_ids;
       }
+
     }
 
     $data = call_showpass_api($final_api_url);
@@ -898,7 +900,6 @@ function wpshp_get_pricing_table( $atts ) {
 
   if (!is_admin()) {
   	$data = call_showpass_api($final_api_url);
-
     $events = array();
     $sort_order = explode(',', $event_ids);
     $events_data = json_decode($data, true)['results'];
