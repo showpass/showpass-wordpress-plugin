@@ -4,7 +4,7 @@
 /**
 * 
 */
-// class VenueTest extends PHPUnit_Framework_TestCase
+// class VenueTest extends PHPUnit\Framework\TestCase
 // {
 
 // 	public function testGetVenueName(){
