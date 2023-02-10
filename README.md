@@ -223,7 +223,7 @@ ex. `[showpass_events type='list' template='default' show_widget_description='tr
 
 ## 2.14. Show Parameter & Testing
  
-Use this parameter for testing purposes. Using `\'all'` will show all events you have, regardless of their visibility setting.
+Use this parameter for testing purposes. Using `show='all'` will show all events you have, regardless of their visibility setting.
 
 ex. `[showpass_events type='list' template='default' detail_page='event-detail' show='all']`
 
