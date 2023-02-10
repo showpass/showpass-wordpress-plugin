@@ -29,7 +29,7 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    2.11. [Recurring event parameters](#211-recurring-event-parameters)   
    2.12. [Ordering parameter](#212-ordering-parameter)   
    2.13. [Show widget description](#213-show-widget-description)  
-   2.14. [Show parameter & testing](#214-show-parameter-testing)   
+   2.14. [Show parameter & testing](#214-show-parameter--testing)   
    2.15. [Other parameters](#215-other-parameters)   
 3. [Functions](#3-functions)        
    3.1. [Showpass get Event Date](#31-showpass-get-event-date)    
