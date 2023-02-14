@@ -5,11 +5,15 @@
   class ImageFormatter {
 
     const CLOUDFRONT_REGEX = '/(https:\/\/\w*\.cloudfront.net\/)/';
-    const CLOUDFRON_BASE_URL = 'https://dcm1eeuyachdi.cloudfront.net/';
     const BREAKPOINTS = [[960, '(max-width: 960px) and (min-width: 781px)'], [780, '(max-width: 780px) and (min-width: 601px)'], [600, '(max-width: 600px) and (min-width: 376px)'], [375, '(max-width: 375px)']];
     const IMAGE_FORMAT = 'jpeg';
+    private $cloudfront_base_url = 'https://dcm1eeuyachdi.cloudfront.net/';
 
-    function __construct() {}
+    function __construct() {
+      if (get_option('option_use_showpass_beta')) {
+        $this->cloudfront_base_url = 'https://db9zval7bk53o.cloudfront.net/';
+      }
+    }
 
       /**
        * Creates a responsive image using the CloudFront service.
@@ -62,7 +66,7 @@
         // create source element
         $imgSize = sprintf('fit-in/%sx%s/', $breakpoints[$i][0], $breakpoints[$i][0]);
         $imgFormat = sprintf('filters:format(%s)/', $format);
-        $imgSrc = self::CLOUDFRON_BASE_URL . $imgSize .  $imgFormat . $splitURL[1];
+        $imgSrc = $this->cloudfront_base_url . $imgSize .  $imgFormat . $splitURL[1];
 
         // add source to sources array
         $sources[$i] = sprintf('<source media="%s" srcset="%s">', $breakpoints[$i][1], $imgSrc);

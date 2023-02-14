@@ -124,6 +124,12 @@
 				let script = document.createElement("script");
 				script.type = "text/javascript";
 				script.src = 'https://showpass.com/static/dist/sdk.js';
+
+				let useBeta = $('#option_use_showpass_beta').val();
+				if (useBeta) {
+					script.src = 'https://beta.showpass.com/static/dist/sdk.js';
+				}
+
 				script.onload = function() {
 					const id = embeddedCalendarExists.getAttribute('data-org-id');
 					let params = {
@@ -169,7 +175,13 @@
 				if (params['data-distribution'] !== '') {
 					const checkEvent = async () => {
 						try {
-							const response = await fetch('https://www.showpass.com/api/public/events/' + slug + '/')
+							let useBeta = $('#option_use_showpass_beta').val();
+							let apiUrl = 'https://www.showpass.com/api/'
+							if (useBeta) {
+								apiUrl = 'https://beta.showpass.com/api/'
+							}
+							const response = await fetch(apiUrl + 'public/events/' + slug + '/')
+							
 							if (response) {
 								const data = await response.json();
 								if (data) {
