@@ -2,7 +2,7 @@
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.9
 Tested up to: 6.0.2
-Stable tag: 3.7.1
+Stable tag: 3.7.2
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary
 
