@@ -178,7 +178,7 @@
 							let useBeta = $('#option_use_showpass_beta').val();
 							let apiUrl = 'https://www.showpass.com/api/'
 							if (useBeta) {
-								apiUrl = 'https://beta.showpass.com/api/'
+								apiUrl = 'https://local.showpass.com/api/'
 							}
 							const response = await fetch(apiUrl + 'public/events/' + slug + '/')
 							
@@ -285,13 +285,41 @@
 		const mutationObserver = new MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
 				if (mutation.target.className.includes('showpass-widget-body')) {
-					let gobj = window[window.GoogleAnalyticsObject];
-					let tracker, linker;
+
 					let iFrame = document.getElementById('showpass-widget');
+
+					// For analytics.js (UA)
+					// We use the linker provided by analytics.js to decorate the iframe src
+					let gobj = window[window.GoogleAnalyticsObject];
 					if (gobj) {
-						tracker = gobj.getAll()[0];
-						linker = new window.gaplugins.Linker(tracker);
+						let tracker = gobj.getAll()[0];
+						let linker = new window.gaplugins.Linker(tracker);
 						iFrame.src = linker.decorate(iFrame.src);
+					}
+
+					// For gtag.js (GA4)
+					// We use the gtag's get commands to get the client_id and session_id to decorate the iframe src
+					// @see https://support.google.com/analytics/answer/10071811?hl=en#zippy=%2Cmanual-setup
+					if (window.gtag && window.dataLayer) {
+						// Get the first available gtag config on the page. This config will be used
+						// to get the client_id and the session_id that we pass onto our iframe for our
+						// SDK to consume.
+						let ga4Config = window.dataLayer.find((x) => x[0] === "config" && x[1].startsWith("G-"));
+						let ga4Id = ga4Config[1];
+
+						let url = new URL(iFrame.src);
+
+						window.gtag('get', ga4Id, 'client_id', (client_id) => {
+							window.gtag('get', ga4Id, 'session_id', (session_id) => {
+								try {
+									url.searchParams.append('client_id', client_id);
+									url.searchParams.append('session_id', session_id);
+									iFrame.src = url.toString();
+								} catch(e) {
+									console.error(e)
+								}
+							});
+						});
 					}
 				}
 			});
