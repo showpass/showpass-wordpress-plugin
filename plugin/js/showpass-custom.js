@@ -299,6 +299,8 @@
 
 					// For gtag.js (GA4)
 					// We use the gtag's get commands to get the client_id and session_id to decorate the iframe src
+					// This is additional to the analytics.js linker that should already be in place, AND the cross-domain tracking configured on the GA4 property itself
+					// which is for inbound/outbound clicks.
 					// @see https://support.google.com/analytics/answer/10071811?hl=en#zippy=%2Cmanual-setup
 					if (window.gtag && window.dataLayer) {
 						// Get the first available gtag config on the page. This config will be used
