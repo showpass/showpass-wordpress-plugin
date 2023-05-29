@@ -178,7 +178,7 @@
 							let useBeta = $('#option_use_showpass_beta').val();
 							let apiUrl = 'https://www.showpass.com/api/'
 							if (useBeta) {
-								apiUrl = 'https://local.showpass.com/api/'
+								apiUrl = 'https://beta.showpass.com/api/'
 							}
 							const response = await fetch(apiUrl + 'public/events/' + slug + '/')
 							
