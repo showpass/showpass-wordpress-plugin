@@ -322,6 +322,23 @@
 								}
 							});
 						});
+					} else {
+						// Get the _ga from cookies and parse it to extract client_id and session_id.
+						// This is used as a fallback for GTM implementations.
+						let cookie = {};
+						document.cookie.split(';').forEach(function(el) {
+							const splitCookie = el.split('=');
+							const key = splitCookie[0].trim();
+							const value = splitCookie[1];
+							cookie[key] = value;
+						});
+						const client_id = cookie["_ga"].substring(6);
+						const session_id = client_id.split(".")[1];
+
+						let url = new URL(iFrame.src);
+						url.searchParams.append('client_id', client_id);
+						url.searchParams.append('session_id', session_id);
+						iFrame.src = url.toString();
 					}
 				}
 			});
