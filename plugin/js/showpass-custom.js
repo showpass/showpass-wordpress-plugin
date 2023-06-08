@@ -284,7 +284,7 @@
 		*/
 		const mutationObserver = new MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
-				if (mutation.target.className.includes('showpass-widget-body')) {
+				if (mutation.target.className.includes('showpass-widget-body') && document) {
 
 					let iFrame = document.getElementById('showpass-widget');
 
@@ -322,7 +322,7 @@
 								}
 							});
 						});
-					} else {
+					} else if (typeof document.cookie === 'string' && document.cookie !== '') {
 						// Get the _ga from cookies and parse it to extract client_id and session_id.
 						// This is used as a fallback for GTM implementations.
 						let cookie = {};
@@ -332,13 +332,20 @@
 							const value = splitCookie[1];
 							cookie[key] = value;
 						});
-						const client_id = cookie["_ga"].substring(6);
-						const session_id = client_id.split(".")[1];
+						// Parse the _ga cookie to extract client_id and session_id.
+						// A _ga cookie will look something like GA1.1.1194072907.1685136322
+						const gaCookie = cookie["_ga"];
+						if (gaCookie) {
+							const client_id = gaCookie.substring(6); // using the example above, this will return "1194072907.1685136322"
+							const session_id = client_id.split(".")[1]; // ["1194072907", "1685136322"]
 
-						let url = new URL(iFrame.src);
-						url.searchParams.append('client_id', client_id);
-						url.searchParams.append('session_id', session_id);
-						iFrame.src = url.toString();
+							if (!isNaN(Number(client_id)) && !isNaN(Number(session_id))) {
+								let url = new URL(iFrame.src);
+								url.searchParams.append('client_id', client_id);
+								url.searchParams.append('session_id', session_id);
+								iFrame.src = url.toString();
+							}
+						}
 					}
 				}
 			});
