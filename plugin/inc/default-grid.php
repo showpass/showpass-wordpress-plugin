@@ -55,10 +55,8 @@
                             <div class="flex-100 showpass-flex-column showpass-no-border">
                                 <?php if (!showpass_ticket_sold_out($event)) : ?>
                                 <small class="showpass-price-display">
-                                    <?php if (!$event['is_recurring_parent']) { ?>
                                     <?php echo showpass_get_price_range($event['ticket_types']);?>
                                     <?php if (showpass_get_price_range($event['ticket_types']) != 'FREE') { echo $event['currency']; } ?>
-                                    <?php } ?>
                                 </small>
                                 <?php endif; ?>
                             </div>
