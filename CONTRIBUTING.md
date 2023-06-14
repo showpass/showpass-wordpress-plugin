@@ -16,7 +16,7 @@ As you know, you can instal through plugin installer or you can extract the plug
 
 For our plugin we need only `plugin` folder and all scripts are inside.
 
-* please manually update the version number in showpass-wordpress-plugin.php
+* please manually update the version number in showpass-wordpress-plugin.php and in readme.txt
 
 For preparing .zip file for plugin you will need to do this:
 
