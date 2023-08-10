@@ -5,7 +5,7 @@
  Plugin URI: https://github.com/showpass/showpass-wordpress-plugin
  Description: List events, display event details and products. Use the Showpass purchase widget for on site ticket & product purchases all with easy to use shortcodes. See our git repo here for full documentation. https://github.com/showpass/showpass-wordpress-plugin
  Author: Showpass / Up In Code Inc.
- Version: 3.8.4
+ Version: 3.8.5
  Author URI: https://www.showpass.com
  */
 
