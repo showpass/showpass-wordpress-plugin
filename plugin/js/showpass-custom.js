@@ -100,6 +100,11 @@
 
 			if (qs.auto) {
 				var slug = qs.auto;
+				let params = {
+					'theme-primary': $('#option_widget_color').val(),
+					'keep-shopping': $('#option_keep_shopping').val(),
+					'show-description': $('#option_show_widget_description').val()
+				};
 				setTimeout(function() {
 					Cookies.remove('auto');
 					showpass.tickets.eventPurchaseWidget(slug, params);
@@ -181,7 +186,7 @@
 								apiUrl = 'https://beta.showpass.com/api/'
 							}
 							const response = await fetch(apiUrl + 'public/events/' + slug + '/')
-							
+
 							if (response) {
 								const data = await response.json();
 								if (data) {
