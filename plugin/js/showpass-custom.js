@@ -293,6 +293,12 @@
 
 					let iFrame = document.getElementById('showpass-widget');
 
+					// if query params already exist, exit
+					let queryParams = new URLSearchParams(iFrame.src);
+					if (queryParams.get('client_id') || queryParams.get('session_id')) {
+						return;
+					}
+
 					// For analytics.js (UA)
 					// We use the linker provided by analytics.js to decorate the iframe src
 					let gobj = window[window.GoogleAnalyticsObject];
