@@ -349,20 +349,18 @@
 		mutationObserver.observe(document.documentElement, { attributes: true });
 
 		let calendarDIV = document.getElementById("showpass-calendar-widget");
-			if (calendarDIV) {
-				/** Wrap IFrame for embeded calendar */
-				function wrapIFrame(iFrame) {
-					clearInterval(findIFrameInterval);
-					decorateIframe(iFrame);
-				}
-				const findIFrameInterval = setInterval(findIFrame, 100);
-				function findIFrame() {
-					let iFrame = document.getElementsByClassName("showpass-widget-iframe");
-					if (iFrame && iFrame[0] && iFrame[0].src) {
-					wrapIFrame(iFrame[0]);
-				}
+		if (calendarDIV) {
+			/** Wrap IFrame for embeded calendar */
+			function wrapIFrame(iFrame) {
+				clearInterval(findIFrameInterval);
+				decorateIframe(iFrame);
+			}
+			const findIFrameInterval = setInterval(findIFrame, 100);
+			function findIFrame() {
+				let iFrame = document.getElementsByClassName("showpass-widget-iframe");
+				if (iFrame && iFrame[0] && iFrame[0].src) {
+				wrapIFrame(iFrame[0]);
 			}
 		}
 	}
-
-})(jQuery, window, document);
+}})(jQuery, window, document);
