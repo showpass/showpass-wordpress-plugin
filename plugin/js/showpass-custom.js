@@ -284,8 +284,51 @@
 
 		});
 
+
+		/**
+		 * Shared function to decorate iframe - we default to cookie version because its more reliable
+		 * @param {object} showpass widget iframe object
+		 */
+		const decorateIframe = (iFrame) => {
+			// For analytics.js (UA)
+			// We use the linker provided by analytics.js to decorate the iframe src
+			let gobj = window[window.GoogleAnalyticsObject];
+			if (gobj) {
+				let tracker = gobj.getAll()[0];
+				let linker = new window.gaplugins.Linker(tracker);
+				iFrame.src = linker.decorate(iFrame.src);
+			}
+
+			if (typeof document.cookie === 'string' && document.cookie !== '') {
+				// Get the _ga from cookies and parse it to extract client_id and session_id.
+				// This is used as a fallback for GTM implementations.
+				let cookie = {};
+				document.cookie.split(';').forEach(function(el) {
+					const splitCookie = el.split('=');
+					const key = splitCookie[0].trim();
+					const value = splitCookie[1];
+					cookie[key] = value;
+				});
+				// Parse the _ga cookie to extract client_id and session_id.
+				// A _ga cookie will look something like GA1.1.1194072907.1685136322
+				const gaCookie = cookie["_ga"];
+				if (gaCookie) {
+					const client_id = gaCookie.substring(6); // using the example above, this will return "1194072907.1685136322"
+					const session_id = client_id.split(".")[1]; // ["1194072907", "1685136322"]
+
+					if (!isNaN(Number(client_id)) && !isNaN(Number(session_id))) {
+						let url = new URL(iFrame.src);
+						url.searchParams.append('client_id', client_id);
+						url.searchParams.append('session_id', session_id);
+						iFrame.src = url.toString();
+					}
+				}
+			}
+		}
+
 		/*
 		* Decorate iFrame for GA cross domain tracking
+	    * This only works for pop ups, for embedded calendar we need to use a watcher
 		*/
 		const mutationObserver = new MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
@@ -298,71 +341,26 @@
 					if (queryParams.get('client_id') || queryParams.get('session_id')) {
 						return;
 					}
-
-					// For analytics.js (UA)
-					// We use the linker provided by analytics.js to decorate the iframe src
-					let gobj = window[window.GoogleAnalyticsObject];
-					if (gobj) {
-						let tracker = gobj.getAll()[0];
-						let linker = new window.gaplugins.Linker(tracker);
-						iFrame.src = linker.decorate(iFrame.src);
-					}
-
-					// For gtag.js (GA4)
-					// We use the gtag's get commands to get the client_id and session_id to decorate the iframe src
-					// This is additional to the analytics.js linker that should already be in place, AND the cross-domain tracking configured on the GA4 property itself
-					// which is for inbound/outbound clicks.
-					// @see https://support.google.com/analytics/answer/10071811?hl=en#zippy=%2Cmanual-setup
-					if (window.gtag && window.dataLayer) {
-						// Get the first available gtag config on the page. This config will be used
-						// to get the client_id and the session_id that we pass onto our iframe for our
-						// SDK to consume.
-						let ga4Config = window.dataLayer.find((x) => x[0] === "config" && x[1].startsWith("G-"));
-						let ga4Id = ga4Config[1];
-
-						let url = new URL(iFrame.src);
-
-						window.gtag('get', ga4Id, 'client_id', (client_id) => {
-							window.gtag('get', ga4Id, 'session_id', (session_id) => {
-								try {
-									url.searchParams.append('client_id', client_id);
-									url.searchParams.append('session_id', session_id);
-									iFrame.src = url.toString();
-								} catch(e) {
-									console.error(e)
-								}
-							});
-						});
-					} else if (typeof document.cookie === 'string' && document.cookie !== '') {
-						// Get the _ga from cookies and parse it to extract client_id and session_id.
-						// This is used as a fallback for GTM implementations.
-						let cookie = {};
-						document.cookie.split(';').forEach(function(el) {
-							const splitCookie = el.split('=');
-							const key = splitCookie[0].trim();
-							const value = splitCookie[1];
-							cookie[key] = value;
-						});
-						// Parse the _ga cookie to extract client_id and session_id.
-						// A _ga cookie will look something like GA1.1.1194072907.1685136322
-						const gaCookie = cookie["_ga"];
-						if (gaCookie) {
-							const client_id = gaCookie.substring(6); // using the example above, this will return "1194072907.1685136322"
-							const session_id = client_id.split(".")[1]; // ["1194072907", "1685136322"]
-
-							if (!isNaN(Number(client_id)) && !isNaN(Number(session_id))) {
-								let url = new URL(iFrame.src);
-								url.searchParams.append('client_id', client_id);
-								url.searchParams.append('session_id', session_id);
-								iFrame.src = url.toString();
-							}
-						}
-					}
+					decorateIframe(iFrame);
 				}
 			});
 		});
 
 		mutationObserver.observe(document.documentElement, { attributes: true });
-	}
 
-})(jQuery, window, document);
+		let calendarDIV = document.getElementById("showpass-calendar-widget");
+		if (calendarDIV) {
+			/** Wrap IFrame for embeded calendar */
+			function wrapIFrame(iFrame) {
+				clearInterval(findIFrameInterval);
+				decorateIframe(iFrame);
+			}
+			const findIFrameInterval = setInterval(findIFrame, 100);
+			function findIFrame() {
+				let iFrame = document.getElementsByClassName("showpass-widget-iframe");
+				if (iFrame && iFrame[0] && iFrame[0].src) {
+				wrapIFrame(iFrame[0]);
+			}
+		}
+	}
+}})(jQuery, window, document);
