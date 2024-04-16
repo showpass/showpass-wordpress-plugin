@@ -819,7 +819,7 @@ Button to close widget says `Keep Shopping` if true, and `Close` if set to false
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
 
-### `show_specific_tickets="123,456`
+### `show_specific_tickets="123,456"`
 
 Use this parameter to show specific ticket types based on their ids
 
