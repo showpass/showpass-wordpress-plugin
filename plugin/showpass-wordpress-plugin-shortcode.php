@@ -312,6 +312,7 @@ function showpass_display_date ($event, $small = false) {
   $ends_on = $event['ends_on'];
   $timezone = $event['timezone'];
   $recurring = $event['is_recurring_parent'];
+  $event_tbd = $event['date_time_to_be_determined'];
 
   /**
    * get difference between start and end times
@@ -380,6 +381,19 @@ function showpass_display_date ($event, $small = false) {
       }
       $ends_date_element .='</span>'
         .'</div>';
+    }
+        
+    // Display TBD for date if set
+    if ($event_tbd) {
+      // start element
+      $starts_date_element = '';
+      $starts_date_element .= ''
+        .'<div class="info dates">'
+        .'<i class="fa fa-calendar icon-center display-inline-block"></i>'
+        .'<span class="start-date"><span>Date & Time TBD</span></span>'
+        .'</div>';
+      // end element
+      $ends_date_element = '';
     }
 
     // concat start and end element, then wrap in a div
@@ -815,16 +829,8 @@ function showpass_widget_expand($atts, $content = null) {
 			$include_icon = true;
 		}
 
-		if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'true') || (get_option('option_keep_shopping') === 'false')) {
-			$keep_shopping = 'true';
-		} else {
-			$keep_shopping = 'false';
-		}
-
-		if ((isset($atts['keep_shopping']) && $atts['keep_shopping'] === 'false') || (get_option('option_keep_shopping') != 'false')) {
-			$keep_shopping = 'false';
-		} else {
-			$keep_shopping = 'true';
+		if (isset($atts['keep_shopping'])) {
+			$keep_shopping = $atts['keep_shopping'];
 		}
 
 		if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')){
@@ -835,9 +841,7 @@ function showpass_widget_expand($atts, $content = null) {
 
 		if (isset($atts['show_widget_description'])) {
 			$show_description = $atts['show_widget_description'];
-		} else {
-			$show_description = get_option('option_show_widget_description') ? 'true' : 'false';
-		}
+		} 
 
 		if (get_option('option_showpass_access_token')) {
 			$distribution_partner = 'true';
