@@ -792,7 +792,7 @@ function showpass_widget_expand($atts, $content = null) {
 		} else {
 			$label = DEFAULT_BUTTON_VERBIAGE;
 		}
-
+    
 		if (isset($atts['tracking_id'])) {
 			$tracking = $atts['tracking_id'];
 		} else {
@@ -845,6 +845,10 @@ function showpass_widget_expand($atts, $content = null) {
 			$distribution_partner = 'false';
 		}
 
+    if (isset($atts['show_specific_tickets'])) {
+			$show_specific_tickets = $atts['show_specific_tickets'];
+		} 
+
 		//update to template as needed
 		$button = '';
 		$button .= $style
@@ -855,6 +859,18 @@ function showpass_widget_expand($atts, $content = null) {
 		if ($tracking) {
 			$button .= sprintf('data-tracking="%s" ', $tracking);
 		}
+
+    if ($show_description) {
+      $button .= sprintf('data-show-description="%s" ', $show_description);
+    }
+
+    if ($keep_shopping) {
+      $button .= sprintf('data-shopping="%s" ', $keep_shopping);
+    }
+
+    if ($show_specific_tickets) {
+      $button .= sprintf('data-show-specific-tickets="%s" ', $show_specific_tickets);
+    }
 
 		if ($include_icon) {
 			$button .='><i class="fa fa-ticket" style="margin-right: 10px;"></i>';

@@ -6,7 +6,8 @@
 			'keep-shopping': $(element).attr('data-shopping') || $('#option_keep_shopping').val() || 'true',
 			'theme-dark': $(element).attr('data-theme') || $('#option_theme_dark').val() || '',
 			'show-description': $(element).attr('data-show-description') || $('#option_show_widget_description').val() || 'false',
-			'distribution-tracking': $(element).attr('data-distribution-tracking') || $('#option_showpass_distribution_tracking').val() || ''
+			'distribution-tracking': $(element).attr('data-distribution-tracking') || $('#option_showpass_distribution_tracking').val() || '',
+			'show-specific-tickets': $(element).attr('data-show-specific-tickets') || ''
 		}
 	}
 
