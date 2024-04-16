@@ -814,10 +814,18 @@ Use a custom class to style your button - Showpass button style provided by defa
 Button to close widget says `Keep Shopping` if true, and `Close` if set to false.
 `Default: true`
 
-#### `show_widget_description='true'`
+#### `show_widget_description="true"`
 
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
+
+### `show_specific_tickets="123,456`
+
+Use this parameter to show specific ticket types based on their ids
+
+All ticket types need to have their visibility set to public in order to show, this simply filters out ticket types not listed.
+
+Use this to display GA tickets or VIP tickets in different sections of your website for a better customer experience, instead of having all the ticket types listed in one widget, or making multiple events.
 
 ### 6.2 Widget Tracking using Affiliate Tracking Links
 
