@@ -62,18 +62,6 @@ function wpshp_settings_page() {
         <label for="main_api_url">Connect to beta.showpass.com</label><br />
         <small>CAUTION: This is for testing purposes only.</small><br /><br />
 
-        <h3>Distribution Partners</h3>
-
-        <label for="option_showpass_access_token">Access Token</label><br />
-        <input type="text" placeholder="" name="option_showpass_access_token"
-            value="<?php echo esc_attr( get_option('option_showpass_access_token') ); ?>" /><br />
-        <label>Only required for distribution partners.</label><br /><br />
-
-        <label for="option_showpass_access_token">Sales Tracking Token</label><br />
-        <input type="text" placeholder="" name="option_showpass_distribution_tracking"
-            value="<?php echo esc_attr( get_option('option_showpass_distribution_tracking') ); ?>" /><br />
-        <label>Only required for distribution partners.</label><br />
-
         <?php submit_button(); ?>
 
     </form>
