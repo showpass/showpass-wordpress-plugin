@@ -6,7 +6,6 @@
 			'keep-shopping': $(element).attr('data-shopping') || $('#option_keep_shopping').val() || 'true',
 			'theme-dark': $(element).attr('data-theme') || $('#option_theme_dark').val() || '',
 			'show-description': $(element).attr('data-show-description') || $('#option_show_widget_description').val() || 'false',
-			'distribution-tracking': $(element).attr('data-distribution-tracking') || $('#option_showpass_distribution_tracking').val() || '',
 			'show-specific-tickets': $(element).attr('data-show-specific-tickets') || ''
 		}
 	}
@@ -174,44 +173,10 @@
 				const openWidget = () => {
 					showpass.tickets.eventPurchaseWidget(slug, params);
 				}
-
-				/**
-				 * Handle the redirect if distribution partner with an external link
-				 */
-				if (params['data-distribution'] !== '') {
-					const checkEvent = async () => {
-						try {
-							let useBeta = $('#option_use_showpass_beta').val();
-							let apiUrl = 'https://www.showpass.com/api/'
-							if (useBeta) {
-								apiUrl = 'https://beta.showpass.com/api/'
-							}
-							const response = await fetch(apiUrl + 'public/events/' + slug + '/')
-
-							if (response) {
-								const data = await response.json();
-								if (data) {
-									if (data.id && data.external_link) {
-										window.open(data.external_link, '_blank');
-									} else {
-										openWidget();
-									}
-								}
-								return data;
-							}
-							return response;
-						} catch (error) {
-							openWidget();
-						};
-					}
-					checkEvent();
-				} else {
-					openWidget();
-				}
+				openWidget();
 			}
 
 			$('body').on('click', 'a[href*="showpass.com"].force-showpass-widget', function (e) {
-				console.log('test');
 				e.preventDefault();
 				slug = $(this).attr('href').split('.com/')[1];
 
@@ -220,10 +185,6 @@
 				if ($(this).attr('data-tracking')) {
 					params['tracking-id'] = $(this).attr('data-tracking');
 				}
-
-				/**
-				 * Add query parameters if distribution tracking is enabled
-				 */
 
 				// Overwrite tracking-id if set in URL
 				if (Cookies.get('affiliate')) {
@@ -242,10 +203,6 @@
 				if ($(this).attr('data-tracking')) {
 					params['tracking-id'] = $(this).attr('data-tracking');
 				}
-
-				/**
-				 * Add query parameters if distribution tracking is enabled
-				 */
 
 				// Overwrite tracking-id if set in URL
 				if (Cookies.get('affiliate')) {

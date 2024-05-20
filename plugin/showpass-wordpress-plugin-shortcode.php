@@ -843,12 +843,6 @@ function showpass_widget_expand($atts, $content = null) {
 			$show_description = $atts['show_widget_description'];
 		} 
 
-		if (get_option('option_showpass_access_token')) {
-			$distribution_partner = 'true';
-		} else {
-			$distribution_partner = 'false';
-		}
-
     if (isset($atts['show_specific_tickets'])) {
 			$show_specific_tickets = $atts['show_specific_tickets'];
 		} 
@@ -1019,7 +1013,7 @@ function showpass_scripts(){
 		wp_enqueue_script('moment-showpass');
 		wp_enqueue_script('moment-timezone-showpass');
 		wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
-		wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), '3.8.7', true);
+		wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), '3.8.10', true);
 	}
 }
 
@@ -1030,7 +1024,6 @@ function showpass_widget_options() {
   echo '<input type="hidden" id="option_show_widget_description" value="'.get_option('option_show_widget_description').'">';
   echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
   echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
-  echo '<input type="hidden" id="option_showpass_distribution_tracking" value="'.get_option('option_showpass_distribution_tracking').'">';
   echo '<input type="hidden" id="option_use_showpass_beta" value="'.get_option('option_use_showpass_beta').'">';
 }
 
