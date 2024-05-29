@@ -12,6 +12,8 @@
     function __construct() {
       if (get_option('option_use_showpass_beta')) {
         $this->cloudfront_base_url = 'https://db9zval7bk53o.cloudfront.net/';
+      } else if (get_option('option_use_showpass_demo')) {
+        $this->cloudfront_base_url = 'https://d2sv1t07lr5mwo.cloudfront.net/';
       }
     }
 

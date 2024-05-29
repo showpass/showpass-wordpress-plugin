@@ -62,6 +62,11 @@ function wpshp_settings_page() {
         <label for="main_api_url">Connect to beta.showpass.com</label><br />
         <small>CAUTION: This is for testing purposes only.</small><br /><br />
 
+        <input type="checkbox" name="option_use_showpass_demo" value="true"
+            <?php checked('true', get_option('option_use_showpass_demo'), true); ?> />
+        <label for="main_api_url">Connect to demo.showpass.com</label><br />
+        <small>CAUTION: This is for demo purposes only.</small><br /><br />
+
         <?php submit_button(); ?>
 
     </form>
