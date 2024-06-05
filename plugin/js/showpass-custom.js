@@ -131,8 +131,11 @@
 				script.src = 'https://showpass.com/static/dist/sdk.js';
 
 				let useBeta = $('#option_use_showpass_beta').val();
+				let useDemo = $('#option_use_showpass_demo').val();
 				if (useBeta) {
 					script.src = 'https://beta.showpass.com/static/dist/sdk.js';
+				} else if (useDemo) {
+					script.src = 'https://demo.showpass.com/static/dist/sdk.js';
 				}
 
 				script.onload = function() {
