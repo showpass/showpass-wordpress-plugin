@@ -293,15 +293,10 @@
 			}
 
 			// Pass the parent page's referrer to our iFrame
-			const referrer = document.referrer;
-			const location =
-				typeof window !== "undefined" ? window.location.href : "";
+			const referrer = document.referrer || "";
 			if (referrer) {
 				let url = new URL(iFrame.src);
-				url.searchParams.append(
-					"parent_document_referrer",
-					referrer || location
-				);
+				url.searchParams.append("parent_document_referrer", referrer);
 				iFrame.src = url.toString();
 			}
 		}
