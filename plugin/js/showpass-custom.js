@@ -317,7 +317,8 @@
 					let queryParams = new URLSearchParams(iFrame.src);
 					if (
 						queryParams.get("parent_client_id") ||
-						queryParams.get("parent_session_id")
+						queryParams.get("parent_session_id") ||
+						queryParams.get("parent_document_referrer")
 					) {
 						return;
 					}
