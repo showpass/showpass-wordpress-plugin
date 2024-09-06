@@ -292,7 +292,9 @@
 				}
 			}
 
-			// Pass the parent page's referrer to our iFrame
+			// Pass the parent page's referrer to our iFrame.
+			// When the referrer is unavailable (ie. direct visit), the web-app
+			// should not inject and GA4 defaults to the default behaviour.
 			const referrer = document.referrer || "";
 			if (referrer) {
 				let url = new URL(iFrame.src);
