@@ -294,9 +294,14 @@
 
 			// Pass the parent page's referrer to our iFrame
 			const referrer = document.referrer;
+			const location =
+				typeof window !== "undefined" ? window.location.href : "";
 			if (referrer) {
 				let url = new URL(iFrame.src);
-				url.searchParams.append("parent_document_referrer", referrer);
+				url.searchParams.append(
+					"parent_document_referrer",
+					referrer || location
+				);
 				iFrame.src = url.toString();
 			}
 		}
