@@ -260,12 +260,12 @@
 				iFrame.src = linker.decorate(iFrame.src);
 			}
 
-			if (typeof document.cookie === 'string' && document.cookie !== '') {
+			if (typeof document.cookie === "string" && document.cookie !== "") {
 				// Get the _ga from cookies and parse it to extract client_id and session_id.
 				// This is used as a fallback for GTM implementations.
 				let cookie = {};
-				document.cookie.split(';').forEach(function(el) {
-					const splitCookie = el.split('=');
+				document.cookie.split(";").forEach(function (el) {
+					const splitCookie = el.split("=");
 					const key = splitCookie[0].trim();
 					const value = splitCookie[1];
 					cookie[key] = value;
@@ -277,13 +277,29 @@
 					const client_id = gaCookie.substring(6); // using the example above, this will return "1194072907.1685136322"
 					const session_id = client_id.split(".")[1]; // ["1194072907", "1685136322"]
 
-					if (!isNaN(Number(client_id)) && !isNaN(Number(session_id))) {
+					if (
+						!isNaN(Number(client_id)) &&
+						!isNaN(Number(session_id))
+					) {
 						let url = new URL(iFrame.src);
-						url.searchParams.append('client_id', client_id);
-						url.searchParams.append('session_id', session_id);
+						url.searchParams.append("parent_client_id", client_id);
+						url.searchParams.append(
+							"parent_session_id",
+							session_id
+						);
 						iFrame.src = url.toString();
 					}
 				}
+			}
+
+			// Pass the parent page's referrer to our iFrame.
+			// When the referrer is unavailable (ie. direct visit), the web-app
+			// should not inject and GA4 defaults to the default behaviour.
+			const referrer = document.referrer || "";
+			if (referrer) {
+				let url = new URL(iFrame.src);
+				url.searchParams.append("parent_document_referrer", referrer);
+				iFrame.src = url.toString();
 			}
 		}
 
@@ -299,7 +315,11 @@
 
 					// if query params already exist, exit
 					let queryParams = new URLSearchParams(iFrame.src);
-					if (queryParams.get('client_id') || queryParams.get('session_id')) {
+					if (
+						queryParams.get("parent_client_id") ||
+						queryParams.get("parent_session_id") ||
+						queryParams.get("parent_document_referrer")
+					) {
 						return;
 					}
 					decorateIframe(iFrame);
