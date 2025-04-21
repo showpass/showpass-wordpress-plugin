@@ -57,9 +57,11 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
 8. [Query Param - ?auto=slug - Automatically Open Showpass Widget](#8-auto-query-parameter)
 9. [Shortcode - [showpass_products]](#9-shortcode-showpass_products)    
    9.1. [Parameters](#91-parameters)  
-10. [Shortcode - [showpass_pricing_table]](#10-shortcode-showpass_pricing_table)  
+10. [Shortcode - [showpass_memberships]](#10-shortcode-showpass_memberships)  
    10.1. [Parameters](#101-parameters)  
-11. [Calendar Widget V2.0](#11-showpass-calendar-widget) 
+11. [Shortcode - [showpass_pricing_table]](#11-shortcode-showpass_pricing_table)  
+   11.1. [Parameters](#111-parameters)  
+12. [Calendar Widget V2.0](#12-showpass-calendar-widget) 
 
 # 1. Admin page
 
@@ -746,7 +748,7 @@ This function generates a responsive image.
 ```
 # 5. Shortcode [showpass_calendar]
 
-_**We recommend using the new [Calendar Widget v2.0](#11-showpass-calendar-widget)**_
+_**We recommend using the new [Calendar Widget v2.0](#12-showpass-calendar-widget)**_
 
 You will need to add just this shortcode `[showpass_calendar]` and you will get complete calendar with all the events from the venue that is set in the admin page. If the venue(Organization ID) is not set, then you will get all events from the API.
 
@@ -910,12 +912,37 @@ ex. `[showpass_products template="list" product_ids="2,6,7"]`
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
 
-# 10. Shortcode [showpass_pricing_table]
+# 10. Shortcode [showpass_memberships]
+
+List & sell memberships from your Showpass organization account
+
+`[showpass_memberships template="grid" page_size="8"]`
+
+## 10.1. Parameters
+
+#### `template="grid|data"`
+Set the display layout `Default: grid`
+
+Use the `template="data"` parameter to customize your own template.
+
+#### `page_size="int"`
+Set the number of results per page `Default: 20`
+
+#### `membership_ids`
+Display specific memberships by specifying the IDs of the membership groups you would like to show.
+
+ex. `[showpass_memberships template="grid" membership_ids="2,6,7"]`
+
+#### `show_widget_description='true'`
+Use this parameter to hide/show the widget description panel.  
+__This will override the admin setting.__
+
+# 11. Shortcode [showpass_pricing_table]
 Similar to the grid view for the `[showpass_events]` shortcode, but displays events in a grid where all columns are of equal height. Allows you to customize what information is shown and include the event description. You must specify event IDs for events you want to display.
 
 `[showpass_pricing_table ids="10125,10254,10288"]`
 
-## 10.1. Parameters
+## 11.1. Parameters
 
 #### `show_event_details`
 Set `show_event_details='true'` to display the event date, time, and location. By default these are hidden.
@@ -928,19 +955,19 @@ Set `show_event_description='true'` to display the event description. By default
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
 
-# 11. Showpass Calendar Widget
+# 12. Showpass Calendar Widget
 
 The new calendar widget is great for daily time-slot events, and is recommended instead of the `[showpass_calendar]` shortcode
 
 There are two options, you can display a button, to open a calendar in a pop up, or embed the calendar directly into the page
 
-## 11.1. Shortcode `[showpass_calendar_widget]`
+## 12.1. Shortcode `[showpass_calendar_widget]`
 
 This shortcode will display a button to users to open up the calendar in a pop up
 
 `[showpass_calendar_widget label="View Event Calendar" tags="comedy"]`
 
-## 11.1.1 Parameters
+## 12.1.1 Parameters
 ### `label='View Event Calendar'`
 
 Change this parameter to the desired label on the button, if not included the default is Get Tickets.
@@ -949,13 +976,13 @@ Change this parameter to the desired label on the button, if not included the de
 
 Use this parameter to filter by certain categories or tags, remove entirely for all events
 
-## 11.2. Shortcode `[showpass_embed_calendar]`
+## 12.2. Shortcode `[showpass_embed_calendar]`
 
 This shortcode will embed the calendar directly onto the page the user is viewing
 
 Ensure the container in which this is placed is over 1200px wide in order to display properly on desktop
 
-## 11.1.1 Parameters
+## 12.1.1 Parameters
 
 ### `tags='comedy'`
 
