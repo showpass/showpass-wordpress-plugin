@@ -124,37 +124,91 @@
 				showpass.tickets.calendarWidget(id, params);
 			});
 
-			const embeddedCalendarExists = document.getElementById('showpass-calendar-widget');
-			if (embeddedCalendarExists) {
-				let script = document.createElement("script");
-				script.type = "text/javascript";
-				script.src = 'https://showpass.com/static/dist/sdk.js';
+			function initializeShowpassEmbeddedWidgets() {
+				const embeddedCalendarWidget = document.getElementById('showpass-calendar-widget');
 
-				let useBeta = $('#option_use_showpass_beta').val();
-				let useDemo = $('#option_use_showpass_demo').val();
-				if (useBeta) {
-					script.src = 'https://beta.showpass.com/static/dist/sdk.js';
-				} else if (useDemo) {
-					script.src = 'https://demo.showpass.com/static/dist/sdk.js';
-				}
+				const embeddedCartWidget = document.getElementById('showpass-cart-widget');
+				
+				// Check for embedded event/product/membership widgets - look for elements with IDs starting with 'showpass-'
+				// and containing '-widget-'
+				const embeddedPurchaseWidgets = [];
+				document.querySelectorAll('[id^="showpass-"][id*="-widget-"]').forEach(widget => {
+					embeddedPurchaseWidgets.push(widget);
+				});
 
-				script.onload = function() {
-					const id = embeddedCalendarExists.getAttribute('data-org-id');
-					let params = {
-						'theme-primary': $('#option_widget_color').val(),
-					};
-					if (embeddedCalendarExists.getAttribute('data-tags')) {
-						const tags = {
-							tags: embeddedCalendarExists.getAttribute('data-tags')
-						};
-						params = Object.assign(params, tags);
+				if (embeddedCalendarWidget || embeddedPurchaseWidgets.length > 0 || embeddedCartWidget) {
+					let script = document.createElement("script");
+					script.type = "text/javascript";
+					script.src = 'https://showpass.com/static/dist/sdk.js';
+
+					let useBeta = $('#option_use_showpass_beta').val();
+					let useDemo = $('#option_use_showpass_demo').val();
+					if (useBeta) {
+						script.src = 'https://beta.showpass.com/static/dist/sdk.js';
+					} else if (useDemo) {
+						script.src = 'https://demo.showpass.com/static/dist/sdk.js';
 					}
-					showpass.tickets.mountCalendarWidget(id, params);
-				};
-				document.body.appendChild(script);
+
+					script.onload = function() {
+						if (embeddedCalendarWidget) {
+							const id = embeddedCalendarWidget.getAttribute('data-org-id');
+							let params = {
+								'theme-primary': $('#option_widget_color').val(),
+							};
+							if (embeddedCalendarWidget.getAttribute('data-tags')) {
+								const tags = {
+									tags: embeddedCalendarWidget.getAttribute('data-tags')
+								};
+								params = Object.assign(params, tags);
+							}
+							showpass.tickets.calendarWidget(id, params, 'showpass-calendar-widget');
+						}
+
+						if (embeddedCartWidget) {
+							let params = {
+								'theme-primary': $('#option_widget_color').val() || '',
+								'keep-shopping': $('#option_keep_shopping').val() || 'true',
+								'theme-dark': $('#option_theme_dark').val() || '',
+							};
+							showpass.tickets.checkoutWidget(params, 'showpass-cart-widget');
+						}
+
+						if (embeddedPurchaseWidgets.length > 0) {
+							embeddedPurchaseWidgets.forEach(function(widget) {
+								const slug = widget.getAttribute('data-slug');
+								const widgetType = widget.getAttribute('data-type') || 'event'; // Default to event if not specified
+								
+								let params = getParams(widget);
+								
+								if (widgetType === 'product') {
+									showpass.tickets.productPurchaseWidget(slug, params, widget.id);
+								} else if (widgetType === 'membership') {
+									showpass.tickets.membershipPurchaseWidget(slug, params, widget.id);
+								} else {
+									// Default to event widget
+									showpass.tickets.eventPurchaseWidget(slug, params, widget.id);
+								}
+							});
+						}
+					};
+					document.body.appendChild(script);
+				}
 			}
 
-			$('body').on('click', '.open-product-widget', function(e) {
+			initializeShowpassEmbeddedWidgets();
+
+			const openShowpassWidget = (slug, params, widgetType) => {
+				if (widgetType === 'product') {
+					showpass.tickets.productPurchaseWidget(slug, params);
+				} else if (widgetType === 'membership') {
+					showpass.tickets.membershipPurchaseWidget(slug, params);
+				} else {
+					// Default to event widget
+					showpass.tickets.eventPurchaseWidget(slug, params);
+				}
+			}
+
+			$('body').on('click', '.open-membership-widget', function(e) {
 				e.preventDefault();
 
 				let id = $(this).attr('id');
@@ -169,32 +223,7 @@
 					params['tracking-id'] = Cookies.get('affiliate');
 				}
 
-				showpass.tickets.productPurchaseWidget(id, params);
-			});
-
-			const openShowpassWidget = (slug, params) => {
-				const openWidget = () => {
-					showpass.tickets.eventPurchaseWidget(slug, params);
-				}
-				openWidget();
-			}
-
-			$('body').on('click', 'a[href*="showpass.com"].force-showpass-widget', function (e) {
-				e.preventDefault();
-				slug = $(this).attr('href').split('.com/')[1];
-
-				let params = getParams(this);
-
-				if ($(this).attr('data-tracking')) {
-					params['tracking-id'] = $(this).attr('data-tracking');
-				}
-
-				// Overwrite tracking-id if set in URL
-				if (Cookies.get('affiliate')) {
-					params['tracking-id'] = Cookies.get('affiliate');
-				}
-
-				openShowpassWidget(slug, params);
+				openShowpassWidget(id, params, 'membership');
 			});
 
 			$('body').on('click', '.open-ticket-widget', function (e) {
@@ -212,8 +241,54 @@
 					params['tracking-id'] = Cookies.get('affiliate');
 				}
 
-				openShowpassWidget(slug, params);
+				openShowpassWidget(slug, params, 'event');
+			});
 
+			$('body').on('click', '.open-product-widget', function(e) {
+				e.preventDefault();
+
+				let id = $(this).attr('id');
+				let params = getParams(this);
+
+				if ($(this).attr('data-tracking')) {
+					params['tracking-id'] = $(this).attr('data-tracking');
+				}
+
+				// Overwrite tracking-id if set in URL
+				if (Cookies.get('affiliate')) {
+					params['tracking-id'] = Cookies.get('affiliate');
+				}
+
+				openShowpassWidget(id, params, 'product');
+			});
+
+			$('body').on('click', 'a[href*="showpass.com"].force-showpass-widget', function(e) {
+				e.preventDefault();
+				
+				let slug = $(this).attr('href').split('.com/')[1];
+				let params = getParams(this);
+				
+				if ($(this).attr('data-tracking')) {
+					params['tracking-id'] = $(this).attr('data-tracking');
+				}
+				
+				// Overwrite tracking-id if set in URL
+				if (Cookies.get('affiliate')) {
+					params['tracking-id'] = Cookies.get('affiliate');
+				}
+
+				let widgetType = 'event'; // Default
+				if ($(this).attr('href').includes('/products/')) {
+					widgetType = 'product';
+				} else if ($(this).attr('href').includes('/memberships/')) {
+					widgetType = 'membership';
+				}
+
+				if ($(this).attr('data-type')) {
+					widgetType = $(this).attr('data-type');
+				}
+				
+				openShowpassWidget(slug, params, widgetType);
 			});
 
 			$('.showpass-cart-button').on('click', function(e) {
