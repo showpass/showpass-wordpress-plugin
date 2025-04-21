@@ -1124,7 +1124,6 @@ function showpass_get_membership_data( $atts ) {
       $template = "default";
     }
 
-    /* Define API endpoint for memberships */
     $final_api_url = SHOWPASS_API_PUBLIC_MEMBERSHIPS;
 
     if ($type == "list") {
