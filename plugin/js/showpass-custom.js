@@ -265,7 +265,21 @@
 			$('body').on('click', 'a[href*="showpass.com"].force-showpass-widget', function(e) {
 				e.preventDefault();
 				
-				let slug = $(this).attr('href').split('.com/')[1];
+				let slug;
+				const href = $(this).attr('href');
+
+				if (href.includes('/m/')) {
+					// For membership URLs
+					slug = href.split('/m/')[1];
+				} else {
+					try {
+						const url = new URL(href);
+						slug = url.pathname.substring(1); // Remove leading slash
+					} catch (e) {
+						slug = href.split('.com/')[1];
+					}
+				}
+				
 				let params = getParams(this);
 				
 				if ($(this).attr('data-tracking')) {
@@ -277,10 +291,8 @@
 					params['tracking-id'] = Cookies.get('affiliate');
 				}
 
-				let widgetType = 'event'; // Default
-				if ($(this).attr('href').includes('/products/')) {
-					widgetType = 'product';
-				} else if ($(this).attr('href').includes('/memberships/')) {
+				let widgetType = 'event';
+				if (href.includes('/m/')) {
 					widgetType = 'membership';
 				}
 
