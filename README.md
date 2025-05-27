@@ -49,15 +49,16 @@ This plugin is made for easier access to Showpass Events API data. It allows to 
    5.5. [Week and month parameter](#55-week-and-month-parameters)   
    5.6. [Arrow parameter](#56-arrows-parameter)   
    5.7. [Hide view select parameter](#57-hide-view-select-parameter)   
-6. [Shortcode - [showpas_widget] - Buy Now Button](#6-shortcode-showpass_widget---buy-now-button)       
-  6.1. [Parameters](#61-parameters)    
-  6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
-7. [Shortcode - [showpass_cart_button]](#7-shortcode-showpass_cart_button)
+6. [Shortcode - [showpass_widget] - Buy Now Button](#6-shortcode-showpass_widget---buy-now-button)       
+   6.1. [Parameters](#61-parameters)    
+   6.2. [Widget Tracking](#62-widget-tracking-using-affiliate-tracking-links)
+7. [Shortcode - [showpass_cart_button]](#7-shortcode-showpass_cart_button)       
+   7.1. [Parameters](#71-parameters)
 8. [Query Param - ?auto=slug - Automatically Open Showpass Widget](#8-auto-query-parameter)
 9. [Shortcode - [showpass_products]](#9-shortcode-showpass_products)    
-  9.1. [Parameters](#91-parameters)  
+   9.1. [Parameters](#91-parameters)  
 10. [Shortcode - [showpass_pricing_table]](#10-shortcode-showpass_pricing_table)  
-  10.1. [Parameters](#101-parameters)  
+   10.1. [Parameters](#101-parameters)  
 11. [Calendar Widget V2.0](#11-showpass-calendar-widget) 
 
 # 1. Admin page
@@ -245,7 +246,7 @@ This parameter is for filtering events through the tags. You need to pass throug
 
 ex. `www.website.com/?tags=tag_one,tag_two`
 
-* *other parameters* - `?stars_on__gte , ?starts_on__lt , ?ends_on__gte , ?ends_on__lt` etc.
+* *other parameters* - `?starts_on__gte , ?starts_on__lt , ?ends_on__gte , ?ends_on__lt` etc.
 
 - gte - greater than or equal
 
@@ -805,7 +806,10 @@ Customize the verbiage on the button.
 `Default: Tickets`
 
 #### `slug="this-is-the-slug"`
-Required, the slug that appears `http://www.showpass.com/` in a URL. ex. `http://www.showpass.com/this-is-the-slug`
+Required when using the `type="event"` parameter. The slug that appears `http://www.showpass.com/` in a URL. ex. `http://www.showpass.com/this-is-the-slug`
+
+#### `id="123456"`
+Required when using the `type="product"` or `type="membership"` parameters. The numeric ID of the product or membership.
 
 #### `class="button"`
 Use a custom class to style your button - Showpass button style provided by default
@@ -815,22 +819,34 @@ Button to close widget says `Keep Shopping` if true, and `Close` if set to false
 `Default: true`
 
 #### `show_widget_description="true"`
-
 Use this parameter to hide/show the widget description panel.  
 __This will override the admin setting.__
 
-### `show_specific_tickets="123,456"`
-
+#### `show_specific_tickets="123,456"`
 Use this parameter to show specific ticket types based on their ids
 
 All ticket types need to have their visibility set to public in order to show, this simply filters out ticket types not listed.
 
 Use this to display GA tickets or VIP tickets in different sections of your website for a better customer experience, instead of having all the ticket types listed in one widget, or making multiple events.
 
+#### `type="event|product|membership"`
+Specify the type of widget to display. Options are:
+- `event` (default): For event tickets
+- `product`: For products
+- `membership`: For memberships
+
+#### `embedded="true"`
+When set to true, the widget will be embedded directly on the page instead of opening in a popup when clicked.
+This is useful for dedicated ticket purchase pages.
+
+Example: `[showpass_widget type="event" slug="concert-name" embedded="true"]`
+or
+`[showpass_widget type="product" id="123456" embedded="true"]`
+
 ### 6.2 Widget Tracking using Affiliate Tracking Links
 
 ### How it Works
-Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` parameter to the showpass widget SDK. The `[showpass_widget]` shortcode is automatically set up to look for tracking tokens.
+Once you create a tracking link, you need to add a query parameter to the URL of your website address. Adding the `aff=8ee54af5` query parameter will create a cookie that will inject the `tracking-id` parameter to the showpass widget SDK. The `[showpass_widget]` shortcode is automatically set up to look for tracking tokens. Currently only supported for the `type="event"` parameter.
 
 ### Create an Affiliate Tracking link
 To learn how to create an affiliate tracking link - http://support.showpass.com/event-organizers/tracking-links/affiliate-tracking-links
@@ -852,6 +868,13 @@ Add a button to initiate the shopping cart and checkout widget
 `[showpass_cart_button]`
 
 Will display `Shopping Cart (x)` inside the button, and the x variable will update with the number of items in a shopping cartx
+
+### 7.1. Parameters
+
+#### `embedded="true"`
+When set to true, the cart will be embedded directly on the page instead of opening in a popup when clicked.
+
+Example: `[showpass_cart_button embedded="true"]`
 
 # 8. Auto Query Parameter
 
