@@ -9,6 +9,8 @@
  Author URI: https://www.showpass.com
  */
 
+define('SHOWPASS_PLUGIN_VERSION', '4.0.1');
+
 if (! defined('ABSPATH')) {
     exit;
 }
