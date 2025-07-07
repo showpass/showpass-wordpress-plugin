@@ -55,6 +55,16 @@ Please visit our support documentation at [http://support.showpass.com](http://s
 
 == Changelog ==
 
+= 4.0.2 =
+* Fix file caching
+
+= 4.0.1 =
+* Added membership list shortcode
+
+= 4.0.0 =
+* Update to new SDK
+* Added membership widget
+
 = 3.1.1 =
 * Update to use native wp_remote_get() for api calls
 * fix to product list template
