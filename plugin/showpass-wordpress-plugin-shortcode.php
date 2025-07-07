@@ -13,6 +13,7 @@ if (get_option('option_use_showpass_beta')) {
 define('SHOWPASS_ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('SHOWPASS_API_PUBLIC_EVENTS', SHOWPASS_API_URL . '/public/events');
 define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
+define('SHOWPASS_API_PUBLIC_MEMBERSHIPS', SHOWPASS_API_URL . '/public/memberships/membership-groups');
 define('DEFAULT_BUTTON_VERBIAGE', 'Get Tickets');
 
 /* making connection and taking the data from API */
@@ -1097,3 +1098,80 @@ function showpass_style_function() {
 }
 
 add_action( 'wp_head', 'showpass_style_function', 100 );
+
+/**
+ * Shortcode handler for [showpass_memberships]
+ * Similar to showpass_get_event_data and showpass_get_product_data
+ */
+function showpass_get_membership_data( $atts ) {
+  if (!is_admin()) {
+    /* get Organization ID that is configured in admin Showpass Event API page */
+    $organization_id = get_option('option_organization_id');
+
+    if (isset($atts["type"])) {
+      $type = $atts["type"];
+    } else {
+      $type = "list";
+    }
+
+    if ($type == NULL) {
+      echo "ERROR - Please enter type parameter in shortcode";
+    }
+
+    if (isset($atts["template"])){
+      $template = $atts["template"];
+    } else {
+      $template = "default";
+    }
+
+    $final_api_url = SHOWPASS_API_PUBLIC_MEMBERSHIPS;
+
+    if ($type == "list") {
+      $filepath = 'inc/default-membership-grid.php';
+
+      $final_api_url = $final_api_url . '/?venue_id=' . $organization_id;
+      $parameters = $_GET;
+
+      foreach ($parameters as $parameter => $value) {
+        if ($parameter == 'q' || $parameter == 'tags') {
+          $final_api_url .= "&" . $parameter . "=" . showpass_utf8_urldecode($value);
+        } else if ($parameter == 'page_number') {
+          $final_api_url .= "&page=" . $value;
+        } else {
+          $final_api_url .= "&" . $parameter . "=" . $value;
+        }
+      }
+
+      if (isset($atts['page_size'])) {
+        $number_of_memberships_one_page = $atts['page_size'];
+        $final_api_url .= "&page_size=" . $number_of_memberships_one_page;
+      } else {
+        $number_of_memberships_one_page = 8;
+        $final_api_url .= "&page_size=" . $number_of_memberships_one_page;
+      }
+
+      if (isset($atts['membership_ids'])) {
+        $membership_ids = $atts['membership_ids'];
+        $final_api_url .= "&id__in=" . $membership_ids;
+      }
+    }
+
+    $data = call_showpass_api($final_api_url);
+    $memberships = json_decode($data, true)['results'];
+    // set shortcode flags for widget
+    if (isset($atts['show_widget_description'])) {
+      $show_widget_description = $atts['show_widget_description'];
+    } else {
+      $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+    }
+
+    if ($template == "data") {
+      return $data;
+    } else {      
+      ob_start();
+      include($filepath);
+      $content = ob_get_clean();
+      return $content;
+    }
+  }
+}

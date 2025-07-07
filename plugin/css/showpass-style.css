@@ -40,6 +40,19 @@
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }
 
+.showpass-membership-grid {
+  background: none !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  margin-bottom: 30px;
+  position: relative;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+
+.showpass-membership-grid .small {
+  font-size: 16px;
+}
+
 @media screen and (min-width: 600px) {
   .showpass-grid .action-bar {
     position: absolute;
@@ -210,6 +223,10 @@ a:focus {
   margin-top: 10px;
 }
 
+.showpass-membership-price {
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 780px) {
   .showpass-button-full-width-grid{
     width: 100%;
@@ -219,6 +236,9 @@ a:focus {
     margin-top: 0px;
   }
   .showpass-product-price {
+    margin-top: 0px;
+  }
+  .showpass-membership-price {
     margin-top: 0px;
   }
 }
@@ -368,6 +388,10 @@ a:focus {
 }
 
 .showpass-product-grid-title {
+  max-width: 215px !important;
+}
+
+.showpass-membership-grid-title {
   max-width: 215px !important;
 }
 
