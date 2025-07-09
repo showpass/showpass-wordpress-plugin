@@ -486,90 +486,61 @@
 		 * Handles both popup widgets and embedded widgets
 		 */
 		const setupShowpassIframeObserver = () => {
-			
-			// initial scan for any existing Showpass iframes
-			const existingIframes = document.querySelectorAll('iframe[src*="showpass.com"]');
-			existingIframes.forEach(iframe => {
-				if (!iframe.dataset.decorated) {
-					setTimeout(() => decorateIframe(iframe), 100);
-				}
-			});
-
-			let processingMutations = false;
-			let pendingMutations = [];
-			
 			const documentObserver = new MutationObserver((mutations) => {
-				pendingMutations.push(...mutations);
+				mutations.forEach((mutation) => {
+					if (mutation.type === "childList") {
+						mutation.addedNodes.forEach((node) => {
+							if (node.nodeType === Node.ELEMENT_NODE) {
+								// Check if the node itself is a Showpass iframe
+								if (
+									node.tagName === "IFRAME" &&
+									node.src &&
+									node.src.includes("showpass.com") &&
+									!node.dataset.decorated
+								) {
+									setTimeout(() => {
+										decorateIframe(node);
+									}, 100);
+								}
 
-				if (processingMutations) {
-					return;
-				}
-				
-				processingMutations = true;
-
-				setTimeout(() => {
-					const mutationsToProcess = [...pendingMutations];
-					pendingMutations = [];
-					processingMutations = false;
-
-
-					for (const mutation of mutationsToProcess) {
-						if (mutation.type === "childList") {
-							for (const node of mutation.addedNodes) {
-								if (node.nodeType === Node.ELEMENT_NODE) {
-									// Check if the node itself is a Showpass iframe
-									if (
-										node.tagName === "IFRAME" &&
-										node.src &&
-										node.src.includes("showpass.com") &&
-										!node.dataset.decorated
-									) {
-										setTimeout(() => {
-											decorateIframe(node);
-										}, 100);
-									}
-
-									// Look for any Showpass iframes within the added node
-									if (node.querySelectorAll) {
-										const iframes = node.querySelectorAll(
-											'iframe[src*="showpass.com"]'
-										);
-										if (iframes.length > 0) {
-											iframes.forEach((iframe) => {
-												if (
-													iframe.src &&
-													!iframe.dataset.decorated
-												) {
-													setTimeout(() => {
-														decorateIframe(iframe);
-													}, 100);
-												}
-											});
+								// Look for any Showpass iframes within the added node
+								if (node.querySelectorAll) {
+									const iframes = node.querySelectorAll(
+										'iframe[src*="showpass.com"]'
+									);
+									iframes.forEach((iframe) => {
+										if (
+											iframe.src &&
+											!iframe.dataset.decorated
+										) {
+											setTimeout(() => {
+												decorateIframe(iframe);
+											}, 100);
 										}
-									}
+									});
 								}
 							}
-						}
+						});
+					}
 
-						// Also watch for src attribute changes on existing iframes
+					// Also watch for src attribute changes on existing iframes
+					if (
+						mutation.type === "attributes" &&
+						mutation.attributeName === "src"
+					) {
+						const target = mutation.target;
 						if (
-							mutation.type === "attributes" &&
-							mutation.attributeName === "src"
+							target.tagName === "IFRAME" &&
+							target.src &&
+							target.src.includes("showpass.com") &&
+							!target.dataset.decorated
 						) {
-							const target = mutation.target;
-							if (
-								target.tagName === "IFRAME" &&
-								target.src &&
-								target.src.includes("showpass.com") &&
-								!target.dataset.decorated
-							) {
-								setTimeout(() => {
-									decorateIframe(target);
-								}, 100);
-							}
+							setTimeout(() => {
+								decorateIframe(target);
+							}, 100);
 						}
 					}
-				}, 50);
+				});
 			});
 
 			documentObserver.observe(document.body, {
@@ -579,14 +550,10 @@
 				attributeFilter: ["src"],
 			});
 
-			return {
-				observer: documentObserver,
-				cleanup: () => {
-					documentObserver.disconnect();
-				}
-			};
+			return documentObserver;
 		};
 
+		// Initialize the observer automatically
 		setupShowpassIframeObserver();
 	}
 })(jQuery, window, document);
