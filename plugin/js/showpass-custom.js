@@ -504,20 +504,13 @@
 								}
 
 								// Look for any Showpass iframes within the added node
-								if (node.querySelectorAll) {
-									const iframes = node.querySelectorAll(
-										'iframe[src*="showpass.com"]'
-									);
-									iframes.forEach((iframe) => {
-										if (
-											iframe.src &&
-											!iframe.dataset.decorated
-										) {
-											setTimeout(() => {
-												decorateIframe(iframe);
-											}, 100);
+								if (node.getElementsByTagName) {
+									const iframes = node.getElementsByTagName('iframe');
+									for (let iframe of iframes) {
+										if (iframe.src && iframe.src.includes("showpass.com") && !iframe.dataset.decorated) {
+											decorateIframe(iframe);
 										}
-									});
+									}
 								}
 							}
 						});
