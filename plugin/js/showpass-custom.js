@@ -498,9 +498,7 @@
 									node.src.includes("showpass.com") &&
 									!node.dataset.decorated
 								) {
-									setTimeout(() => {
-										decorateIframe(node);
-									}, 100);
+									decorateIframe(node);
 								}
 
 								// Look for any Showpass iframes within the added node
@@ -528,9 +526,7 @@
 							target.src.includes("showpass.com") &&
 							!target.dataset.decorated
 						) {
-							setTimeout(() => {
-								decorateIframe(target);
-							}, 100);
+							decorateIframe(target);
 						}
 					}
 				});
