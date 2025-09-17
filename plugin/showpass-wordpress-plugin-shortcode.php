@@ -836,24 +836,24 @@ function showpass_widget_expand($atts, $content = null) {
             $clean_identifier = preg_replace('/[^a-z0-9]/i', '-', $identifier); // Clean the identifier for use in an ID
             $widget_id = 'showpass-' . $type . '-widget-' . $clean_identifier;
 
-            $div = '<div id="' . $widget_id . '" ';
-            $div .= 'data-slug="' . $identifier . '" ';
-            $div .= 'data-type="' . $type . '" ';
+            $div = '<div id="' . esc_attr($widget_id) . '" ';
+            $div .= 'data-slug="' . esc_attr($identifier) . '" ';
+            $div .= 'data-type="' . esc_attr($type) . '" ';
             
             if ($tracking) {
-                $div .= 'data-tracking="' . $tracking . '" ';
+                $div .= 'data-tracking="' . esc_attr($tracking) . '" ';
             }
             
             if (isset($atts['show_widget_description'])) {
-                $div .= 'data-show-description="' . $atts['show_widget_description'] . '" ';
+                $div .= 'data-show-description="' . esc_attr($atts['show_widget_description']) . '" ';
             }
             
             if (isset($atts['keep_shopping'])) {
-                $div .= 'data-shopping="' . $atts['keep_shopping'] . '" ';
+                $div .= 'data-shopping="' . esc_attr($atts['keep_shopping']) . '" ';
             }
             
             if (isset($atts['show_specific_tickets'])) {
-                $div .= 'data-show-specific-tickets="' . $atts['show_specific_tickets'] . '" ';
+                $div .= 'data-show-specific-tickets="' . esc_attr($atts['show_specific_tickets']) . '" ';
             }
             
             if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')) {
@@ -901,22 +901,22 @@ function showpass_widget_expand($atts, $content = null) {
         //update to template as needed
         $button = '';
         $button .= $style
-                .sprintf('<a id="%s" class="%s %s" ', $identifier, $widget_class, $class);
+                .sprintf('<a id="%s" class="%s %s" ', esc_attr($identifier), esc_attr($widget_class), esc_attr($class));
 
         if ($tracking) {
-            $button .= sprintf('data-tracking="%s" ', $tracking);
+            $button .= sprintf('data-tracking="%s" ', esc_attr($tracking));
         }
 
         if (isset($show_description)) {
-            $button .= sprintf('data-show-description="%s" ', $show_description);
+            $button .= sprintf('data-show-description="%s" ', esc_attr($show_description));
         }
 
         if (isset($keep_shopping)) {
-            $button .= sprintf('data-shopping="%s" ', $keep_shopping);
+            $button .= sprintf('data-shopping="%s" ', esc_attr($keep_shopping));
         }
 
         if (isset($show_specific_tickets)) {
-            $button .= sprintf('data-show-specific-tickets="%s" ', $show_specific_tickets);
+            $button .= sprintf('data-show-specific-tickets="%s" ', esc_attr($show_specific_tickets));
         }
 
         if ($include_icon) {
@@ -925,7 +925,7 @@ function showpass_widget_expand($atts, $content = null) {
             $button .='>';
         }
 
-        $button .= '<span>'.$label.'</span></a>';
+        $button .= '<span>'.esc_html($label).'</span></a>';
         return $button;
 
     } else {
