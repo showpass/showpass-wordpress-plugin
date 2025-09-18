@@ -21,24 +21,24 @@
 						$('button#submit-event-url').removeAttr("disabled");
 						$('p.response').show();
 						$('#showpass-get-event-url .loader').removeClass('spin');
-						$('span#success').html('Success!')
-						$('span#showpass-url').html('https://www.showpass.com/' + success.data.slug);
-						$('span#showpass-shortcode').html(success.data.shortcode);
+						$('span#success').text('Success!')
+						$('span#showpass-url').text('https://www.showpass.com/' + success.data.slug);
+						$('span#showpass-shortcode').text(success.data.shortcode);
 					},
 					error: function (error) {
 						$('button#submit-event-url').removeAttr("disabled");
 						$('#showpass-get-event-url .loader').removeClass('spin');
 						if (error && error.responseText) {
 							let msg = JSON.parse(error.responseText);
-							$('span#error').html(msg.data);
+							$('span#error').text(msg.data);
 						} else {
-							$('span#error').html('Unknown Error: Please try again.');
+							$('span#error').text('Unknown Error: Please try again.');
 						}
 
 					}
 				});
 			} else {
-				$('span#error').html('Please enter a url');
+				$('span#error').text('Please enter a url');
 			}
 		}
 

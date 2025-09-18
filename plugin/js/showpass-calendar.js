@@ -30,6 +30,10 @@
             }
         }
 
+        function sanitizeText(text) {
+            return $('<div>').text(text).html();
+        }
+
         let singleDisplay = 'card-view';
         $('#card-view').addClass('active');
         setDisplayView();
@@ -203,7 +207,7 @@
                             let locationGroup = _.values(_.mapValues(_.groupBy(events, 'location.id')));
                             for (let i = 0; i < locationGroup.length; i++) {
                                 let locationEvents = locationGroup[i];
-                                let html_loc = "<div class='location location-" + locationEvents[0].location.id + "' style='width:" + schedule_width + "px;'><span class='location-name gradient'><span class='sticky'><i class='fa fa-map-marker'></i>" + locationEvents[0].location.name + "</span></span><div class='time-scale'></div><div class='daily-contain'></div></div>";
+                                let html_loc = "<div class='location location-" + locationEvents[0].location.id + "' style='width:" + schedule_width + "px;'><span class='location-name gradient'><span class='sticky'><i class='fa fa-map-marker'></i>" + sanitizeText(locationEvents[0].location.name) + "</span></span><div class='time-scale'></div><div class='daily-contain'></div></div>";
                                 $('#schedule-display').append(html_loc);
                                 for (let e = 0; e < locationEvents.length; e++) {
                                     let timezone = locationEvents[e].timezone;
@@ -211,14 +215,14 @@
                                     let ends_on = locationEvents[e].ends_on;
                                     let a = moment.tz(starts_on, timezone).format();
                                     date_month = a;
-                                    let event_name = locationEvents[e].name;
+                                    let event_name = sanitizeText(locationEvents[e].name);
                                     let event_slug = locationEvents[e].slug;
                                     let timezone_abbr = moment.tz(locationEvents[e].timezone).format('z');
                                     let event_duration = moment.duration(moment(ends_on).diff(moment(starts_on))).asHours();
                                     let tile_width = event_duration * time_scale;
                                     let horizontal_position = moment.duration(moment(starts_on).diff(moment(start_of_schedule))).asHours() * time_scale;
                                     let external_link = locationEvents[e].external_link;
-                                    let html_tmp = "<div class='daily-event gradient" + (external_link ? "' href='" + external_link : " open-ticket-widget' id='" + event_slug) + "' style='width: " + tile_width + "px; left: " + horizontal_position + "px'><div class='event-info'><div class='event-name'>" + event_name + "</div>" +
+                                    let html_tmp = "<div class='daily-event gradient" + (external_link ? "' href='" + external_link : " open-ticket-widget' id='" + event_slug) + "' style='width: " + tile_width + "px; left: " + horizontal_position + "px'><div class='event-info'><div class='event-name'>" + sanitizeText(event_name) + "</div>" +
                                         "<div class='time'><i class='fa fa-clock-o'></i>" + moment.tz(starts_on, timezone).format('h:mm A') + " - " + moment.tz(ends_on, timezone).format('h:mm A') + " " + timezone_abbr + "</div></div></div></div>";
                                     $('.location-' + locationEvents[e].location.id + ' .daily-contain').append(html_tmp);
                                 }
@@ -232,7 +236,7 @@
                                 let ends_on = event.ends_on;
                                 let a = moment.tz(starts_on, timezone).format();
                                 date_month = a;
-                                let event_name = event.name;
+                                let event_name = sanitizeText(event.name);
                                 let image_thumb = event.image || default_square;
                                 let image_banner = event.image_banner || default_banner;
                                 let event_slug = event.slug;

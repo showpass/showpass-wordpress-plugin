@@ -1,8 +1,8 @@
 === Showpass Wordpress Extension ===
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.9
-Tested up to: 6.4.3
-Stable tag: 4.0.3
+Tested up to: 6.8.2
+Stable tag: 4.0.4
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary, cgarrovillosp
 
