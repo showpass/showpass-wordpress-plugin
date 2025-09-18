@@ -24,37 +24,58 @@ if (!/^\d+\.\d+\.\d+$/.test(newVersion)) {
 }
 
 const pluginFile = path.join(__dirname, 'plugin', 'showpass-wordpress-plugin.php');
+const readmeFile = path.join(__dirname, 'plugin', 'readme.txt');
 
 if (!fs.existsSync(pluginFile)) {
     console.log(`Error: Plugin file not found at ${pluginFile}`);
     process.exit(1);
 }
 
+if (!fs.existsSync(readmeFile)) {
+    console.log(`Error: Readme file not found at ${readmeFile}`);
+    process.exit(1);
+}
+
 try {
-    // Read the file
-    let content = fs.readFileSync(pluginFile, 'utf8');
+    // Update plugin file
+    let pluginContent = fs.readFileSync(pluginFile, 'utf8');
 
     // Update the version in the plugin header
-    content = content.replace(
+    pluginContent = pluginContent.replace(
         /Version: \d+\.\d+\.\d+/,
         `Version: ${newVersion}`
     );
 
     // Update the version constant
-    content = content.replace(
+    pluginContent = pluginContent.replace(
         /define\('SHOWPASS_PLUGIN_VERSION', '\d+\.\d+\.\d+'\);/,
         `define('SHOWPASS_PLUGIN_VERSION', '${newVersion}');`
     );
 
-    // Write back to file
-    fs.writeFileSync(pluginFile, content, 'utf8');
+    // Write back to plugin file
+    fs.writeFileSync(pluginFile, pluginContent, 'utf8');
     
     console.log(`✅ Successfully updated version to ${newVersion} in ${pluginFile}`);
+    
+    // Update readme file
+    let readmeContent = fs.readFileSync(readmeFile, 'utf8');
+
+    // Update the stable tag version
+    readmeContent = readmeContent.replace(
+        /Stable tag: \d+\.\d+\.\d+/,
+        `Stable tag: ${newVersion}`
+    );
+
+    // Write back to readme file
+    fs.writeFileSync(readmeFile, readmeContent, 'utf8');
+    
+    console.log(`✅ Successfully updated version to ${newVersion} in ${readmeFile}`);
     
     // Optional: Show what was changed
     console.log('\n📝 Changes made:');
     console.log(`   - Plugin header: Version: ${newVersion}`);
-    console.log(`   - Constant: SHOWPASS_PLUGIN_VERSION = '${newVersion}'`);
+    console.log(`   - Plugin constant: SHOWPASS_PLUGIN_VERSION = '${newVersion}'`);
+    console.log(`   - Readme stable tag: Stable tag: ${newVersion}`);
     console.log('\n💡 All script enqueues using SHOWPASS_PLUGIN_VERSION will now use this version automatically!');
     
 } catch (error) {
