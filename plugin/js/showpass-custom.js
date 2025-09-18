@@ -161,21 +161,8 @@
 					embeddedPurchaseWidgets.length > 0 ||
 					embeddedCartWidget
 				) {
-					let script = document.createElement("script");
-					script.type = "text/javascript";
-					script.src = "https://showpass.com/static/dist/sdk.js";
-
-					let useBeta = $("#option_use_showpass_beta").val();
-					let useDemo = $("#option_use_showpass_demo").val();
-					if (useBeta) {
-						script.src =
-							"https://beta.showpass.com/static/dist/sdk.js";
-					} else if (useDemo) {
-						script.src =
-							"https://demo.showpass.com/static/dist/sdk.js";
-					}
-
-					script.onload = function () {
+					// SDK is already loaded via WordPress enqueue_script, so we can initialize widgets directly
+					function initializeWidgets() {
 						if (embeddedCalendarWidget) {
 							const id =
 								embeddedCalendarWidget.getAttribute(
@@ -248,8 +235,19 @@
 								}
 							});
 						}
-					};
-					document.body.appendChild(script);
+					}
+
+					// Wait for showpass SDK to be available, then initialize widgets
+					function waitForShowpass() {
+						if (typeof showpass !== 'undefined' && showpass.tickets) {
+							initializeWidgets();
+						} else {
+							// Check again after a short delay
+							setTimeout(waitForShowpass, 100);
+						}
+					}
+					
+					waitForShowpass();
 				}
 			}
 

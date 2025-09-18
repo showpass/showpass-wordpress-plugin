@@ -1058,7 +1058,7 @@ function showpass_scripts(){
       } else if (get_option('option_use_showpass_demo')){
         wp_enqueue_script('showpass-demo-sdk', plugins_url( '/js/showpass-demo-sdk.js', __FILE__ ), array('jquery'), SHOWPASS_PLUGIN_VERSION, true );
       } else {
-        wp_enqueue_script('showpass-sdk', plugins_url( '/js/showpass-sdk.js', __FILE__ ), array('jquery'), SHOWPASS_PLUGIN_VERSION, true );
+        wp_enqueue_script('showpass-sdk', 'https://doavub8d2uzrx.cloudfront.net/static/platform/sdk/sdk.js', array('jquery'), SHOWPASS_PLUGIN_VERSION, false );
       }
 		wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), SHOWPASS_PLUGIN_VERSION, true);
 		wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(), '1.0.1', true);
@@ -1072,7 +1072,7 @@ function showpass_scripts(){
 	}
 }
 
-add_action( 'init', 'showpass_scripts' );
+add_action( 'wp_enqueue_scripts', 'showpass_scripts', 5);
 
 function showpass_widget_options() {
   echo '<input type="hidden" id="option_keep_shopping" value="'.get_option('option_keep_shopping').'">';
