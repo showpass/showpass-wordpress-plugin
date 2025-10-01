@@ -9,7 +9,7 @@
         let useDemo = $('#option_use_showpass_demo').val();
 
         if (useBeta) {
-            apiURL = 'https://beta.showpass.com/api'
+            apiURL = 'https://localhost.showpass.com/api'
         } else if (useDemo) {
             apiURL = 'https://demo.showpass.com/api'
         }

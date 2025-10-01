@@ -4,7 +4,7 @@
 * registering shortcode
 **************************/
 if (get_option('option_use_showpass_beta')) {
-  define('SHOWPASS_API_URL', 'https://beta.showpass.com/api');
+  define('SHOWPASS_API_URL', 'https://localhost.showpass.com/api');
 } else if (get_option('option_use_showpass_demo')) {
   define('SHOWPASS_API_URL', 'https://demo.showpass.com/api');
 } else {
@@ -1011,6 +1011,12 @@ function wpshp_calendar_widget($atts, $content = null) {
   $tags = isset($atts['tags']) ? $atts['tags']
     : null;
 
+  $is_attraction = isset($atts['is_attraction']) && $atts['is_attraction'] === 'true' ? $atts['is_attraction']
+								 : null;
+
+  $event_id = isset($atts['event_id']) ? $atts['event_id']
+								 : null;
+
   if ($organization_id) {
     if (isset($atts['label'])) {
       $label = $atts['label'];
@@ -1022,7 +1028,7 @@ function wpshp_calendar_widget($atts, $content = null) {
 	} else {
 		$class = 'showpass-button';
 	}
-    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
+    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'" class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
     return $button;
   } else {
     return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
@@ -1039,8 +1045,14 @@ function wpshp_embed_calendar($atts, $content = null) {
 	$tags = isset($atts['tags']) ? $atts['tags']
 								 : null;
 
+  $is_attraction = isset($atts['is_attraction']) && $atts['is_attraction'] === 'true' ? $atts['is_attraction']
+								 : null;
+
+  $event_id = isset($atts['event_id']) ? $atts['event_id']
+								 : null;
+
 	if ($organization_id) {
-		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'"></div>';
+		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"></div>';
 	} else {
 		return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
 	}

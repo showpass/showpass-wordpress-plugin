@@ -17,4 +17,4 @@
         var x = document.getElementsByTagName('script')[0];
         x.parentNode.insertBefore(s, x);
     }
-})(window, document, 'https://beta.showpass.com/static/dist/sdk.js');
+})(window, document, 'https://localhost.showpass.com/static/dist/sdk.js');
