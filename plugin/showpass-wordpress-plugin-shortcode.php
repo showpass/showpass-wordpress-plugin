@@ -4,7 +4,7 @@
 * registering shortcode
 **************************/
 if (get_option('option_use_showpass_beta')) {
-  define('SHOWPASS_API_URL', 'https://localhost.showpass.com/api');
+  define('SHOWPASS_API_URL', 'https://beta.showpass.com/api');
 } else if (get_option('option_use_showpass_demo')) {
   define('SHOWPASS_API_URL', 'https://demo.showpass.com/api');
 } else {
