@@ -133,6 +133,8 @@
 						$("#option_widget_color").val(),
 					"keep-shopping": false,
 					tags: $(this).attr("data-tags"),
+					is_attraction: $(this).attr("data-is-attraction") === 'true' ? true : false,
+					event_id: $(this).attr("data-event-id"),
 				};
 
 				showpass.tickets.calendarWidget(id, params);
@@ -182,6 +184,14 @@
 									),
 								};
 								params = Object.assign(params, tags);
+							}
+							if (embeddedCalendarWidget.getAttribute("data-is-attraction")) {
+								const is_attraction = embeddedCalendarWidget.getAttribute("data-is-attraction") === 'true' ? true : false;
+								params.is_attraction = is_attraction;
+							}
+							if (embeddedCalendarWidget.getAttribute("data-event-id")) {
+								const event_id = embeddedCalendarWidget.getAttribute("data-event-id");
+								params.event_id = event_id;
 							}
 							showpass.tickets.calendarWidget(
 								id,
