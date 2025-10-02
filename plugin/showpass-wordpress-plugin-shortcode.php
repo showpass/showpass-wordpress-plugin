@@ -813,7 +813,6 @@ function showpass_widget_expand($atts, $content = null) {
         } else {
             $label = DEFAULT_BUTTON_VERBIAGE;
         }
-    
         if (isset($atts['tracking_id'])) {
             $tracking = $atts['tracking_id'];
         } else {
@@ -843,7 +842,6 @@ function showpass_widget_expand($atts, $content = null) {
             if ($tracking) {
                 $div .= 'data-tracking="' . esc_attr($tracking) . '" ';
             }
-            
             if (isset($atts['show_widget_description'])) {
                 $div .= 'data-show-description="' . esc_attr($atts['show_widget_description']) . '" ';
             }
