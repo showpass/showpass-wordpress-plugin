@@ -19,6 +19,8 @@
 				"false",
 			"show-specific-tickets":
 				$(element).attr("data-show-specific-tickets") || "",
+			"lang":
+				$(element).attr("data-lang") || "",
 		};
 	};
 
@@ -135,6 +137,7 @@
 					tags: $(this).attr("data-tags"),
 					is_attraction: $(this).attr("data-is-attraction") === 'true' ? true : false,
 					event_id: $(this).attr("data-event-id"),
+					lang: $(this).attr("data-lang"),
 				};
 
 				showpass.tickets.calendarWidget(id, params);
@@ -193,6 +196,16 @@
 								const event_id = embeddedCalendarWidget.getAttribute("data-event-id");
 								params.event_id = event_id;
 							}
+							if (
+								embeddedCalendarWidget.getAttribute("data-lang")
+							) {
+								const lang = {
+									lang: embeddedCalendarWidget.getAttribute(
+										"data-lang"
+									),
+								};
+								params = Object.assign(params, lang);
+							}
 							showpass.tickets.calendarWidget(
 								id,
 								params,
@@ -208,6 +221,8 @@
 									$("#option_keep_shopping").val() || "true",
 								"theme-dark":
 									$("#option_theme_dark").val() || "",
+								"lang":
+									embeddedCartWidget.getAttribute("data-lang") || "",
 							};
 							showpass.tickets.checkoutWidget(
 								params,

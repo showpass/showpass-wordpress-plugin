@@ -48,7 +48,7 @@
 									<div class="showpass-layout-flex">
 										<div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-title-wrapper">
 											<div class="showpass-event-title">
-												<h3><a class="open-product-widget" id="<?php echo $product['id']; ?>"><?php echo $product['name']; ?></a></h3>
+												<h3><a class="open-product-widget" id="<?php echo $product['id']; ?>"<?php if (isset($lang) && $lang !== '') {?> data-lang="<?= esc_attr($lang) ?>"<?php } ?>><?php echo $product['name']; ?></a></h3>
 											</div>
 										</div>
 									</div>
@@ -67,6 +67,7 @@
 															class="showpass-list-ticket-button showpass-button open-product-widget" 
 															id="<?php echo $product['id']; ?>"
 															data-show-description="<?= $show_widget_description ?>"
+															<?php if (isset($lang) && $lang !== '') {?>data-lang="<?= esc_attr($lang) ?>" <?php } ?>
 														>Buy Now</a>
 													</div>
 												</div>

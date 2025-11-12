@@ -86,7 +86,8 @@
                                             data-tracking="<?php echo $event_data['tracking_id']; ?>" <?php } ?>
                                             <?php if ($event['external_link']) { ?>
                                             href="<?php echo $event['external_link']; ?>" <?php } else { ?>
-                                            id="<?php echo $event['slug']; ?>" <?php } ?>>
+                                            id="<?php echo $event['slug']; ?>" <?php } ?>
+                                            <?php if (isset($lang) && $lang !== '') {?>data-lang="<?= esc_attr($lang) ?>" <?php } ?>>
                                             <?php echo $event['name']; ?>
                                         </a>
                                     </h3>

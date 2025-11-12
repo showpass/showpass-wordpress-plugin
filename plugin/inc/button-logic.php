@@ -11,7 +11,8 @@
 <a class="showpass-list-ticket-button showpass-button no-margin <?php if (!$event['external_link']) echo 'open-ticket-widget' ?>"
     id="<?php echo $event['slug']; ?>" data-show-description="<?= $show_widget_description ?>"
     <?php if (isset($event_data['tracking_id'])) {?> data-tracking="<?php echo $event_data['tracking_id']; ?>"
-    <?php } ?>>
+    <?php } ?>
+    <?php if (isset($lang) && $lang !== '') {?> data-lang="<?= esc_attr($lang) ?>"<?php } ?>>
     <?php include 'button-verbiage.php'; ?>
 </a>
 <?php } ?>

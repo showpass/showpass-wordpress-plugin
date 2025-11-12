@@ -181,6 +181,11 @@ function showpass_get_event_data( $atts ) {
 
     }
 
+    if (isset($atts['lang'])) {
+      $lang = $atts['lang'];
+      $final_api_url .= "&lang=" . $lang;
+    }
+
     $data = call_showpass_api($final_api_url);
 
     // decode data to to append related events to process properly
@@ -206,6 +211,10 @@ function showpass_get_event_data( $atts ) {
         $show_widget_description = $atts['show_widget_description'];
       } else {
         $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+      }
+
+      if (isset($atts['lang'])) {
+        $lang = $atts['lang'];
       }
 
       ob_start();
@@ -275,6 +284,11 @@ function showpass_get_product_data( $atts ) {
         $product_ids = $atts['product_ids'];
         $final_api_url .= "&id__in=" . $product_ids;
       }
+    }
+
+    if (isset($atts['lang'])) {
+      $lang = $atts['lang'];
+      $final_api_url .= "&lang=" . $lang;
     }
 
     $data = call_showpass_api($final_api_url);
@@ -857,7 +871,10 @@ function showpass_widget_expand($atts, $content = null) {
             if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')) {
                 $div .= 'data-theme="dark" ';
             }
-            
+
+            if (isset($atts['lang']) && $atts['lang'] !== '') {
+                $div .= 'data-lang="' . esc_attr($atts['lang']) . '" ';
+            }
             $div .= '></div>';
             return $div;
         }
@@ -917,6 +934,10 @@ function showpass_widget_expand($atts, $content = null) {
             $button .= sprintf('data-show-specific-tickets="%s" ', esc_attr($show_specific_tickets));
         }
 
+        if (isset($atts['lang']) && $atts['lang'] !== '') {
+            $button .= sprintf('data-lang="%s" ', esc_attr($atts['lang']));
+        }
+
         if ($include_icon) {
             $button .='><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
         } else {
@@ -947,6 +968,11 @@ function wpshp_get_pricing_table( $atts ) {
     $final_api_url .= "&show=" . $show;
   }
 
+  if (isset($atts['lang'])) {
+    $lang = $atts['lang'];
+    $final_api_url .= "&lang=" . $lang;
+  }
+
   if (isset($atts['show_event_details'])) {
     $show_event_details = $atts['show_event_details'] === 'true' ? true : false;
   } else {
@@ -961,7 +987,6 @@ function wpshp_get_pricing_table( $atts ) {
 
   if (!is_admin()) {
   	$data = call_showpass_api($final_api_url);
-    $events = array();
     $sort_order = explode(',', $event_ids);
     $events_data = json_decode($data, true)['results'];
     $events = array();
@@ -992,10 +1017,15 @@ function wpshp_get_pricing_table( $atts ) {
 
 //[showpass_cart_button]
 function wpshp_cart_button($atts, $content = null) {
+  $lang_attr = '';
+  if (isset($atts['lang']) && $atts['lang'] !== '') {
+    $lang_attr = ' data-lang="'.esc_attr($atts['lang']).'"';
+  }
+  
   if (isset($atts['embedded']) && $atts['embedded'] === 'true') {
-    return '<div id="showpass-cart-widget"></div>';
+    return '<div id="showpass-cart-widget"'.$lang_attr.'></div>';
   } else {
-    return '<span class="showpass-button showpass-cart-button" href="#"><i class="fa fa-shopping-cart"></i><span>Shopping Cart</span></span>';
+    return '<span class="showpass-button showpass-cart-button"'.$lang_attr.' href="#"><i class="fa fa-shopping-cart"></i><span>Shopping Cart</span></span>';
   }
 }
 
@@ -1021,12 +1051,18 @@ function wpshp_calendar_widget($atts, $content = null) {
     } else {
       $label = 'Get Tickets';
     }
-	if (isset($atts['class'])) {
-		$class = $atts['class'];
-	} else {
-		$class = 'showpass-button';
-	}
-    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'" class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
+    if (isset($atts['class'])) {
+      $class = $atts['class'];
+    } else {
+      $class = 'showpass-button';
+    }
+
+    $lang_attr = '';
+    if (isset($atts['lang']) && $atts['lang'] !== '') {
+      $lang_attr = ' data-lang="'.esc_attr($atts['lang']).'"';
+    }
+
+    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.' class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
     return $button;
   } else {
     return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
@@ -1043,14 +1079,19 @@ function wpshp_embed_calendar($atts, $content = null) {
 	$tags = isset($atts['tags']) ? $atts['tags']
 								 : null;
 
-  $is_attraction = isset($atts['is_attraction']) && $atts['is_attraction'] === 'true' ? $atts['is_attraction']
+	$is_attraction = isset($atts['is_attraction']) && $atts['is_attraction'] === 'true' ? $atts['is_attraction']
 								 : null;
 
-  $event_id = isset($atts['event_id']) ? $atts['event_id']
+	$event_id = isset($atts['event_id']) ? $atts['event_id']
 								 : null;
+
+	$lang_attr = '';
+	if (isset($atts['lang']) && $atts['lang'] !== '') {
+		$lang_attr = ' data-lang="'.esc_attr($atts['lang']).'"';
+	}
 
 	if ($organization_id) {
-		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"></div>';
+		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.'></div>';
 	} else {
 		return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
 	}
@@ -1164,6 +1205,11 @@ function showpass_get_membership_data( $atts ) {
         $membership_ids = $atts['membership_ids'];
         $final_api_url .= "&id__in=" . $membership_ids;
       }
+    }
+
+    if (isset($atts['lang'])) {
+      $lang = $atts['lang'];
+      $final_api_url .= "&lang=" . $lang;
     }
 
     $data = call_showpass_api($final_api_url);
