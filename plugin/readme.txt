@@ -2,7 +2,7 @@
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.9
 Tested up to: 6.8.2
-Stable tag: 4.0.5
+Stable tag: 4.0.6
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary, cgarrovillosp
 
@@ -54,6 +54,9 @@ Please visit our support documentation at [http://support.showpass.com](http://s
 4. This plugin utilizes the Showpass Purchase Widget for a seamless checkout experience - no redirects means higher conversion rates
 
 == Changelog ==
+
+= 4.0.6 =
+* Add French language support for widgets
 
 = 4.0.3 = 
 * Fix analytics tracking for embedded widgets
