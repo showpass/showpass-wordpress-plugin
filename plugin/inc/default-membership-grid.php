@@ -45,7 +45,7 @@ $membership_data = json_decode($data, true);
                                 <div class="showpass-layout-flex">
                                     <div class="flex-100 showpass-flex-column showpass-no-border showpass-title-wrapper">
                                         <div class="showpass-event-title showpass-membership-grid-title">
-                                            <h3><a class="open-membership-widget" id="<?php echo $membership['id']; ?>"><?php echo $membership['name']; ?></a></h3>
+                                            <h3><a class="open-membership-widget" id="<?php echo $membership['id']; ?>"<?php if (isset($lang) && $lang !== '') {?> data-lang="<?= esc_attr($lang) ?>"<?php } ?>><?php echo $membership['name']; ?></a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -64,6 +64,7 @@ $membership_data = json_decode($data, true);
                                                     class="showpass-list-ticket-button showpass-button open-membership-widget" 
                                                     id="<?php echo $membership['id']; ?>"
                                                     data-show-description="<?= $show_widget_description ?>"
+                                                    <?php if (isset($lang) && $lang !== '') {?>data-lang="<?= esc_attr($lang) ?>" <?php } ?>
                                                 >Buy Now</a>
                                             </div>
                                         </div>

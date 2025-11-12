@@ -87,6 +87,7 @@
 													href="#"
 												<?php } ?>
 												data-show-description="<?= $show_widget_description ?>"
+												<?php if (isset($lang) && $lang !== '') {?> data-lang="<?= esc_attr($lang) ?>"<?php } ?>
 											>
                         <?php include 'button-verbiage.php'; ?>
 											</a>
