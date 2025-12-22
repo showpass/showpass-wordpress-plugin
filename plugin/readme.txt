@@ -55,6 +55,9 @@ Please visit our support documentation at [http://support.showpass.com](http://s
 
 == Changelog ==
 
+= 4.0.7 =
+* Force redirect-url param for Affirm support
+
 = 4.0.6 =
 * Add French language support for widgets
 

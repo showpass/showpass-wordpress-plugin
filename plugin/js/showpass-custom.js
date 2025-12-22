@@ -19,8 +19,8 @@
 				"false",
 			"show-specific-tickets":
 				$(element).attr("data-show-specific-tickets") || "",
-			"lang":
-				$(element).attr("data-lang") || "",
+			lang: $(element).attr("data-lang") || "",
+			"redirect-url": encodeURIComponent(window.location.href),
 		};
 	};
 
@@ -110,7 +110,10 @@
 
 			var qs = getQueryStrings();
 
-			if (qs.auto) {
+			if (qs.affirm) {
+				let params = getParams();
+				showpass.tickets.checkoutWidget(params);
+			} else if (qs.auto) {
 				var slug = qs.auto;
 				let params = {
 					"theme-primary": $("#option_widget_color").val(),
@@ -121,6 +124,9 @@
 				};
 				setTimeout(function () {
 					Cookies.remove("auto");
+					params["redirect-url"] = encodeURIComponent(
+						window.location.href
+					);
 					showpass.tickets.eventPurchaseWidget(slug, params);
 				}, 500);
 			}
@@ -135,11 +141,18 @@
 						$("#option_widget_color").val(),
 					"keep-shopping": false,
 					tags: $(this).attr("data-tags"),
-					is_attraction: $(this).attr("data-is-attraction") === 'true' ? true : false,
+					is_attraction:
+						$(this).attr("data-is-attraction") === "true"
+							? true
+							: false,
 					event_id: $(this).attr("data-event-id"),
+
 					lang: $(this).attr("data-lang"),
 				};
 
+				params["redirect-url"] = encodeURIComponent(
+					window.location.href
+				);
 				showpass.tickets.calendarWidget(id, params);
 			});
 
@@ -188,12 +201,28 @@
 								};
 								params = Object.assign(params, tags);
 							}
-							if (embeddedCalendarWidget.getAttribute("data-is-attraction")) {
-								const is_attraction = embeddedCalendarWidget.getAttribute("data-is-attraction") === 'true' ? true : false;
+							if (
+								embeddedCalendarWidget.getAttribute(
+									"data-is-attraction"
+								)
+							) {
+								const is_attraction =
+									embeddedCalendarWidget.getAttribute(
+										"data-is-attraction"
+									) === "true"
+										? true
+										: false;
 								params.is_attraction = is_attraction;
 							}
-							if (embeddedCalendarWidget.getAttribute("data-event-id")) {
-								const event_id = embeddedCalendarWidget.getAttribute("data-event-id");
+							if (
+								embeddedCalendarWidget.getAttribute(
+									"data-event-id"
+								)
+							) {
+								const event_id =
+									embeddedCalendarWidget.getAttribute(
+										"data-event-id"
+									);
 								params.event_id = event_id;
 							}
 							if (
@@ -206,6 +235,9 @@
 								};
 								params = Object.assign(params, lang);
 							}
+							params["redirect-url"] = encodeURIComponent(
+								window.location.href
+							);
 							showpass.tickets.calendarWidget(
 								id,
 								params,
@@ -221,9 +253,14 @@
 									$("#option_keep_shopping").val() || "true",
 								"theme-dark":
 									$("#option_theme_dark").val() || "",
-								"lang":
-									embeddedCartWidget.getAttribute("data-lang") || "",
+								lang:
+									embeddedCartWidget.getAttribute(
+										"data-lang"
+									) || "",
 							};
+							params["redirect-url"] = encodeURIComponent(
+								window.location.href
+							);
 							showpass.tickets.checkoutWidget(
 								params,
 								"showpass-cart-widget"
@@ -237,7 +274,9 @@
 									widget.getAttribute("data-type") || "event"; // Default to event if not specified
 
 								let params = getParams(widget);
-
+								params["redirect-url"] = encodeURIComponent(
+									window.location.href
+								);
 								if (widgetType === "product") {
 									showpass.tickets.productPurchaseWidget(
 										slug,
@@ -264,14 +303,17 @@
 
 					// Wait for showpass SDK to be available, then initialize widgets
 					function waitForShowpass() {
-						if (typeof showpass !== 'undefined' && showpass.tickets) {
+						if (
+							typeof showpass !== "undefined" &&
+							showpass.tickets
+						) {
 							initializeWidgets();
 						} else {
 							// Check again after a short delay
 							setTimeout(waitForShowpass, 100);
 						}
 					}
-					
+
 					waitForShowpass();
 				}
 			}
@@ -279,6 +321,9 @@
 			initializeShowpassEmbeddedWidgets();
 
 			const openShowpassWidget = (slug, params, widgetType) => {
+				params["redirect-url"] = encodeURIComponent(
+					window.location.href
+				);
 				if (widgetType === "product") {
 					showpass.tickets.productPurchaseWidget(slug, params);
 				} else if (widgetType === "membership") {
@@ -304,6 +349,10 @@
 					params["tracking-id"] = Cookies.get("affiliate");
 				}
 
+				params["redirect-url"] = encodeURIComponent(
+					window.location.href
+				);
+
 				openShowpassWidget(id, params, "membership");
 			});
 
@@ -322,6 +371,10 @@
 					params["tracking-id"] = Cookies.get("affiliate");
 				}
 
+				params["redirect-url"] = encodeURIComponent(
+					window.location.href
+				);
+
 				openShowpassWidget(slug, params, "event");
 			});
 
@@ -339,6 +392,10 @@
 				if (Cookies.get("affiliate")) {
 					params["tracking-id"] = Cookies.get("affiliate");
 				}
+
+				params["redirect-url"] = encodeURIComponent(
+					window.location.href
+				);
 
 				openShowpassWidget(id, params, "product");
 			});
@@ -384,6 +441,10 @@
 						widgetType = $(this).attr("data-type");
 					}
 
+					params["redirect-url"] = encodeURIComponent(
+						window.location.href
+					);
+
 					openShowpassWidget(slug, params, widgetType);
 				}
 			);
@@ -391,6 +452,9 @@
 			$(".showpass-cart-button").on("click", function (e) {
 				e.preventDefault();
 				let params = getParams(this);
+				params["redirect-url"] = encodeURIComponent(
+					window.location.href
+				);
 				showpass.tickets.checkoutWidget(params);
 			});
 
@@ -410,6 +474,10 @@
 					if (Cookies.get("affiliate")) {
 						params["tracking-id"] = Cookies.get("affiliate");
 					}
+
+					params["redirect-url"] = encodeURIComponent(
+						window.location.href
+					);
 
 					showpass.tickets.eventPurchaseWidget(slug, params);
 				}
@@ -526,9 +594,16 @@
 
 								// Look for any Showpass iframes within the added node
 								if (node.getElementsByTagName) {
-									const iframes = node.getElementsByTagName('iframe');
+									const iframes =
+										node.getElementsByTagName("iframe");
 									for (let iframe of iframes) {
-										if (iframe.src && iframe.src.includes("showpass.com") && !iframe.dataset.decorated) {
+										if (
+											iframe.src &&
+											iframe.src.includes(
+												"showpass.com"
+											) &&
+											!iframe.dataset.decorated
+										) {
 											decorateIframe(iframe);
 										}
 									}
