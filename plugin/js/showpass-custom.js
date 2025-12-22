@@ -274,9 +274,6 @@
 									widget.getAttribute("data-type") || "event"; // Default to event if not specified
 
 								let params = getParams(widget);
-								params["redirect-url"] = encodeURIComponent(
-									window.location.href
-								);
 								if (widgetType === "product") {
 									showpass.tickets.productPurchaseWidget(
 										slug,
@@ -321,9 +318,6 @@
 			initializeShowpassEmbeddedWidgets();
 
 			const openShowpassWidget = (slug, params, widgetType) => {
-				params["redirect-url"] = encodeURIComponent(
-					window.location.href
-				);
 				if (widgetType === "product") {
 					showpass.tickets.productPurchaseWidget(slug, params);
 				} else if (widgetType === "membership") {
@@ -349,10 +343,6 @@
 					params["tracking-id"] = Cookies.get("affiliate");
 				}
 
-				params["redirect-url"] = encodeURIComponent(
-					window.location.href
-				);
-
 				openShowpassWidget(id, params, "membership");
 			});
 
@@ -371,10 +361,6 @@
 					params["tracking-id"] = Cookies.get("affiliate");
 				}
 
-				params["redirect-url"] = encodeURIComponent(
-					window.location.href
-				);
-
 				openShowpassWidget(slug, params, "event");
 			});
 
@@ -392,10 +378,6 @@
 				if (Cookies.get("affiliate")) {
 					params["tracking-id"] = Cookies.get("affiliate");
 				}
-
-				params["redirect-url"] = encodeURIComponent(
-					window.location.href
-				);
 
 				openShowpassWidget(id, params, "product");
 			});
@@ -441,10 +423,6 @@
 						widgetType = $(this).attr("data-type");
 					}
 
-					params["redirect-url"] = encodeURIComponent(
-						window.location.href
-					);
-
 					openShowpassWidget(slug, params, widgetType);
 				}
 			);
@@ -452,9 +430,6 @@
 			$(".showpass-cart-button").on("click", function (e) {
 				e.preventDefault();
 				let params = getParams(this);
-				params["redirect-url"] = encodeURIComponent(
-					window.location.href
-				);
 				showpass.tickets.checkoutWidget(params);
 			});
 
@@ -474,10 +449,6 @@
 					if (Cookies.get("affiliate")) {
 						params["tracking-id"] = Cookies.get("affiliate");
 					}
-
-					params["redirect-url"] = encodeURIComponent(
-						window.location.href
-					);
 
 					showpass.tickets.eventPurchaseWidget(slug, params);
 				}
