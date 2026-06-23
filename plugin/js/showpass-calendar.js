@@ -1,6 +1,22 @@
 (function($) {
 
     $(window).ready(function () {
+        function getAffiliateTrackingId() {
+            try {
+                return Cookies.get('affiliate') || new URL(window.location.href).searchParams.get('aff') || '';
+            } catch (e) {
+                return Cookies.get('affiliate') || '';
+            }
+        }
+
+        function applyAffiliateTracking(params) {
+            let affiliate = getAffiliateTrackingId();
+            if (affiliate) {
+                params['tracking-id'] = affiliate;
+            }
+            return params;
+        }
+
         
         let apiURL = 'https://www.showpass.com/api'
 
@@ -638,10 +654,7 @@
                     'show-description': $('#option_show_widget_description').val() || 'false'
                 };
 
-                // Overwrite tracking-id if set in URL
-                if (Cookies.get('affiliate')) {
-                    params['tracking-id'] = Cookies.get('affiliate');
-                }
+                applyAffiliateTracking(params);
 
                 showpass.tickets.eventPurchaseWidget(slug, params);
             }
