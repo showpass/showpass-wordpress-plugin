@@ -24,6 +24,10 @@ function showpass_get_api_base_url() {
 }
 
 function showpass_get_sdk_url() {
+  if (showpass_option_is_enabled('option_use_showpass_local')) {
+    return showpass_get_base_url() . '/platform/sdk/sdk.js';
+  }
+
   return showpass_get_base_url() . '/static/platform/sdk/sdk.js';
 }
 
