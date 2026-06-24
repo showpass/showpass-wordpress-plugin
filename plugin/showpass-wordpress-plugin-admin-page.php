@@ -57,6 +57,11 @@ function wpshp_settings_page() {
         <label for="main_api_url">Disable SSL verification when connecting to the API.</label><br />
         <small>Disable to fix Local SSL Expired issue.</small><br /><br />
 
+        <input type="checkbox" name="option_use_showpass_local" value="true"
+            <?php checked('true', get_option('option_use_showpass_local'), true); ?> />
+        <label for="main_api_url">Connect to localhost.showpass.com</label><br />
+        <small>CAUTION: This is for local development only.</small><br /><br />
+
         <input type="checkbox" name="option_use_showpass_beta" value="true"
             <?php checked('true', get_option('option_use_showpass_beta'), true); ?> />
         <label for="main_api_url">Connect to beta.showpass.com</label><br />

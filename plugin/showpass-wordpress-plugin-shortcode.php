@@ -3,13 +3,27 @@
 /**************************
 * registering shortcode
 **************************/
-if (get_option('option_use_showpass_beta')) {
-  define('SHOWPASS_API_URL', 'https://beta.showpass.com/api');
-} else if (get_option('option_use_showpass_demo')) {
-  define('SHOWPASS_API_URL', 'https://demo.showpass.com/api');
-} else {
-  define('SHOWPASS_API_URL', 'https://www.showpass.com/api');
+function showpass_get_base_url() {
+  if (get_option('option_use_showpass_local')) {
+    return 'https://localhost.showpass.com';
+  } else if (get_option('option_use_showpass_beta')) {
+    return 'https://beta.showpass.com';
+  } else if (get_option('option_use_showpass_demo')) {
+    return 'https://demo.showpass.com';
+  }
+
+  return 'https://www.showpass.com';
 }
+
+function showpass_get_api_base_url() {
+  if (get_option('option_use_showpass_local')) {
+    return 'https://host.docker.internal';
+  }
+
+  return showpass_get_base_url();
+}
+
+define('SHOWPASS_API_URL', showpass_get_api_base_url() . '/api');
 define('SHOWPASS_ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('SHOWPASS_API_PUBLIC_EVENTS', SHOWPASS_API_URL . '/public/events');
 define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
@@ -1104,13 +1118,7 @@ function showpass_scripts(){
 		wp_enqueue_style('showpass-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css', array(), null);
 		wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), SHOWPASS_PLUGIN_VERSION);
 		wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), SHOWPASS_PLUGIN_VERSION);
-      if (get_option('option_use_showpass_beta')) {
-        wp_enqueue_script('showpass-beta-sdk', plugins_url( '/js/showpass-beta-sdk.js', __FILE__ ), array('jquery'), SHOWPASS_PLUGIN_VERSION, true );
-      } else if (get_option('option_use_showpass_demo')){
-        wp_enqueue_script('showpass-demo-sdk', plugins_url( '/js/showpass-demo-sdk.js', __FILE__ ), array('jquery'), SHOWPASS_PLUGIN_VERSION, true );
-      } else {
-        wp_enqueue_script('showpass-sdk', 'https://doavub8d2uzrx.cloudfront.net/static/platform/sdk/sdk.js', array('jquery'), SHOWPASS_PLUGIN_VERSION, false );
-      }
+      wp_enqueue_script('showpass-sdk', showpass_get_base_url() . '/platform/sdk/sdk.js', array('jquery'), SHOWPASS_PLUGIN_VERSION, false );
 		wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), SHOWPASS_PLUGIN_VERSION, true);
 		wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(), '1.0.1', true);
 		wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(), '1.0.2', true);
@@ -1130,8 +1138,10 @@ function showpass_widget_options() {
   echo '<input type="hidden" id="option_show_widget_description" value="'.get_option('option_show_widget_description').'">';
   echo '<input type="hidden" id="option_theme_dark" value="'.get_option('option_theme_dark').'">';
   echo '<input type="hidden" id="option_widget_color" value="'.get_option('option_widget_color').'">';
+  echo '<input type="hidden" id="option_use_showpass_local" value="'.get_option('option_use_showpass_local').'">';
   echo '<input type="hidden" id="option_use_showpass_beta" value="'.get_option('option_use_showpass_beta').'">';
   echo '<input type="hidden" id="option_use_showpass_demo" value="'.get_option('option_use_showpass_demo').'">';
+  echo '<input type="hidden" id="option_showpass_base_url" value="'.esc_attr(showpass_get_base_url()).'">';
 }
 
 add_action( 'wp_footer', 'showpass_widget_options', 100 );
