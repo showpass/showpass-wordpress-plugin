@@ -5,11 +5,11 @@
  Plugin URI: https://github.com/showpass/showpass-wordpress-plugin
  Description: List events, display event details and products. Use the Showpass purchase widget for on site ticket & product purchases all with easy to use shortcodes. See our git repo here for full documentation. https://github.com/showpass/showpass-wordpress-plugin
  Author: Showpass / Up In Code Inc.
- Version: 4.0.7
+ Version: 4.0.8
  Author URI: https://www.showpass.com
  */
 
-define('SHOWPASS_PLUGIN_VERSION', '4.0.7');
+define('SHOWPASS_PLUGIN_VERSION', '4.0.8');
 
 if (! defined('ABSPATH')) {
     exit;
@@ -42,6 +42,61 @@ function wpshp_admin_menu()
 
 add_action('admin_menu', 'wpshp_admin_menu');
 
+function showpass_sanitize_checkbox_option($value)
+{
+    return $value === 'true' ? 'true' : 'false';
+}
+
+function showpass_sanitize_keep_shopping_option($value)
+{
+    return $value === 'false' ? 'false' : 'true';
+}
+
+function showpass_sanitize_environment_option($value, $option_name)
+{
+    if ($value !== 'true') {
+        return 'false';
+    }
+
+    $environment_options = array(
+        'option_use_showpass_local',
+        'option_use_showpass_beta',
+        'option_use_showpass_demo',
+    );
+
+    foreach ($environment_options as $environment_option) {
+        if ($environment_option === $option_name) {
+            return 'true';
+        }
+
+        if (isset($_POST[$environment_option]) && $_POST[$environment_option] === 'true') {
+            return 'false';
+        }
+    }
+
+    return 'true';
+}
+
+function showpass_sanitize_local_environment_option($value)
+{
+    return showpass_sanitize_environment_option($value, 'option_use_showpass_local');
+}
+
+function showpass_sanitize_beta_environment_option($value)
+{
+    return showpass_sanitize_environment_option($value, 'option_use_showpass_beta');
+}
+
+function showpass_sanitize_demo_environment_option($value)
+{
+    return showpass_sanitize_environment_option($value, 'option_use_showpass_demo');
+}
+
+function showpass_option_is_enabled($option_name)
+{
+    return get_option($option_name) === 'true';
+}
+
 function register_wpshp_settings()
 {
     /* register our settings */
@@ -49,12 +104,13 @@ function register_wpshp_settings()
     register_setting('wpshp-settings-group', 'option_widget_color');
     register_setting('wpshp-settings-group', 'format_date');
     register_setting('wpshp-settings-group', 'format_time');
-    register_setting('wpshp-settings-group', 'option_theme_dark');
-    register_setting('wpshp-settings-group', 'option_keep_shopping');
-    register_setting('wpshp-settings-group', 'option_show_widget_description');
-    register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
-    register_setting('wpshp-settings-group', 'option_use_showpass_beta');
-    register_setting('wpshp-settings-group', 'option_use_showpass_demo');
+    register_setting('wpshp-settings-group', 'option_theme_dark', 'showpass_sanitize_checkbox_option');
+    register_setting('wpshp-settings-group', 'option_keep_shopping', 'showpass_sanitize_keep_shopping_option');
+    register_setting('wpshp-settings-group', 'option_show_widget_description', 'showpass_sanitize_checkbox_option');
+    register_setting('wpshp-settings-group', 'option_disable_verify_ssl', 'showpass_sanitize_checkbox_option');
+    register_setting('wpshp-settings-group', 'option_use_showpass_local', 'showpass_sanitize_local_environment_option');
+    register_setting('wpshp-settings-group', 'option_use_showpass_beta', 'showpass_sanitize_beta_environment_option');
+    register_setting('wpshp-settings-group', 'option_use_showpass_demo', 'showpass_sanitize_demo_environment_option');
     register_setting('wpshp-settings-group', 'option_showpass_access_token');
     register_setting('wpshp-settings-group', 'option_showpass_default_button_class');
 }

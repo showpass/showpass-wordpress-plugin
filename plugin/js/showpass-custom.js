@@ -1,6 +1,57 @@
 (function ($, window, document) {
+	const getQueryParam = (name) => {
+		try {
+			return new URL(window.location.href).searchParams.get(name) || "";
+		} catch (e) {
+			return "";
+		}
+	};
+
+	const getCookie = (name) => {
+		if (typeof Cookies !== "undefined") {
+			const cookieValue = Cookies.get(name);
+			if (cookieValue) {
+				return cookieValue;
+			}
+		}
+
+		if (typeof document.cookie !== "string") {
+			return "";
+		}
+
+		const cookiePrefix = name + "=";
+		const cookie = document.cookie
+			.split(";")
+			.map((value) => value.trim())
+			.find((value) => value.indexOf(cookiePrefix) === 0);
+
+		return cookie ? decodeURIComponent(cookie.substring(cookiePrefix.length)) : "";
+	};
+
+	const getAffiliateTrackingId = () => {
+		return getQueryParam("aff") || getCookie("affiliate");
+	};
+
+	const applyAffiliateTracking = (params) => {
+		const affiliate = getAffiliateTrackingId();
+		if (affiliate) {
+			params["tracking-id"] = affiliate;
+		}
+		return params;
+	};
+
+	const persistAffiliateCookieFromQuery = () => {
+		const affiliate = getQueryParam("aff");
+		if (affiliate) {
+			Cookies.set("affiliate", affiliate, {
+				expires: 7,
+				path: "/",
+			});
+		}
+	};
+
 	const getParams = (element) => {
-		return {
+		return applyAffiliateTracking({
 			"theme-primary":
 				$(element).attr("data-color") ||
 				$("#option_widget_color").val() ||
@@ -21,7 +72,7 @@
 				$(element).attr("data-show-specific-tickets") || "",
 			lang: $(element).attr("data-lang") || "",
 			"redirect-url": encodeURIComponent(window.location.href),
-		};
+		});
 	};
 
 	/**
@@ -42,6 +93,8 @@
 	}
 
 	function init() {
+		persistAffiliateCookieFromQuery();
+
 		$(window).on("load", function () {
 			showpass.tickets.addCartCountListener(function (count) {
 				let html = "";
@@ -79,6 +132,7 @@
 			if (!$.isEmptyObject(qs) && qs.aff) {
 				Cookies.set("affiliate", qs.aff, {
 					expires: 7,
+					path: "/",
 				});
 			}
 
@@ -127,6 +181,7 @@
 					params["redirect-url"] = encodeURIComponent(
 						window.location.href
 					);
+					applyAffiliateTracking(params);
 					showpass.tickets.eventPurchaseWidget(slug, params);
 				}, 500);
 			}
@@ -153,6 +208,7 @@
 				params["redirect-url"] = encodeURIComponent(
 					window.location.href
 				);
+				applyAffiliateTracking(params);
 				showpass.tickets.calendarWidget(id, params);
 			});
 
@@ -238,6 +294,7 @@
 							params["redirect-url"] = encodeURIComponent(
 								window.location.href
 							);
+							applyAffiliateTracking(params);
 							showpass.tickets.calendarWidget(
 								id,
 								params,
@@ -261,6 +318,7 @@
 							params["redirect-url"] = encodeURIComponent(
 								window.location.href
 							);
+							applyAffiliateTracking(params);
 							showpass.tickets.checkoutWidget(
 								params,
 								"showpass-cart-widget"
@@ -274,6 +332,12 @@
 									widget.getAttribute("data-type") || "event"; // Default to event if not specified
 
 								let params = getParams(widget);
+								if (widget.getAttribute("data-tracking")) {
+									params["tracking-id"] =
+										widget.getAttribute("data-tracking");
+								}
+								applyAffiliateTracking(params);
+
 								if (widgetType === "product") {
 									showpass.tickets.productPurchaseWidget(
 										slug,
@@ -338,10 +402,7 @@
 					params["tracking-id"] = $(this).attr("data-tracking");
 				}
 
-				// Overwrite tracking-id if set in URL
-				if (Cookies.get("affiliate")) {
-					params["tracking-id"] = Cookies.get("affiliate");
-				}
+				applyAffiliateTracking(params);
 
 				openShowpassWidget(id, params, "membership");
 			});
@@ -356,10 +417,7 @@
 					params["tracking-id"] = $(this).attr("data-tracking");
 				}
 
-				// Overwrite tracking-id if set in URL
-				if (Cookies.get("affiliate")) {
-					params["tracking-id"] = Cookies.get("affiliate");
-				}
+				applyAffiliateTracking(params);
 
 				openShowpassWidget(slug, params, "event");
 			});
@@ -374,10 +432,7 @@
 					params["tracking-id"] = $(this).attr("data-tracking");
 				}
 
-				// Overwrite tracking-id if set in URL
-				if (Cookies.get("affiliate")) {
-					params["tracking-id"] = Cookies.get("affiliate");
-				}
+				applyAffiliateTracking(params);
 
 				openShowpassWidget(id, params, "product");
 			});
@@ -409,10 +464,7 @@
 						params["tracking-id"] = $(this).attr("data-tracking");
 					}
 
-					// Overwrite tracking-id if set in URL
-					if (Cookies.get("affiliate")) {
-						params["tracking-id"] = Cookies.get("affiliate");
-					}
+					applyAffiliateTracking(params);
 
 					let widgetType = "event";
 					if (href.includes("/m/")) {
@@ -446,9 +498,7 @@
 				if (slug != "") {
 					let params = getParams(this);
 
-					if (Cookies.get("affiliate")) {
-						params["tracking-id"] = Cookies.get("affiliate");
-					}
+					applyAffiliateTracking(params);
 
 					showpass.tickets.eventPurchaseWidget(slug, params);
 				}
@@ -471,6 +521,10 @@
 			}
 
 			let url = new URL(iFrame.src);
+			const affiliate = getAffiliateTrackingId();
+			if (affiliate) {
+				url.searchParams.set("tracking-id", affiliate);
+			}
 
 			// 1. Handle cookie-based tracking (GA and Facebook)
 			if (typeof document.cookie === "string" && document.cookie !== "") {

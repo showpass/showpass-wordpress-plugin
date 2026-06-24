@@ -1,17 +1,57 @@
 (function($) {
 
     $(window).ready(function () {
+        function getQueryParam(name) {
+            try {
+                return new URL(window.location.href).searchParams.get(name) || '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function getCookie(name) {
+            if (typeof Cookies !== 'undefined') {
+                let cookieValue = Cookies.get(name);
+                if (cookieValue) {
+                    return cookieValue;
+                }
+            }
+
+            if (typeof document.cookie !== 'string') {
+                return '';
+            }
+
+            let cookiePrefix = name + '=';
+            let cookie = document.cookie
+                .split(';')
+                .map(function(value) {
+                    return value.trim();
+                })
+                .find(function(value) {
+                    return value.indexOf(cookiePrefix) === 0;
+                });
+
+            return cookie ? decodeURIComponent(cookie.substring(cookiePrefix.length)) : '';
+        }
+
+        function getAffiliateTrackingId() {
+            return getQueryParam('aff') || getCookie('affiliate');
+        }
+
+        function applyAffiliateTracking(params) {
+            let affiliate = getAffiliateTrackingId();
+            if (affiliate) {
+                params['tracking-id'] = affiliate;
+            }
+            return params;
+        }
+
         
         let apiURL = 'https://www.showpass.com/api'
+        let showpassBaseURL = $('#option_showpass_base_url').val();
 
-        let useBeta = $('#option_use_showpass_beta').val();
-
-        let useDemo = $('#option_use_showpass_demo').val();
-
-        if (useBeta) {
-            apiURL = 'https://beta.showpass.com/api'
-        } else if (useDemo) {
-            apiURL = 'https://demo.showpass.com/api'
+        if (showpassBaseURL) {
+            apiURL = showpassBaseURL.replace(/\/$/, '') + '/api'
         }
 
         let isMobile = /Mobi/.test(navigator.userAgent);
@@ -638,10 +678,7 @@
                     'show-description': $('#option_show_widget_description').val() || 'false'
                 };
 
-                // Overwrite tracking-id if set in URL
-                if (Cookies.get('affiliate')) {
-                    params['tracking-id'] = Cookies.get('affiliate');
-                }
+                applyAffiliateTracking(params);
 
                 showpass.tickets.eventPurchaseWidget(slug, params);
             }
