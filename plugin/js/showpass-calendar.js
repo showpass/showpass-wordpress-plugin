@@ -1,12 +1,41 @@
 (function($) {
 
     $(window).ready(function () {
-        function getAffiliateTrackingId() {
+        function getQueryParam(name) {
             try {
-                return Cookies.get('affiliate') || new URL(window.location.href).searchParams.get('aff') || '';
+                return new URL(window.location.href).searchParams.get(name) || '';
             } catch (e) {
-                return Cookies.get('affiliate') || '';
+                return '';
             }
+        }
+
+        function getCookie(name) {
+            if (typeof Cookies !== 'undefined') {
+                let cookieValue = Cookies.get(name);
+                if (cookieValue) {
+                    return cookieValue;
+                }
+            }
+
+            if (typeof document.cookie !== 'string') {
+                return '';
+            }
+
+            let cookiePrefix = name + '=';
+            let cookie = document.cookie
+                .split(';')
+                .map(function(value) {
+                    return value.trim();
+                })
+                .find(function(value) {
+                    return value.indexOf(cookiePrefix) === 0;
+                });
+
+            return cookie ? decodeURIComponent(cookie.substring(cookiePrefix.length)) : '';
+        }
+
+        function getAffiliateTrackingId() {
+            return getQueryParam('aff') || getCookie('affiliate');
         }
 
         function applyAffiliateTracking(params) {

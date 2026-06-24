@@ -7,8 +7,29 @@
 		}
 	};
 
+	const getCookie = (name) => {
+		if (typeof Cookies !== "undefined") {
+			const cookieValue = Cookies.get(name);
+			if (cookieValue) {
+				return cookieValue;
+			}
+		}
+
+		if (typeof document.cookie !== "string") {
+			return "";
+		}
+
+		const cookiePrefix = name + "=";
+		const cookie = document.cookie
+			.split(";")
+			.map((value) => value.trim())
+			.find((value) => value.indexOf(cookiePrefix) === 0);
+
+		return cookie ? decodeURIComponent(cookie.substring(cookiePrefix.length)) : "";
+	};
+
 	const getAffiliateTrackingId = () => {
-		return Cookies.get("affiliate") || getQueryParam("aff");
+		return getQueryParam("aff") || getCookie("affiliate");
 	};
 
 	const applyAffiliateTracking = (params) => {
@@ -24,6 +45,7 @@
 		if (affiliate) {
 			Cookies.set("affiliate", affiliate, {
 				expires: 7,
+				path: "/",
 			});
 		}
 	};
@@ -110,6 +132,7 @@
 			if (!$.isEmptyObject(qs) && qs.aff) {
 				Cookies.set("affiliate", qs.aff, {
 					expires: 7,
+					path: "/",
 				});
 			}
 
