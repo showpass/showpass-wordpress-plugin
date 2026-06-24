@@ -16,10 +16,6 @@ function showpass_get_base_url() {
 }
 
 function showpass_get_api_base_url() {
-  if (showpass_option_is_enabled('option_use_showpass_local')) {
-    return 'https://host.docker.internal';
-  }
-
   return showpass_get_base_url();
 }
 
