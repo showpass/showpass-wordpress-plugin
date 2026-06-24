@@ -16,6 +16,10 @@ function showpass_get_base_url() {
 }
 
 function showpass_get_api_base_url() {
+  if (showpass_option_is_enabled('option_use_showpass_local')) {
+    return 'https://host.docker.internal';
+  }
+
   return showpass_get_base_url();
 }
 
@@ -34,19 +38,33 @@ define('SHOWPASS_API_PUBLIC_PRODUCTS', SHOWPASS_API_URL . '/public/products');
 define('SHOWPASS_API_PUBLIC_MEMBERSHIPS', SHOWPASS_API_URL . '/public/memberships/membership-groups');
 define('DEFAULT_BUTTON_VERBIAGE', 'Get Tickets');
 
+function showpass_allow_local_api_host($external, $host) {
+  return $host === 'host.docker.internal' ? true : $external;
+}
+
 /* making connection and taking the data from API */
 function call_showpass_api($url) {
+  $use_showpass_local = showpass_option_is_enabled('option_use_showpass_local');
 
   $args = array(
     'timeout' => 30,
     'sslverify' => true
   );
 
-  if (showpass_option_is_enabled('option_disable_verify_ssl')) {
+  if ($use_showpass_local || showpass_option_is_enabled('option_disable_verify_ssl')) {
     $args['sslverify'] = false;
   };
 
+  if ($use_showpass_local) {
+    add_filter('http_request_host_is_external', 'showpass_allow_local_api_host', 10, 2);
+  }
+
   $response = wp_safe_remote_get($url, $args);
+
+  if ($use_showpass_local) {
+    remove_filter('http_request_host_is_external', 'showpass_allow_local_api_host', 10);
+  }
+
   $http_code = wp_remote_retrieve_response_code($response);
   if ($http_code === 200) {
     return wp_remote_retrieve_body($response);
