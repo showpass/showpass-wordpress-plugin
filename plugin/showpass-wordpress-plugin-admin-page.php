@@ -61,17 +61,17 @@ function wpshp_settings_page() {
             <label for="main_api_url">Disable SSL verification when connecting to the API.</label><br />
             <small>Disable to fix Local SSL Expired issue.</small><br /><br />
 
-            <input type="checkbox" name="option_use_showpass_local" value="true"
+            <input type="checkbox" name="option_use_showpass_local" value="true" class="showpass-environment-option"
                 <?php checked('true', get_option('option_use_showpass_local'), true); ?> />
             <label for="main_api_url">Connect to localhost.showpass.com</label><br />
             <small>CAUTION: This is for local development only.</small><br /><br />
 
-            <input type="checkbox" name="option_use_showpass_beta" value="true"
+            <input type="checkbox" name="option_use_showpass_beta" value="true" class="showpass-environment-option"
                 <?php checked('true', get_option('option_use_showpass_beta'), true); ?> />
             <label for="main_api_url">Connect to beta.showpass.com</label><br />
             <small>CAUTION: This is for testing purposes only.</small><br /><br />
 
-            <input type="checkbox" name="option_use_showpass_demo" value="true"
+            <input type="checkbox" name="option_use_showpass_demo" value="true" class="showpass-environment-option"
                 <?php checked('true', get_option('option_use_showpass_demo'), true); ?> />
             <label for="main_api_url">Connect to demo.showpass.com</label><br />
             <small>CAUTION: This is for demo purposes only.</small><br /><br />
@@ -81,6 +81,21 @@ function wpshp_settings_page() {
         <?php submit_button(); ?>
 
     </form>
+    <script type="text/javascript">
+        document.querySelectorAll('.showpass-environment-option').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                if (!checkbox.checked) {
+                    return;
+                }
+
+                document.querySelectorAll('.showpass-environment-option').forEach(function (environmentOption) {
+                    if (environmentOption !== checkbox) {
+                        environmentOption.checked = false;
+                    }
+                });
+            });
+        });
+    </script>
 </div>
 
 <hr>
