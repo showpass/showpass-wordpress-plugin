@@ -23,6 +23,10 @@ function showpass_get_api_base_url() {
   return showpass_get_base_url();
 }
 
+function showpass_get_sdk_url() {
+  return showpass_get_base_url() . '/static/platform/sdk/sdk.js';
+}
+
 define('SHOWPASS_API_URL', showpass_get_api_base_url() . '/api');
 define('SHOWPASS_ACTUAL_LINK', strtok($_SERVER["REQUEST_URI"],'?'));
 define('SHOWPASS_API_PUBLIC_EVENTS', SHOWPASS_API_URL . '/public/events');
@@ -1118,7 +1122,7 @@ function showpass_scripts(){
 		wp_enqueue_style('showpass-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css', array(), null);
 		wp_enqueue_style('showpass-style', plugins_url( '/css/showpass-style.css', __FILE__ ), array(), SHOWPASS_PLUGIN_VERSION);
 		wp_enqueue_style('showpass-flex-box', plugins_url( '/css/showpass-flex-box.css', __FILE__ ), array(), SHOWPASS_PLUGIN_VERSION);
-      wp_enqueue_script('showpass-sdk', showpass_get_base_url() . '/platform/sdk/sdk.js', array('jquery'), SHOWPASS_PLUGIN_VERSION, false );
+      wp_enqueue_script('showpass-sdk', showpass_get_sdk_url(), array('jquery'), SHOWPASS_PLUGIN_VERSION, false );
 		wp_register_script('showpass-calendar-script', plugins_url( '/js/showpass-calendar.js', __FILE__ ), array('jquery'), SHOWPASS_PLUGIN_VERSION, true);
 		wp_register_script('moment-showpass', plugins_url( '/js/moment.js', __FILE__ ), array(), '1.0.1', true);
 		wp_register_script('moment-timezone-showpass', plugins_url( '/js/moment-timezone.js', __FILE__ ), array(), '1.0.2', true);
