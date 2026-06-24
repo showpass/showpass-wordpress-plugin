@@ -42,6 +42,21 @@ function wpshp_admin_menu()
 
 add_action('admin_menu', 'wpshp_admin_menu');
 
+function showpass_sanitize_checkbox_option($value)
+{
+    return $value === 'true' ? 'true' : 'false';
+}
+
+function showpass_sanitize_keep_shopping_option($value)
+{
+    return $value === 'false' ? 'false' : 'true';
+}
+
+function showpass_option_is_enabled($option_name)
+{
+    return get_option($option_name) === 'true';
+}
+
 function register_wpshp_settings()
 {
     /* register our settings */
@@ -49,13 +64,13 @@ function register_wpshp_settings()
     register_setting('wpshp-settings-group', 'option_widget_color');
     register_setting('wpshp-settings-group', 'format_date');
     register_setting('wpshp-settings-group', 'format_time');
-    register_setting('wpshp-settings-group', 'option_theme_dark');
-    register_setting('wpshp-settings-group', 'option_keep_shopping');
-    register_setting('wpshp-settings-group', 'option_show_widget_description');
-    register_setting('wpshp-settings-group', 'option_disable_verify_ssl');
-    register_setting('wpshp-settings-group', 'option_use_showpass_local');
-    register_setting('wpshp-settings-group', 'option_use_showpass_beta');
-    register_setting('wpshp-settings-group', 'option_use_showpass_demo');
+    register_setting('wpshp-settings-group', 'option_theme_dark', 'showpass_sanitize_checkbox_option');
+    register_setting('wpshp-settings-group', 'option_keep_shopping', 'showpass_sanitize_keep_shopping_option');
+    register_setting('wpshp-settings-group', 'option_show_widget_description', 'showpass_sanitize_checkbox_option');
+    register_setting('wpshp-settings-group', 'option_disable_verify_ssl', 'showpass_sanitize_checkbox_option');
+    register_setting('wpshp-settings-group', 'option_use_showpass_local', 'showpass_sanitize_checkbox_option');
+    register_setting('wpshp-settings-group', 'option_use_showpass_beta', 'showpass_sanitize_checkbox_option');
+    register_setting('wpshp-settings-group', 'option_use_showpass_demo', 'showpass_sanitize_checkbox_option');
     register_setting('wpshp-settings-group', 'option_showpass_access_token');
     register_setting('wpshp-settings-group', 'option_showpass_default_button_class');
 }

@@ -4,11 +4,11 @@
 * registering shortcode
 **************************/
 function showpass_get_base_url() {
-  if (get_option('option_use_showpass_local')) {
+  if (showpass_option_is_enabled('option_use_showpass_local')) {
     return 'https://localhost.showpass.com';
-  } else if (get_option('option_use_showpass_beta')) {
+  } else if (showpass_option_is_enabled('option_use_showpass_beta')) {
     return 'https://beta.showpass.com';
-  } else if (get_option('option_use_showpass_demo')) {
+  } else if (showpass_option_is_enabled('option_use_showpass_demo')) {
     return 'https://demo.showpass.com';
   }
 
@@ -16,7 +16,7 @@ function showpass_get_base_url() {
 }
 
 function showpass_get_api_base_url() {
-  if (get_option('option_use_showpass_local')) {
+  if (showpass_option_is_enabled('option_use_showpass_local')) {
     return 'https://host.docker.internal';
   }
 
@@ -38,7 +38,7 @@ function call_showpass_api($url) {
     'sslverify' => true
   );
 
-  if (get_option('option_disable_verify_ssl')) {
+  if (showpass_option_is_enabled('option_disable_verify_ssl')) {
     $args['sslverify'] = false;
   };
 
@@ -224,7 +224,7 @@ function showpass_get_event_data( $atts ) {
       if (isset($atts['show_widget_description'])) {
         $show_widget_description = $atts['show_widget_description'];
       } else {
-        $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+        $show_widget_description = showpass_option_is_enabled('option_show_widget_description') ? 'true' : 'false';
       }
 
       if (isset($atts['lang'])) {
@@ -311,7 +311,7 @@ function showpass_get_product_data( $atts ) {
     if (isset($atts['show_widget_description'])) {
       $show_widget_description = $atts['show_widget_description'];
     } else {
-      $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+      $show_widget_description = showpass_option_is_enabled('option_show_widget_description') ? 'true' : 'false';
     }
 
     if ($template == "data") {
@@ -1019,7 +1019,7 @@ function wpshp_get_pricing_table( $atts ) {
     if (isset($atts['show_widget_description'])) {
       $show_widget_description = $atts['show_widget_description'];
     } else {
-      $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+      $show_widget_description = showpass_option_is_enabled('option_show_widget_description') ? 'true' : 'false';
     }
 
     ob_start();
@@ -1228,7 +1228,7 @@ function showpass_get_membership_data( $atts ) {
     if (isset($atts['show_widget_description'])) {
       $show_widget_description = $atts['show_widget_description'];
     } else {
-      $show_widget_description = get_option('option_show_widget_description') ? 'true' : 'false';
+      $show_widget_description = showpass_option_is_enabled('option_show_widget_description') ? 'true' : 'false';
     }
 
     if ($template == "data") {
