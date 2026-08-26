@@ -435,7 +435,7 @@ function showpass_display_date ($event, $small = false) {
       $ends_date_element .='</span>'
         .'</div>';
     }
-        
+
     // Display TBD for date if set
     if ($event_tbd) {
       // start element
@@ -888,22 +888,22 @@ function showpass_widget_expand($atts, $content = null) {
             $div = '<div id="' . esc_attr($widget_id) . '" ';
             $div .= 'data-slug="' . esc_attr($identifier) . '" ';
             $div .= 'data-type="' . esc_attr($type) . '" ';
-            
+
             if ($tracking) {
                 $div .= 'data-tracking="' . esc_attr($tracking) . '" ';
             }
             if (isset($atts['show_widget_description'])) {
                 $div .= 'data-show-description="' . esc_attr($atts['show_widget_description']) . '" ';
             }
-            
+
             if (isset($atts['keep_shopping'])) {
                 $div .= 'data-shopping="' . esc_attr($atts['keep_shopping']) . '" ';
             }
-            
+
             if (isset($atts['show_specific_tickets'])) {
                 $div .= 'data-show-specific-tickets="' . esc_attr($atts['show_specific_tickets']) . '" ';
             }
-            
+
             if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')) {
                 $div .= 'data-theme="dark" ';
             }
@@ -943,11 +943,11 @@ function showpass_widget_expand($atts, $content = null) {
 
         if (isset($atts['show_widget_description'])) {
             $show_description = $atts['show_widget_description'];
-        } 
+        }
 
         if (isset($atts['show_specific_tickets'])) {
             $show_specific_tickets = $atts['show_specific_tickets'];
-        } 
+        }
 
         //update to template as needed
         $button = '';
@@ -1057,7 +1057,7 @@ function wpshp_cart_button($atts, $content = null) {
   if (isset($atts['lang']) && $atts['lang'] !== '') {
     $lang_attr = ' data-lang="'.esc_attr($atts['lang']).'"';
   }
-  
+
   if (isset($atts['embedded']) && $atts['embedded'] === 'true') {
     return '<div id="showpass-cart-widget"'.$lang_attr.'></div>';
   } else {
@@ -1066,6 +1066,126 @@ function wpshp_cart_button($atts, $content = null) {
 }
 
 add_shortcode('showpass_cart_button', 'wpshp_cart_button');
+
+function showpass_calendar_string_value($value) {
+  if (!is_scalar($value)) {
+    return null;
+  }
+
+  $value = trim((string) $value);
+  if ($value === '') {
+    return null;
+  }
+
+  if (function_exists('sanitize_text_field')) {
+    $value = sanitize_text_field($value);
+  }
+
+  return $value === '' ? null : $value;
+}
+
+function showpass_calendar_positive_integer($value) {
+  $value = showpass_calendar_string_value($value);
+  if ($value === null || !preg_match('/^[1-9][0-9]*$/', $value)) {
+    return null;
+  }
+
+  $integer = filter_var(
+    $value,
+    FILTER_VALIDATE_INT,
+    array('options' => array('min_range' => 1))
+  );
+
+  return $integer === false ? null : $integer;
+}
+
+function showpass_calendar_boolean($value) {
+  if (is_bool($value)) {
+    return $value;
+  }
+
+  if (!is_scalar($value)) {
+    return null;
+  }
+
+  $value = strtolower(trim((string) $value));
+  if ($value === 'true' || $value === '1') {
+    return true;
+  }
+  if ($value === 'false' || $value === '0') {
+    return false;
+  }
+
+  return null;
+}
+
+function showpass_calendar_special_event($value) {
+  if (!is_scalar($value)) {
+    return null;
+  }
+
+  $keys = array();
+  foreach (explode(',', (string) $value) as $key) {
+    $key = showpass_calendar_string_value($key);
+    if ($key !== null) {
+      $keys[] = $key;
+    }
+  }
+
+  return count($keys) > 0 ? implode(',', $keys) : null;
+}
+
+function showpass_calendar_widget_data_attributes($atts) {
+  $attributes = array();
+
+  $string_attributes = array(
+    'calendar_date' => 'data-calendar-date',
+    'calendar_timeslot' => 'data-calendar-timeslot',
+  );
+  foreach ($string_attributes as $shortcode_attribute => $data_attribute) {
+    if (isset($atts[$shortcode_attribute])) {
+      $value = showpass_calendar_string_value($atts[$shortcode_attribute]);
+      if ($value !== null) {
+        $attributes[$data_attribute] = $value;
+      }
+    }
+  }
+
+  if (isset($atts['calendar_special_event'])) {
+    $value = showpass_calendar_special_event($atts['calendar_special_event']);
+    if ($value !== null) {
+      $attributes['data-calendar-special-event'] = $value;
+    }
+  }
+
+  if (isset($atts['display_price_patron_type_id'])) {
+    $value = showpass_calendar_positive_integer($atts['display_price_patron_type_id']);
+    if ($value !== null) {
+      $attributes['data-display-price-patron-type-id'] = (string) $value;
+    }
+  }
+
+  if (isset($atts['hide_price'])) {
+    $value = showpass_calendar_boolean($atts['hide_price']);
+    if ($value !== null) {
+      $attributes['data-hide-price'] = $value ? 'true' : 'false';
+    }
+  }
+
+  if (isset($atts['highlight_multi_day_events_on_start_date_only'])) {
+    $value = showpass_calendar_boolean($atts['highlight_multi_day_events_on_start_date_only']);
+    if ($value !== null) {
+      $attributes['data-highlight-multi-day-events-on-start-date-only'] = $value ? 'true' : 'false';
+    }
+  }
+
+  $html = '';
+  foreach ($attributes as $name => $value) {
+    $html .= ' ' . $name . '="' . esc_attr($value) . '"';
+  }
+
+  return $html;
+}
 
 //[showpass_calendar_widget]
 function wpshp_calendar_widget($atts, $content = null) {
@@ -1098,7 +1218,7 @@ function wpshp_calendar_widget($atts, $content = null) {
       $lang_attr = ' data-lang="'.esc_attr($atts['lang']).'"';
     }
 
-    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.' class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
+    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.showpass_calendar_widget_data_attributes($atts).' class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
     return $button;
   } else {
     return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
@@ -1127,7 +1247,7 @@ function wpshp_embed_calendar($atts, $content = null) {
 	}
 
 	if ($organization_id) {
-		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.'></div>';
+		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.showpass_calendar_widget_data_attributes($atts).'></div>';
 	} else {
 		return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
 	}
@@ -1149,7 +1269,8 @@ function showpass_scripts(){
 		wp_enqueue_script('moment-showpass');
 		wp_enqueue_script('moment-timezone-showpass');
 		wp_enqueue_script('js-cookie', plugins_url( '/js/vendor/js.cookie.js', __FILE__ ), array(), '2.2.0', true);
-		wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery'), SHOWPASS_PLUGIN_VERSION, true);
+		wp_enqueue_script('showpass-calendar-params', plugins_url( '/js/showpass-calendar-params.js', __FILE__ ), array(), SHOWPASS_PLUGIN_VERSION, true);
+		wp_enqueue_script('showpass-custom', plugins_url( '/js/showpass-custom.js', __FILE__ ), array('jquery', 'showpass-calendar-params'), SHOWPASS_PLUGIN_VERSION, true);
 	}
 }
 
@@ -1255,7 +1376,7 @@ function showpass_get_membership_data( $atts ) {
 
     if ($template == "data") {
       return $data;
-    } else {      
+    } else {
       ob_start();
       include($filepath);
       $content = ob_get_clean();

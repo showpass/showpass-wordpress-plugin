@@ -14,6 +14,19 @@ List events, display event details and products. Use the Showpass purchase widge
 
 Showpass is a full event management solution, allowing organizations and individuals to organize and execute successful events.
 
+== Calendar shortcode attributes ==
+
+Both `[showpass_calendar_widget]` and `[showpass_embed_calendar]` accept these optional attributes:
+
+* `display_price_patron_type_id` - a positive venue-local PatronType ID. This changes displayed prices only and never filters availability, calendar contents, or ticket choices.
+* `hide_price` - `true` or `false`. This hides calendar price text and the price-range filter without changing availability or ticket selection.
+* `calendar_date` - a venue-local date such as `2026-09-14`.
+* `calendar_timeslot` - a public timeslot key used with `calendar_date`.
+* `calendar_special_event` - one attraction special-event key or multiple comma-separated keys.
+* `highlight_multi_day_events_on_start_date_only` - `true` or `false`. Highlights multi-day events only on their local start date.
+
+Example: `[showpass_embed_calendar calendar_date="2026-09-14" calendar_timeslot="evening" calendar_special_event="opening,closing" display_price_patron_type_id="17" hide_price="false"]`
+
 Whether you are selling tickets to your fundraiser, or an assigned seating theatre show, Showpass has the technology you need to get the job done.
 
 Wordpress version 5.3 is required for editor blocks
