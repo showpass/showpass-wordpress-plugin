@@ -25,28 +25,37 @@
             $event_href = sprintf('/%s/?slug=%s', $detail_page, $event['slug']);
           }
         }
+        $image_opens_widget = !isset($event['external_link'])
+          && !isset($detail_page)
+          && !showpass_ticket_sold_out($event);
       ?>
 
         <div class="flex-100 showpass-flex-column list-layout-flex showpass-no-border showpass-event-card">
             <div class="showpass-event-layout-list showpass-layout-flex m15">
                 <div class="card-image showpass-flex-column list-layout-flex showpass-no-border showpass-no-padding p0">
                     <a id="<?php echo $event['slug']; ?>"
-                        class="showpass-image showpass-hide-mobile ratio full-height <?php if (showpass_ticket_sold_out($event) && !isset($event['external_link'])) echo 'showpass-soldout' ?>"
+                        class="showpass-image showpass-hide-mobile ratio full-height<?php if ($image_opens_widget) echo ' open-ticket-widget'; ?><?php if (showpass_ticket_sold_out($event) && !isset($event['external_link'])) echo ' showpass-soldout'; ?>"
                         href="<?= $event_href ?>" <?php if (isset($event_data['tracking_id'])) : ?>
                         data-tracking="<?php echo $event_data['tracking_id']; ?>" <?php endif ?>
                         <?php if (isset($event_data['show_eyereturn'])) : ?>
-                        data-eyereturn="<?= $event_data['show_eyereturn'] ?>" <?php endif ?>>
+                        data-eyereturn="<?= $event_data['show_eyereturn'] ?>" <?php endif ?>
+                        <?php if ($image_opens_widget) { ?>data-show-description="<?= $show_widget_description ?>"<?php } ?>
+                        <?php if ($image_opens_widget && isset($lang) && $lang !== '') { ?>
+                        data-lang="<?= esc_attr($lang) ?>"<?php } ?>>
                         <?= isset($event['image']) 
                 ? $showpass_image_formatter->getResponsiveImage($event['image'], ['alt' => $event['name']]) 
                 : sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-square.jpg', $event['name']);
               ?>
                     </a>
                     <a id="<?php echo $event['slug']; ?>"
-                        class="showpass-image showpass-hide-large ratio banner <?php if (showpass_ticket_sold_out($event) && !isset($event['external_link'])) echo 'showpass-soldout' ?>"
+                        class="showpass-image showpass-hide-large ratio banner<?php if ($image_opens_widget) echo ' open-ticket-widget'; ?><?php if (showpass_ticket_sold_out($event) && !isset($event['external_link'])) echo ' showpass-soldout'; ?>"
                         href="<?= $event_href ?>" <?php if (isset($event_data['tracking_id'])) : ?>
                         data-tracking="<?php echo $event_data['tracking_id']; ?>" <?php endif ?>
                         <?php if (isset($event_data['show_eyereturn'])) : ?>
-                        data-eyereturn="<?= $event_data['show_eyereturn'] ?>" <?php endif ?>>
+                        data-eyereturn="<?= $event_data['show_eyereturn'] ?>" <?php endif ?>
+                        <?php if ($image_opens_widget) { ?>data-show-description="<?= $show_widget_description ?>"<?php } ?>
+                        <?php if ($image_opens_widget && isset($lang) && $lang !== '') { ?>
+                        data-lang="<?= esc_attr($lang) ?>"<?php } ?>>
                         <?= isset($event['image_banner']) 
                 ? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name']]) 
                 : sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event['name']);

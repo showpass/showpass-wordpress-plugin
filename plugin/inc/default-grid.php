@@ -24,6 +24,7 @@
 				foreach ($events as $key => $event) {
 					// default event link does nothing
 					$event_href = 'javascript:void(0);';
+					$image_opens_widget = false;
                     if (isset($event['external_link'])) {
                         $event_href = $event['external_link'];
                     }
@@ -35,13 +36,22 @@
 						 */
 						if (isset($detail_page)) {
 							$event_href = sprintf('/%s/?slug=%s', $detail_page, $event['slug']);
+						} else {
+							$image_opens_widget = true;
 						}
 					}
 				?>
         <div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
             <div class="showpass-event-grid showpass-layout-flex m15">
                 <div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-                    <a href="<?= $event_href ?>" class="showpass-image ratio banner">
+                    <a href="<?= $event_href ?>"
+                        class="showpass-image ratio banner<?php if ($image_opens_widget) echo ' open-ticket-widget'; ?>"
+                        <?php if ($image_opens_widget) { ?>id="<?php echo $event['slug']; ?>"
+                        data-show-description="<?= $show_widget_description ?>"<?php } ?>
+                        <?php if ($image_opens_widget && isset($event_data['tracking_id'])) { ?>
+                        data-tracking="<?php echo $event_data['tracking_id']; ?>"<?php } ?>
+                        <?php if ($image_opens_widget && isset($lang) && $lang !== '') { ?>
+                        data-lang="<?= esc_attr($lang) ?>"<?php } ?>>
                         <?= isset($event['image_banner']) 
                             ? $showpass_image_formatter->getResponsiveImage($event['image_banner'], ['alt' => $event['name'], 'title' => $event['name'], 'breakpoints' => $image_breakpoints]) 
                             : sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $event['name']);
