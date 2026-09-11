@@ -2,7 +2,7 @@
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.9
 Tested up to: 6.8.2
-Stable tag: 4.0.8
+Stable tag: 4.0.9
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary, cgarrovillosp
 
@@ -67,6 +67,10 @@ Please visit our support documentation at [http://support.showpass.com](http://s
 4. This plugin utilizes the Showpass Purchase Widget for a seamless checkout experience - no redirects means higher conversion rates
 
 == Changelog ==
+
+= 4.0.9 =
+* Expose current calendar SDK options through the modal and embedded calendar shortcodes
+* Make event and membership card images open the same destination as their titles while preserving external links, detail pages, and sold-out behavior
 
 = 4.0.7 =
 * Force redirect-url param for Affirm support
