@@ -49,6 +49,7 @@
 
 	function fromElement(element) {
 		var params = {};
+		var calendarOpenState = getAttribute(element, "data-calendar-open-state");
 		var calendarDate = getAttribute(element, "data-calendar-date");
 		var calendarTimeslot = getAttribute(element, "data-calendar-timeslot");
 		var calendarSpecialEvent = parseSpecialEvent(
@@ -64,6 +65,10 @@
 				"data-highlight-multi-day-events-on-start-date-only"
 			)
 		);
+
+		if (calendarOpenState === "calendar" || calendarOpenState === "special-events") {
+			params.calendarOpenState = calendarOpenState;
+		}
 
 		if (calendarDate !== "") {
 			params.calendarDate = calendarDate;

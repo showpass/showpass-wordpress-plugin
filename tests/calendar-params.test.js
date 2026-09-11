@@ -69,6 +69,13 @@ assert.deepStrictEqual(
 	{}
 );
 
+assert.deepStrictEqual(normalizedParams({
+  "data-calendar-open-state": " special-events ",
+  "data-calendar-special-event": "all",
+}), {calendarOpenState: "special-events", calendarSpecialEvent: "all"});
+assert.deepStrictEqual(normalizedParams({"data-calendar-open-state": "calendar"}), {calendarOpenState: "calendar"});
+assert.deepStrictEqual(normalizedParams({"data-calendar-open-state": "invalid"}), {});
+
 const integrationSource = fs.readFileSync("plugin/js/showpass-custom.js", "utf8");
 assert.ok(
 	/ShowpassCalendarParams\.fromElement\(\s*this\s*\)/.test(integrationSource),

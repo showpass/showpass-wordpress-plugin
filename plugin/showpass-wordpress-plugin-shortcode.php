@@ -1151,6 +1151,13 @@ function showpass_calendar_widget_data_attributes($atts) {
     }
   }
 
+  if (isset($atts['calendar_open_state'])) {
+    $value = showpass_calendar_string_value($atts['calendar_open_state']);
+    if (in_array($value, array('calendar', 'special-events'), true)) {
+      $attributes['data-calendar-open-state'] = $value;
+    }
+  }
+
   if (isset($atts['calendar_special_event'])) {
     $value = showpass_calendar_special_event($atts['calendar_special_event']);
     if ($value !== null) {

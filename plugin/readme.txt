@@ -22,10 +22,15 @@ Both `[showpass_calendar_widget]` and `[showpass_embed_calendar]` accept these o
 * `hide_price` - `true` or `false`. This hides calendar price text and the price-range filter without changing availability or ticket selection.
 * `calendar_date` - a venue-local date such as `2026-09-14`.
 * `calendar_timeslot` - a public timeslot key used with `calendar_date`.
-* `calendar_special_event` - one attraction special-event key or multiple comma-separated keys.
+* `calendar_special_event` - one attraction special-event key, multiple comma-separated keys, or `all` to select every currently filterable special event.
+* `calendar_open_state` - `calendar` (default) or `special-events`. Opens the Special Events tab when rich special-event content is available; otherwise keeps the calendar view. This controls the view independently of special-event filtering. When combined with a date/timeslot target, the Special Events view opens first. Any configured quantity prompt still comes first.
 * `highlight_multi_day_events_on_start_date_only` - `true` or `false`. Highlights multi-day events only on their local start date.
 
 Example: `[showpass_embed_calendar calendar_date="2026-09-14" calendar_timeslot="evening" calendar_special_event="opening,closing" display_price_patron_type_id="17" hide_price="false"]`
+
+Special Events example: `[showpass_embed_calendar is_attraction="true" event_id="YOUR_ATTRACTION_ID" calendar_special_event="all" calendar_open_state="special-events"]`
+
+The new options require the corresponding calendar frontend and rebuilt SDK to be deployed before releasing this plugin update.
 
 Whether you are selling tickets to your fundraiser, or an assigned seating theatre show, Showpass has the technology you need to get the job done.
 

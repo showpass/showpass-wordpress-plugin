@@ -20,6 +20,19 @@ require_once __DIR__ . '/../plugin/showpass-wordpress-plugin-shortcode.php';
 
 class CalendarShortcodeTest extends PHPUnit\Framework\TestCase
 {
+  public function testSpecialEventsOpenStateAndAllSelection()
+  {
+    foreach (array('wpshp_calendar_widget', 'wpshp_embed_calendar') as $shortcode) {
+      $html = $shortcode(array('calendar_open_state' => ' special-events ', 'calendar_special_event' => 'all'));
+      $this->assertContains('data-calendar-open-state="special-events"', $html);
+      $this->assertContains('data-calendar-special-event="all"', $html);
+      $this->assertContains('data-calendar-open-state="calendar"', $shortcode(array('calendar_open_state' => 'calendar')));
+      foreach (array('invalid', '', array('special-events')) as $invalid) {
+        $this->assertNotContains('data-calendar-open-state', $shortcode(array('calendar_open_state' => $invalid)));
+      }
+    }
+  }
+
   public function testCalendarShortcodesExposeAllSdkOptions()
   {
     $attributes = array(
