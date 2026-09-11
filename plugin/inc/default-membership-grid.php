@@ -27,7 +27,10 @@ $membership_data = json_decode($data, true);
                 <div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
                     <div class="showpass-membership-grid showpass-layout-flex m15">
                         <div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-                            <a href="<?= $membership_href ?>" class="showpass-image ratio banner">
+                            <a class="showpass-image ratio banner open-membership-widget"
+                                id="<?php echo $membership['id']; ?>"
+                                data-show-description="<?= $show_widget_description ?>"
+                                <?php if (isset($lang) && $lang !== '') {?>data-lang="<?= esc_attr($lang) ?>"<?php } ?>>
                                 <?= isset($membership['image']) 
                                     ? $showpass_image_formatter->getResponsiveImage($membership['image'], ['alt' => $membership['name'], 'title' => $membership['name'], 'breakpoints' => $image_breakpoints]) 
                                     : sprintf('<img src="%s" alt="%s" />', plugin_dir_url(__FILE__).'../images/default-banner.jpg', $membership['name']);

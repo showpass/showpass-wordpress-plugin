@@ -2,7 +2,7 @@
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.9
 Tested up to: 6.8.2
-Stable tag: 4.0.8
+Stable tag: 4.0.9
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary, cgarrovillosp
 
@@ -13,6 +13,24 @@ List events, display event details and products. Use the Showpass purchase widge
 List events, display event details and products. Use the Showpass purchase widget seamless purchases with no redirects, all with easy to use shortcodes.
 
 Showpass is a full event management solution, allowing organizations and individuals to organize and execute successful events.
+
+== Calendar shortcode attributes ==
+
+Both `[showpass_calendar_widget]` and `[showpass_embed_calendar]` accept these optional attributes:
+
+* `display_price_patron_type_id` - a positive venue-local PatronType ID. This changes displayed prices only and never filters availability, calendar contents, or ticket choices.
+* `hide_price` - `true` or `false`. This hides calendar price text and the price-range filter without changing availability or ticket selection.
+* `calendar_date` - a venue-local date such as `2026-09-14`.
+* `calendar_timeslot` - a public timeslot key used with `calendar_date`.
+* `calendar_special_event` - one attraction special-event key, multiple comma-separated keys, or `all` to select every currently filterable special event.
+* `calendar_open_state` - `calendar` (default) or `special-events`. Opens the Special Events tab when rich special-event content is available; otherwise keeps the calendar view. This controls the view independently of special-event filtering. When combined with a date/timeslot target, the Special Events view opens first. Any configured quantity prompt still comes first.
+* `highlight_multi_day_events_on_start_date_only` - `true` or `false`. Highlights multi-day events only on their local start date.
+
+Example: `[showpass_embed_calendar calendar_date="2026-09-14" calendar_timeslot="evening" calendar_special_event="opening,closing" display_price_patron_type_id="17" hide_price="false"]`
+
+Special Events example: `[showpass_embed_calendar is_attraction="true" event_id="YOUR_ATTRACTION_ID" calendar_special_event="all" calendar_open_state="special-events"]`
+
+The new options require the corresponding calendar frontend and rebuilt SDK to be deployed before releasing this plugin update.
 
 Whether you are selling tickets to your fundraiser, or an assigned seating theatre show, Showpass has the technology you need to get the job done.
 
@@ -54,6 +72,10 @@ Please visit our support documentation at [http://support.showpass.com](http://s
 4. This plugin utilizes the Showpass Purchase Widget for a seamless checkout experience - no redirects means higher conversion rates
 
 == Changelog ==
+
+= 4.0.9 =
+* Expose current calendar SDK options through the modal and embedded calendar shortcodes
+* Make event and membership card images open the same destination as their titles while preserving external links, detail pages, and sold-out behavior
 
 = 4.0.7 =
 * Force redirect-url param for Affirm support
