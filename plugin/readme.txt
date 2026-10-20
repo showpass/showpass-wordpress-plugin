@@ -75,7 +75,7 @@ Please visit our support documentation at [http://support.showpass.com](http://s
 
 = 4.0.9 =
 * Expose current calendar SDK options through the modal and embedded calendar shortcodes
-* Make event and membership card images open the same destination as their titles while preserving external links, detail pages, and sold-out behavior
+* Restore event and membership card image widgets, including events with empty external links and keyboard access to membership images; preserve external URLs, detail pages, and sold-out behavior
 
 = 4.0.7 =
 * Force redirect-url param for Affirm support

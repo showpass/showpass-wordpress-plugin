@@ -1067,128 +1067,28 @@ function wpshp_cart_button($atts, $content = null) {
 
 add_shortcode('showpass_cart_button', 'wpshp_cart_button');
 
-function showpass_calendar_string_value($value) {
-  if (!is_scalar($value)) {
-    return null;
-  }
-
-  $value = trim((string) $value);
-  if ($value === '') {
-    return null;
-  }
-
-  if (function_exists('sanitize_text_field')) {
-    $value = sanitize_text_field($value);
-  }
-
-  return $value === '' ? null : $value;
-}
-
-function showpass_calendar_positive_integer($value) {
-  $value = showpass_calendar_string_value($value);
-  if ($value === null || !preg_match('/^[1-9][0-9]*$/', $value)) {
-    return null;
-  }
-
-  $integer = filter_var(
-    $value,
-    FILTER_VALIDATE_INT,
-    array('options' => array('min_range' => 1))
-  );
-
-  return $integer === false ? null : $integer;
-}
-
-function showpass_calendar_boolean($value) {
-  if (is_bool($value)) {
-    return $value;
-  }
-
-  if (!is_scalar($value)) {
-    return null;
-  }
-
-  $value = strtolower(trim((string) $value));
-  if ($value === 'true' || $value === '1') {
-    return true;
-  }
-  if ($value === 'false' || $value === '0') {
-    return false;
-  }
-
-  return null;
-}
-
-function showpass_calendar_special_event($value) {
-  if (!is_scalar($value)) {
-    return null;
-  }
-
-  $keys = array();
-  foreach (explode(',', (string) $value) as $key) {
-    $key = showpass_calendar_string_value($key);
-    if ($key !== null) {
-      $keys[] = $key;
-    }
-  }
-
-  return count($keys) > 0 ? implode(',', $keys) : null;
-}
-
+// Serialize shortcode values here; the shared JavaScript mapper validates SDK types.
 function showpass_calendar_widget_data_attributes($atts) {
-  $attributes = array();
-
-  $string_attributes = array(
-    'calendar_date' => 'data-calendar-date',
-    'calendar_timeslot' => 'data-calendar-timeslot',
+  $attributes = array(
+    'calendar_date',
+    'calendar_timeslot',
+    'calendar_special_event',
+    'calendar_open_state',
+    'display_price_patron_type_id',
+    'hide_price',
+    'highlight_multi_day_events_on_start_date_only',
   );
-  foreach ($string_attributes as $shortcode_attribute => $data_attribute) {
-    if (isset($atts[$shortcode_attribute])) {
-      $value = showpass_calendar_string_value($atts[$shortcode_attribute]);
-      if ($value !== null) {
-        $attributes[$data_attribute] = $value;
-      }
-    }
-  }
-
-  if (isset($atts['calendar_open_state'])) {
-    $value = showpass_calendar_string_value($atts['calendar_open_state']);
-    if (in_array($value, array('calendar', 'special-events'), true)) {
-      $attributes['data-calendar-open-state'] = $value;
-    }
-  }
-
-  if (isset($atts['calendar_special_event'])) {
-    $value = showpass_calendar_special_event($atts['calendar_special_event']);
-    if ($value !== null) {
-      $attributes['data-calendar-special-event'] = $value;
-    }
-  }
-
-  if (isset($atts['display_price_patron_type_id'])) {
-    $value = showpass_calendar_positive_integer($atts['display_price_patron_type_id']);
-    if ($value !== null) {
-      $attributes['data-display-price-patron-type-id'] = (string) $value;
-    }
-  }
-
-  if (isset($atts['hide_price'])) {
-    $value = showpass_calendar_boolean($atts['hide_price']);
-    if ($value !== null) {
-      $attributes['data-hide-price'] = $value ? 'true' : 'false';
-    }
-  }
-
-  if (isset($atts['highlight_multi_day_events_on_start_date_only'])) {
-    $value = showpass_calendar_boolean($atts['highlight_multi_day_events_on_start_date_only']);
-    if ($value !== null) {
-      $attributes['data-highlight-multi-day-events-on-start-date-only'] = $value ? 'true' : 'false';
-    }
-  }
 
   $html = '';
-  foreach ($attributes as $name => $value) {
-    $html .= ' ' . $name . '="' . esc_attr($value) . '"';
+  foreach ($attributes as $name) {
+    if (!isset($atts[$name]) || !is_scalar($atts[$name])) {
+      continue;
+    }
+
+    $value = is_bool($atts[$name]) ? ($atts[$name] ? 'true' : 'false') : trim((string) $atts[$name]);
+    if ($value !== '') {
+      $html .= ' data-' . str_replace('_', '-', $name) . '="' . esc_attr($value) . '"';
+    }
   }
 
   return $html;

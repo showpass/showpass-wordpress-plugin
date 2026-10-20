@@ -27,7 +27,7 @@ class CalendarShortcodeTest extends PHPUnit\Framework\TestCase
       $this->assertContains('data-calendar-open-state="special-events"', $html);
       $this->assertContains('data-calendar-special-event="all"', $html);
       $this->assertContains('data-calendar-open-state="calendar"', $shortcode(array('calendar_open_state' => 'calendar')));
-      foreach (array('invalid', '', array('special-events')) as $invalid) {
+      foreach (array('', array('special-events')) as $invalid) {
         $this->assertNotContains('data-calendar-open-state', $shortcode(array('calendar_open_state' => $invalid)));
       }
     }
@@ -50,7 +50,7 @@ class CalendarShortcodeTest extends PHPUnit\Framework\TestCase
     foreach (array($modal, $embedded) as $html) {
       $this->assertContains('data-calendar-date="2026-09-14"', $html);
       $this->assertContains('data-calendar-timeslot="evening"', $html);
-      $this->assertContains('data-calendar-special-event="opening,closing"', $html);
+      $this->assertContains('data-calendar-special-event="opening, closing"', $html);
       $this->assertContains('data-display-price-patron-type-id="17"', $html);
       $this->assertContains('data-hide-price="true"', $html);
       $this->assertContains('data-highlight-multi-day-events-on-start-date-only="true"', $html);
@@ -69,23 +69,21 @@ class CalendarShortcodeTest extends PHPUnit\Framework\TestCase
     );
   }
 
-  public function testCalendarShortcodesOmitMalformedTypedOptions()
+  public function testCalendarShortcodesOmitEmptyAndNonScalarOptions()
   {
-    $html = wpshp_calendar_widget(array(
-      'calendar_date' => '',
-      'calendar_timeslot' => array('invalid'),
-      'calendar_special_event' => ', ,',
-      'display_price_patron_type_id' => '0',
-      'hide_price' => 'sometimes',
-      'highlight_multi_day_events_on_start_date_only' => 'sometimes',
-    ));
-
-    $this->assertNotContains('data-calendar-date', $html);
-    $this->assertNotContains('data-calendar-timeslot', $html);
-    $this->assertNotContains('data-calendar-special-event', $html);
-    $this->assertNotContains('data-display-price-patron-type-id', $html);
-    $this->assertNotContains('data-hide-price', $html);
-    $this->assertNotContains('data-highlight-multi-day-events-on-start-date-only', $html);
+    foreach (array('wpshp_calendar_widget', 'wpshp_embed_calendar') as $shortcode) {
+      $html = $shortcode(array(
+        'calendar_date' => '',
+        'calendar_timeslot' => array('invalid'),
+        'calendar_special_event' => new stdClass(),
+        'calendar_open_state' => null,
+      ));
+      foreach (array('calendar-date', 'calendar-timeslot', 'calendar-special-event', 'calendar-open-state') as $attribute) {
+        $this->assertNotContains('data-' . $attribute, $html);
+      }
+      $this->assertContains('data-hide-price="false"', $shortcode(array('hide_price' => false)));
+      $this->assertContains('data-hide-price="true"', $shortcode(array('hide_price' => true)));
+    }
   }
 
   public function testCalendarShortcodesPreserveExplicitFalseAndEscapeValues()

@@ -27,7 +27,7 @@ $membership_data = json_decode($data, true);
                 <div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
                     <div class="showpass-membership-grid showpass-layout-flex m15">
                         <div class="flex-100 showpass-flex-column showpass-no-border showpass-no-padding p0">
-                            <a class="showpass-image ratio banner open-membership-widget"
+                            <a href="#" class="showpass-image ratio banner open-membership-widget"
                                 id="<?php echo $membership['id']; ?>"
                                 data-show-description="<?= $show_widget_description ?>"
                                 <?php if (isset($lang) && $lang !== '') {?>data-lang="<?= esc_attr($lang) ?>"<?php } ?>>

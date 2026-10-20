@@ -25,7 +25,7 @@
 					// default event link does nothing
 					$event_href = 'javascript:void(0);';
 					$image_opens_widget = false;
-                    if (isset($event['external_link'])) {
+                    if (!empty($event['external_link'])) {
                         $event_href = $event['external_link'];
                     }
                     // only set link if not sold out

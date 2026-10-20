@@ -26,6 +26,7 @@ jobs:
           name: "Run Tests"
           command: |
             mkdir ./tmp/
+            php tests/card-image-widgets.test.php
             ./vendor/phpunit/phpunit/phpunit --log-junit ./tmp/logfile.xml
 
       - store_test_results:
@@ -40,9 +41,6 @@ jobs:
       - run:
           name: "Run Calendar Parameter Tests"
           command: npm run test:calendar
-      - run:
-          name: "Run Card Image Widget Tests"
-          command: npm run test:card-images
 
 workflows:
   tests:

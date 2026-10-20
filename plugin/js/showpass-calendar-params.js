@@ -2,10 +2,6 @@
 	"use strict";
 
 	function getAttribute(element, name) {
-		if (!element || typeof element.getAttribute !== "function") {
-			return "";
-		}
-
 		var value = element.getAttribute(name);
 		return typeof value === "string" ? value.trim() : "";
 	}
@@ -20,10 +16,11 @@
 	}
 
 	function parseBoolean(value) {
-		if (value === "true") {
+		value = value.toLowerCase();
+		if (value === "true" || value === "1") {
 			return true;
 		}
-		if (value === "false") {
+		if (value === "false" || value === "0") {
 			return false;
 		}
 

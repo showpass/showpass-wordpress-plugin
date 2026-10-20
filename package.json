@@ -10,7 +10,7 @@
 		"format:js": "wp-scripts format-js",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
-		"test:card-images": "node tests/card-image-widgets.test.js",
+		"test:card-images": "php tests/card-image-widgets.test.php",
 		"test:calendar": "node tests/calendar-params.test.js",
 		"start": "wp-scripts start showpass-block-src/index.js --output-path=plugin/build-blocks",
 		"packages-update": "wp-scripts packages-update"
