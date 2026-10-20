@@ -1,6 +1,7 @@
-version: 2
+version: 2.1
+
 jobs:
-  build:
+  php-tests:
     docker:
       - image: php:7
     working_directory: ~/build
@@ -25,7 +26,24 @@ jobs:
           name: "Run Tests"
           command: |
             mkdir ./tmp/
+            php tests/card-image-widgets.test.php
             ./vendor/phpunit/phpunit/phpunit --log-junit ./tmp/logfile.xml
 
       - store_test_results:
           path: "./tmp/"
+
+  javascript-tests:
+    docker:
+      - image: cimg/node:20.19
+    working_directory: ~/build
+    steps:
+      - checkout
+      - run:
+          name: "Run Calendar Parameter Tests"
+          command: npm run test:calendar
+
+workflows:
+  tests:
+    jobs:
+      - php-tests
+      - javascript-tests

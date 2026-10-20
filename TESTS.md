@@ -25,3 +25,12 @@ With this you tell the phpunit to use `src` folder for the main classes with `na
 * And the phpunit is ready. All you need is to write this command `./vendor/bin/phpunit ./tests` .
 
 This will start `phpunit` and will take all tests in `tests` folder.
+
+## Calendar and card-image regressions
+
+Run `npm run test:calendar` with Node.js to check typed options and the actual
+modal/embedded SDK initialization calls. Run `npm run test:card-images` with PHP
+and its DOM extension to render the card templates and check their widget
+bindings, destinations, tracking, language, and membership keyboard markup.
+These focused checks do not require npm or Composer dependencies. CircleCI runs
+the calendar tests in the Node job and the rendered-template tests in the PHP job.

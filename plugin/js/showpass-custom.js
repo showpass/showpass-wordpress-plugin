@@ -204,6 +204,10 @@
 
 					lang: $(this).attr("data-lang"),
 				};
+				Object.assign(
+					params,
+					window.ShowpassCalendarParams.fromElement(this)
+				);
 
 				params["redirect-url"] = encodeURIComponent(
 					window.location.href
@@ -247,6 +251,12 @@
 									"#option_widget_color"
 								).val(),
 							};
+							Object.assign(
+								params,
+								window.ShowpassCalendarParams.fromElement(
+									embeddedCalendarWidget
+								)
+							);
 							if (
 								embeddedCalendarWidget.getAttribute("data-tags")
 							) {
