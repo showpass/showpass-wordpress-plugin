@@ -2,7 +2,7 @@
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.9
 Tested up to: 6.8.2
-Stable tag: 4.0.9
+Stable tag: 4.0.10
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary, cgarrovillosp
 
@@ -71,7 +71,18 @@ Please visit our support documentation at [http://support.showpass.com](http://s
 3. Create event detail page to provide more information to customers
 4. This plugin utilizes the Showpass Purchase Widget for a seamless checkout experience - no redirects means higher conversion rates
 
+== Parameter naming ==
+
+Use snake_case option names in WordPress shortcodes, public SDK objects and widget URLs. Existing camelCase SDK calendar names and dashed shared options remain compatibility aliases. Explicit snake_case values take precedence, including false. WordPress shortcodes use quoted values and comma-separated special-event keys.
+
+This update requires the SPW-20291 frontend and rebuilt SDK release before publishing the plugin. Existing plugins and integration names continue to work with that SDK. Use the naming and migration guide at https://dev.showpass.com/sdk/parameter-naming after it is published.
+
 == Changelog ==
+
+= 4.0.10 =
+* Align outgoing SDK option names with snake_case shortcode attributes and widget URL parameters.
+* Accept compatible shortcode aliases and shared options while preserving explicit false values.
+* Requires the matching frontend and rebuilt SDK release before publication.
 
 = 4.0.9 =
 * Expose current calendar SDK options through the modal and embedded calendar shortcodes

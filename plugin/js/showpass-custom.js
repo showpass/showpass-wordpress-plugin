@@ -35,7 +35,7 @@
 	const applyAffiliateTracking = (params) => {
 		const affiliate = getAffiliateTrackingId();
 		if (affiliate) {
-			params["tracking-id"] = affiliate;
+			params["tracking_id"] = affiliate;
 		}
 		return params;
 	};
@@ -51,28 +51,28 @@
 	};
 
 	const getParams = (element) => {
-		return applyAffiliateTracking({
-			"theme-primary":
+		return applyAffiliateTracking(Object.assign({
+			"theme_primary":
 				$(element).attr("data-color") ||
 				$("#option_widget_color").val() ||
 				"",
-			"keep-shopping":
+			"keep_shopping":
 				$(element).attr("data-shopping") ||
 				$("#option_keep_shopping").val() ||
 				"true",
-			"theme-dark":
+			"theme_dark":
 				$(element).attr("data-theme") ||
 				$("#option_theme_dark").val() ||
 				"",
-			"show-description":
+			"show_description":
 				$(element).attr("data-show-description") ||
 				$("#option_show_widget_description").val() ||
 				"false",
-			"show-specific-tickets":
+			"show_specific_tickets":
 				$(element).attr("data-show-specific-tickets") || "",
 			lang: $(element).attr("data-lang") || "",
-			"redirect-url": encodeURIComponent(window.location.href),
-		});
+			"redirect_url": encodeURIComponent(window.location.href),
+		}, window.ShowpassCalendarParams.fromElement(element || { getAttribute: () => null })));
 	};
 
 	/**
@@ -170,15 +170,15 @@
 			} else if (qs.auto) {
 				var slug = qs.auto;
 				let params = {
-					"theme-primary": $("#option_widget_color").val(),
-					"keep-shopping": $("#option_keep_shopping").val(),
-					"show-description": $(
+					"theme_primary": $("#option_widget_color").val(),
+					"keep_shopping": $("#option_keep_shopping").val(),
+					"show_description": $(
 						"#option_show_widget_description"
 					).val(),
 				};
 				setTimeout(function () {
 					Cookies.remove("auto");
-					params["redirect-url"] = encodeURIComponent(
+					params["redirect_url"] = params["redirect_url"] || encodeURIComponent(
 						window.location.href
 					);
 					applyAffiliateTracking(params);
@@ -191,10 +191,10 @@
 
 				let id = $(this).attr("data-org-id");
 				let params = {
-					"theme-primary":
+					"theme_primary":
 						$(this).attr("data-color") ||
 						$("#option_widget_color").val(),
-					"keep-shopping": false,
+					"keep_shopping": false,
 					tags: $(this).attr("data-tags"),
 					is_attraction:
 						$(this).attr("data-is-attraction") === "true"
@@ -209,7 +209,7 @@
 					window.ShowpassCalendarParams.fromElement(this)
 				);
 
-				params["redirect-url"] = encodeURIComponent(
+				params["redirect_url"] = params["redirect_url"] || encodeURIComponent(
 					window.location.href
 				);
 				applyAffiliateTracking(params);
@@ -247,7 +247,7 @@
 									"data-org-id"
 								);
 							let params = {
-								"theme-primary": $(
+								"theme_primary": $(
 									"#option_widget_color"
 								).val(),
 							};
@@ -301,7 +301,7 @@
 								};
 								params = Object.assign(params, lang);
 							}
-							params["redirect-url"] = encodeURIComponent(
+							params["redirect_url"] = params["redirect_url"] || encodeURIComponent(
 								window.location.href
 							);
 							applyAffiliateTracking(params);
@@ -313,19 +313,8 @@
 						}
 
 						if (embeddedCartWidget) {
-							let params = {
-								"theme-primary":
-									$("#option_widget_color").val() || "",
-								"keep-shopping":
-									$("#option_keep_shopping").val() || "true",
-								"theme-dark":
-									$("#option_theme_dark").val() || "",
-								lang:
-									embeddedCartWidget.getAttribute(
-										"data-lang"
-									) || "",
-							};
-							params["redirect-url"] = encodeURIComponent(
+							let params = getParams(embeddedCartWidget);
+							params["redirect_url"] = params["redirect_url"] || encodeURIComponent(
 								window.location.href
 							);
 							applyAffiliateTracking(params);
@@ -343,7 +332,7 @@
 
 								let params = getParams(widget);
 								if (widget.getAttribute("data-tracking")) {
-									params["tracking-id"] =
+									params["tracking_id"] =
 										widget.getAttribute("data-tracking");
 								}
 								applyAffiliateTracking(params);
@@ -409,7 +398,7 @@
 				let params = getParams(this);
 
 				if ($(this).attr("data-tracking")) {
-					params["tracking-id"] = $(this).attr("data-tracking");
+					params["tracking_id"] = $(this).attr("data-tracking");
 				}
 
 				applyAffiliateTracking(params);
@@ -424,7 +413,7 @@
 				let params = getParams(this);
 
 				if ($(this).attr("data-tracking")) {
-					params["tracking-id"] = $(this).attr("data-tracking");
+					params["tracking_id"] = $(this).attr("data-tracking");
 				}
 
 				applyAffiliateTracking(params);
@@ -439,7 +428,7 @@
 				let params = getParams(this);
 
 				if ($(this).attr("data-tracking")) {
-					params["tracking-id"] = $(this).attr("data-tracking");
+					params["tracking_id"] = $(this).attr("data-tracking");
 				}
 
 				applyAffiliateTracking(params);
@@ -471,7 +460,7 @@
 					let params = getParams(this);
 
 					if ($(this).attr("data-tracking")) {
-						params["tracking-id"] = $(this).attr("data-tracking");
+						params["tracking_id"] = $(this).attr("data-tracking");
 					}
 
 					applyAffiliateTracking(params);
@@ -533,7 +522,7 @@
 			let url = new URL(iFrame.src);
 			const affiliate = getAffiliateTrackingId();
 			if (affiliate) {
-				url.searchParams.set("tracking-id", affiliate);
+				url.searchParams.set("tracking_id", affiliate);
 			}
 
 			// 1. Handle cookie-based tracking (GA and Facebook)

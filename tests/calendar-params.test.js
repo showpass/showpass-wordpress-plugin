@@ -39,12 +39,12 @@ assert.deepStrictEqual(
 		"data-highlight-multi-day-events-on-start-date-only": "true",
 	}),
 	{
-		calendarDate: "2026-09-14",
-		calendarTimeslot: "evening",
-		calendarSpecialEvent: ["opening", "closing"],
-		displayPricePatronTypeId: 17,
-		hidePrice: true,
-		highlightMultiDayEventsOnStartDateOnly: true,
+		calendar_date: "2026-09-14",
+		calendar_timeslot: "evening",
+		calendar_special_event: ["opening", "closing"],
+		display_price_patron_type_id: 17,
+		hide_price: true,
+		highlight_multi_day_events_on_start_date_only: true,
 	}
 );
 
@@ -54,8 +54,8 @@ assert.deepStrictEqual(
 		"data-hide-price": "false",
 	}),
 	{
-		calendarSpecialEvent: "opening",
-		hidePrice: false,
+		calendar_special_event: "opening",
+		hide_price: false,
 	}
 );
 
@@ -72,8 +72,8 @@ assert.deepStrictEqual(
 assert.deepStrictEqual(normalizedParams({
   "data-calendar-open-state": " special-events ",
   "data-calendar-special-event": "all",
-}), {calendarOpenState: "special-events", calendarSpecialEvent: "all"});
-assert.deepStrictEqual(normalizedParams({"data-calendar-open-state": "calendar"}), {calendarOpenState: "calendar"});
+}), {calendar_open_state: "special-events", calendar_special_event: "all"});
+assert.deepStrictEqual(normalizedParams({"data-calendar-open-state": "calendar"}), {calendar_open_state: "calendar"});
 assert.deepStrictEqual(normalizedParams({"data-calendar-open-state": "invalid"}), {});
 
 // Execute the real initialization and delegated click handler, not source regexes.
@@ -128,19 +128,19 @@ for (const embedded of [false, true]) {
   }, embedded);
   assert.strictEqual(call[0], "42");
   const params = call[1];
-  assert.strictEqual(params.calendarDate, "2026-09-14");
-  assert.strictEqual(params.calendarTimeslot, "evening");
-  assert.deepStrictEqual(params.calendarSpecialEvent, ["opening", "closing"]);
-  assert.strictEqual(params.calendarOpenState, "special-events");
-  assert.strictEqual(params.displayPricePatronTypeId, 17);
-  assert.strictEqual(params.hidePrice, false);
-  assert.strictEqual(params.highlightMultiDayEventsOnStartDateOnly, true);
+  assert.strictEqual(params.calendar_date, "2026-09-14");
+  assert.strictEqual(params.calendar_timeslot, "evening");
+  assert.deepStrictEqual(params.calendar_special_event, ["opening", "closing"]);
+  assert.strictEqual(params.calendar_open_state, "special-events");
+  assert.strictEqual(params.display_price_patron_type_id, 17);
+  assert.strictEqual(params.hide_price, false);
+  assert.strictEqual(params.highlight_multi_day_events_on_start_date_only, true);
   assert.strictEqual(params.lang, "fr");
   assert.strictEqual(call.length, embedded ? 3 : 2);
   if (embedded) assert.strictEqual(call[2], "showpass-calendar-widget");
 
   const defaults = calendarCall({}, embedded)[1];
-  for (const key of ["calendarDate", "calendarTimeslot", "calendarSpecialEvent", "calendarOpenState", "displayPricePatronTypeId", "hidePrice", "highlightMultiDayEventsOnStartDateOnly"]) {
+  for (const key of ["calendar_date", "calendar_timeslot", "calendar_special_event", "calendar_open_state", "display_price_patron_type_id", "hide_price", "highlight_multi_day_events_on_start_date_only"]) {
     assert.ok(!(key in defaults), "omitted option must preserve SDK default: " + key);
   }
   const invalid = calendarCall({
@@ -148,10 +148,31 @@ for (const embedded of [false, true]) {
     "data-display-price-patron-type-id": "9007199254740992", "data-hide-price": "sometimes",
     "data-highlight-multi-day-events-on-start-date-only": "sometimes",
   }, embedded)[1];
-  for (const key of ["calendarOpenState", "calendarSpecialEvent", "displayPricePatronTypeId", "hidePrice", "highlightMultiDayEventsOnStartDateOnly"]) {
+  for (const key of ["calendar_open_state", "calendar_special_event", "display_price_patron_type_id", "hide_price", "highlight_multi_day_events_on_start_date_only"]) {
     assert.ok(!(key in invalid), "invalid option must preserve SDK default: " + key);
   }
 }
-assert.deepStrictEqual(normalizedParams({"data-hide-price": "0"}), {hidePrice: false});
-assert.deepStrictEqual(normalizedParams({"data-hide-price": "TRUE"}), {hidePrice: true});
+assert.deepStrictEqual(normalizedParams({"data-hide-price": "0"}), {hide_price: false});
+assert.deepStrictEqual(normalizedParams({"data-hide-price": "TRUE"}), {hide_price: true});
 console.log("Calendar SDK parameter and initialization tests passed.");
+
+for (const embedded of [false, true]) {
+  const params = calendarCall({
+    "data-theme-primary": "24727b", "data-theme-secondary": "ffffff",
+    "data-theme-dark": "false", "data-keep-shopping": "false",
+    "data-show-description": "false", "data-show-specific-tickets": "17,18",
+    "data-tracking-id": "campaign", "data-prompt-for-quantity": "true",
+    "data-ticket-type-selection-required": "true", "data-redirect-url": "https%3A%2F%2Fexample.com%2Freturn",
+  }, embedded)[1];
+  assert.strictEqual(params.theme_primary, "24727b");
+  assert.strictEqual(params.theme_secondary, "ffffff");
+  assert.strictEqual(params.theme_dark, false);
+  assert.strictEqual(params.keep_shopping, false);
+  assert.strictEqual(params.show_description, false);
+  assert.strictEqual(params.show_specific_tickets, "17,18");
+  assert.strictEqual(params.tracking_id, "campaign");
+  assert.strictEqual(params.prompt_for_quantity, true);
+  assert.strictEqual(params.ticket_type_selection_required, true);
+  assert.strictEqual(params.redirect_url, "https%3A%2F%2Fexample.com%2Freturn");
+  ["theme-primary", "keep-shopping", "redirect-url", "tracking-id", "hidePrice"].forEach((key) => assert.ok(!(key in params)));
+}

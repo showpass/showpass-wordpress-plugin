@@ -3,6 +3,55 @@
 /**************************
 * registering shortcode
 **************************/
+/** Canonical shortcode names win over legacy aliases, even for false values. */
+function showpass_normalize_widget_attributes($atts) {
+  $atts = is_array($atts) ? $atts : array();
+  $aliases = array(
+    'calendar_date' => array('calendardate', 'calendar-date'),
+    'calendar_timeslot' => array('calendartimeslot', 'calendar-timeslot'),
+    'calendar_special_event' => array('calendarspecialevent', 'calendar-special-event'),
+    'calendar_open_state' => array('calendaropenstate', 'calendar-open-state'),
+    'display_price_patron_type_id' => array('displaypricepatrontypeid', 'display-price-patron-type-id'),
+    'hide_price' => array('hideprice', 'hide-price'),
+    'highlight_multi_day_events_on_start_date_only' => array('highlightmultidayeventsonstartdateonly', 'highlight-multi-day-events-on-start-date-only'),
+    'keep_shopping' => array('keep-shopping'),
+    'theme_primary' => array('theme-primary'),
+    'theme_secondary' => array('theme-secondary'),
+    'theme_dark' => array('theme-dark'),
+    'show_description' => array('show-description', 'show_widget_description'),
+    'show_specific_tickets' => array('show-specific-tickets'),
+    'tracking_id' => array('tracking-id'),
+    'redirect_url' => array('redirect-url'),
+    'prompt_for_quantity' => array('prompt-for-quantity'),
+    'ticket_type_selection_required' => array('ticket-type-selection-required'),
+  );
+  // WordPress lowercases attribute names before invoking shortcode callbacks.
+  $atts = array_change_key_case($atts, CASE_LOWER);
+  foreach ($aliases as $canonical => $legacy_names) {
+    foreach ($legacy_names as $legacy) {
+      if (!array_key_exists($canonical, $atts) && array_key_exists($legacy, $atts)) {
+        $atts[$canonical] = $atts[$legacy];
+      }
+    }
+  }
+  if (array_key_exists('show_description', $atts)) {
+    $atts['show_widget_description'] = $atts['show_description'];
+  }
+  return $atts;
+}
+
+function showpass_widget_public_data_attributes($atts) {
+  $html = '';
+  foreach (array('theme_primary', 'theme_secondary', 'theme_dark', 'keep_shopping',
+    'show_description', 'show_specific_tickets', 'tracking_id', 'redirect_url',
+    'prompt_for_quantity', 'ticket_type_selection_required') as $name) {
+    if (!isset($atts[$name]) || !is_scalar($atts[$name])) continue;
+    $value = is_bool($atts[$name]) ? ($atts[$name] ? 'true' : 'false') : (string) $atts[$name];
+    $html .= ' data-' . str_replace('_', '-', $name) . '="' . esc_attr($value) . '"';
+  }
+  return $html;
+}
+
 function showpass_get_base_url() {
   if (showpass_option_is_enabled('option_use_showpass_local')) {
     return 'https://localhost.showpass.com';
@@ -82,6 +131,7 @@ function generate_showpass_buy_now_button_shortcode ($slug) {
 }
 
 function showpass_get_event_data( $atts ) {
+  $atts = showpass_normalize_widget_attributes($atts);
   if (!is_admin()) {
     /* get Organization ID that is configured in admin Showpass Event API page */
     $organization_id = get_option('option_organization_id');
@@ -262,6 +312,7 @@ function showpass_get_event_data( $atts ) {
 }
 
 function showpass_get_product_data( $atts ) {
+  $atts = showpass_normalize_widget_attributes($atts);
   if (!is_admin()) {
     /* get Organization ID that is configured in admin Showpass Event API page */
     $organization_id = get_option('option_organization_id');
@@ -623,6 +674,7 @@ function showpass_get_events_next_prev($page) {
 ///////////////////////////////////////////////////////////////////////
 
 function showpass_display_calendar($atts) {
+  $atts = showpass_normalize_widget_attributes($atts);
 	// registering style and script
 
   wp_enqueue_style('tooltipster-css', plugins_url( '/css/vendor/tooltipster.css', __FILE__ ), array(), '1.0.0', 'all' );
@@ -844,6 +896,7 @@ function showpass_display_calendar($atts) {
 }
 
 function showpass_widget_expand($atts, $content = null) {
+  $atts = showpass_normalize_widget_attributes($atts);
     if (get_option('option_widget_color')) {
       	$widget_color = get_option('option_widget_color');
     } else {
@@ -886,23 +939,18 @@ function showpass_widget_expand($atts, $content = null) {
             $widget_id = 'showpass-' . $type . '-widget-' . $clean_identifier;
 
             $div = '<div id="' . esc_attr($widget_id) . '" ';
+            $div .= showpass_widget_public_data_attributes($atts) . ' ';
             $div .= 'data-slug="' . esc_attr($identifier) . '" ';
             $div .= 'data-type="' . esc_attr($type) . '" ';
 
             if ($tracking) {
                 $div .= 'data-tracking="' . esc_attr($tracking) . '" ';
             }
-            if (isset($atts['show_widget_description'])) {
-                $div .= 'data-show-description="' . esc_attr($atts['show_widget_description']) . '" ';
-            }
 
             if (isset($atts['keep_shopping'])) {
                 $div .= 'data-shopping="' . esc_attr($atts['keep_shopping']) . '" ';
             }
 
-            if (isset($atts['show_specific_tickets'])) {
-                $div .= 'data-show-specific-tickets="' . esc_attr($atts['show_specific_tickets']) . '" ';
-            }
 
             if ((get_option('option_theme_dark') === 'true') || (isset($atts['theme']) && $atts['theme'] === 'dark')) {
                 $div .= 'data-theme="dark" ';
@@ -941,13 +989,7 @@ function showpass_widget_expand($atts, $content = null) {
             $theme_dark = 'false';
         }
 
-        if (isset($atts['show_widget_description'])) {
-            $show_description = $atts['show_widget_description'];
-        }
 
-        if (isset($atts['show_specific_tickets'])) {
-            $show_specific_tickets = $atts['show_specific_tickets'];
-        }
 
         //update to template as needed
         $button = '';
@@ -958,21 +1000,17 @@ function showpass_widget_expand($atts, $content = null) {
             $button .= sprintf('data-tracking="%s" ', esc_attr($tracking));
         }
 
-        if (isset($show_description)) {
-            $button .= sprintf('data-show-description="%s" ', esc_attr($show_description));
-        }
 
         if (isset($keep_shopping)) {
             $button .= sprintf('data-shopping="%s" ', esc_attr($keep_shopping));
         }
 
-        if (isset($show_specific_tickets)) {
-            $button .= sprintf('data-show-specific-tickets="%s" ', esc_attr($show_specific_tickets));
-        }
 
         if (isset($atts['lang']) && $atts['lang'] !== '') {
             $button .= sprintf('data-lang="%s" ', esc_attr($atts['lang']));
         }
+
+        $button .= showpass_widget_public_data_attributes($atts);
 
         if ($include_icon) {
             $button .='><i class="fa fa-ticket" style="margin-right: 10px;"></i>';
@@ -989,6 +1027,7 @@ function showpass_widget_expand($atts, $content = null) {
 }
 
 function wpshp_get_pricing_table( $atts ) {
+  $atts = showpass_normalize_widget_attributes($atts);
   $event_ids = str_replace(' ', '', $atts['ids']);
 
 	if ($event_ids == NULL) {
@@ -1053,15 +1092,16 @@ function wpshp_get_pricing_table( $atts ) {
 
 //[showpass_cart_button]
 function wpshp_cart_button($atts, $content = null) {
+  $atts = showpass_normalize_widget_attributes($atts);
   $lang_attr = '';
   if (isset($atts['lang']) && $atts['lang'] !== '') {
     $lang_attr = ' data-lang="'.esc_attr($atts['lang']).'"';
   }
 
   if (isset($atts['embedded']) && $atts['embedded'] === 'true') {
-    return '<div id="showpass-cart-widget"'.$lang_attr.'></div>';
+    return '<div id="showpass-cart-widget"'.$lang_attr.showpass_widget_public_data_attributes($atts).'></div>';
   } else {
-    return '<span class="showpass-button showpass-cart-button"'.$lang_attr.' href="#"><i class="fa fa-shopping-cart"></i><span>Shopping Cart</span></span>';
+    return '<span class="showpass-button showpass-cart-button"'.$lang_attr.showpass_widget_public_data_attributes($atts).' href="#"><i class="fa fa-shopping-cart"></i><span>Shopping Cart</span></span>';
   }
 }
 
@@ -1096,6 +1136,7 @@ function showpass_calendar_widget_data_attributes($atts) {
 
 //[showpass_calendar_widget]
 function wpshp_calendar_widget($atts, $content = null) {
+  $atts = showpass_normalize_widget_attributes($atts);
 
   $organization_id = get_option('option_organization_id');
 
@@ -1125,7 +1166,7 @@ function wpshp_calendar_widget($atts, $content = null) {
       $lang_attr = ' data-lang="'.esc_attr($atts['lang']).'"';
     }
 
-    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.showpass_calendar_widget_data_attributes($atts).' class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
+    $button = '<span data-tags="'.$tags.'" data-org-id="'.$organization_id.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.showpass_widget_public_data_attributes($atts).showpass_calendar_widget_data_attributes($atts).' class="'.$class.' open-calendar-widget" href="#">'.$label.'</span>';
     return $button;
   } else {
     return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
@@ -1137,6 +1178,7 @@ add_shortcode('showpass_calendar_widget', 'wpshp_calendar_widget');
 
 //[showpass_embed_calendar]
 function wpshp_embed_calendar($atts, $content = null) {
+  $atts = showpass_normalize_widget_attributes($atts);
 	$organization_id = get_option('option_organization_id');
 
 	$tags = isset($atts['tags']) ? $atts['tags']
@@ -1154,7 +1196,7 @@ function wpshp_embed_calendar($atts, $content = null) {
 	}
 
 	if ($organization_id) {
-		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.showpass_calendar_widget_data_attributes($atts).'></div>';
+		return '<div id="showpass-calendar-widget" data-org-id="'.$organization_id.'" data-tags="'.$tags.'" data-is-attraction="'.$is_attraction.'" data-event-id="'.$event_id.'"'.$lang_attr.showpass_widget_public_data_attributes($atts).showpass_calendar_widget_data_attributes($atts).'></div>';
 	} else {
 		return 'Please add your Showpass Organizer ID to your Wordpress Dashboard.';
 	}
@@ -1215,6 +1257,7 @@ add_action( 'wp_head', 'showpass_style_function', 100 );
  * Similar to showpass_get_event_data and showpass_get_product_data
  */
 function showpass_get_membership_data( $atts ) {
+  $atts = showpass_normalize_widget_attributes($atts);
   if (!is_admin()) {
     /* get Organization ID that is configured in admin Showpass Event API page */
     $organization_id = get_option('option_organization_id');
