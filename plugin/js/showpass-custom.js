@@ -313,11 +313,7 @@
 						}
 
 						if (embeddedCartWidget) {
-							let params = getParams(embeddedCartWidget);
-							params["redirect_url"] = params["redirect_url"] || encodeURIComponent(
-								window.location.href
-							);
-							applyAffiliateTracking(params);
+							const params = getParams(embeddedCartWidget);
 							showpass.tickets.checkoutWidget(
 								params,
 								"showpass-cart-widget"

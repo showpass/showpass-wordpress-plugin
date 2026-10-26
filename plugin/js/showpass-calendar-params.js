@@ -46,45 +46,45 @@
 
 	function fromElement(element) {
 		var params = {};
-		var calendar_open_state = getAttribute(element, "data-calendar-open-state");
-		var calendar_date = getAttribute(element, "data-calendar-date");
-		var calendar_timeslot = getAttribute(element, "data-calendar-timeslot");
-		var calendar_special_event = parseSpecialEvent(
+		var calendarOpenState = getAttribute(element, "data-calendar-open-state");
+		var calendarDate = getAttribute(element, "data-calendar-date");
+		var calendarTimeslot = getAttribute(element, "data-calendar-timeslot");
+		var calendarSpecialEvent = parseSpecialEvent(
 			getAttribute(element, "data-calendar-special-event")
 		);
-		var display_price_patron_type_id = parsePositiveInteger(
+		var displayPricePatronTypeId = parsePositiveInteger(
 			getAttribute(element, "data-display-price-patron-type-id")
 		);
-		var hide_price = parseBoolean(getAttribute(element, "data-hide-price"));
-		var highlight_multi_day_events_on_start_date_only = parseBoolean(
+		var hidePrice = parseBoolean(getAttribute(element, "data-hide-price"));
+		var highlightMultiDayEventsOnStartDateOnly = parseBoolean(
 			getAttribute(
 				element,
 				"data-highlight-multi-day-events-on-start-date-only"
 			)
 		);
 
-		if (calendar_open_state === "calendar" || calendar_open_state === "special-events") {
-			params.calendar_open_state = calendar_open_state;
+		if (calendarOpenState === "calendar" || calendarOpenState === "special-events") {
+			params.calendar_open_state = calendarOpenState;
 		}
 
-		if (calendar_date !== "") {
-			params.calendar_date = calendar_date;
+		if (calendarDate !== "") {
+			params.calendar_date = calendarDate;
 		}
-		if (calendar_timeslot !== "") {
-			params.calendar_timeslot = calendar_timeslot;
+		if (calendarTimeslot !== "") {
+			params.calendar_timeslot = calendarTimeslot;
 		}
-		if (calendar_special_event !== undefined) {
-			params.calendar_special_event = calendar_special_event;
+		if (calendarSpecialEvent !== undefined) {
+			params.calendar_special_event = calendarSpecialEvent;
 		}
-		if (display_price_patron_type_id !== undefined) {
-			params.display_price_patron_type_id = display_price_patron_type_id;
+		if (displayPricePatronTypeId !== undefined) {
+			params.display_price_patron_type_id = displayPricePatronTypeId;
 		}
-		if (hide_price !== undefined) {
-			params.hide_price = hide_price;
+		if (hidePrice !== undefined) {
+			params.hide_price = hidePrice;
 		}
-		if (highlight_multi_day_events_on_start_date_only !== undefined) {
+		if (highlightMultiDayEventsOnStartDateOnly !== undefined) {
 			params.highlight_multi_day_events_on_start_date_only =
-				highlight_multi_day_events_on_start_date_only;
+				highlightMultiDayEventsOnStartDateOnly;
 		}
 
 		[
