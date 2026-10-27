@@ -1,83 +1,124 @@
-=== Showpass Wordpress Extension ===
-Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
+=== Showpass WordPress Extension ===
+Tags: events, tickets, event calendar, memberships, products
 Requires at least: 4.9
 Tested up to: 7.1
 Stable tag: 4.1.0
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary, cgarrovillosp, faghihy
 
-List events, display event details and products. Use the Showpass purchase widget seamless purchases with no redirects, all with easy to use shortcodes.
+Add event calendars, ticket purchases, products, and memberships to your WordPress site with Showpass widgets and shortcodes.
 
 == Description ==
 
-List events, display event details and products. Use the Showpass purchase widget seamless purchases with no redirects, all with easy to use shortcodes.
+Showpass is an event management and ticketing platform. Connect your Showpass organization to WordPress to display events, calendars, products, and memberships. Customers can select tickets and products through the Showpass purchase widget on your website.
 
-Showpass is a full event management solution, allowing organizations and individuals to organize and execute successful events.
+= What you can do =
 
-== Calendar shortcode attributes ==
+* Display events and products in a list or grid.
+* Show event details, images, dates, and purchase buttons.
+* Add an embedded calendar or open a calendar in a purchase widget.
+* Display memberships and open the membership purchase widget.
+* Add a Showpass Buy Now Button with the WordPress block editor.
+* Set a default widget color and use your theme's button CSS classes.
 
-Both `[showpass_calendar_widget]` and `[showpass_embed_calendar]` accept these optional attributes:
+Use shortcodes to place Showpass content in your pages and posts. The Showpass Buy Now Button block requires WordPress 5.3 or later.
 
-* `display_price_patron_type_id` - a positive venue-local PatronType ID. This changes displayed prices only and never filters availability, calendar contents, or ticket choices.
-* `hide_price` - `true` or `false`. This hides calendar price text and the price-range filter without changing availability or ticket selection.
-* `calendar_date` - a venue-local date such as `2026-09-14`.
-* `calendar_timeslot` - a public timeslot key used with `calendar_date`.
-* `calendar_special_event` - one attraction special-event key, multiple comma-separated keys, or `all` to select every currently filterable special event.
-* `calendar_open_state` - `calendar` (default) or `special-events`. Opens the Special Events tab when rich special-event content is available; otherwise keeps the calendar view. This controls the view independently of special-event filtering. When combined with a date/timeslot target, the Special Events view opens first. Any configured quantity prompt still comes first.
-* `highlight_multi_day_events_on_start_date_only` - `true` or `false`. Highlights multi-day events only on their local start date.
+= Add a calendar =
 
-Example: `[showpass_embed_calendar calendar_date="2026-09-14" calendar_timeslot="evening" calendar_special_event="opening,closing" display_price_patron_type_id="17" hide_price="false"]`
+Place `[showpass_embed_calendar]` in a Shortcode block to display a calendar on your page. See the [WordPress developer guide](https://dev.showpass.com/wordpress/getting-started-install-and-configure) for setup and shortcode options.
 
-Special Events example: `[showpass_embed_calendar is_attraction="true" event_id="YOUR_ATTRACTION_ID" calendar_special_event="all" calendar_open_state="special-events"]`
+= Getting started =
 
-The new options require the corresponding calendar frontend and rebuilt SDK to be deployed before releasing this plugin update.
+You need a Showpass organizer account and your Organization ID. Install and activate the plugin, then open **Showpass** in your WordPress dashboard to connect your organization and configure your widgets.
 
-Whether you are selling tickets to your fundraiser, or an assigned seating theatre show, Showpass has the technology you need to get the job done.
+For purchase widgets, use a single Organization ID. Each purchase can include items from only one organization. You can use multiple Organization IDs for supported event and product listings.
 
-Wordpress version 5.3 is required for editor blocks
+[Read the installation and configuration guide](https://dev.showpass.com/wordpress/getting-started-install-and-configure).
 
-= Plugin / Theme Support =
+= Documentation and support =
 
-For plugin and theme support please email us at solutions@showpass.com
+For setup instructions and shortcode examples, visit the [Showpass developer documentation](https://dev.showpass.com/wordpress/getting-started-install-and-configure).
 
-= Special Features =
-* No coding required, use the included default templates and shortcodes to list your events and sell tickets
-* List and grid views for events and products
-* Our integrated shopping experience keeps your brand in the forefront, no redirecting to complete purchases
+For plugin support, email solutions@showpass.com. For help using Showpass, visit the [Showpass Help Centre](https://help.showpass.com/).
 
-= Feedback =
-* We are open for your suggestions and feedback
-* Drop us a line [@showpassevents](http://twitter.com/#!/showpassevents) on Twitter
-* Follow us on [our Facebook page](http://www.facebook.com/Showpass)
+= Follow Showpass =
+
+Connect with Showpass on [LinkedIn](https://www.linkedin.com/company/showpass/) and [Instagram](https://www.instagram.com/showpassevents/).
 
 == Installation ==
 
-1. Upload the entire `showpass` folder to the `/wp-content/plugins/` directory
-2. Register your organization with Showpass at [https://www.showpass.com/organizations/register/](https://www.showpass.com/organizations/register/)
-3. Find your Organization ID at [https://www.showpass.com/dashboard/venues/edit/](https://www.showpass.com/dashboard/venues/edit/) in the top right corner
-4. Enter in your organization ID in the Showpass API section of your Wordpress dashboard
-5. Visit our git repo for full documentation [https://github.com/showpass/showpass-wordpress-plugin](https://github.com/showpass/showpass-wordpress-plugin)
-6. We highly recommend you enable an SSL certificate on your Wordpress installation for your customers piece of mind
+1. In your WordPress dashboard, open **Plugins > Add New**, search for **Showpass**, and select **Install Now**. If you have a plugin ZIP, select **Upload Plugin** instead.
+2. Activate the plugin.
+3. Open **Showpass** in the WordPress dashboard.
+4. Enter your Organization ID and select **Save Changes**. If you do not have an account, use the organizer account registration link on the settings page.
+5. Add a Showpass shortcode to a page or post, or use the **Showpass Buy Now Button** block to add a purchase button.
+6. Preview the page and check that the correct events, products, or memberships appear before publishing it.
+
+Use HTTPS on your WordPress website. See the [installation guide](https://dev.showpass.com/wordpress/getting-started-install-and-configure) for configuration details and shortcode examples.
 
 == Frequently Asked Questions ==
 
-= Where can I get support for using the Showpass platform =
-Please visit our support documentation at [http://support.showpass.com](http://support.showpass.com]
+= Do I need a Showpass account? =
+
+Yes. You need a Showpass organizer account and an Organization ID. Manage your events, products, and memberships in Showpass, then display them on WordPress.
+
+= What is my Organization ID? =
+
+It identifies your Showpass organization and is also called a venue ID. It is different from an event or product ID. Enter it in **Showpass** settings. If you need help finding it, email solutions@showpass.com.
+
+= Do I need to write code? =
+
+No PHP changes are needed to use the included shortcodes or Showpass Buy Now Button block. Custom layouts and styling may require HTML or CSS knowledge.
+
+= How do I add events, products, or memberships? =
+
+Add a **Shortcode** block to your page and enter `[showpass_events]`, `[showpass_products]`, or `[showpass_memberships]`. Save your Organization ID in Showpass settings first, then preview the page.
+
+= How do I add a purchase button? =
+
+Add the **Showpass Buy Now Button** block, enter the full Showpass event URL, choose a label, and select **Add Button**. The block requires WordPress 5.3 or later.
+
+= Which calendar should I use? =
+
+Use `[showpass_embed_calendar]` to display a calendar directly on the page. Use `[showpass_calendar_widget]` for a button that opens the calendar in a purchase widget. See the documentation for attraction calendars and additional options.
+
+= Can I customize the appearance? =
+
+Yes. In **Showpass** settings, choose a widget color, button CSS classes, closing button text, and whether descriptions appear. Enter hex colors without `#`, such as `1C39BB`. Your theme controls the surrounding page layout.
+
+= Can I display multiple organizations? =
+
+Supported event and product listings accept comma-separated Organization IDs, such as `5, 10, 20`. Use a single Organization ID for purchase widgets: each purchase can contain items from only one organization.
+
+= Can I display widgets in French? =
+
+Yes. Add `lang="fr"` to a supported widget shortcode, for example `[showpass_embed_calendar lang="fr"]`. This changes the widget language, not your theme or plugin settings. Translate any custom button labels yourself.
+
+= Why is my content not appearing? =
+
+Check your Organization ID, shortcode filters, and content availability in Showpass. For live organizations, select **Production** under Developer options. Clear relevant WordPress or hosting caches after changes. If the issue continues, contact plugin support.
+
+= Do I need to change Developer options? =
+
+Usually not. Keep **Production** selected for a live customer website. Local, Beta, and Demo are for development or testing and may require separate data or setup.
+
+= Does deleting the plugin remove my settings? =
+
+No. Saved settings remain in your WordPress database and can reappear after reinstalling. Deleting the plugin does not delete your Showpass account or events.
+
+= Where can I get help? =
+
+See the [setup guide](https://dev.showpass.com/wordpress/getting-started-install-and-configure) or [Showpass Help Centre](https://help.showpass.com/). For plugin support, email solutions@showpass.com with your page URL, shortcode, WordPress version, and plugin version.
 
 == Screenshots ==
 
-1. Easily create an event calendar on any page or post
-2. Easily create event or product listings in a grid or list view, on any page or post
-3. Create event detail page to provide more information to customers
-4. This plugin utilizes the Showpass Purchase Widget for a seamless checkout experience - no redirects means higher conversion rates
-
-== Parameter naming ==
-
-Use snake_case option names in WordPress shortcodes, public SDK objects and widget URLs. Existing camelCase SDK calendar names and dashed shared options remain compatibility aliases. Explicit snake_case values take precedence, including false. WordPress shortcodes use quoted values and comma-separated special-event keys.
-
-This update requires the SPW-20291 frontend and rebuilt SDK release before publishing the plugin. Existing plugins and integration names continue to work with that SDK. Use the naming and migration guide at https://dev.showpass.com/sdk/parameter-naming after it is published.
+1. Display merchandise with product images, prices, and Add to cart buttons on your website.
+2. Show event details and descriptions in a branded Showpass purchase widget.
+3. Let customers choose product options and quantities in the purchase widget.
+4. Connect your organization and configure widget appearance in the WordPress dashboard.
 
 == Changelog ==
+
 
 = 4.1.0 =
 * Verify core plugin flows on WordPress 7.1.3 and update compatibility metadata.
@@ -119,10 +160,7 @@ This update requires the SPW-20291 frontend and rebuilt SDK release before publi
 * Update to use native wp_remote_get() for api calls
 * fix to product list template
 
- == Upgrade Notice ==
+== Upgrade Notice ==
 
-For all previous releases please visit our git repo https://github.com/showpass/showpass-wordpress-plugin/releases
-
-== Translations ==
-
-* English
+= 4.1.0 =
+Refreshes the Showpass settings page and improves compatibility with WordPress 7.1. See the changelog for details.

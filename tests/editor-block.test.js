@@ -4,6 +4,7 @@ const path = require('path');
 const vm = require('vm');
 
 let registeredBlock;
+let registeredName;
 let request;
 let resolveRequest;
 function Component(props) { this.props = props; }
@@ -16,7 +17,7 @@ const wp = {
     request = options;
     return new Promise((resolve) => { resolveRequest = resolve; });
   },
-  blocks: { registerBlockType: (name, settings) => { registeredBlock = settings; } },
+  blocks: { registerBlockType: (name, settings) => { registeredName = name; registeredBlock = settings; } },
   element: {
     Component,
     createElement: (type, props, ...children) => ({ type, props: props || {}, children }),
@@ -40,6 +41,8 @@ function findButton(node) {
 
 (async () => {
   assert(registeredBlock, 'the shipped editor bundle registers the block');
+  assert.strictEqual(registeredName, 'create-block/showpass-button-block',
+    'the existing saved block identifier is preserved');
   assert.strictEqual(registeredBlock.attributes.shortcode.source, 'html',
     'saved shortcode must be read from the existing block content');
 

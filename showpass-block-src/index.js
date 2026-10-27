@@ -76,7 +76,7 @@ class BuyTicketBlock extends Component {
 		return (
 			<div class="wp-showpass-block-container">
 				<span class="dashicons dashicons-tickets-alt"></span>
-				<h4>Buy Now Button</h4>
+				<h4>Showpass Buy Now Button</h4>
 				<TextControl
 					label = "Button Label"
 					value = { buttonLabel }
@@ -120,7 +120,9 @@ class BuyTicketBlock extends Component {
  * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
 registerBlockType('create-block/showpass-button-block', {
-	title: 'Buy Now Button',
+	title: 'Showpass Buy Now Button',
+	description: 'Add a ticket purchase button to your page using a Showpass event URL.',
+	keywords: ['showpass', 'tickets', 'purchase'],
 	category: 'showpass-blocks',
 	icon: 'tickets-alt',
 	supports: {},

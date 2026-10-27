@@ -72,3 +72,26 @@ https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
 * Copy over the contents git repo plugin folder to the svn trunk folder
 
 * Make sure to add all new files to the svn tracker before committing 
+
+
+## WordPress.org listing assets
+
+The repository's top-level `assets/` directory contains the numbered listing
+screenshots. Copy these files to the WordPress.org SVN repository's top-level
+`assets/` directory, alongside `trunk/` and `tags/`. Do not put listing images in
+`plugin/`, SVN `trunk/`, or the installable plugin ZIP.
+
+Screenshot numbers match the captions in `plugin/readme.txt`. Keep them in sync.
+The current four images are 1600 by 1000 pixels. Review the images and captions
+before publication. When the stable tag points to a version directory, its
+`readme.txt` must also contain the intended listing text; changing only the trunk
+readme may not update the public listing.
+
+Listing preparation does not publish a release. Follow the release order in
+`TESTS.md` before publishing version 4.1.0.
+
+The calendar screenshot was removed from this listing refresh. The settings
+screenshot is now `screenshot-4.png`. When publishing these four images to SVN,
+remove any obsolete `screenshot-5.*` and any replaced screenshots with a different
+extension. Detailed calendar attributes are maintained in
+`docs/calendar-shortcodes.md` rather than the public listing description.
