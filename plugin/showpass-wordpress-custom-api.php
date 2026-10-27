@@ -10,10 +10,10 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-function create_showpass_api_success_response ($slug) {
+function create_showpass_api_success_response ($slug, $label = null) {
 	$response = [
 		'slug' => $slug,
-		'shortcode' => generate_showpass_buy_now_button_shortcode($slug)
+		'shortcode' => generate_showpass_buy_now_button_shortcode($slug, $label)
 	];
 	return $response;
 }
@@ -23,7 +23,7 @@ function create_showpass_api_success_response ($slug) {
  */
 add_action('rest_api_init', function() {
 	register_rest_route('showpass/v1', '/process-url', [
-		'method' 	=> 'GET',
+		'methods' 	=> 'GET',
 		'callback' 	=> 'showpass_api_process_url',
 		'permission_callback' => function() {
 			return current_user_can('edit_posts');
@@ -32,6 +32,10 @@ add_action('rest_api_init', function() {
 			'url' => [
 				'required'  => true,
 				'type'      => 'string',
+			],
+			'label' => [
+				'type' => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
 			],
 		]
 	]);
@@ -103,14 +107,25 @@ function create_showpass_event($event_url) {
 function showpass_api_process_url($data) {
     $url = esc_url_raw($data['url']);
     $validURL = wp_http_validate_url($url);
-    $isShowpassEvent = strpos($validURL, 'showpass.com') !== false;
+    // The local Showpass URL is parsed here, never fetched or imported.
+    if (showpass_option_is_enabled('option_use_showpass_local') &&
+        wp_parse_url($url, PHP_URL_HOST) === 'localhost.showpass.com' &&
+        in_array(wp_parse_url($url, PHP_URL_SCHEME), array('http', 'https'), true)) {
+        $validURL = $url;
+    }
+    $host = $validURL ? strtolower(wp_parse_url($url, PHP_URL_HOST)) : '';
+    $isShowpassEvent = $host === 'showpass.com' || substr($host, -13) === '.showpass.com';
 
 	if ($validURL && $isShowpassEvent) {
     	// If the url is valid and showpass return slug
-		$splitURL = explode('/', $url);
-		$slug = $splitURL[3];
-		$attr['slug'] = $slug;
-		$response = create_showpass_api_success_response($slug);
+        $path = trim((string) wp_parse_url($url, PHP_URL_PATH), '/');
+        if ($path === '') {
+            return rest_ensure_response(wp_send_json_error('Error: Please enter a full Showpass event URL', 400));
+        }
+        $segments = explode('/', $path);
+        $slug = $segments[0];
+        $label = isset($data['label']) ? $data['label'] : null;
+        $response = create_showpass_api_success_response($slug, $label);
 		return wp_send_json_success( $response, $status_code = 200 );
 	} else if ($validURL && !$isShowpassEvent) {
     	// If the url is valid and NOT showpass create event

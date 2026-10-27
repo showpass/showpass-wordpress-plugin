@@ -28,6 +28,7 @@ jobs:
             mkdir ./tmp/
             php tests/card-image-widgets.test.php
             php tests/widget-parameter-aliases.test.php
+            php tests/editor-block.test.php
             ./vendor/phpunit/phpunit/phpunit --log-junit ./tmp/logfile.xml
 
       - store_test_results:
@@ -41,7 +42,9 @@ jobs:
       - checkout
       - run:
           name: "Run Calendar Parameter Tests"
-          command: npm run test:calendar
+          command: |
+            npm run test:calendar
+            npm run test:editor
 
 workflows:
   tests:

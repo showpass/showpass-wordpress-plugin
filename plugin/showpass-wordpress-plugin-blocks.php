@@ -21,8 +21,7 @@ function create_block_showpass_wordpress_blocks_block_init() {
 		'create-block-showpass-wordpress-blocks-block-editor-script',
 		plugins_url( $index_js, __FILE__ ),
 		$script_asset['dependencies'],
-		false
-		//$script_asset['version']
+		$script_asset['version']
 	);
 	if (function_exists('wp_set_script_translations')) {
 		wp_set_script_translations( 'create-block-showpass-wordpress-blocks-block-editor', 'showpass-wordpress-blocks' );

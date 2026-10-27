@@ -66,7 +66,8 @@ class BuyTicketBlock extends Component {
 		const checkValidURL = (url) => {
 			if (url) {
 				return apiFetch({
-					path: 'showpass/v1/process-url/?url=' + encodeURI(url),
+					path: 'showpass/v1/process-url/?url=' + encodeURIComponent(url) +
+						'&label=' + encodeURIComponent(buttonLabel || 'Get Tickets'),
 					method: 'GET'
 				});
 			}
@@ -80,21 +81,19 @@ class BuyTicketBlock extends Component {
 					label = "Button Label"
 					value = { buttonLabel }
 					onChange = { onChangeLabel }
-					key='ticketLink'
 					default="Get Tickets"
 					/>
 				<TextControl
 					label = "Enter in the full URL"
 					value = { ticketLink }
 					onChange = { onChangeLink }
-					key = 'ticketLink'
 					help = 'Example: https://showpass.com/event-slug/'
 				/>
 				<div class="control-container">
 					<Button
 						isSecondary
 						isBusy = { this.state.loading }
-						disabled = { this.state.loading }
+						disabled = { this.state.loading || !ticketLink || !ticketLink.trim() }
 						onClick = { onClickGo }>
 						Add Button!
 					</Button>
@@ -126,6 +125,10 @@ registerBlockType('create-block/showpass-button-block', {
 	icon: 'tickets-alt',
 	supports: {},
 	attributes: {
+		shortcode: {
+			type: 'string',
+			source: 'html',
+		},
 		ticketLink: {
 			type: 'string',
 		},

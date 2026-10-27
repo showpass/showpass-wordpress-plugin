@@ -52,3 +52,12 @@ publishing plugin 4.1.0. Keep old SDK names as aliases so plugin 4.0.9 and exist
 integrations continue working. Local browser review must precede PR creation;
 formal QA, merge, SDK deployment, SVN submission and release confirmation are
 separate checkpoints.
+
+## Editor block regressions
+
+Run `npm run test:editor` against the shipped editor bundle and
+`npm run test:editor-api` against the offline URL/shortcode contract. These check
+empty-input handling, URL and label encoding, saved shortcode extraction, local
+URL validation, default labels and escaped attributes. No HTTP requests are made.
+The rendered-card checks also cover membership responses that keep currency on
+the venue and omit `num_pages`.

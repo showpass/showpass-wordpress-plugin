@@ -120,13 +120,16 @@ function call_showpass_api($url) {
   }
 }
 
-function generate_showpass_buy_now_button_shortcode ($slug) {
+function generate_showpass_buy_now_button_shortcode ($slug, $label = null) {
+	if ($label === null || $label === '') {
+		$label = DEFAULT_BUTTON_VERBIAGE;
+	}
 	if (get_option('option_showpass_default_button_class')) {
-		$classes = sprintf('class="%s"', get_option('option_showpass_default_button_class'));
+		$classes = sprintf('class="%s"', esc_attr(get_option('option_showpass_default_button_class')));
 	} else {
 		$classes = "";
 	}
-	$shortcode = sprintf('[showpass_widget slug="%s" label="%s" %s]', $slug, DEFAULT_BUTTON_VERBIAGE, $classes);
+	$shortcode = sprintf('[showpass_widget slug="%s" label="%s" %s]', esc_attr($slug), esc_attr($label), $classes);
 	return $shortcode;
 }
 

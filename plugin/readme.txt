@@ -1,7 +1,7 @@
 === Showpass Wordpress Extension ===
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.9
-Tested up to: 6.8.2
+Tested up to: 7.1
 Stable tag: 4.1.0
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary, cgarrovillosp, faghihy
@@ -38,7 +38,7 @@ Wordpress version 5.3 is required for editor blocks
 
 = Plugin / Theme Support =
 
-For plugin and theme support please email us at wordpress-support@showpass.com
+For plugin and theme support please email us at solutions@showpass.com
 
 = Special Features =
 * No coding required, use the included default templates and shortcodes to list your events and sell tickets
@@ -80,6 +80,9 @@ This update requires the SPW-20291 frontend and rebuilt SDK release before publi
 == Changelog ==
 
 = 4.1.0 =
+* Verify core plugin flows on WordPress 7.1.3 and update compatibility metadata.
+* Fix Buy Now block local URLs, custom labels, saved content and editor asset cache versions.
+* Handle membership currency and optional pagination fields from the current API.
 * Refresh the Showpass settings page with clearer instructions, accessible labels, and save confirmations.
 * Simplify developer environment selection while preserving existing settings.
 * Add Showpass branding and update documentation and support links.
@@ -99,7 +102,7 @@ This update requires the SPW-20291 frontend and rebuilt SDK release before publi
 = 4.0.6 =
 * Add French language support for widgets
 
-= 4.0.3 = 
+= 4.0.3 =
 * Fix analytics tracking for embedded widgets
 
 = 4.0.2 =
