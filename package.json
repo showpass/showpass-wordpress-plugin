@@ -1,7 +1,7 @@
 {
 	"name": "showpass-wordpress-blocks",
 	"version": "0.1.0",
-	"description": "Wordpress blocks with ESNext standard and JSX support – build step required.",
+	"description": "Wordpress blocks with ESNext standard and JSX support \u2013 build step required.",
 	"author": "Showpass",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
@@ -13,7 +13,8 @@
 		"test:card-images": "php tests/card-image-widgets.test.php",
 		"test:calendar": "node tests/calendar-params.test.js",
 		"start": "wp-scripts start showpass-block-src/index.js --output-path=plugin/build-blocks",
-		"packages-update": "wp-scripts packages-update"
+		"packages-update": "wp-scripts packages-update",
+		"test:parameter-aliases": "php tests/widget-parameter-aliases.test.php"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^12.5.0"

@@ -64,28 +64,43 @@
 		);
 
 		if (calendarOpenState === "calendar" || calendarOpenState === "special-events") {
-			params.calendarOpenState = calendarOpenState;
+			params.calendar_open_state = calendarOpenState;
 		}
 
 		if (calendarDate !== "") {
-			params.calendarDate = calendarDate;
+			params.calendar_date = calendarDate;
 		}
 		if (calendarTimeslot !== "") {
-			params.calendarTimeslot = calendarTimeslot;
+			params.calendar_timeslot = calendarTimeslot;
 		}
 		if (calendarSpecialEvent !== undefined) {
-			params.calendarSpecialEvent = calendarSpecialEvent;
+			params.calendar_special_event = calendarSpecialEvent;
 		}
 		if (displayPricePatronTypeId !== undefined) {
-			params.displayPricePatronTypeId = displayPricePatronTypeId;
+			params.display_price_patron_type_id = displayPricePatronTypeId;
 		}
 		if (hidePrice !== undefined) {
-			params.hidePrice = hidePrice;
+			params.hide_price = hidePrice;
 		}
 		if (highlightMultiDayEventsOnStartDateOnly !== undefined) {
-			params.highlightMultiDayEventsOnStartDateOnly =
+			params.highlight_multi_day_events_on_start_date_only =
 				highlightMultiDayEventsOnStartDateOnly;
 		}
+
+		[
+			"theme_primary", "theme_secondary", "tracking_id", "redirect_url",
+			"show_specific_tickets"
+		].forEach(function (name) {
+			var value = getAttribute(element, "data-" + name.replace(/_/g, "-"));
+			if (value !== "") params[name] = value;
+		});
+		[
+			"theme_dark", "keep_shopping", "show_description", "prompt_for_quantity",
+			"ticket_type_selection_required"
+		].forEach(function (name) {
+			var value = parseBoolean(getAttribute(element, "data-" + name.replace(/_/g, "-")));
+			if (value !== undefined) params[name] = value;
+		});
 
 		return params;
 	}

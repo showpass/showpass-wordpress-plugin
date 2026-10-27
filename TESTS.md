@@ -34,3 +34,17 @@ and its DOM extension to render the card templates and check their widget
 bindings, destinations, tracking, language, and membership keyboard markup.
 These focused checks do not require npm or Composer dependencies. CircleCI runs
 the calendar tests in the Node job and the rendered-template tests in the PHP job.
+
+## Public parameter aliases
+
+Run `npm run test:parameter-aliases` to render modern shortcodes with legacy and
+canonical attributes. It checks WordPress attribute lowercasing, canonical
+precedence, explicit false, shared theme/options and preserved locale markup.
+`npm run test:calendar` also executes the real modal and embedded JavaScript
+handlers and checks canonical SDK payloads, including shared options and redirects.
+
+Release order: deploy the matching SPW-20291 frontend and rebuilt SDK before
+publishing plugin 4.0.10. Keep old SDK names as aliases so plugin 4.0.9 and existing
+integrations continue working. Local browser review must precede PR creation;
+formal QA, merge, SDK deployment, SVN submission and release confirmation are
+separate checkpoints.
