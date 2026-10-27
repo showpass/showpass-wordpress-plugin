@@ -26,6 +26,10 @@ With this you tell the phpunit to use `src` folder for the main classes with `na
 
 This will start `phpunit` and will take all tests in `tests` folder.
 
+The default PHPUnit suite excludes the legacy Event and Venue tests because they
+call the live Showpass API. Calendar shortcode, date, time and timezone tests run
+offline.
+
 ## Calendar and card-image regressions
 
 Run `npm run test:calendar` with Node.js to check typed options and the actual
@@ -44,7 +48,7 @@ precedence, explicit false, shared theme/options and preserved locale markup.
 handlers and checks canonical SDK payloads, including shared options and redirects.
 
 Release order: deploy the matching SPW-20291 frontend and rebuilt SDK before
-publishing plugin 4.0.10. Keep old SDK names as aliases so plugin 4.0.9 and existing
+publishing plugin 4.1.0. Keep old SDK names as aliases so plugin 4.0.9 and existing
 integrations continue working. Local browser review must precede PR creation;
 formal QA, merge, SDK deployment, SVN submission and release confirmation are
 separate checkpoints.

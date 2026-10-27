@@ -3,13 +3,13 @@
 /*
  Plugin Name: Showpass
  Plugin URI: https://github.com/showpass/showpass-wordpress-plugin
- Description: List events, display event details and products. Use the Showpass purchase widget for on site ticket & product purchases all with easy to use shortcodes. See our git repo here for full documentation. https://github.com/showpass/showpass-wordpress-plugin
+ Description: Showpass is an event management and ticketing platform. Display events, calendars, products, and memberships on your WordPress site using widgets and shortcodes. Let customers purchase tickets and products without leaving your website.
  Author: Showpass / Up In Code Inc.
- Version: 4.0.10
+ Version: 4.1.0
  Author URI: https://www.showpass.com
  */
 
-define('SHOWPASS_PLUGIN_VERSION', '4.0.10');
+define('SHOWPASS_PLUGIN_VERSION', '4.1.0');
 
 if (! defined('ABSPATH')) {
     exit;
@@ -37,7 +37,7 @@ add_action('template_redirect', function () {
 function wpshp_admin_menu()
 {
     /* create new top-level menu */
-    add_menu_page('Showpass Events API', 'Showpass API', 'administrator', __FILE__, 'wpshp_settings_page', plugins_url('/images/icon.png', __FILE__));
+    add_menu_page('Showpass', 'Showpass', 'manage_options', __FILE__, 'wpshp_settings_page', plugins_url('/images/icon.png', __FILE__));
 }
 
 add_action('admin_menu', 'wpshp_admin_menu');

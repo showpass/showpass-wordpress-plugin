@@ -2,7 +2,7 @@
 Tags: showpass, events, tickets, sell tickets, event calendar, purchase tickets, custom event pages
 Requires at least: 4.9
 Tested up to: 6.8.2
-Stable tag: 4.0.10
+Stable tag: 4.1.0
 Requires PHP: 5.4.45
 Contributors: marcshowpass, spapril, spzachary, cgarrovillosp, faghihy
 
@@ -78,6 +78,11 @@ Use snake_case option names in WordPress shortcodes, public SDK objects and widg
 This update requires the SPW-20291 frontend and rebuilt SDK release before publishing the plugin. Existing plugins and integration names continue to work with that SDK. Use the naming and migration guide at https://dev.showpass.com/sdk/parameter-naming after it is published.
 
 == Changelog ==
+
+= 4.1.0 =
+* Refresh the Showpass settings page with clearer instructions, accessible labels, and save confirmations.
+* Simplify developer environment selection while preserving existing settings.
+* Add Showpass branding and update documentation and support links.
 
 = 4.0.10 =
 * Align outgoing SDK option names with snake_case shortcode attributes and widget URL parameters.

@@ -3,5 +3,8 @@
 <phpunit colors="true">
 	<testsuite name="Showpass Plugin Tests">
 		<directory>./tests/</directory>
+		<!-- These legacy tests call the live Showpass API. Keep the default suite offline. -->
+		<exclude>./tests/EventTest.php</exclude>
+		<exclude>./tests/VenueTest.php</exclude>
 	</testsuite>
 </phpunit>
