@@ -43,8 +43,8 @@ function findButton(node) {
   assert(registeredBlock, 'the shipped editor bundle registers the block');
   assert.strictEqual(registeredName, 'create-block/showpass-button-block',
     'the existing saved block identifier is preserved');
-  assert.strictEqual(registeredBlock.attributes.shortcode.source, 'html',
-    'saved shortcode must be read from the existing block content');
+  assert.strictEqual(registeredBlock.attributes.shortcode.source, 'raw',
+    'saved shortcode must be read as raw content so quote entities stay intact');
 
   const attributes = { ticketLink: '', buttonLabel: 'Local QA & Tickets', dataError: null };
   const editor = new registeredBlock.edit({
@@ -71,5 +71,19 @@ function findButton(node) {
   assert.strictEqual(attributes.dataError, false);
   assert.strictEqual(editor.state.loading, false);
   assert.strictEqual(registeredBlock.save({ attributes }), shortcode);
+  // WordPress's raw source reads the persisted inner content without DOM entity decoding.
+  for (const shortcode of [
+    '[showpass_widget slug="event" label="A &quot;label&quot;" ]',
+    '[showpass_widget slug="event" label="Buy &#91;VIP&#93;" ]',
+    '[showpass_widget slug="event" label="Friends &amp; family &lt;VIP&gt;" ]',
+  ]) {
+    let reopened = { shortcode, dataError: false, buttonLabel: 'Custom label' };
+    for (let cycle = 0; cycle < 3; cycle++) {
+      const saved = registeredBlock.save({ attributes: reopened });
+      assert.strictEqual(saved, shortcode, 'save/reopen cycles preserve shortcode entities');
+      // Unsourced attributes round-trip through the block comment's JSON; raw content stays intact.
+      reopened = { ...JSON.parse(JSON.stringify(reopened)), shortcode: saved };
+    }
+  }
   console.log('Shipped editor block regression tests passed.');
 })().catch((error) => { console.error(error); process.exitCode = 1; });

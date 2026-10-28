@@ -61,3 +61,20 @@ empty-input handling, URL and label encoding, saved shortcode extraction, local
 URL validation, default labels and escaped attributes. No HTTP requests are made.
 The rendered-card checks also cover membership responses that keep currency on
 the venue and omit `num_pages`.
+
+
+## WordPress shortcode rendering
+
+On a local WordPress test installation, run the following against this checkout
+using WP-CLI (adjust the WordPress path):
+
+```sh
+wp --path=/absolute/path/to/local-wordpress --skip-plugins --skip-themes eval-file /absolute/path/to/showpass-wordpress-plugin/tests/editor-wordpress.test.php
+```
+
+This integration test uses WordPress's actual shortcode parser and HTML escaping
+to verify rendered button labels with square brackets, quotes, ampersands and
+HTML-like text. It checks for one button with no extra page text or injected
+markup. It blocks HTTP requests and does not write database options or posts.
+The offline editor suite also guards raw shortcode extraction and repeated
+save/reopen cycles. The WP-CLI integration check is separate from default CI.

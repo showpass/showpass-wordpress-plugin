@@ -129,7 +129,8 @@ registerBlockType('create-block/showpass-button-block', {
 	attributes: {
 		shortcode: {
 			type: 'string',
-			source: 'html',
+			// Keep shortcode entities intact when the editor reopens saved content.
+			source: 'raw',
 		},
 		ticketLink: {
 			type: 'string',

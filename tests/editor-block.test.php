@@ -50,4 +50,8 @@ $shortcode = generate_showpass_buy_now_button_shortcode('event"slug', 'A "label"
 check_editor(strpos($shortcode, 'slug="event&quot;slug"') !== false, 'slug quotes are escaped');
 check_editor(strpos($shortcode, 'label="A &quot;label&quot;"') !== false, 'label quotes are escaped');
 check_editor(strpos($shortcode, 'class="button&quot; data-test=&quot;value"') !== false, 'class quotes are escaped');
+$shortcode = generate_showpass_buy_now_button_shortcode('event[one]', 'Buy [VIP]');
+check_editor(strpos($shortcode, 'label="Buy &#91;VIP&#93;"') !== false, 'label brackets cannot terminate the shortcode');
+check_editor(strpos($shortcode, 'slug="event&#91;one&#93;"') !== false, 'slug brackets are escaped too');
+
 echo "Editor endpoint and shortcode regression tests passed.\n";
