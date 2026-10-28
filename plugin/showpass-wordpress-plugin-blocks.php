@@ -12,7 +12,7 @@ function create_block_showpass_wordpress_blocks_block_init() {
 	$script_asset_path = "$dir/build-blocks/index.asset.php";
 	if ( ! file_exists( $script_asset_path ) ) {
 		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "create-block/showpass-wordpress-blocks" block first.'
+			'You need to run `npm start` or `npm run build` for the Showpass Buy Now Button block first.'
 		);
 	}
 	$index_js     = 'build-blocks/index.js';
@@ -21,8 +21,7 @@ function create_block_showpass_wordpress_blocks_block_init() {
 		'create-block-showpass-wordpress-blocks-block-editor-script',
 		plugins_url( $index_js, __FILE__ ),
 		$script_asset['dependencies'],
-		false
-		//$script_asset['version']
+		$script_asset['version']
 	);
 	if (function_exists('wp_set_script_translations')) {
 		wp_set_script_translations( 'create-block-showpass-wordpress-blocks-block-editor', 'showpass-wordpress-blocks' );
@@ -46,7 +45,12 @@ function create_block_showpass_wordpress_blocks_block_init() {
 		false
 	);
 	if (function_exists('register_block_type')) {
-		register_block_type( 'create-block/showpass-wordpress-blocks', array(
+		register_block_type( 'create-block/showpass-button-block', array(
+			'title'         => 'Showpass Buy Now Button',
+			'description'   => 'Add a ticket purchase button to your page using a Showpass event URL.',
+			'category'      => 'showpass-blocks',
+			'icon'          => 'tickets-alt',
+			'keywords'      => array( 'showpass', 'tickets', 'purchase' ),
 			'editor_script' => 'create-block-showpass-wordpress-blocks-block-editor-script',
 			'editor_style'  => 'create-block-showpass-wordpress-blocks-block-editor-style',
 			'style'         => 'create-block-showpass-wordpress-blocks-block-style',

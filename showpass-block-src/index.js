@@ -66,7 +66,8 @@ class BuyTicketBlock extends Component {
 		const checkValidURL = (url) => {
 			if (url) {
 				return apiFetch({
-					path: 'showpass/v1/process-url/?url=' + encodeURI(url),
+					path: 'showpass/v1/process-url/?url=' + encodeURIComponent(url) +
+						'&label=' + encodeURIComponent(buttonLabel || 'Get Tickets'),
 					method: 'GET'
 				});
 			}
@@ -75,26 +76,24 @@ class BuyTicketBlock extends Component {
 		return (
 			<div class="wp-showpass-block-container">
 				<span class="dashicons dashicons-tickets-alt"></span>
-				<h4>Buy Now Button</h4>
+				<h4>Showpass Buy Now Button</h4>
 				<TextControl
 					label = "Button Label"
 					value = { buttonLabel }
 					onChange = { onChangeLabel }
-					key='ticketLink'
 					default="Get Tickets"
 					/>
 				<TextControl
 					label = "Enter in the full URL"
 					value = { ticketLink }
 					onChange = { onChangeLink }
-					key = 'ticketLink'
 					help = 'Example: https://showpass.com/event-slug/'
 				/>
 				<div class="control-container">
 					<Button
 						isSecondary
 						isBusy = { this.state.loading }
-						disabled = { this.state.loading }
+						disabled = { this.state.loading || !ticketLink || !ticketLink.trim() }
 						onClick = { onClickGo }>
 						Add Button!
 					</Button>
@@ -121,11 +120,18 @@ class BuyTicketBlock extends Component {
  * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
 registerBlockType('create-block/showpass-button-block', {
-	title: 'Buy Now Button',
+	title: 'Showpass Buy Now Button',
+	description: 'Add a ticket purchase button to your page using a Showpass event URL.',
+	keywords: ['showpass', 'tickets', 'purchase'],
 	category: 'showpass-blocks',
 	icon: 'tickets-alt',
 	supports: {},
 	attributes: {
+		shortcode: {
+			type: 'string',
+			// Keep shortcode entities intact when the editor reopens saved content.
+			source: 'raw',
+		},
 		ticketLink: {
 			type: 'string',
 		},

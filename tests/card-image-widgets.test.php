@@ -5,6 +5,7 @@ function get_option($option) { return null; }
 function add_shortcode($name, $callback) {}
 function is_admin() { return false; }
 function esc_attr($value) { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
+function esc_html($value) { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 function add_action() {}
 function plugin_dir_url($file) { return '/plugin/'; }
 
@@ -18,8 +19,8 @@ function check_image($condition, $message) {
   }
 }
 
-function render_card($template, $item, $detail_page = null) {
-  $data = json_encode(array('count' => 1, 'results' => array($item), 'num_pages' => 1, 'tracking_id' => 'campaign'));
+function render_card($template, $item, $detail_page = null, $pagination = array('num_pages' => 1)) {
+  $data = json_encode(array_merge(array('count' => 1, 'results' => array($item), 'tracking_id' => 'campaign'), $pagination));
   $show_widget_description = 'true';
   $lang = 'fr';
   ob_start();
@@ -78,6 +79,24 @@ check_image($image->getAttribute('href') === '#', 'membership image remains keyb
 check_image(strpos($image->getAttribute('class'), 'open-membership-widget') !== false, 'membership image opens membership widget');
 foreach (array('id' => '456', 'data-show-description' => 'true', 'data-lang' => 'fr') as $name => $value) {
   check_image($image->getAttribute($name) === $value, 'membership: ' . $name);
+}
+
+// The current membership API keeps currency on the venue and can omit num_pages.
+$current_membership = $membership;
+unset($current_membership['currency']);
+$current_membership['venue'] = array('currency' => 'CAD');
+set_error_handler(function ($severity, $message, $file, $line) {
+  if (!(error_reporting() & $severity)) return false;
+  throw new ErrorException($message, 0, $severity, $file, $line);
+});
+try {
+  $xpath = render_card('default-membership-grid.php', $current_membership, null, array());
+  check_image(strpos($xpath->document->textContent, 'CAD') !== false, 'membership uses venue currency');
+  $current_membership['membership_levels'] = array();
+  $xpath = render_card('default-membership-grid.php', $current_membership, null, array());
+  check_image(strpos($xpath->document->textContent, 'No Items Available') !== false, 'membership without levels has an empty state');
+} finally {
+  restore_error_handler();
 }
 
 // Existing product image widget bindings must continue to render.

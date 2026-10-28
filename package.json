@@ -14,7 +14,9 @@
 		"test:calendar": "node tests/calendar-params.test.js",
 		"start": "wp-scripts start showpass-block-src/index.js --output-path=plugin/build-blocks",
 		"packages-update": "wp-scripts packages-update",
-		"test:parameter-aliases": "php tests/widget-parameter-aliases.test.php"
+		"test:parameter-aliases": "php tests/widget-parameter-aliases.test.php",
+		"test:editor": "node tests/editor-block.test.js",
+		"test:editor-api": "php tests/editor-block.test.php"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^12.5.0"

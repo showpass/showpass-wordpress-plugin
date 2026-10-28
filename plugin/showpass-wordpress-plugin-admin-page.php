@@ -1,124 +1,152 @@
 <?php
 
 function wpshp_settings_page() {
+    $showpass_environments = array(
+        'production' => array('label' => 'Production', 'url' => 'https://www.showpass.com'),
+        'local' => array('label' => 'Local', 'url' => 'https://localhost.showpass.com'),
+        'beta' => array('label' => 'Beta', 'url' => 'https://beta.showpass.com'),
+        'demo' => array('label' => 'Demo', 'url' => 'https://demo.showpass.com'),
+    );
+    $selected_environment = 'production';
+    foreach (array('local', 'beta', 'demo') as $environment) {
+        if (showpass_option_is_enabled('option_use_showpass_' . $environment)) {
+            $selected_environment = $environment;
+            break;
+        }
+    }
 ?>
 <div class="wrap">
-    <h1>Showpass Events API</h1>
-
-    <!-- TBD - More description -->
-    <p>The main API URL is<strong> https://www.showpass.com/api. </strong> <br />
-        You will need to add Organization ID (venue ID) that you want the data from. EX. 5 , if you want data from
-        organization 5. You can also enter in multiple organizations 5, 10, 20, 30 - NOT RECOMENDED FOR PURCHASE WIDGET
-        - you cannot purchase to more than one organization at once. </p>
+    <p><img src="<?php echo esc_url(plugins_url('images/showpass-logo.svg', __FILE__)); ?>"
+        alt="Showpass" width="180" height="42" /></p>
+    <h1 class="screen-reader-text">Showpass</h1>
+    <?php settings_errors(); ?>
+    <p>Connect your organization and configure the default appearance of your Showpass widgets.</p>
 
     <form method="post" action="options.php">
-        <?php settings_fields( 'wpshp-settings-group' ); ?>
-        <?php do_settings_sections( 'wpshp-settings-group' ); ?>
+        <?php settings_fields('wpshp-settings-group'); ?>
+        <?php do_settings_sections('wpshp-settings-group'); ?>
 
-        <label for="main_api_url">Organization ID (required):</label><br />
-        <input type="text" placeholder="Venue ID Ex. 5" name="option_organization_id"
-            value="<?php echo esc_attr( get_option('option_organization_id') ); ?>" /><br /><br />
-
-        <label for="main_api_url">Widget Color (Hex Code):</label><br />
-        <input type="text" placeholder="DD3333" name="option_widget_color"
-            value="<?php echo esc_attr( get_option('option_widget_color') ); ?>" /><br /><br />
-
-        <?php /*
-        <label for="main_api_url">Enter Date Format: (if empty "l F d, Y" - ex. Friday April 21, 2017)</label><br />
-        <input type="text" placeholder="l F d, Y" name="format_date"
-            value="<?php echo esc_attr( get_option('format_date') ); ?>" /><br /><br />
-
-        <label for="main_api_url">Enter Time Format: (if empty "g:iA" - ex. 9:00AM)</label><br />
-        <input type="text" placeholder="g:iA" name="format_time"
-            value="<?php echo esc_attr( get_option('format_time') ); ?>" /><br /><br />
-
-        <input type="checkbox" name="option_theme_dark" value="true"
-            <?php checked('true', get_option('option_theme_dark'), true); ?> />
-        <label for="main_api_url">Enable Dark Theme</label><br /><br />
-        */ ?>
-
-        <label for="option_showpass_default_button_class">Default Button Class</label><br />
-        <input type="text" placeholder="" name="option_showpass_default_button_class"
-            value="<?php echo esc_attr( get_option('option_showpass_default_button_class') ); ?>" /><br />
-        <small>If your theme has custom button classes, add them here. Example: btn btn-success</small>
-        <br /><br />
-
-        <input type="checkbox" name="option_keep_shopping" value="false"
-            <?php checked('false', get_option('option_keep_shopping'), true); ?> />
-        <label for="main_api_url">Use "Close" verbiage on buttons instead of "Keep Shopping" to close the
-            widget.</label><br /><br />
-
-        <input type="checkbox" name="option_show_widget_description" value="true"
-            <?php checked('true', get_option('option_show_widget_description'), true); ?> />
-        <label for="main_api_url">Show Product/Event description tab in the purchase widget.</label><br /><br />
+        <table class="form-table" role="presentation">
+            <tr>
+                <th scope="row"><label for="option_organization_id">Organization ID (required)</label></th>
+                <td>
+                    <input type="text" id="option_organization_id" name="option_organization_id" class="regular-text"
+                        value="<?php echo esc_attr(get_option('option_organization_id')); ?>"
+                        aria-describedby="showpass-organization-help" required />
+                    <div id="showpass-organization-help">
+                        <p class="description">Enter the Organization ID for the organization whose data you want to display.</p>
+                        <p class="description">To display data from multiple organizations, separate their IDs with commas,
+                            such as <code>5433, 11040, 7230</code>.</p>
+                        <p class="description"><strong>For purchase widgets, use a single Organization ID.</strong>
+                            Each purchase can include items from only one organization.</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="option_widget_color">Widget color</label></th>
+                <td>
+                    <input type="text" id="option_widget_color" name="option_widget_color" class="regular-text"
+                        placeholder="" value="<?php echo esc_attr(get_option('option_widget_color')); ?>"
+                        aria-describedby="showpass-color-help" spellcheck="false" />
+                    <p class="description" id="showpass-color-help">Enter a hex color without the <code>#</code>,
+                        such as <code>1C39BB</code>. Leave blank to use the default color.</p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="option_showpass_default_button_class">Button CSS classes</label></th>
+                <td>
+                    <input type="text" id="option_showpass_default_button_class" name="option_showpass_default_button_class"
+                        class="regular-text" value="<?php echo esc_attr(get_option('option_showpass_default_button_class')); ?>"
+                        aria-describedby="showpass-button-class-help" spellcheck="false" />
+                    <p class="description" id="showpass-button-class-help">Optional. Enter your theme's button classes,
+                        separated by spaces. Example: <code>btn btn-success</code>.</p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Purchase widget</th>
+                <td>
+                    <fieldset>
+                        <legend class="screen-reader-text">Purchase widget options</legend>
+                        <label for="option_keep_shopping">
+                            <input type="checkbox" id="option_keep_shopping" name="option_keep_shopping" value="false"
+                                <?php checked('false', get_option('option_keep_shopping')); ?> />
+                            Use &quot;Close&quot; instead of &quot;Keep Shopping&quot; on buttons that close the widget.
+                        </label><br />
+                        <label for="option_show_widget_description">
+                            <input type="checkbox" id="option_show_widget_description" name="option_show_widget_description" value="true"
+                                <?php checked('true', get_option('option_show_widget_description')); ?> />
+                            Show the product or event description tab.
+                        </label>
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
 
         <details>
             <summary>Developer options</summary>
-            <p><small>These settings are for Showpass development and testing. Leave them unchecked for production sites.</small></p>
+            <p class="description">Production is the default. Use Local, Beta, or Demo for development and testing.</p>
 
-            <input type="checkbox" name="option_disable_verify_ssl" value="true"
-                <?php checked('true', get_option('option_disable_verify_ssl'), true); ?> />
-            <label for="main_api_url">Disable SSL verification when connecting to the API.</label><br />
-            <small>Disable to fix Local SSL Expired issue.</small><br /><br />
+            <p>
+                <label for="showpass-environment">Environment</label><br />
+                <select id="showpass-environment" disabled>
+                    <?php foreach ($showpass_environments as $environment => $settings) : ?>
+                        <option value="<?php echo esc_attr($environment); ?>"
+                            data-showpass-url="<?php echo esc_url($settings['url']); ?>"
+                            <?php selected($selected_environment, $environment); ?>>
+                            <?php echo esc_html($settings['label']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <noscript><span class="description">Enable JavaScript to change the environment.</span></noscript>
+            </p>
+            <?php foreach (array('local', 'beta', 'demo') as $environment) : ?>
+                <input type="hidden" name="option_use_showpass_<?php echo esc_attr($environment); ?>"
+                    id="showpass-environment-<?php echo esc_attr($environment); ?>"
+                    value="<?php echo $selected_environment === $environment ? 'true' : 'false'; ?>" />
+            <?php endforeach; ?>
+            <p aria-live="polite">Showpass URL: <code id="showpass-url"><?php
+                echo esc_html($showpass_environments[$selected_environment]['url']);
+            ?></code></p>
+            <p class="description">Save changes to apply the selected environment.</p>
 
-            <input type="checkbox" name="option_use_showpass_local" value="true" class="showpass-environment-option"
-                <?php checked('true', get_option('option_use_showpass_local'), true); ?> />
-            <label for="main_api_url">Connect to localhost.showpass.com</label><br />
-            <small>CAUTION: This is for local development only.</small><br /><br />
-
-            <input type="checkbox" name="option_use_showpass_beta" value="true" class="showpass-environment-option"
-                <?php checked('true', get_option('option_use_showpass_beta'), true); ?> />
-            <label for="main_api_url">Connect to beta.showpass.com</label><br />
-            <small>CAUTION: This is for testing purposes only.</small><br /><br />
-
-            <input type="checkbox" name="option_use_showpass_demo" value="true" class="showpass-environment-option"
-                <?php checked('true', get_option('option_use_showpass_demo'), true); ?> />
-            <label for="main_api_url">Connect to demo.showpass.com</label><br />
-            <small>CAUTION: This is for demo purposes only.</small><br /><br />
+            <p>
+                <label for="option_disable_verify_ssl">
+                    <input type="checkbox" id="option_disable_verify_ssl" name="option_disable_verify_ssl" value="true"
+                        <?php checked('true', get_option('option_disable_verify_ssl')); ?> />
+                    Disable SSL verification when connecting to the API.
+                </label><br />
+                <span class="description">Use only for local development when troubleshooting certificate errors.</span>
+            </p>
         </details>
-        <br />
 
         <?php submit_button(); ?>
-
     </form>
-    <script type="text/javascript">
-        document.querySelectorAll('.showpass-environment-option').forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                if (!checkbox.checked) {
-                    return;
-                }
 
-                document.querySelectorAll('.showpass-environment-option').forEach(function (environmentOption) {
-                    if (environmentOption !== checkbox) {
-                        environmentOption.checked = false;
-                    }
-                });
-            });
-        });
-    </script>
+    <hr />
+    <h2>Docs and support</h2>
+    <ul>
+        <li><a href="https://dev.showpass.com/wordpress/getting-started-install-and-configure"
+                target="_blank" rel="noopener noreferrer">Installation and configuration guide</a></li>
+        <li><a href="https://github.com/showpass/showpass-wordpress-plugin"
+                target="_blank" rel="noopener noreferrer">Plugin source on GitHub</a></li>
+        <li><a href="https://www.showpass.com/organizations/register/"
+                target="_blank" rel="noopener noreferrer">Create a Showpass organizer account</a></li>
+    </ul>
+    <p>Need help? Email <a href="mailto:solutions@showpass.com">solutions@showpass.com</a>.</p>
 </div>
-
-<hr>
-</hr>
-
-<div class="wrap">
-    <h2>DOCS</h2>
-
-    <p>For full documentation please visit <a href="https://github.com/showpass/showpass-wordpress-plugin"
-            target="_blank">https://github.com/showpass/showpass-wordpress-plugin</a></p>
-
-    <p>For futher installation instructions please visit <a
-            href="https://help.showpass.com/hc/en-us/articles/360023833073-Installing-the-Showpass-wordpress-extension"
-            target="_blank">this support article.</a></p>
-
-    <p>To register for an Organizer Showpass account to start selling tickets <a
-            href="https://www.showpass.com/organizations/register/" target="_blank">click here</a></p>
-
-    <p>For help please email wordpress-support [at] showpass.com</p>
-
-    <p>Thank you for choosing Showpass!</p>
-
-    <?php }
-
-
-?>
+<script type="text/javascript">
+    (function () {
+        var environmentSelect = document.getElementById('showpass-environment');
+        environmentSelect.disabled = false;
+        environmentSelect.addEventListener('change', function () {
+            ['local', 'beta', 'demo'].forEach(function (environment) {
+                document.getElementById('showpass-environment-' + environment).value =
+                    environmentSelect.value === environment ? 'true' : 'false';
+            });
+            document.getElementById('showpass-url').textContent =
+                environmentSelect.options[environmentSelect.selectedIndex].getAttribute('data-showpass-url');
+        });
+    }());
+</script>
+<?php
+}

@@ -23,6 +23,8 @@ $membership_data = json_decode($data, true);
         if ($results_length > 0) {
             $memberships = $membership_data['results'];
             foreach ($memberships as $key => $membership) {
+                $currency = isset($membership['currency']) ? $membership['currency']
+                    : (isset($membership['venue']['currency']) ? $membership['venue']['currency'] : '');
                 ?>
                 <div class="showpass-flex-column showpass-no-border showpass-event-card showpass-grid">
                     <div class="showpass-membership-grid showpass-layout-flex m15">
@@ -41,7 +43,7 @@ $membership_data = json_decode($data, true);
                             <div class="showpass-full-width">
                                 <div class="showpass-layout-flex">
                                     <div class="flex-100 showpass-flex-column showpass-no-border">
-                                        <div class="showpass-membership-price"><?php if ($membership['membership_levels']) : ?><small class="showpass-price-display"><?php echo showpass_get_product_price_range($membership['membership_levels']);?> <?php echo $membership['currency']; ?></small><?php endif; ?></div>
+                                        <div class="showpass-membership-price"><?php if ($membership['membership_levels']) : ?><small class="showpass-price-display"><?php echo showpass_get_product_price_range($membership['membership_levels']);?> <?php echo esc_html($currency); ?></small><?php endif; ?></div>
                                         <div class="showpass-membership-price"><?php if (!$membership['membership_levels']) : ?><small class="showpass-price-display"> No Items Available</small><?php endif; ?></div>
                                     </div>
                                 </div>
@@ -78,7 +80,7 @@ $membership_data = json_decode($data, true);
                     </div>
                 </div>
             <?php } ?>
-            <?php if ($membership_data['num_pages'] > 1) { ?>
+            <?php if (isset($membership_data['num_pages']) && $membership_data['num_pages'] > 1) { ?>
                 <div class="flex-100 showpass-flex-column showpass-no-border text-center">
                     <ul class="showpass-pagination mb0 mt30">
                         <?php for ($i = 1; $i <= $membership_data['num_pages']; $i++) {
